@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take a Picture</title>
+    <style>
+        #camera {
+            display: block;
+            margin: 0 auto;
+        }
+        #capture {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Take a Picture</h1>
+    <video id="camera" width="640" height="480" autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="snapshot" width="640" height="480" style="display: none;"></canvas>
+    <audio id="background-music" src="saxophone-music.mp3" loop autoplay></audio>
+
+    <script>
+        const video = document.getElementById('camera');
+        const canvas = document.getElementById('snapshot');
+        const captureButton = document.getElementById('capture');
+        const music = document.getElementById('background-music');
+
+        // Access the device camera and stream to video element
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing camera: ", err);
+            });
+
+        // Capture the image when the button is clicked
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+            console.log(dataURL); // You can use this data URL to display the image or upload it to a server
+        });
+
+        // Play background music
+        music.play();
+    </script>
+</body>
+</html>
