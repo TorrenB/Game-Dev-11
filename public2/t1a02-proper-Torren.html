@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumping Title</title>
+    <title>Jumping Title with Changing Background</title>
     <style>
+        body {
+            animation: backgroundChange 5s infinite;
+        }
+
         .jumping-title {
             font-size: 12px;
             position: relative;
@@ -17,6 +21,21 @@
             }
             50% {
                 top: -10px;
+            }
+        }
+
+        @keyframes backgroundChange {
+            0% {
+                background-color: #ff9999;
+            }
+            33% {
+                background-color: #99ff99;
+            }
+            66% {
+                background-color: #9999ff;
+            }
+            100% {
+                background-color: #ff9999;
             }
         }
     </style>
