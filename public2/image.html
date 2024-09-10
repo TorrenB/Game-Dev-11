@@ -1,7 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Take no Picture</title>
+    <title>Take a Picture</title>
+    <style>
+        body {
+            background: linear-gradient(to right, purple, blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #video, #canvas {
+            border: 2px solid white;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: white;
+            color: purple;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: lightgray;
+        }
+    </style>
 </head>
 <body>
     <h1>Take a Picture</h1>
@@ -31,4 +61,3 @@
     </script>
 </body>
 </html>
-
