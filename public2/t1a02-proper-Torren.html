@@ -1,19 +1,30 @@
 <!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
+    <title>Example</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumping Title with Changing Background</title>
+    <title>Jumping Title</title>
     <style>
-        body {
-            animation: backgroundChange 5s infinite;
-        }
-
+        h1 {
+            font-size: 20px; /* Adjust the size as needed */
+            text-align: center; /* Center align the text */
         .jumping-title {
             font-size: 12px;
             position: relative;
             animation: jump 1s infinite;
         }
+        body {
+            animation: colorChange 10s infinite;
+        }
+        @keyframes colorChange {
+            0% { background-color: red; }
+            25% { background-color: yellow; }
+            50% { background-color: green; }
+            75% { background-color: orange; }
+            100% { background-color: red; }
 
         @keyframes jump {
             0%, 100% {
@@ -23,24 +34,12 @@
                 top: -10px;
             }
         }
-
-        @keyframes backgroundChange {
-            0% {
-                background-color: #ff9999;
-            }
-            33% {
-                background-color: #99ff99;
-            }
-            66% {
-                background-color: #9999ff;
-            }
-            100% {
-                background-color: #ff9999;
-            }
-        }
     </style>
 </head>
 <body>
+
+</body>
     <h1 class="jumping-title">Jumping Title</h1>
 </body>
 </html>
+
