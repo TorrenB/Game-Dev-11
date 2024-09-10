@@ -1,53 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Take a Picture</title>
-    <style>
-        #camera {
-            display: block;
-            margin: 0 auto;
-        }
-        #capture {
-            display: block;
-            margin: 20px auto;
-        }
-    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Take a Picture</h1>
-    <video id="camera" width="640" height="480" autoplay></video>
-    <button id="capture">Capture</button>
-    <canvas id="snapshot" width="640" height="480" style="display: none;"></canvas>
-    <audio id="background-music" src="relaxing-music.mp3" loop autoplay></audio>
+    <h1>Take a Picture</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Snap Photo</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
 
     <script>
-        const video = document.getElementById('camera');
-        const canvas = document.getElementById('snapshot');
-        const captureButton = document.getElementById('capture');
-        const music = document.getElementById('background-music');
-
-        // Access the device camera and stream to video element
+        // Access the webcam stream
         navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
+            .then(function(stream) {
+                var video = document.getElementById('video');
                 video.srcObject = stream;
+                video.play();
             })
-            .catch(err => {
-                console.error("Error accessing camera: ", err);
+            .catch(function(err) {
+                console.log("An error occurred: " + err);
             });
 
         // Capture the image when the button is clicked
-        captureButton.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL('image/png');
-            console.log(dataURL); // You can use this data URL to display the image or upload it to a server
+        document.getElementById('snap').addEventListener('click', function() {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+            context.drawImage(video, 0, 0, 640, 480);
         });
-
-        // Play background music
-        music.play();
     </script>
 </body>
-    <img width=300 src="https://copilot.microsoft.com/images/create/a-window/2-66df713ffd404f21a24cad5fae527e8b?id=8b4O9Or33Lzz3qvssp59Rw%3d%3d&view=detailv2&idpp=genimg&idpclose=1&thId=OIGBCE4.ai9Ij18orRUjsfo9vV0f&skey=qz81AP9R486KReXi8I0Eeq5NCXYnRryRUkLeOd_mfiI&FORM=SYDBIC">
 </html>
+
