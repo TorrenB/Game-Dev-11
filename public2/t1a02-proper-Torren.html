@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    Grade 10 smh
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumping Title</title>
+    <title>Background Music and Jumping Title</title>
     <style>
         h1 {
             font-size: 20px; /* Adjust the size as needed */
@@ -37,6 +36,16 @@
 </head>
 <body>
     <h1 class="jumping-title">y1a02-proper-Torren</h1>
+    <audio id="backgroundMusic" loop>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("backgroundMusic");
+            audio.volume = 0.2; // Set volume to 20%
+            audio.play();
+        });
+    </script>
 </body>
 </html>
-Grade 10 smh
