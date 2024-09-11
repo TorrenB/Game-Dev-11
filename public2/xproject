@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useless Website</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Useless Website</h1>
+        <button onclick="showMessage()">Click Me!</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const messages = [
+            "You clicked the button. Congratulations!",
+            "Nothing happened. Try again!",
+            "Why are you still clicking?",
+            "This is so pointless, isn't it?",
+            "Keep clicking, maybe something will happen.",
+            "Nope, still nothing.",
+            "Are you having fun yet?",
+            "This is the height of uselessness.",
+            "You must be really bored.",
+            "Okay, you can stop now."
+        ];
+
+        function showMessage() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            document.getElementById('message').innerText = messages[randomIndex];
+        }
+    </script>
+</body>
+</html>
