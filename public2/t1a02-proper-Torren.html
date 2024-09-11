@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <img width=300 src="https://avatars.githubusercontent.com/u/5605614?v=4"> 
+    <img width=300 src="https://avatars.githubusercontent.com/u/5605614?v=4" class="rotating-image"> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Music and Jumping Title</title>
@@ -32,6 +32,13 @@
             50% {
                 top: -10px;
             }
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .rotating-image {
+            animation: rotate 5s linear infinite; /* Rotate the image continuously */
         }
     </style>
 </head>
