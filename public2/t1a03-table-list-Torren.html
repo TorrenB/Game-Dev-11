@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple 4x4 Table</title>
+    <title>Simple 4x4 Table and Lists</title>
     <style>
         body {
             background-color: #f0f8ff; /* Light blue background */
         }
-
         table {
             border-collapse: collapse;
             width: 50%;
             margin: 20px auto;
         }
-
         th, td {
             border: 1px solid black;
             padding: 10px;
             text-align: center;
         }
-
         th {
             background-color: #FBF719;
         }
-
         h1 {
             text-align: center;
             color: #333; /* Dark text color for the heading */
         }
-
         p {
             color: #666; /* Gray text color for the paragraph */
         }
-
-        ul {
-            list-style-type: none; /* Remove bullet points */
-            text-align: center; /* Center align the list */
+        ul, ol {
+            margin: 0 auto;
+            text-align: left;
+            width: 50%;
         }
     </style>
 </head>
@@ -54,28 +49,60 @@
     <tr>
         <td>1</td>
         <td>Perigrine Falcon</td>
-        <td><img width="300" src="https://i2.wp.com/www.conservewildlifenj.org/blog/wp-content/uploads/2014/01/PF21_062013sm.jpg" alt="Perigrine Falcon"> </td>
+        <td><img width=300 src="https://i2.wp.com/www.conservewildlifenj.org/blog/wp-content/uploads/2014/01/PF21_062013sm.jpg" alt="Perigrine Falcon"></td>
         <td><a href="https://i2.wp.com/www.conservewildlifenj.org/blog/wp-content/uploads/2014/01/PF21_062013sm.jpg">Perigrine Site</a></td>
     </tr>
     <tr>
         <td>5</td>
         <td>Blob Fish</td>
-        <td><img width="300" src="https://www.americanoceans.org/wp-content/uploads/2022/12/Photo-of-a-Blobfish.jpg" alt="Blob Fish"> </td>
+        <td><img width=300 src="https://www.americanoceans.org/wp-content/uploads/2022/12/Photo-of-a-Blobfish.jpg" alt="Blob Fish"></td>
         <td><a href="https://www.americanoceans.org/wp-content/uploads/2022/12/Photo-of-a-Blobfish.jpg">Blob Fish Site</a></td>
     </tr>
     <tr>
         <td>9</td>
         <td>Whitemargin Stargazer</td>
-        <td><img width="300" src="https://www.rd.com/wp-content/uploads/2020/11/GettyImages-168388985.jpg?fit=700,700" alt="Whitemargin Stargazer"></td>
+        <td><img width=300 src="https://www.rd.com/wp-content/uploads/2020/11/GettyImages-168388985.jpg?fit=700,700" alt="Whitemargin Stargazer"></td>
         <td><a href="https://th.bing.com/th/id/OIP.CTnqj8CLsukGKpQ7IXe1xAHaE8?rs=1&pid=ImgDetMain">Whitemargin Stargazer Site</a></td>
     </tr>
 </table>
 
-<h1>Unordered List</h1>
+<h1 align=center> Unordered List</h1>
 <ul>
     <li>Perigrine Falcon</li>
     <li>Whitemargin Stargazer</li>
     <li>Blob Fish</li>
+</ul>
+
+<h1 align=center> Ordered List</h1>
+<ol>
+    <li>Peregrine Falcon</li>
+    <li>Blob Fish</li>
+    <li>Whitemargin Stargazer</li>
+</ol>
+
+<h1 align=center> Unordered list in a list </h1>
+<ul>
+    <li>Canada
+        <ul>
+            <li>Mission</li>
+            <li>Abbotsford</li>
+            <li>Toronto</li>
+        </ul>
+    </li>
+    <li>Merica
+        <ul>
+            <li>Why</li>
+            <li>Unalaska</li>
+            <li>Sandwich</li>
+        </ul>
+    </li>
+    <li>France
+        <ul>
+            <li>Vatan</li>
+            <li>Nice</li>
+            <li>Paris</li>
+        </ul>
+    </li>
 </ul>
 
 </body>
