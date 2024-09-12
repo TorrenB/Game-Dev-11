@@ -95,9 +95,14 @@
         // Function to show the image for 2 seconds
         function showImage() {
             const img = document.getElementById('myImage');
+            const button = document.getElementById('uselessButton');
+            
             img.style.display = 'block'; // Show image
+            button.style.display = 'none'; // Hide the button during image display
+            
             setTimeout(() => {
                 img.style.display = 'none'; // Hide image after 2 seconds
+                button.style.display = 'block'; // Show the button again
             }, 2000); // Hide after 2 seconds
         }
 
