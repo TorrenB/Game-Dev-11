@@ -1,7 +1,7 @@
-// Function to generate a random 4-digit number
+// Function to generate a random 4-digit number (including leading zeros)
 function generateRandomNumber() {
-    let number = Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
-    return String(number); // Convert to string for easier manipulation
+    let number = Math.floor(Math.random() * 10000); // Generates a number between 0 and 9999
+    return String(number).padStart(4, '0'); // Convert to string and pad with leading zeros
 }
 
 // Main game function
@@ -22,7 +22,8 @@ function playGame() {
             return;
         }
         
-        if (userGuess.length !== 4 || isNaN(userGuess)) {
+        // Check if the user input is exactly 4 digits
+        if (!/^\d{4}$/.test(userGuess)) { // Regular expression to check for exactly 4 digits
             alert("Please enter a valid 4-digit number.");
             continue;
         }
