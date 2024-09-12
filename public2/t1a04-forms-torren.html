@@ -17,6 +17,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
+            max-width: 500px; /* Limit form width for better layout */
         }
         .question {
             margin: 20px 0;
@@ -28,10 +29,10 @@
         .question input[type="radio"] {
             margin: 5px 0;
         }
-        .question input[type="text"], .question input[type="number"] {
+        .question input[type="text"], .question input[type="number"], .question input[type="file"] {
             margin: 10px 0;
             padding: 10px;
-            width: 80%;
+            width: 100%; /* Adjust width to 100% */
             border: 1px solid #ccc;
             border-radius: 5px;
         }
@@ -58,14 +59,14 @@
         </div>
         <div class="question">
             <label for="q2">2. What are the two planets of the solar system that I have no moons?</label>
-            <input type="radio" id="q2a" name="q2" value="3" required> Jupitor and Uranus<br>
+            <input type="radio" id="q2a" name="q2" value="3" required> Jupiter and Uranus<br>
             <input type="radio" id="q2b" name="q2" value="4"> Mercury and Venus<br>
             <input type="radio" id="q2c" name="q2" value="5"> Pluto and the Sun<br>
         </div>
         <div class="question">
             <label for="q3">3. What is chemical symbol for silver?</label>
             <input type="radio" id="q3a" name="q3" value="Ag"> Ag  <br>
-            <input type="radio" id="q3b" name="q3" value="Green"  required> Au<br>
+            <input type="radio" id="q3b" name="q3" value="Green" required> Au<br>
             <input type="radio" id="q3c" name="q3" value="Red"> Si<br>
         </div>
         <div class="question">
@@ -77,15 +78,14 @@
         <div class="question">
             <label for="q5">5. What is the largest tree?</label>
             <input type="radio" id="q5a" name="q5" value="Earth" required> Giant Redwood<br>
-            <input type="radio" id="q5b" name="q5" value="Jupiter"> Ceader Tree<br>
+            <input type="radio" id="q5b" name="q5" value="Jupiter"> Cedar Tree<br>
             <input type="radio" id="q5c" name="q5" value="Mars"> Bonsai<br>
         </div>
         <div class="question">
             <label for="q6">6. What is the hex code for a banana?</label>
             <input type="radio" id="q6a" name="q6" value="Yellow" required> #E3C75D<br>
             <input type="radio" id="q6b" name="q6" value="Blue"> #7A9A9F<br>
-            <input type="radio" id="q6c" name="q6" value="Purple"> #E57C7C
-<br>
+            <input type="radio" id="q6c" name="q6" value="Purple"> #E57C7C<br>
         </div>
         <!-- Text Input Questions -->
         <div class="question">
@@ -93,13 +93,28 @@
             <input type="text" id="q7" name="q7" required><br>
         </div>
         <div class="question">
-            <label for="q8">8. Is a banada a berry?</label>
+            <label for="q8">8. Is a banana a berry?</label>
             <input type="text" id="q8" name="q8" required><br>
         </div>
         <div class="question">
             <label for="q9">9. Should Donald Trump reign over the United States this year?</label>
             <input type="text" id="q9" name="q9" required><br>
         </div>
+        <div class="question">
+            <label for="q10">10. Does pineapple belong on pizza (the answer is yes, no question about that)?</label>
+            <input type="text" id="q10" name="q10" required><br>
+        </div>
+        
+        <!-- Submit Your Nerd Face -->
+        <div class="question">
+            <label for="nerdFace">Submit Your Nerd Face:</label>
+            <input type="file" id="nerdFace" name="nerdFace" accept="image/*" required>
+        </div>
+
+        <button type="submit">Submit your final answer</button>
+    </form>
+</body>
+</html>
         <div class="question">
             <label for="q10">10. Does pineapple belong on pizza(the answer is yes, no question about that)?</label>
             <input type="text" id="q10" name="q10" required><br>
