@@ -31,11 +31,19 @@
         button:hover {
             background-color: lightgray;
         }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 2px solid white;
+        }
     </style>
 </head>
 <body>
     <h1>Take a Picture</h1>
     <video id="video" width="640" height="480" autoplay></video>
+    <input type="text" id="filename" value="photo.png" />
     <button id="snap">Snap Photo</button>
     <canvas id="canvas" width="640" height="480"></canvas>
 
@@ -57,6 +65,13 @@
             var context = canvas.getContext('2d');
             var video = document.getElementById('video');
             context.drawImage(video, 0, 0, 640, 480);
+
+            // Save the image
+            var filename = document.getElementById('filename').value;
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
         });
     </script>
 </body>
