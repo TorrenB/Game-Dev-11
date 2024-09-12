@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Form For You</title>
+    <title>Kid's Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000000.;
+            background-color: #f0f8ff;
             text-align: center;
             padding: 20px;
         }
@@ -18,7 +18,17 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
         }
-        input, button {
+        .question {
+            margin: 20px 0;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .question input[type="radio"] {
+            margin: 5px 0;
+        }
+        .question input[type="text"], .question input[type="number"] {
             margin: 10px 0;
             padding: 10px;
             width: 80%;
@@ -26,23 +36,74 @@
             border-radius: 5px;
         }
         button {
+            margin: 20px 0;
+            padding: 10px;
+            width: 80%;
             background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Kid's Form</h1>
+    <h1>Kid's Quiz</h1>
     <form>
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="age">Age:</label><br>
-        <input type="number" id="age" name="age" required><br>
-        <label for="favoriteColor">Favorite Color:</label><br>
-        <input type="text" id="favoriteColor" name="favoriteColor" required><br>
+        <!-- Multiple-Choice Questions -->
+        <div class="question">
+            <label for="q1">1. What is the capital of France?</label>
+            <input type="radio" id="q1a" name="q1" value="Paris" required> Paris<br>
+            <input type="radio" id="q1b" name="q1" value="London"> London<br>
+            <input type="radio" id="q1c" name="q1" value="Rome"> Rome<br>
+        </div>
+        <div class="question">
+            <label for="q2">2. What is 2 + 2?</label>
+            <input type="radio" id="q2a" name="q2" value="3" required> 3<br>
+            <input type="radio" id="q2b" name="q2" value="4"> 4<br>
+            <input type="radio" id="q2c" name="q2" value="5"> 5<br>
+        </div>
+        <div class="question">
+            <label for="q3">3. What color is the sky on a clear day?</label>
+            <input type="radio" id="q3a" name="q3" value="Blue" required> Blue<br>
+            <input type="radio" id="q3b" name="q3" value="Green"> Green<br>
+            <input type="radio" id="q3c" name="q3" value="Red"> Red<br>
+        </div>
+        <div class="question">
+            <label for="q4">4. Which animal is known as the King of the Jungle?</label>
+            <input type="radio" id="q4a" name="q4" value="Lion" required> Lion<br>
+            <input type="radio" id="q4b" name="q4" value="Elephant"> Elephant<br>
+            <input type="radio" id="q4c" name="q4" value="Tiger"> Tiger<br>
+        </div>
+        <div class="question">
+            <label for="q5">5. What is the largest planet in our solar system?</label>
+            <input type="radio" id="q5a" name="q5" value="Earth" required> Earth<br>
+            <input type="radio" id="q5b" name="q5" value="Jupiter"> Jupiter<br>
+            <input type="radio" id="q5c" name="q5" value="Mars"> Mars<br>
+        </div>
+        <div class="question">
+            <label for="q6">6. What is the color of a banana?</label>
+            <input type="radio" id="q6a" name="q6" value="Yellow" required> Yellow<br>
+            <input type="radio" id="q6b" name="q6" value="Blue"> Blue<br>
+            <input type="radio" id="q6c" name="q6" value="Purple"> Purple<br>
+        </div>
+        <!-- Text Input Questions -->
+        <div class="question">
+            <label for="q7">7. What is your favorite book?</label>
+            <input type="text" id="q7" name="q7" required><br>
+        </div>
+        <div class="question">
+            <label for="q8">8. What is your favorite hobby?</label>
+            <input type="text" id="q8" name="q8" required><br>
+        </div>
+        <div class="question">
+            <label for="q9">9. What is your favorite food?</label>
+            <input type="text" id="q9" name="q9" required><br>
+        </div>
+        <div class="question">
+            <label for="q10">10. What do you want to be when you grow up?</label>
+            <input type="text" id="q10" name="q10" required><br>
+        </div>
         <button type="submit">Submit</button>
     </form>
 </body>
 </html>
-
