@@ -92,7 +92,7 @@
             button.style.top = `${y}px`;
         }
 
-        // Function to show the image for 2 seconds
+        // Function to manage image and button visibility
         function showImage() {
             const img = document.getElementById('myImage');
             const button = document.getElementById('uselessButton');
@@ -100,9 +100,11 @@
             img.style.display = 'block'; // Show image
             button.style.display = 'none'; // Hide the button during image display
             
+            // Hide the image after 2 seconds and show the button
             setTimeout(() => {
                 img.style.display = 'none'; // Hide image after 2 seconds
                 button.style.display = 'block'; // Show the button again
+                moveButton(); // Move the button to a new random position after it is shown
             }, 2000); // Hide after 2 seconds
         }
 
@@ -110,7 +112,9 @@
         function startImageCycle() {
             setTimeout(() => {
                 showImage(); // Show the image first time after 5 seconds
-                setInterval(showImage, 5000); // Then continue to show image every 5 seconds
+                setInterval(() => {
+                    showImage(); // Then continue to show image every 5 seconds
+                }, 5000);
             }, 5000);
         }
 
