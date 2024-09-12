@@ -1,0 +1,45 @@
+// Function to generate a random 4-digit number
+function generateRandomNumber() {
+    let number = Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
+    return String(number); // Convert to string for easier manipulation
+}
+
+// Main game function
+function playGame() {
+    const randomNumber = generateRandomNumber();
+    let attempts = 0;
+    let guessedCorrectly = false;
+
+    alert("Welcome to the 4-Digit Guessing Game!\nTry to guess the 4-digit number.");
+
+    while (!guessedCorrectly) {
+        // Get user's guess
+        let userGuess = prompt("Enter your 4-digit guess:");
+        
+        // Validate the input
+        if (userGuess === null) {
+            alert("Game cancelled.");
+            return;
+        }
+        
+        if (userGuess.length !== 4 || isNaN(userGuess)) {
+            alert("Please enter a valid 4-digit number.");
+            continue;
+        }
+
+        attempts++; // Increment attempt count
+
+        // Check if the guess is correct
+        if (userGuess === randomNumber) {
+            guessedCorrectly = true;
+            alert(`Congratulations! You've guessed the correct number ${randomNumber} in ${attempts} attempts!`);
+        } else if (userGuess < randomNumber) {
+            alert("Your guess is too low. Try again.");
+        } else {
+            alert("Your guess is too high. Try again.");
+        }
+    }
+}
+
+// Start the game
+playGame();
