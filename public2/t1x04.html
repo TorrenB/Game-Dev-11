@@ -1,46 +1,46 @@
-// Function to generate a random 4-digit number (including leading zeros)
-function generateRandomNumber() {
-    let number = Math.floor(Math.random() * 10000); // Generates a number between 0 and 9999
-    return String(number).padStart(4, '0'); // Convert to string and pad with leading zeros
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time Display</title>
+</head>
+<body>
+    <h1>World Time Display</h1>
+    <label for="city">Select a city:</label>
+    <select id="city">
+        <option value="America/New_York">New York</option>
+        <option value="America/Los_Angeles">Los Angeles</option>
+        <option value="Europe/London">London</option>
+        <option value="Europe/Berlin">Berlin</option>
+        <option value="Asia/Tokyo">Tokyo</option>
+        <option value="Australia/Sydney">Sydney</option>
+        <option value="Asia/Kolkata">Kolkata</option>
+        <option value="America/Chicago">Chicago</option>
+        <option value="Asia/Shanghai">Shanghai</option>
+        <!-- Add more cities as needed -->
+    </select>
 
-// Main game function
-function playGame() {
-    const randomNumber = generateRandomNumber();
-    let attempts = 0;
-    let guessedCorrectly = false;
+    <button onclick="displayTime()">Get Time</button>
 
-    alert("Welcome to the 4-Digit Guessing Game!\nTry to guess the 4-digit number.");
+    <h2 id="timeDisplay"></h2>
 
-    while (!guessedCorrectly) {
-        // Get user's guess
-        let userGuess = prompt("Enter your 4-digit guess:");
-        
-        // Validate the input
-        if (userGuess === null) {
-            alert("Game cancelled.");
-            return;
+    <script>
+        function displayTime() {
+            const city = document.getElementById('city').value;
+            const options = {
+                timeZone: city,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true // Change to false for 24-hour format
+            };
+            const dateTimeFormat = new Intl.DateTimeFormat([], options);
+
+            const now = new Date();
+            const formattedTime = dateTimeFormat.format(now);
+            document.getElementById('timeDisplay').innerText = `Current time in ${city.replace(/_/g, ' ')}: ${formattedTime}`;
         }
-        
-        // Check if the user input is exactly 4 digits
-        if (!/^\d{4}$/.test(userGuess)) { // Regular expression to check for exactly 4 digits
-            alert("Please enter a valid 4-digit number.");
-            continue;
-        }
-
-        attempts++; // Increment attempt count
-
-        // Check if the guess is correct
-        if (userGuess === randomNumber) {
-            guessedCorrectly = true;
-            alert(`Congratulations! You've guessed the correct number ${randomNumber} in ${attempts} attempts!`);
-        } else if (userGuess < randomNumber) {
-            alert("Your guess is too low. Try again.");
-        } else {
-            alert("Your guess is too high. Try again.");
-        }
-    }
-}
-
-// Start the game
-playGame();
+    </script>
+</body>
+</html>
