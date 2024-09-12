@@ -28,7 +28,7 @@
             font-size: 18px;
             color: #333;
         }
-        #myImage {
+        #myImage { /* ID corrected to myImage */
             display: none; /* Initially hide the image */
             width: 300px; /* Set the width of your image */
         }
@@ -39,7 +39,7 @@
         <h1>Welcome to the most useless website (or the best use of time website)</h1>
         <button id="uselessButton" onclick="showMessage()">Click Me!</button>
         <div class="message" id="message"></div>
-        <img id="scary lol" src="https://wallpaperaccess.com/full/83441.jpg" alt="A Random Image"> <!-- Replace with your image URL -->
+        <img id="myImage" src="https://wallpaperaccess.com/full/83441.jpg" alt="A Random Image"> <!-- ID updated -->
     </div>
 
     <script>
@@ -83,7 +83,7 @@
 
         // Function to show the image for 2 seconds
         function showImage() {
-            const img = document.getElementById('myImage');
+            const img = document.getElementById('myImage'); // Reference to myImage
             img.style.display = 'block'; // Show image
             setTimeout(() => {
                 img.style.display = 'none'; // Hide image after 2 seconds
