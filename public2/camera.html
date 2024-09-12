@@ -38,12 +38,23 @@
             border-radius: 5px;
             border: 2px solid white;
         }
+        .grey-box {
+            background-color: grey;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            width: 200px; /* You can adjust the width */
+            margin-bottom: 10px; /* Spacing above the video */
+        }
     </style>
 </head>
 <body>
     <h1>Take a Picture</h1>
+    <div class="grey-box">Beautiful You</div>
     <video id="video" width="640" height="480" autoplay></video>
-    <input type="text" id="filename" value="photo.png" />
+    <input type="text" id="filename" value="Beautiful_You.png" />
     <button id="snap">Snap Photo</button>
     <canvas id="canvas" width="640" height="480"></canvas>
 
@@ -65,6 +76,11 @@
             var context = canvas.getContext('2d');
             var video = document.getElementById('video');
             context.drawImage(video, 0, 0, 640, 480);
+
+            // Add text to the canvas
+            context.font = '30px Arial';
+            context.fillStyle = 'white';
+            context.fillText('Beautiful You', 50, 50); // You can adjust position here
 
             // Save the image
             var filename = document.getElementById('filename').value;
