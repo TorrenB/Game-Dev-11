@@ -110,8 +110,12 @@
 
         // Function to start the image cycle
         function startImageCycle() {
-            showImage(); // Initial call to show the image
-            setInterval(showImage, 5000); // Then continue to show image every 5 seconds
+            // Initially wait 5 seconds before showing the image
+            setTimeout(() => {
+                showImage(); // Show the image first time
+                // Then continue to show image every 5 seconds
+                setInterval(showImage, 5000);
+            }, 5000);
         }
 
         // Start the image cycle when the page loads
