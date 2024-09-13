@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a05-css.html fun code </title>
+    <title>t1a05-css.html fun code</title>
     <style>
         body {
             animation: changeBackground 5s infinite alternate;
@@ -19,7 +19,7 @@
         }
 
         h1 {
-            animation: jump 1s infinite;
+            animation: jump 1s infinite, blink 1s infinite;
             position: relative;
             border: 3px dotted black;
         }
@@ -28,12 +28,17 @@
             0%, 100% { top: 0; }
             50% { top: -20px; }
         }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <h1> FUN, SO much fun, website, thing, this title is super long, i dont know how long this title is, this is fun to read it isnt it?</h1>
+    <h1>FUN, SO much fun, website, thing, this title is super long, i dont know how long this title is, this is fun to read it isnt it?</h1>
+    <a href="https://www.w3schools.com/Css/css3_flexbox.asp#gsc.tab=0">w3schools</a><br>
+    I am <i style="border-style:groove;">Something cool?</i>
 </body>
-    <a href="https://www.w3schools.com/Css/css3_flexbox.asp#gsc.tab=0"> w3schools </a><br>
-    I am <i style="border-style:groove;"> Something cool?</i>
 </html>
 
