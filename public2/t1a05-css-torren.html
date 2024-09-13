@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Changing Background Color</title>
+    <title>Changing Background and Jumping Text</title>
     <style>
         body {
             animation: changeBackground 10s infinite alternate;
@@ -17,10 +17,21 @@
             80% { background-color: blue; }
             100% { background-color: purple; }
         }
+
+        h1 {
+            animation: jump 1s infinite;
+            position: relative;
+        }
+
+        @keyframes jump {
+            0%, 100% { top: 0; }
+            50% { top: -20px; }
+        }
     </style>
 </head>
 <body>
-    <h1>Watch the background color change!</h1>
+    <h1>Watch the background color change and the text jump!</h1>
 </body>
 </html>
+
 
