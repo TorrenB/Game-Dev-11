@@ -6,7 +6,7 @@
     <title>Combined Fun Code with Stretched Text</title>
     <style>
         body {
-            animation: changeBackground 5s infinite alternate;
+            animation: changeBackground 3s infinite alternate;
             font-family: Arial, sans-serif;
         }
 
@@ -41,7 +41,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            animation: spin 3s linear infinite, moveDown 5s linear forwards;
+            animation: spin 3s linear infinite, moveDown 2s linear forwards;
         }
 
         @keyframes spin {
@@ -55,9 +55,9 @@
         }
 
         .stretched-text {
-            font-size: 40px; /* Change to desired font size */
+            font-size: 20px; /* Change to desired font size */
             transform: scaleX(2); /* Stretch horizontally */
-            transform-origin: left; /* Change transform origin if needed */
+            transform-origin: right; /* Change transform origin if needed */
             text-align: center;
             z-index: 2; /* Ensure this text appears over the background */
         }
