@@ -1,11 +1,26 @@
-body {
-  animation: changeBackground 10s infinite alternate;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changing Background Color</title>
+    <style>
+        body {
+            animation: changeBackground 10s infinite alternate;
+        }
 
-@keyframes changeBackground {
-  0% { background-color: red; }
-  25% { background-color: yellow; }
-  50% { background-color: green; }
-  75% { background-color: blue; }
-  100% { background-color: purple; }
-}
+        @keyframes changeBackground {
+            0% { background-color: red; }
+            20% { background-color: orange; }
+            40% { background-color: yellow; }
+            60% { background-color: green; }
+            80% { background-color: blue; }
+            100% { background-color: purple; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Watch the background color change!</h1>
+</body>
+</html>
+
