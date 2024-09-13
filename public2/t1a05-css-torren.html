@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a05-css.html fun code</title>
+    <title>Combined Fun Code with Stretched Text</title>
     <style>
         body {
             animation: changeBackground 5s infinite alternate;
+            font-family: Arial, sans-serif;
         }
 
         @keyframes changeBackground {
@@ -22,6 +23,8 @@
             animation: jump 1s infinite, blink 1s infinite;
             position: relative;
             border: 3px dotted black;
+            z-index: 1;
+            text-align: center;
         }
 
         @keyframes jump {
@@ -50,10 +53,19 @@
             from { top: 0; }
             to { top: 100vh; }
         }
+
+        .stretched-text {
+            font-size: 40px; /* Change to desired font size */
+            transform: scaleX(2); /* Stretch horizontally */
+            transform-origin: left; /* Change transform origin if needed */
+            text-align: center;
+            z-index: 2; /* Ensure this text appears over the background */
+        }
     </style>
 </head>
 <body>
-    <h1>FUN, SO much fun, website, thing, this title is super long, i dont know how long this title is, this is fun to read it isnt it?</h1>
+    <h1>FUN, SO much fun, website, thing, this title is super long, I don’t know how long this title is, this is fun to read isn't it?</h1>
+    <div class="stretched-text">Stretched Text!</div>
     <img src="https://i.pinimg.com/736x/d1/2c/09/d12c0968d27e9b263adb803672bba080.jpg" class="animate-image" alt="Animated Image">
     <div style="text-align: right;">
         <a href="https://www.w3schools.com/Css/css3_flexbox.asp#gsc.tab=0">w3schools</a><br>
