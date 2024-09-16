@@ -32,6 +32,15 @@
             const result = portugueseNumbers[number] || "Number out of range";
             document.getElementById("resultPortuguese").innerText = `The number ${number} in Portuguese is: ${result}`;
         }
+        
+            function numberToSwahili() {
+    const number = document.getElementById("numberInput").value;
+    const swahiliNumbers = ["sifuri", "moja", "mbili", "tatu", "nne", "tano", "sita", "saba", "nane", "tisa", "kumi", "kumi na moja", "kumi na mbili", "kumi na tatu", "kumi na nne", "kumi na tano", "kumi na sita", "kumi na saba", "kumi na nane", "kumi na tisa", "ishirini"];
+    const result = swahiliNumbers[number] || "Nambari nje ya kiwango";
+    document.getElementById("resultSwahili").innerText = `Nambari ${number} kwa Kiswahili ni: ${result}`;
+
+
+        }
 
         function showName() {
             const name = document.getElementById("myFirstName").value;
@@ -44,12 +53,15 @@
     </script>
 </head>
 <body>
-    <h1>Number to French and Portuguese Converter (1-20)</h1>
+    <h1>Number Converter (1-20)</h1>
     <input type="number" id="numberInput" min="0" max="20" placeholder="Enter a number (0-20)">
     <button onclick="numberToFrench()">Convert to French</button>
     <button onclick="numberToPortuguese()">Convert to Portuguese</button>
+     <button onclick="numberToSwahili()">Convert to Swahili</button>
     <p id="resultFrench"></p>
     <p id="resultPortuguese"></p>
+      <p id="resultSwahili"></p>
+    
 
     <h1>Show Name</h1>
     <input type="text" id="myFirstName" value="Torren">
