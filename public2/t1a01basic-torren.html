@@ -21,11 +21,55 @@
                 transform: scale(1.5);
             }
         }
+        #randomButton {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        #result {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body style="background-color: #09f822;">
-   <h1 align=center> <div class="dotted-border">Hello World</div></h1><br>
-    <h1 align=center> <a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">My Github</a></h1><br>
+    <h1 align="center"><div class="dotted-border">Hello World</div></h1><br>
+    <h1 align="center"><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">My Github</a></h1><br>
     <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain">
+    
+    <button id="randomButton">Click me!</button>
+    <div id="result"></div>
+
+    <script>
+        const button = document.getElementById('randomButton');
+        const result = document.getElementById('result');
+
+        const languages = ['en', 'es', 'fr', 'de', 'it', 'ja', 'zh', 'ru'];
+        const translations = {
+            en: 'Number',
+            es: 'Número',
+            fr: 'Nombre',
+            de: 'Nummer',
+            it: 'Numero',
+            ja: '番号',
+            zh: '数字',
+            ru: 'Число'
+        };
+
+        button.addEventListener('click', () => {
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+            const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
+            const translatedNumber = `${translations[randomLanguage]}: ${randomNumber}`;
+            result.textContent = translatedNumber;
+        });
+    </script>
 </body>
 </html>
