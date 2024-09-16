@@ -7,11 +7,25 @@
             padding: 10px;
             display: inline-block;
         }
+        .zoom {
+            display: block;
+            margin: 50px auto;
+            width: 200px;
+            animation: zoomInOut 3s infinite;
+        }
+        @keyframes zoomInOut {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+        }
     </style>
 </head>
 <body style="background-color: #FFB6C1;">
     <div class="dotted-border">Hello World</div><br>
     <a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">My Github</a><br>
-    <img width="200" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain">
+    <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain">
 </body>
 </html>
