@@ -22,22 +22,31 @@
         function numberToFrench() {
             const number = document.getElementById("numberInput").value;
             const frenchNumbers = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt"];
-            const result = frenchNumbers[number] || "Number out of range";
+            const result = frenchNumbers[number] || "Number is out of range, please try again";
             document.getElementById("resultFrench").innerText = `The number ${number} in French is: ${result}`;
         }
 
         function numberToPortuguese() {
             const number = document.getElementById("numberInput").value;
             const portugueseNumbers = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez", "onze", "doze", "treze", "catorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove", "vinte"];
-            const result = portugueseNumbers[number] || "Number out of range";
+            const result = portugueseNumbers[number] || "Number is out of range, please try again";
             document.getElementById("resultPortuguese").innerText = `The number ${number} in Portuguese is: ${result}`;
         }
         
             function numberToSwahili() {
     const number = document.getElementById("numberInput").value;
     const swahiliNumbers = ["sifuri", "moja", "mbili", "tatu", "nne", "tano", "sita", "saba", "nane", "tisa", "kumi", "kumi na moja", "kumi na mbili", "kumi na tatu", "kumi na nne", "kumi na tano", "kumi na sita", "kumi na saba", "kumi na nane", "kumi na tisa", "ishirini"];
-    const result = swahiliNumbers[number] || "Nambari nje ya kiwango";
+    const result = swahiliNumbers[number] || "Number is out of range, please try again";
     document.getElementById("resultSwahili").innerText = `The number ${number} in Swahili is: ${result}`;
+            }
+                
+                function numberToChinese() {
+    const number = document.getElementById("numberInput").value;
+    const chineseNumbers = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十"];
+    const result = chineseNumbers[number] || "Number is out range, please try again";
+    document.getElementById("resultChinese").innerText = `The number ${number} in Chinese is: ${result}`;
+}
+
 
 
         }
@@ -58,9 +67,11 @@
     <button onclick="numberToFrench()">Convert to French</button>
     <button onclick="numberToPortuguese()">Convert to Portuguese</button>
      <button onclick="numberToSwahili()">Convert to Swahili</button>
+     <button onclick="numberToChinese()">Convert to Chinese</button>
     <p id="resultFrench"></p>
     <p id="resultPortuguese"></p>
       <p id="resultSwahili"></p>
+     <p id="resultChinese"></p>
     
 
     <h1>Show Name</h1>
