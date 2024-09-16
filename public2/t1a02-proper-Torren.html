@@ -10,8 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #76f494;
+            color: #333;
         }
-        header {
+        header, footer {
             background-color: #333;
             color: white;
             padding: 10px 0;
@@ -34,14 +35,30 @@
         .container {
             padding: 20px;
         }
-        footer {
+        .toggle-button {
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .dark-mode {
             background-color: #333;
             color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        }
+        .dark-mode header, .dark-mode footer {
+            background-color: #222;
+        }
+        .dark-mode nav {
+            background-color: #444;
+        }
+        .dark-mode nav a {
+            color: white;
+        }
+        .dark-mode nav a:hover {
+            background-color: #555;
         }
     </style>
 </head>
@@ -65,12 +82,13 @@
         <h2>Contact</h2>
         <p>My contract is that I have no contract. Simple right?!</p>
     </div>
+    <button class="toggle-button" onclick="toggleMode()">Toggle Bright/Dark Mode</button>
     <footer>
         <p>© 2024 Torrens Better Website</p>
     </footer>
-        <form>
+    <form>
         <fieldset>
-            <legend>Select your prefered language:</legend>
+            <legend>Select your preferred language:</legend>
             <input type="radio" id="html" name="language" value="english">
             <label for="html">English</label><br>
             <input type="radio" id="css" name="language" value="British english">
@@ -79,5 +97,12 @@
             <label for="javascript">Australian English</label><br>
         </fieldset>
     </form>
+
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
+
