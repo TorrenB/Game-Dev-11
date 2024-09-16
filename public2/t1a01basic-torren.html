@@ -21,7 +21,7 @@
                 transform: scale(1.5);
             }
         }
-        #randomButton {
+        #randomButton, #timeButton {
             width: 100px;
             height: 100px;
             border-radius: 50%;
@@ -33,7 +33,7 @@
             display: block;
             margin: 20px auto;
         }
-        #result {
+        #result, #timeResult {
             text-align: center;
             font-size: 24px;
             margin-top: 20px;
@@ -47,10 +47,15 @@
     
     <button id="randomButton">Click me!</button>
     <div id="result"></div>
+    
+    <button id="timeButton">Get Time</button>
+    <div id="timeResult"></div>
 
     <script>
-        const button = document.getElementById('randomButton');
+        const randomButton = document.getElementById('randomButton');
         const result = document.getElementById('result');
+        const timeButton = document.getElementById('timeButton');
+        const timeResult = document.getElementById('timeResult');
 
         const languages = ['en', 'es', 'fr', 'de', 'it', 'ja', 'zh', 'ru'];
         const translations = {
@@ -64,12 +69,19 @@
             ru: 'Число'
         };
 
-        button.addEventListener('click', () => {
+        randomButton.addEventListener('click', () => {
             const randomNumber = Math.floor(Math.random() * 100) + 1;
             const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
             const translatedNumber = `${translations[randomLanguage]}: ${randomNumber}`;
             result.textContent = translatedNumber;
         });
+
+        timeButton.addEventListener('click', () => {
+            const now = performance.now();
+            const nanoseconds = Math.floor(now * 1e6);
+            timeResult.textContent = `Time: ${nanoseconds} ns`;
+        });
     </script>
 </body>
 </html>
+
