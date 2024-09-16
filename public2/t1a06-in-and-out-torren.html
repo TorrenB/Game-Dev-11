@@ -1,9 +1,32 @@
- <h1>Number to French Converter (1-10)</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number to French</title>
+    <script>
+        function numberToFrench() {
+            const number = document.getElementById("numberInput").value;
+            const frenchNumbers = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix"];
+            const result = frenchNumbers[number] || "Number out of range";
+            document.getElementById("result").innerText = `The number ${number} in French is: ${result}`;
+        }
+
+        function showName() {
+            const name = document.getElementById("myFirstName").value;
+            document.getElementById('myDiv01').innerHTML = 'Your name is ' + name;
+        }
+    </script>
+</head>
+<body>
+    <h1>Number to French Converter (1-10)</h1>
+    <input type="number" id="numberInput" min="0" max="10" placeholder="Enter a number (0-10)">
+    <button onclick="numberToFrench()">Convert</button>
+    <p id="result"></p>
+
+    <h1>Show Name</h1>
     <input type="text" id="myFirstName" value="Torren">
-    <input type="button" value="Show On Page" onclick="{
-        // This is a comment
-        document.getElementById('myDiv01').innerHTML = 'Your name is ' + document.getElementById('myFirstName').value;
-    }">
+    <input type="button" value="Show On Page" onclick="showName()">
     <div id="myDiv01">Waiting...</div>
 </body>
 </html>
