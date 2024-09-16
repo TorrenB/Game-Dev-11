@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <img width=300 src="https://avatars.githubusercontent.com/u/5605614?v=4" class="rotating-image"> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Here it goes again</title>
@@ -13,32 +12,14 @@
         .jumping-title {
             font-size: 24px;
             position: relative;
-            animation: jump 1s infinite;
+            /* Removed the jump animation */
         }
         body {
-            animation: colorChange 10s infinite;
+            /* Removed the colorChange animation */
         }
-        @keyframes colorChange {
-            0% { background-color: red; }
-            25% { background-color: yellow; }
-            50% { background-color: green; }
-            75% { background-color: orange; }
-            100% { background-color: red; }
-        }
-        @keyframes jump {
-            0%, 100% {
-                top: 0;
-            }
-            50% {
-                top: -10px;
-            }
-        }
-        @keyframes rotate {
-            12% { transform: rotate(12deg); }
-            100% { transform: rotate(360deg); }
-        }
+        /* Removed the keyframes for colorChange, jump, and rotate */
         .rotating-image {
-            animation: rotate 5s linear infinite; /* Rotate the image continuously */
+            /* Removed the rotate animation */
         }
     </style>
 </head>
