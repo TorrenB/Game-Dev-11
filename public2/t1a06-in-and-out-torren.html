@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number to French and Portuguese</title>
+    <style>
+        .guitar-button {
+            background: url('guitar.png') no-repeat center center;
+            background-size: contain;
+            width: 100px;
+            height: 200px;
+            border: none;
+            cursor: pointer;
+        }
+        .lyrics {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
     <script>
         function numberToFrench() {
             const number = document.getElementById("numberInput").value;
@@ -22,7 +36,10 @@
         function showName() {
             const name = document.getElementById("myFirstName").value;
             document.getElementById('myDiv01').innerHTML = 'Your name is ' + name;
+        }
 
+        function showLyrics() {
+            document.getElementById('lyrics').style.display = 'block';
         }
     </script>
 </head>
@@ -44,10 +61,15 @@
     <input type="button" value="Show On Page" onclick="showName()">
     <div id="myDiv01">Waiting...</div>
 
+    <button class="guitar-button" onclick="showLyrics()"></button>
+    <div class="lyrics" id="lyrics">
+        <p>We're no strangers to love...</p>
+        <!-- Add more lyrics here -->
+    </div>
+
     <body style="background-color: #FFB6C1;">
 </body>
 </html>
-
 
 
 
