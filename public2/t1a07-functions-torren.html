@@ -22,6 +22,21 @@
     function showRandomWord() {
       myVar('randomWordDiv').innerHTML = 'A random word is: ' + getRandomWord();
     }
+
+    function daysBetweenDates(date1, date2) {
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+      const timeDiff = Math.abs(d2 - d1);
+      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      return diffDays;
+    }
+
+    function showDaysBetweenDates() {
+      const date1 = myVar('date1').value;
+      const date2 = myVar('date2').value;
+      const days = daysBetweenDates(date1, date2);
+      myVar('daysBetweenDiv').innerHTML = `The number of days between ${date1} and ${date2} is ${days} days.`;
+    }
   </script>
 
   <label for="myFirstName">Input:</label>
@@ -33,5 +48,14 @@
 
   <div id="myDiv01">Waiting....Hurry up and type</div>
   <div id="randomWordDiv">Click the button to get a random word</div>
+
+  <h2>Calculate Days Between Dates</h2>
+  <label for="date1">Date 1:</label>
+  <input type="date" id="date1">
+  <label for="date2">Date 2:</label>
+  <input type="date" id="date2">
+  <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
+
+  <div id="daysBetweenDiv">Enter two dates to calculate the number of days between them.</div>
 </body>
 </html>
