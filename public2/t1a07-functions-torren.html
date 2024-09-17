@@ -73,6 +73,13 @@
     <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
     <div id="sqrtResult">The result will be displayed here.</div>
 
+    <!-- New Feature: Convert to Binary -->
+    <h2>Convert Number to Binary</h2>
+    <label for="binaryInput">Enter a number:</label>
+    <input type="number" id="binaryInput" placeholder="Enter a non-negative integer">
+    <input type="button" value="Convert to Binary" onclick="convertToBinary()">
+    <div id="binaryResult">Binary result will be displayed here.</div>
+
     <script>
         function myVar(myIn) {
             return document.getElementById(myIn);
@@ -139,12 +146,23 @@
             }
         }
 
+        function convertToBinary() {
+            const number = myVar('binaryInput').value;
+            const resultElement = myVar('binaryResult');
+            if (number === '' || number < 0) {
+                resultElement.innerHTML = "Please enter a non-negative integer.";
+                return;
+            }
+
+            const binaryString = Number(number).toString(2);
+            resultElement.innerHTML = `The binary representation of ${number} is ${binaryString}.`;
+        }
+
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
     </script>
 </body>
 </html>
-
 
 next day, work on getting a text box that will allow me to put in a number and it will spit out the number in binary code.
