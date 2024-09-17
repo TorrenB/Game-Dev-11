@@ -12,12 +12,18 @@
     function myVar(myIn){
       return document.getElementById(myIn);
     }
+
+    function getRandomWord() {
+      const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
+      const randomIndex = Math.floor(Math.random() * words.length);
+      return words[randomIndex];
+    }
   </script>
 
   <label for="myFirstName">Input:</label>
   <input type="text" id="myFirstName" value="torren">
   <input type="button" value="Show on page" onclick="{
-    myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;
+    myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value + ' and a random word is ' + getRandomWord();
   }">
 
   <div id="myDiv01">Waiting....Hurry up and type</div>
