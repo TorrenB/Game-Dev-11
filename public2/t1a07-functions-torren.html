@@ -18,14 +18,20 @@
       const randomIndex = Math.floor(Math.random() * words.length);
       return words[randomIndex];
     }
+
+    function showRandomWord() {
+      myVar('randomWordDiv').innerHTML = 'A random word is: ' + getRandomWord();
+    }
   </script>
 
   <label for="myFirstName">Input:</label>
   <input type="text" id="myFirstName" value="torren">
   <input type="button" value="Show on page" onclick="{
-    myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value + ' and a random word is ' + getRandomWord();
+    myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;
   }">
+  <input type="button" value="Get Random Word" onclick="showRandomWord()">
 
   <div id="myDiv01">Waiting....Hurry up and type</div>
+  <div id="randomWordDiv">Click the button to get a random word</div>
 </body>
 </html>
