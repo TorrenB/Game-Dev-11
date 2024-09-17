@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number to French and Portuguese</title>
+    <title>Number to French, Portuguese, and Heads or Tails</title>
     <style>
         .guitar-button {
             background: url('https://pngimg.com/uploads/electric_guitar/electric_guitar_PNG24172.png') no-repeat center center;
@@ -16,6 +16,11 @@
         .lyrics {
             display: none;
             margin-top: 20px;
+        }
+        body {
+            background-color: #003dca;
+            color: white;
+            text-align: center;
         }
     </style>
     <script>
@@ -33,20 +38,18 @@
             document.getElementById("resultPortuguese").innerText = `The number ${number} in Portuguese is: ${result}`;
         }
         
-            function numberToSwahili() {
-    const number = document.getElementById("numberInput").value;
-    const swahiliNumbers = ["sifuri", "moja", "mbili", "tatu", "nne", "tano", "sita", "saba", "nane", "tisa", "kumi", "kumi na moja", "kumi na mbili", "kumi na tatu", "kumi na nne", "kumi na tano", "kumi na sita", "kumi na saba", "kumi na nane", "kumi na tisa", "ishirini"];
-    const result = swahiliNumbers[number] || "Number is out of range, please try again";
-    document.getElementById("resultSwahili").innerText = `The number ${number} in Swahili is: ${result}`;
-         }
+        function numberToSwahili() {
+            const number = document.getElementById("numberInput").value;
+            const swahiliNumbers = ["sifuri", "moja", "mbili", "tatu", "nne", "tano", "sita", "saba", "nane", "tisa", "kumi", "kumi na moja", "kumi na mbili", "kumi na tatu", "kumi na nne", "kumi na tano", "kumi na sita", "kumi na saba", "kumi na nane", "kumi na tisa", "ishirini"];
+            const result = swahiliNumbers[number] || "Number is out of range, please try again";
+            document.getElementById("resultSwahili").innerText = `The number ${number} in Swahili is: ${result}`;
+        }
                 
-                function numberToChinese() {
-    const number = document.getElementById("numberInput").value;
-    const chineseNumbers = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十"];
-    const result = chineseNumbers[number] || "Number is out range, please try again";
-    document.getElementById("resultChinese").innerText = `The number ${number} in Chinese is: ${result}`;
-
-
+        function numberToChinese() {
+            const number = document.getElementById("numberInput").value;
+            const chineseNumbers = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十"];
+            const result = chineseNumbers[number] || "Number is out range, please try again";
+            document.getElementById("resultChinese").innerText = `The number ${number} in Chinese is: ${result}`;
         }
 
         function showName() {
@@ -57,49 +60,71 @@
         function showLyrics() {
             document.getElementById('lyrics').style.display = 'block';
         }
+        
+        // Heads or Tails functionality
+        function coinFlip() {
+            const userGuess = document.getElementById('coinInput').value.toLowerCase();
+            const options = ['heads', 'tails'];
+            const randomChoice = options[Math.floor(Math.random() * options.length)];
+
+            if (userGuess !== 'heads' && userGuess !== 'tails') {
+                document.getElementById("coinResult").innerText = "Please enter 'heads' or 'tails'.";
+            } else {
+                document.getElementById("coinResult").innerText = `You guessed: ${userGuess}. The coin shows: ${randomChoice}.`;
+            }
+
+            // Clear the input for the next guess
+            document.getElementById('coinInput').value = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('coinInput').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent form submission
+                    coinFlip();
+                }
+            });
+        });
     </script>
 </head>
 <body>
+
     <h1>Number Converter (1-20)</h1>
     <input type="number" id="numberInput" min="0" max="20" placeholder="Enter a number (0-20)">
     <button onclick="numberToFrench()">Convert to French</button>
     <button onclick="numberToPortuguese()">Convert to Portuguese</button>
-     <button onclick="numberToSwahili()">Convert to Swahili</button>
-     <button onclick="numberToChinese()">Convert to Chinese</button>
+    <button onclick="numberToSwahili()">Convert to Swahili</button>
+    <button onclick="numberToChinese()">Convert to Chinese</button>
     <p id="resultFrench"></p>
     <p id="resultPortuguese"></p>
-      <p id="resultSwahili"></p>
-     <p id="resultChinese"></p>
-    
+    <p id="resultSwahili"></p>
+    <p id="resultChinese"></p>
 
     <h1>Show Name</h1>
     <input type="text" id="myFirstName" value="Torren">
     <input type="button" value="Show On Page" onclick="showName()">
     <div id="myDiv01">Waiting...</div>
 
-  
-Click the guitar for a surprise!<br>
+    <h1>Heads or Tails</h1>
+    <input type="text" id="coinInput" placeholder="Type 'heads' or 'tails'" autofocus>
+    <div id="coinResult"></div>
+
+    Click the guitar for a surprise!<br>
     <button class="guitar-button" onclick="showLyrics()"></button>
     <div class="lyrics" id="lyrics">
         <p>We're no strangers to love<br>
-He was a boy, she was a girl<br>
-Can I make it any more obvious?<br>
-He was a punk, she did ballet<br>
-What more can I say?<br>
-He wanted her<br>
-She'd never tell secretly she wanted him as well<br>
-But all of her friends stuck up their nose<br>
-They had a problem with his baggy clothes<br>
-He was a skater boy<br>
-</p><br>
-        
+            He was a boy, she was a girl<br>
+            Can I make it any more obvious?<br>
+            He was a punk, she did ballet<br>
+            What more can I say?<br>
+            He wanted her<br>
+            She'd never tell secretly she wanted him as well<br>
+            But all of her friends stuck up their nose<br>
+            They had a problem with his baggy clothes<br>
+            He was a skater boy<br>
+        </p><br>
     </div>
 
-    <body style="background-color: #003dca;">
 </body>
 </html>
-
-
-
-
 
