@@ -23,7 +23,6 @@
         h2 {
             margin-top: 30px;
         }
-        /* Optional: Style for the overlay */
         #overlay {
             position: fixed;
             top: 0;
@@ -43,21 +42,48 @@
     <h1 style="text-align:center;">Combined Functions with Dark Mode</h1>
 
     <button id="toggleButton" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    <button onclick="freezeScreen()">CLick for a nasty surprise (you'll like it I promise) </button>
+    <button onclick="freezeScreen()">Click for a nasty surprise (you'll like it I promise)</button>
 
     <div id="overlay">Screen is frozen...HAHAHAHA</div>
+
+    <h2>Guess the Number!</h2>
+    <p>Guess a number between 1 and 1000:</p>
+    <input type="number" id="guess" min="1" max="1000">
+    <button onclick="checkGuess()">Submit Guess</button>
+    <p id="result"></p>
+
+    <label for="myFirstName">Input:</label>
+    <input type="text" id="myFirstName" value="torren">
+    <input type="button" value="Show on page" onclick="myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;">
+    <input type="button" value="Get Random Word" onclick="showRandomWord()">
+    <div id="myDiv01">Waiting....Hurry up and type</div>
+    <div id="randomWordDiv">Click the button to get a random word that is very random.</div>
+
+    <h2>Calculate Days Between Dates</h2>
+    <label for="date1">Date 1:</label>
+    <input type="date" id="date1">
+    <label for="date2">Date 2:</label>
+    <input type="date" id="date2">
+    <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
+    <div id="daysBetweenDiv">Enter two dates into the boxes to see how many days apart they are (have fun with it).</div>
+
+    <h2>Calculate Square Root</h2>
+    <label for="sqrtInput">Enter a number:</label>
+    <input type="number" id="sqrtInput" placeholder="Enter a non-negative number">
+    <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
+    <div id="sqrtResult">The result will be displayed here.</div>
 
     <script>
         function myVar(myIn) {
             return document.getElementById(myIn);
         }
-
+        
         function getRandomWord() {
             const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
             const randomIndex = Math.floor(Math.random() * words.length);
             return words[randomIndex];
         }
-
+        
         function showRandomWord() {
             myVar('randomWordDiv').innerHTML = 'A random word is: ' + getRandomWord();
         }
@@ -81,55 +107,41 @@
             const number = myVar('sqrtInput').value;
             const resultElement = myVar('sqrtResult');
 
-            // Check if the number is valid
             if (number < 0) {
                 resultElement.innerHTML = "Please enter a non-negative number.";
                 return;
             }
 
-            // Calculate the square root
             const squareRoot = Math.sqrt(number);
-
-            // Display the result
             resultElement.innerHTML = `The square root of ${number} is ${squareRoot.toFixed(2)}.`;
         }
 
         function freezeScreen() {
-            // Show the overlay
             document.getElementById('overlay').style.display = 'flex';
-
-            // Freeze the screen for 3 seconds
             setTimeout(function() {
-                // Hide the overlay after 3 seconds
                 document.getElementById('overlay').style.display = 'none';
             }, 3000);
+        }
+
+        // Number Guessing Game
+        let randomNumber = Math.floor(Math.random() * 1000) + 1;
+
+        function checkGuess() {
+            let userGuess = document.getElementById('guess').value;
+            let result = document.getElementById('result');
+
+            if (userGuess < randomNumber) {
+                result.textContent = 'Higher!';
+            } else if (userGuess > randomNumber) {
+                result.textContent = 'Lower!';
+            } else {
+                result.textContent = 'Congratulations! You guessed it right!';
+            }
         }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
     </script>
-
-    <label for="myFirstName">Input:</label>
-    <input type="text" id="myFirstName" value="torren">
-    <input type="button" value="Show on page" onclick="myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;">
-    <input type="button" value="Get Random Word" onclick="showRandomWord()">
-
-    <div id="myDiv01">Waiting....Hurry up and type</div>
-    <div id="randomWordDiv">Click the button to get a random word that is very random.</div>
-
-    <h2>Calculate Days Between Dates</h2>
-    <label for="date1">Date 1:</label>
-    <input type="date" id="date1">
-    <label for="date2">Date 2:</label>
-    <input type="date" id="date2">
-    <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
-    <div id="daysBetweenDiv">Enter two dates into the boxes to see how many days apart they are (have fun with it).</div>
-
-    <h2>Calculate Square Root</h2>
-    <label for="sqrtInput">Enter a number:</label>
-    <input type="number" id="sqrtInput" placeholder="Enter a non-negative number">
-    <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
-    <div id="sqrtResult">The result will be displayed here.</div>
 </body>
 </html>
