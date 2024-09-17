@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a07-functions-torren.html</title>
+    <title>Combined Functions with Dark Mode</title>
     <style>
         body {
-            background-color: #25e3be;
+            background-color: #25e3be; /* Light mode background */
             font-family: Arial, sans-serif;
             margin: 50px;
+            color: black; /* Light mode text color */
+            transition: all 0.3s ease; /* Smooth transition for dark mode */
+        }
+        body.dark-mode {
+            background-color: #333; /* Dark mode background */
+            color: white; /* Dark mode text color */
         }
         input, button {
             padding: 10px;
@@ -20,7 +26,9 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align:center;">t1a07-functions-torren.html</h1>
+    <h1 style="text-align:center;">Combined Functions with Dark Mode</h1>
+
+    <button id="toggleButton" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
         function myVar(myIn) {
@@ -68,6 +76,10 @@
             // Display the result
             resultElement.innerHTML = `The square root of ${number} is ${squareRoot.toFixed(2)}.`;
         }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
     </script>
 
     <label for="myFirstName">Input:</label>
@@ -91,6 +103,5 @@
     <input type="number" id="sqrtInput" placeholder="Enter a non-negative number">
     <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
     <div id="sqrtResult">The result will be displayed here.</div>
-
 </body>
 </html>
