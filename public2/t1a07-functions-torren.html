@@ -46,12 +46,14 @@
 
     <div id="overlay">Screen is frozen...HAHAHAHA</div>
 
+    <!-- Number Guessing Game -->
     <h2>Guess the Number!</h2>
     <p>Guess a number between 1 and 1000:</p>
     <input type="number" id="guess" min="1" max="1000">
     <button onclick="checkGuess()">Submit Guess</button>
     <p id="result"></p>
 
+    <!-- Random Word Feature -->
     <label for="myFirstName">Input:</label>
     <input type="text" id="myFirstName" value="torren">
     <input type="button" value="Show on page" onclick="myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;">
@@ -59,6 +61,7 @@
     <div id="myDiv01">Waiting....Hurry up and type</div>
     <div id="randomWordDiv">Click the button to get a random word that is very random.</div>
 
+    <!-- Calculate Days Between Dates -->
     <h2>Calculate Days Between Dates</h2>
     <label for="date1">Date 1:</label>
     <input type="date" id="date1">
@@ -67,20 +70,21 @@
     <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
     <div id="daysBetweenDiv">Enter two dates into the boxes to see how many days apart they are (have fun with it).</div>
 
+    <!-- Calculate Square Root -->
     <h2>Calculate Square Root</h2>
     <label for="sqrtInput">Enter a number:</label>
     <input type="number" id="sqrtInput" placeholder="Enter a non-negative number">
     <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
     <div id="sqrtResult">The result will be displayed here.</div>
 
-    <!-- New Feature: Convert to Binary -->
+    <!-- Convert to Binary -->
     <h2>Convert Number to Binary</h2>
     <label for="binaryInput">Enter a number:</label>
     <input type="number" id="binaryInput" placeholder="Enter a non-negative integer">
     <input type="button" value="Convert to Binary" onclick="convertToBinary()">
     <div id="binaryResult">Binary result will be displayed here.</div>
 
-    <!-- New Feature: Sort Numbers -->
+    <!-- Sort Numbers -->
     <h2>Enter 5 Numbers</h2>
     <input type="number" id="num1" placeholder="Number 1">
     <input type="number" id="num2" placeholder="Number 2">
@@ -88,9 +92,21 @@
     <input type="number" id="num4" placeholder="Number 4">
     <input type="number" id="num5" placeholder="Number 5">
     <button onclick="sortNumbers()">Sort</button>
-
     <h3>Sorted Numbers:</h3>
     <p id="sortedResult"></p>
+
+    <!-- Length Conversion -->
+    <h1>Length Conversion</h1>
+    <label for="km">Kilometers:</label>
+    <input type="number" id="km" name="km" step="any">
+    <button onclick="convert()">Convert</button>
+
+    <h2>Results:</h2>
+    <p id="meters"></p>
+    <p id="centimeters"></p>
+    <p id="millimeters"></p>
+    <p id="micrometers"></p>
+    <p id="nanometers"></p>
 
     <script>
         function myVar(myIn) {
@@ -195,7 +211,20 @@
             document.body.classList.toggle('dark-mode');
         }
 
+        function convert() {
+            let km = document.getElementById('km').value;
+            let meters = km * 1000;
+            let centimeters = meters * 100;
+            let millimeters = centimeters * 10;
+            let micrometers = millimeters * 1000;
+            let nanometers = micrometers * 1000;
+
+            document.getElementById('meters').innerText = `Meters: ${meters}`;
+            document.getElementById('centimeters').innerText = `Centimeters: ${centimeters}`;
+            document.getElementById('millimeters').innerText = `Millimeters: ${millimeters}`;
+            document.getElementById('micrometers').innerText = `Micrometers: ${micrometers}`;
+            document.getElementById('nanometers').innerText = `Nanometers: ${nanometers}`;
+        }
     </script>
 </body>
 </html>
-
