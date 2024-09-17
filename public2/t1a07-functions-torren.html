@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a07-functions-torren.html </title>
+    <title>Combined Functions with Star Wars Theme</title>
     <style>
         body {
             background-color: #25e3be; /* Light mode background */
@@ -39,12 +39,15 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Combined Functions with Dark Mode</h1>
+    <h1 style="text-align:center;">Combined Functions with Star Wars Theme</h1>
 
     <button id="toggleButton" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <button onclick="freezeScreen()">Click for a nasty surprise (you'll like it I promise)</button>
-
+    <button id="playButton">Play Star Wars Theme</button>
+    
     <div id="overlay">Screen is frozen...HAHAHAHA</div>
+
+    <audio id="myAudio" src="public2/Star_Wars_Main_Theme_Full_[_YouConvert.net_].mp3"></audio>
 
     <!-- Number Guessing Game -->
     <h2>Guess the Number!</h2>
@@ -96,7 +99,7 @@
     <p id="sortedResult"></p>
 
     <!-- Length Conversion -->
-    <h1>Length Conversion</h1>
+    <h2>Length Conversion</h2>
     <label for="km">Kilometers:</label>
     <input type="number" id="km" name="km" step="any">
     <button onclick="convert()">Convert</button>
@@ -113,6 +116,13 @@
             return document.getElementById(myIn);
         }
         
+        const playButton = document.getElementById('playButton');
+        const audio = document.getElementById('myAudio');
+
+        playButton.addEventListener('click', function() {
+            audio.play();
+        });
+
         function getRandomWord() {
             const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
             const randomIndex = Math.floor(Math.random() * words.length);
