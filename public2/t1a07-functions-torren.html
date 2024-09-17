@@ -1,62 +1,96 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>t1a07-functions-torren.html</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>t1a07-functions-torren.html</title>
+    <style>
+        body {
+            background-color: #25e3be;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-  <h1 style="text-align:center;">t1a07-functions-torren.html</h1>
+    <h1 style="text-align:center;">t1a07-functions-torren.html</h1>
 
-  <script>
-    function myVar(myIn){
-      return document.getElementById(myIn);
-    }
+    <script>
+        function myVar(myIn) {
+            return document.getElementById(myIn);
+        }
 
-    function getRandomWord() {
-      const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
-      const randomIndex = Math.floor(Math.random() * words.length);
-      return words[randomIndex];
-    }
+        function getRandomWord() {
+            const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
+            const randomIndex = Math.floor(Math.random() * words.length);
+            return words[randomIndex];
+        }
 
-    function showRandomWord() {
-      myVar('randomWordDiv').innerHTML = 'A random word is: ' + getRandomWord();
-    }
+        function showRandomWord() {
+            myVar('randomWordDiv').innerHTML = 'A random word is: ' + getRandomWord();
+        }
 
-    function daysBetweenDates(date1, date2) {
-      const d1 = new Date(date1);
-      const d2 = new Date(date2);
-      const timeDiff = Math.abs(d2 - d1);
-      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      return diffDays;
-    }
+        function daysBetweenDates(date1, date2) {
+            const d1 = new Date(date1);
+            const d2 = new Date(date2);
+            const timeDiff = Math.abs(d2 - d1);
+            const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return diffDays;
+        }
 
-    function showDaysBetweenDates() {
-      const date1 = myVar('date1').value;
-      const date2 = myVar('date2').value;
-      const days = daysBetweenDates(date1, date2);
-      myVar('daysBetweenDiv').innerHTML = `The number of days between ${date1} and ${date2} is ${days} days.`;
-    }
-  </script>
+        function showDaysBetweenDates() {
+            const date1 = myVar('date1').value;
+            const date2 = myVar('date2').value;
+            const days = daysBetweenDates(date1, date2);
+            myVar('daysBetweenDiv').innerHTML = `The number of days between ${date1} and ${date2} is ${days} days.`;
+        }
 
-  <label for="myFirstName">Input:</label>
-  <input type="text" id="myFirstName" value="torren">
-  <input type="button" value="Show on page" onclick="{
-    myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;
-  }">
-  <input type="button" value="Get Random Word" onclick="showRandomWord()">
+        function calculateSquareRoot() {
+            const number = myVar('sqrtInput').value;
+            const resultElement = myVar('sqrtResult');
 
-  <div id="myDiv01">Waiting....Hurry up and type</div>
-  <div id="randomWordDiv">Click the button to get a random word</div>
+            // Check if the number is valid
+            if (number < 0) {
+                resultElement.innerHTML = "Please enter a non-negative number.";
+                return;
+            }
 
-  <h2>Calculate Days Between Dates</h2>
-  <label for="date1">Date 1:</label>
-  <input type="date" id="date1">
-  <label for="date2">Date 2:</label>
-  <input type="date" id="date2">
-  <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
+            // Calculate the square root
+            const squareRoot = Math.sqrt(number);
 
-  <div id="daysBetweenDiv">Enter two dates to calculate the number of days between them.</div>
-  <body style="background-color:#25e3be;">
+            // Display the result
+            resultElement.innerHTML = `The square root of ${number} is ${squareRoot.toFixed(2)}.`;
+        }
+    </script>
+
+    <label for="myFirstName">Input:</label>
+    <input type="text" id="myFirstName" value="torren">
+    <input type="button" value="Show on page" onclick="myVar('myDiv01').innerHTML = 'Your name is ' + myVar('myFirstName').value;">
+    <input type="button" value="Get Random Word" onclick="showRandomWord()">
+
+    <div id="myDiv01">Waiting....Hurry up and type</div>
+    <div id="randomWordDiv">Click the button to get a random word</div>
+
+    <h2>Calculate Days Between Dates</h2>
+    <label for="date1">Date 1:</label>
+    <input type="date" id="date1">
+    <label for="date2">Date 2:</label>
+    <input type="date" id="date2">
+    <input type="button" value="Calculate Days" onclick="showDaysBetweenDates()">
+    <div id="daysBetweenDiv">Enter two dates to calculate the number of days between them.</div>
+
+    <h2>Calculate Square Root</h2>
+    <label for="sqrtInput">Enter a number:</label>
+    <input type="number" id="sqrtInput" placeholder="Enter a non-negative number">
+    <input type="button" value="Calculate Square Root" onclick="calculateSquareRoot()">
+    <div id="sqrtResult">The result will be displayed here.</div>
+
 </body>
 </html>
