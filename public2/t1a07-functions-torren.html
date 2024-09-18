@@ -121,15 +121,17 @@
         const audio = document.getElementById('myAudio');
 
         playButton.addEventListener('click', function() {
-            // Check if the audio is loaded and ready to play
-            if (audio.readyState >= 2) { // Have enough data to play
-                audio.play().catch(function(error) {
-                    console.error('Error playing audio:', error);
-                });
-            } else {
-                console.error('Audio is not ready to play');
-            }
+            audio.play().catch(function(error) {
+                console.error('Error playing audio:', error);
+            });
         });
+
+        // Automatically play audio on page load
+        window.onload = function() {
+            audio.play().catch(function(error) {
+                console.error('Error playing audio on page load:', error);
+            });
+        };
 
         function getRandomWord() {
             const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
