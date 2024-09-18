@@ -47,7 +47,8 @@
     
     <div id="overlay">Screen is frozen...HAHAHAHA</div>
 
-    <audio id="myAudio" src="public2/Star_Wars_Main_Theme_Full_[_YouConvert.net_].mp3"></audio>
+    <!-- Updated audio source -->
+    <audio id="myAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
     <!-- Number Guessing Game -->
     <h2>Guess the Number!</h2>
@@ -120,7 +121,14 @@
         const audio = document.getElementById('myAudio');
 
         playButton.addEventListener('click', function() {
-            audio.play();
+            // Check if the audio is loaded and ready to play
+            if (audio.readyState >= 2) { // Have enough data to play
+                audio.play().catch(function(error) {
+                    console.error('Error playing audio:', error);
+                });
+            } else {
+                console.error('Audio is not ready to play');
+            }
         });
 
         function getRandomWord() {
