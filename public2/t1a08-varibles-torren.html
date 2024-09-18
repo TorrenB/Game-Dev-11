@@ -183,6 +183,17 @@
     <footer>
         <a href="https://www.w3schools.com/js/js_variables.asp">W3Schools Variables</a>
     </footer>
+
+    <div>
+        <h2>Input and Add Example</h2>
+        Input 1:<input type="text" id="myIn01" value="5"><br>
+        Input 2:<input type="text" id="myIn02" value="7"><br>
+        <input type="button" value="Add and Fix" onclick="{
+            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
+            document.getElementById('myDiv01').innerHTML = 'Your answer is ' + myTotal;
+        }">
+        <div id="myDiv01">...</div>
+    </div>
+
 </body>
 </html>
-    
