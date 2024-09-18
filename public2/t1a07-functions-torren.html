@@ -36,6 +36,25 @@
             color: white;
             font-size: 2em;
         }
+        #calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        button.operator {
+            background-color: #f39c12;
+            color: #fff;
+        }
+        button.equal {
+            background-color: #27ae60;
+            color: #fff;
+        }
+        button.clear {
+            background-color: #e74c3c;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +62,7 @@
 
     <button id="toggleButton" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <button onclick="freezeScreen()">Click for a nasty surprise (you'll like it I promise)</button>
-    <button id="playButton">Play randon music</button>
+    <button id="playButton">Play random music</button>
     
     <div id="overlay">Screen is frozen...HAHAHAHA</div>
 
@@ -111,6 +130,36 @@
     <p id="millimeters"></p>
     <p id="micrometers"></p>
     <p id="nanometers"></p>
+
+    <!-- Calculator -->
+    <h2>Basic Calculator</h2>
+    <div id="calculator">
+        <input type="text" id="display" disabled>
+        <div>
+            <button onclick="clearDisplay()" class="clear">C</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')" class="operator">+</button>
+        </div>
+        <div>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')" class="operator">-</button>
+        </div>
+        <div>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')" class="operator">*</button>
+        </div>
+        <div>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="calculate()" class="equal">=</button>
+            <button onclick="appendToDisplay('/')" class="operator">/</button>
+        </div>
+    </div>
 
     <script>
         function myVar(myIn) {
@@ -244,6 +293,24 @@
             document.getElementById('millimeters').innerText = `Millimeters: ${millimeters}`;
             document.getElementById('micrometers').innerText = `Micrometers: ${micrometers}`;
             document.getElementById('nanometers').innerText = `Nanometers: ${nanometers}`;
+        }
+
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            const input = document.getElementById('display').value;
+            try {
+                const result = eval(input);
+                document.getElementById('display').value = result;
+            } catch (e) {
+                document.getElementById('display').value = 'Error';
+            }
         }
     </script>
 </body>
