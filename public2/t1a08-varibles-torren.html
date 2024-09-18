@@ -4,69 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Examples: parseInt, Chart, and Surface Area of Triangular Prism</title>
+
+    <!-- Chart.js library for graphing -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
+        /* Basic styling for body and layout */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #99FFFF;
+            font-family: 'Arial', sans-serif;
+            background-color: #e9f7fa; /* Soft background color */
             color: #333;
             margin: 0;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
             color: #2c3e50;
+            margin-bottom: 20px; /* Spacing under headings */
         }
+
         .container {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .form-container {
-            background-color: #fff;
+            background-color: #ffffff; /* White background for forms */
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             margin-right: 20px;
             width: 45%;
         }
+
         #chartContainer {
             width: 55%;
             padding-top: 20px;
         }
+
         label {
             margin-bottom: 5px;
             display: block;
+            font-weight: bold; /* Bold labels for clarity */
         }
+
         input[type="text"],
         input[type="number"] {
             width: calc(100% - 12px);
-            padding: 5px;
-            margin-bottom: 10px;
+            padding: 10px; /* Increased padding for better usability */
+            margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 3px;
+            border-radius: 5px;
+            font-size: 14px; /* Consistent font size */
         }
+
         button {
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 3px;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
+            font-weight: bold; /* Bold text on buttons */
+            font-size: 16px;
         }
+
         button:hover {
             background-color: #2980b9;
         }
+
         #result {
             margin-top: 10px;
             font-weight: bold;
+            text-align: center; /* Centered text for result display */
         }
+
         footer {
             text-align: center;
             margin-top: 20px;
+        }
+
+        .input-addition {
+            text-align: center; /* Center-aligned for input and addition */
+            margin-top: 30px;
+        }
+
+        .input-addition input {
+            width: 40%; /* Adjusted width for inputs */
+            margin: 0 5px; /* Margin for spacing between inputs */
+        }
+
+        .input-addition div {
+            margin-top: 10px; /* Margin above result display */
+            font-weight: bold; /* Highlighting the result */
         }
     </style>
 </head>
@@ -79,21 +114,23 @@
         // Example of parseInt
         let decimalString = "123";
         let decimalNumber = parseInt(decimalString, 10);
-        
+
         let hexString = "0xF";
         let hexNumber = parseInt(hexString, 16);
-        
+
         // Displaying the parseInt results
         document.getElementById("demo").innerHTML = 
-            "Decimal: " + decimalNumber + "<br>" +
-            "Hexadecimal: " + hexNumber;
-
-        // Declare a JavaScript variable
-        let userName = "John Doe";
-        document.getElementById("name").innerHTML = userName;
+            `<strong>Decimal:</strong> ${decimalNumber}<br>
+            <strong>Hexadecimal:</strong> ${hexNumber}`;
     </script>
     
     <h1>Hello, my name is <span id="name"></span></h1>
+
+    <script>
+        // Declare a JavaScript variable for user name
+        let userName = "John Doe";
+        document.getElementById("name").innerHTML = userName;
+    </script>
 
     <h1>Graph Example and Triangular Prism Surface Area</h1>
 
@@ -127,7 +164,7 @@
             <input type="number" id="side2" required>
             <label for="side3">Side 3 of Triangle:</label>
             <input type="number" id="side3" required>
-            <button type="submit">Calculate</button>
+            <button type="submit">Calculate Surface Area</button>
         </form>
         <p id="result"></p>
     </div>
@@ -159,16 +196,10 @@
                     responsive: true,
                     scales: {
                         x: {
-                            title: {
-                                display: true,
-                                text: 'X-axis'
-                            }
+                            title: { display: true, text: 'X-axis' }
                         },
                         y: {
-                            title: {
-                                display: true,
-                                text: 'Y-axis'
-                            }
+                            title: { display: true, text: 'Y-axis' }
                         }
                     }
                 }
@@ -176,6 +207,7 @@
         }
 
         function calculateSurfaceArea() {
+            // Gather input values
             let base = parseFloat(document.getElementById('base').value);
             let height = parseFloat(document.getElementById('height').value);
             let length = parseFloat(document.getElementById('length').value);
@@ -183,35 +215,38 @@
             let side2 = parseFloat(document.getElementById('side2').value);
             let side3 = parseFloat(document.getElementById('side3').value);
 
+            // Validate inputs
             if (isNaN(base) || isNaN(height) || isNaN(length) || isNaN(side1) || isNaN(side2) || isNaN(side3)) {
                 alert("Please enter valid numbers for all fields.");
                 return;
             }
 
+            // Compute surface area
             let baseArea = 0.5 * base * height;
             let perimeter = side1 + side2 + side3;
             let surfaceArea = (2 * baseArea) + (perimeter * length);
 
+            // Display the result
             document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
         }
     </script>
 
     <footer>
-        <a href="https://www.w3schools.com/js/js_variables.asp">W3Schools Variables</a>
+        <a href="https://www.w3schools.com/js/js_variables.asp" target="_blank">W3Schools Variables</a>
     </footer>
 
-    <div>
-        <h2>Input and Add Example</h2>
-        Input 1:<input type="text" id="myIn01" value="5"><br>
-        Input 2:<input type="text" id="myIn02" value="7"><br>
-        <input type="button" value="Add and Fix" onclick="addAndDisplay()">
-        <div id="myDiv01">...</div>
+    <div class="input-addition">
+        <h2>Add Two Numbers</h2>
+        Input 1: <input type="text" id="myIn01" value="5">
+        Input 2: <input type="text" id="myIn02" value="7">
+        <input type="button" value="Add" onclick="addAndDisplay()">
+        <div id="myDiv01">Your answer will be displayed here.</div>
     </div>
 
     <script>
         function addAndDisplay() {
             const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
-            document.getElementById('myDiv01').innerHTML = 'Your answer is ' + myTotal;
+            document.getElementById('myDiv01').innerHTML = 'Your answer is: ' + myTotal;
         }
     </script>
 
