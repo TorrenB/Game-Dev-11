@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>String and Byte Example</title>
+    <title>JavaScript Variables</title>
 </head>
 <body>
-    <h1>String and Byte Example</h1>
-    <p id="message"></p>
+    <h1>JavaScript Variables</h1>
+    <ul id="variableList"></ul>
 
     <script>
-        // Define a string
-        let str = "Hello, World!";
-        
-        // Convert string to bytes (UTF-8 encoding)
-        let bytes = new TextEncoder().encode(str);
-        
-        // Convert bytes back to string
-        let decodedStr = new TextDecoder().decode(bytes);
-        
-        // Display the decoded string
-        document.getElementById("message").innerText = decodedStr;
+        // Define some variables
+        let name = "Alice";
+        const age = 30;
+        var city = "Wonderland";
+        let isStudent = true;
+
+        // Function to list all variables
+        function listVariables() {
+            let variables = { name, age, city, isStudent };
+            let variableList = document.getElementById("variableList");
+
+            for (let key in variables) {
+                let listItem = document.createElement("li");
+                listItem.textContent = `${key}: ${variables[key]}`;
+                variableList.appendChild(listItem);
+            }
+        }
+
+        // Call the function to list variables
+        listVariables();
     </script>
 </body>
 </html>
