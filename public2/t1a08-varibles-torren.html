@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Variables Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .equation {
-            font-size: 20px;
-        }
-    </style>
+    <title>String and Byte Example</title>
 </head>
 <body>
-    <h1>Using Variables in HTML</h1>
-    <p class="equation">The area of a triangle is: 1/2 x <var>b</var> x <var>h</var>, where <var>b</var> is the base, and <var>h</var> is the height.</p>
+    <h1>String and Byte Example</h1>
+    <p id="message"></p>
+
+    <script>
+        // Define a string
+        let str = "Hello, World!";
+        
+        // Convert string to bytes (UTF-8 encoding)
+        let bytes = new TextEncoder().encode(str);
+        
+        // Convert bytes back to string
+        let decodedStr = new TextDecoder().decode(bytes);
+        
+        // Display the decoded string
+        document.getElementById("message").innerText = decodedStr;
+    </script>
 </body>
 </html>
-
