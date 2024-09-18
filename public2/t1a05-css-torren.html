@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combined Fun Code with Stretched and Upside Down Text</title>
+    <title>Combined Fun Code with Color and Animation</title>
     <style>
         body {
             animation: changeBackground 3s infinite alternate;
@@ -67,12 +67,28 @@
             text-align: center;
             z-index: 2; /* Ensure this text appears over the background */
         }
+
+        @keyframes colorChange {
+            0% { color: blue; }
+            25% { color: white; }
+            50% { color: black; }
+            75% { color: yellow; }
+            100% { color: blue; }
+        }
+
+        .color-changing-text {
+            animation: colorChange 5s infinite;
+            text-align: center;
+            margin: 20px 0; /* Add some margin for spacing */
+        }
     </style>
 </head>
 <body>
     <h1>FUN, SO much fun, website, thing, this title is super long, I don’t know how long this title is, this is fun to read isn't it?</h1>
     <div class="stretched-text">Stretched Text!</div>
     <p class="upside-down">This text is upside down!</p>
+    
+    <p class="color-changing-text">This text changes color!</p>
     
     <p style="color: red;">This text is red.</p>
     <p style="color: blue;">This text is blue.</p>
