@@ -104,6 +104,24 @@
             font-weight: bold; /* Highlighting the result */
         }
     </style>
+    <script>
+        function generateEquation() {
+            // Get the input number from the user
+            const inputNumber = parseInt(document.getElementById('numberInput').value);
+            if (isNaN(inputNumber)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+
+            // Generate a simple equation that equals the input number
+            const x = Math.floor(Math.random() * inputNumber);
+            const y = inputNumber - x;
+
+            // Display the equation
+            const equation = `${inputNumber} = ${x} + ${y}`;
+            document.getElementById('result').innerText = equation;
+        }
+    </script>
 </head>
 <body>
 
@@ -123,7 +141,7 @@
             `<strong>Decimal:</strong> ${decimalNumber}<br>
             <strong>Hexadecimal:</strong> ${hexNumber}`;
     </script>
-    
+
     <h1>Hello, my name is <span id="name"></span></h1>
 
     <script>
@@ -229,11 +247,24 @@
             // Display the result
             document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
         }
+
+        function addAndDisplay() {
+            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
+            document.getElementById('myDiv01').innerHTML = 'Your answer is: ' + myTotal;
+        }
     </script>
 
     <footer>
         <a href="https://www.w3schools.com/js/js_variables.asp" target="_blank">W3Schools Variables</a>
     </footer>
+
+    <div class="form-container" id="equationForm">
+        <h2>Random Number Equation Generator</h2>
+        <label for="numberInput">Enter a random number:</label>
+        <input type="text" id="numberInput">
+        <button onclick="generateEquation()">Generate Equation</button>
+        <p id="result"></p>
+    </div>
 
     <div class="input-addition">
         <h2>Add Two Numbers</h2>
@@ -242,13 +273,6 @@
         <input type="button" value="Add" onclick="addAndDisplay()">
         <div id="myDiv01">Your answer will be displayed here.</div>
     </div>
-
-    <script>
-        function addAndDisplay() {
-            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
-            document.getElementById('myDiv01').innerHTML = 'Your answer is: ' + myTotal;
-        }
-    </script>
 
 </body>
 </html>
