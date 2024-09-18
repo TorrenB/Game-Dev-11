@@ -78,6 +78,10 @@
             background-color: #2980b9;
         }
 
+        #colorChangeButton {
+            background-color: #3498db; /* Initial button color */
+        }
+
         #result {
             margin-top: 10px;
             font-weight: bold;
@@ -120,6 +124,13 @@
             // Display the equation
             const equation = `${inputNumber} = ${x} + ${y}`;
             document.getElementById('result').innerText = equation;
+        }
+
+        function changeColor() {
+            const button = document.getElementById('colorChangeButton');
+            // Generate a random color
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            button.style.backgroundColor = randomColor; // Change button color
         }
     </script>
 </head>
@@ -272,6 +283,12 @@
         Input 2: <input type="text" id="myIn02" value="7">
         <input type="button" value="Add" onclick="addAndDisplay()">
         <div id="myDiv01">Your answer will be displayed here.</div>
+    </div>
+
+    <!-- New Color Change Button -->
+    <div class="form-container" style="margin-top: 20px;">
+        <h2>Change Button Color</h2>
+        <button id="colorChangeButton" onclick="changeColor()">Click Me to Change Color</button>
     </div>
 
 </body>
