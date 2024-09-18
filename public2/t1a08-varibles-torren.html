@@ -1,33 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JavaScript Variables</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        #inputForm {
+            width: 30%;
+        }
+        #chartContainer {
+            width: 60%;
+        }
+    </style>
 </head>
 <body>
-    <h1>JavaScript Variables</h1>
-    <ul id="variableList"></ul>
+    <div id="inputForm">
+        <h2>Input Data</h2>
+        <label for="xValues">X-axis values (comma separated):</label><br>
+        <input type="text" id="xValues" placeholder="e.g., 1,2,3,4"><br><br>
+        <label for="yValues">Y-axis values (comma separated):</label><br>
+        <input type="text" id="yValues" placeholder="e.g., 10,20,30,40"><br><br>
+        <button onclick="drawChart()">Draw Chart</button>
+    </div>
+    <div id="chartContainer">
+        <canvas id="myChart"></canvas>
+    </div>
 
     <script>
-        // Define some variables
-        let name = "Alice";
-        const age = 30;
-        var city = "Wonderland";
-        let isStudent = true;
+        function drawChart() {
+            const xValues = document.getElementById('xValues').value.split(',').map(Number);
+            const yValues = document.getElementById('yValues').value.split(',').map(Number);
 
-        // Function to list all variables
-        function listVariables() {
-            let variables = { name, age, city, isStudent };
-            let variableList = document.getElementById("variableList");
-
-            for (let key in variables) {
-                let listItem = document.createElement("li");
-                listItem.textContent = `${key}: ${variables[key]}`;
-                variableList.appendChild(listItem);
-            }
+            const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: 'Sample Data',
+                        data: yValues,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'X-axis'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Y-axis'
+                            }
+                        }
+                    }
+                }
+            });
         }
-
-        // Call the function to list variables
-        listVariables();
     </script>
 </body>
 </html>
