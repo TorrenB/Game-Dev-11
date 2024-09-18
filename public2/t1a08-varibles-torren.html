@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a08-variables-torren.html</title>
+    <title>JavaScript Variable and Surface Area of Triangular Prism</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -76,10 +76,10 @@
     
     <script>
         // Declare a JavaScript variable
-        let name = "John Doe";
+        let userName = "John Doe";
         
         // Display the variable value in the HTML element with id="name"
-        document.getElementById("name").innerHTML = name;
+        document.getElementById("name").innerHTML = userName;
     </script>
 
     <h1>Graph Example and Triangular Prism Surface Area</h1>
@@ -124,6 +124,11 @@
             const xValues = document.getElementById('xValues').value.split(',').map(Number);
             const yValues = document.getElementById('yValues').value.split(',').map(Number);
 
+            if (xValues.length !== yValues.length) {
+                alert("Please ensure both X and Y axis values have the same number of entries.");
+                return;
+            }
+
             const ctx = document.getElementById('myChart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
@@ -166,6 +171,12 @@
             let side2 = parseFloat(document.getElementById('side2').value);
             let side3 = parseFloat(document.getElementById('side3').value);
 
+            // Validate inputs
+            if (isNaN(base) || isNaN(height) || isNaN(length) || isNaN(side1) || isNaN(side2) || isNaN(side3)) {
+                alert("Please enter valid numbers for all fields.");
+                return;
+            }
+
             // Calculate the area of the triangular base
             let baseArea = 0.5 * base * height;
 
@@ -188,12 +199,16 @@
         <h2>Input and Add Example</h2>
         Input 1:<input type="text" id="myIn01" value="5"><br>
         Input 2:<input type="text" id="myIn02" value="7"><br>
-        <input type="button" value="Add and Fix" onclick="{
-            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
-            document.getElementById('myDiv01').innerHTML = 'Your answer is ' + myTotal;
-        }">
+        <input type="button" value="Add and Fix" onclick="addAndDisplay()">
         <div id="myDiv01">...</div>
     </div>
+
+    <script>
+        function addAndDisplay() {
+            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
+            document.getElementById('myDiv01').innerHTML = 'Your answer is ' + myTotal;
+        }
+    </script>
 
 </body>
 </html>
