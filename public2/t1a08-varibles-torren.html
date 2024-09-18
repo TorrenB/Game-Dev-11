@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Variable and Surface Area of Triangular Prism</title>
+    <title>JavaScript Examples: parseInt, Chart, and Surface Area of Triangular Prism</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -72,15 +72,28 @@
 </head>
 <body>
 
-    <h1>Hello, my name is <span id="name"></span></h1>
-    
+    <h1>JavaScript Examples</h1>
+    <p id="demo"></p>
+
     <script>
+        // Example of parseInt
+        let decimalString = "123";
+        let decimalNumber = parseInt(decimalString, 10);
+        
+        let hexString = "0xF";
+        let hexNumber = parseInt(hexString, 16);
+        
+        // Displaying the parseInt results
+        document.getElementById("demo").innerHTML = 
+            "Decimal: " + decimalNumber + "<br>" +
+            "Hexadecimal: " + hexNumber;
+
         // Declare a JavaScript variable
         let userName = "John Doe";
-        
-        // Display the variable value in the HTML element with id="name"
         document.getElementById("name").innerHTML = userName;
     </script>
+    
+    <h1>Hello, my name is <span id="name"></span></h1>
 
     <h1>Graph Example and Triangular Prism Surface Area</h1>
 
@@ -163,7 +176,6 @@
         }
 
         function calculateSurfaceArea() {
-            // Get input values
             let base = parseFloat(document.getElementById('base').value);
             let height = parseFloat(document.getElementById('height').value);
             let length = parseFloat(document.getElementById('length').value);
@@ -171,22 +183,15 @@
             let side2 = parseFloat(document.getElementById('side2').value);
             let side3 = parseFloat(document.getElementById('side3').value);
 
-            // Validate inputs
             if (isNaN(base) || isNaN(height) || isNaN(length) || isNaN(side1) || isNaN(side2) || isNaN(side3)) {
                 alert("Please enter valid numbers for all fields.");
                 return;
             }
 
-            // Calculate the area of the triangular base
             let baseArea = 0.5 * base * height;
-
-            // Calculate the perimeter of the triangular base
             let perimeter = side1 + side2 + side3;
-
-            // Calculate the surface area of the triangular prism
             let surfaceArea = (2 * baseArea) + (perimeter * length);
 
-            // Display the result
             document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
         }
     </script>
