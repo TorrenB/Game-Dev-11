@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Combined Fun Code with Color and Animation</title>
     <style>
-        body {
-            animation: changeBackground 3s infinite alternate;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            overflow: hidden; /* Prevent scrolling due to absolute positioning */
             font-family: Arial, sans-serif;
         }
 
-        @keyframes changeBackground {
-            0% { background-color: red; }
-            20% { background-color: orange; }
-            40% { background-color: yellow; }
-            60% { background-color: green; }
-            80% { background-color: blue; }
-            100% { background-color: purple; }
+        .left {
+            width: 50%;
+            animation: colorChange 5s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+
+        .right {
+            width: 50%;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+            display: flex;
+            align-items: center; /* Center items vertically */
+            justify-content: center; /* Center items horizontally */
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: red;
+            }
+            25% {
+                background-color: yellow;
+            }
+            50% {
+                background-color: green;
+            }
+            75% {
+                background-color: blue;
+            }
+            100% {
+                background-color: red;
+            }
         }
 
         h1 {
@@ -25,16 +56,25 @@
             border: 3px dotted black;
             z-index: 1;
             text-align: center;
+            width: 90%; /* Limit width for better appearance */
         }
 
         @keyframes jump {
-            0%, 100% { top: 0; }
-            50% { top: -20px; }
+            0%, 100% {
+                top: 0;
+            }
+            50% {
+                top: -20px;
+            }
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
         }
 
         img.animate-image {
@@ -45,35 +85,35 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes moveDown {
-            from { top: 0; }
-            to { top: 100vh; }
+            from {
+                top: 0;
+            }
+            to {
+                top: 100vh;
+            }
         }
 
         .stretched-text {
-            font-size: 20px; /* Change to desired font size */
-            transform: scaleX(2); /* Stretch horizontally */
-            transform-origin: center; /* Change transform origin if needed */
+            font-size: 20px;
+            transform: scaleX(2);
+            transform-origin: center;
             text-align: center;
-            z-index: 2; /* Ensure this text appears over the background */
+            z-index: 2;
         }
-        
+
         .upside-down {
             transform: scale(1, -1);
             text-align: center;
-            z-index: 2; /* Ensure this text appears over the background */
-        }
-
-        @keyframes colorChange {
-            0% { color: blue; }
-            25% { color: white; }
-            50% { color: black; }
-            75% { color: yellow; }
-            100% { color: blue; }
+            z-index: 2;
         }
 
         .color-changing-text {
@@ -83,23 +123,23 @@
         }
     </style>
 </head>
-<body>
-    <h1>FUN, SO much fun, website, thing, this title is super long, I don’t know how long this title is, this is fun to read isn't it?</h1>
-    <div class="stretched-text">Stretched Text!</div>
-    <p class="upside-down">This text is upside down!</p>
-    
-    <p class="color-changing-text">This text changes color!</p>
-    
-    <p style="color: red;">This text is red.</p>
-    <p style="color: blue;">This text is blue.</p>
-    <p style="color: green;">This text is green.</p>
 
-    <img src="https://i.pinimg.com/736x/d1/2c/09/d12c0968d27e9b263adb803672bba080.jpg" class="animate-image" alt="Animated Image">
-    
-    <div style="text-align: left;"><br>
+<body>
+    <div class="left">
+        <h1>FUN, SO much fun, website, thing, this title is super long, I don’t know how long this title is, this is fun to read isn't it?</h1>
         <div class="stretched-text">Stretched Text!</div>
-        <a href="https://www.w3schools.com/Css/css3_flexbox.asp#gsc.tab=0">w3schools</a><br>
-        I am <i style="border-style:groove;">Something cool?</i>
+        <p class="upside-down">This text is upside down!</p>
+        <p class="color-changing-text">This text changes color!</p>
+        <p style="color: red;">This text is red.</p>
+        <p style="color: blue;">This text is blue.</p>
+        <p style="color: green;">This text is green.</p>
+        <img src="https://i.pinimg.com/736x/d1/2c/09/d12c0968d27e9b263adb803672bba080.jpg" class="animate-image" alt="Animated Image">
+        <div>
+            <a href="https://www.w3schools.com/Css/css3_flexbox.asp#gsc.tab=0">w3schools</a><br>
+            I am <i style="border-style: groove;">Something cool?</i>
+        </div>
     </div>
+    <div class="right"></div>
 </body>
+
 </html>
