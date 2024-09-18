@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph Example</title>
+    <title>Graph and Surface Area of Triangular Prism</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
         }
-        #inputForm {
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        #inputForm, #prismForm {
             width: 30%;
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
         }
         #chartContainer {
             width: 60%;
@@ -20,16 +30,41 @@
     </style>
 </head>
 <body>
-    <div id="inputForm">
-        <h2>Input Data</h2>
-        <label for="xValues">X-axis values (comma separated):</label><br>
-        <input type="text" id="xValues" placeholder="e.g., 1,2,3,4"><br><br>
-        <label for="yValues">Y-axis values (comma separated):</label><br>
-        <input type="text" id="yValues" placeholder="e.g., 10,20,30,40"><br><br>
-        <button onclick="drawChart()">Draw Chart</button>
+    <h1>Graph Example and Triangular Prism Surface Area</h1>
+
+    <div class="container">
+        <div id="inputForm">
+            <h2>Input Data for Chart</h2>
+            <label for="xValues">X-axis values (comma separated):</label><br>
+            <input type="text" id="xValues" placeholder="e.g., 1,2,3,4"><br><br>
+            <label for="yValues">Y-axis values (comma separated):</label><br>
+            <input type="text" id="yValues" placeholder="e.g., 10,20,30,40"><br><br>
+            <button onclick="drawChart()">Draw Chart</button>
+        </div>
+        
+        <div id="chartContainer">
+            <canvas id="myChart"></canvas>
+        </div>
     </div>
-    <div id="chartContainer">
-        <canvas id="myChart"></canvas>
+
+    <div id="prismForm">
+        <h2>Surface Area of a Triangular Prism</h2>
+        <form onsubmit="event.preventDefault(); calculateSurfaceArea();">
+            <label for="base">Base of Triangle:</label>
+            <input type="number" id="base" required><br><br>
+            <label for="height">Height of Triangle:</label>
+            <input type="number" id="height" required><br><br>
+            <label for="length">Length of Prism:</label>
+            <input type="number" id="length" required><br><br>
+            <label for="side1">Side 1 of Triangle:</label>
+            <input type="number" id="side1" required><br><br>
+            <label for="side2">Side 2 of Triangle:</label>
+            <input type="number" id="side2" required><br><br>
+            <label for="side3">Side 3 of Triangle:</label>
+            <input type="number" id="side3" required><br><br>
+            <button type="submit">Calculate</button>
+        </form>
+        <p id="result"></p>
     </div>
 
     <script>
@@ -69,7 +104,30 @@
                 }
             });
         }
+
+        function calculateSurfaceArea() {
+            // Get input values
+            let base = parseFloat(document.getElementById('base').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let length = parseFloat(document.getElementById('length').value);
+            let side1 = parseFloat(document.getElementById('side1').value);
+            let side2 = parseFloat(document.getElementById('side2').value);
+            let side3 = parseFloat(document.getElementById('side3').value);
+
+            // Calculate the area of the triangular base
+            let baseArea = 0.5 * base * height;
+
+            // Calculate the perimeter of the triangular base
+            let perimeter = side1 + side2 + side3;
+
+            // Calculate the surface area of the triangular prism
+            let surfaceArea = (2 * baseArea) + (perimeter * length);
+
+            // Display the result
+            document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
+        }
     </script>
+
     <a href="https://www.w3schools.com/js/js_variables.asp"> W3Schools Variables</a>
 </body>
 </html>
