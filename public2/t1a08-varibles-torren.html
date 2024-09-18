@@ -110,27 +110,105 @@
     </style>
     <script>
         function generateEquation() {
-            // Get the input number from the user
             const inputNumber = parseInt(document.getElementById('numberInput').value);
             if (isNaN(inputNumber)) {
                 alert("Please enter a valid number.");
                 return;
             }
-
-            // Generate a simple equation that equals the input number
             const x = Math.floor(Math.random() * inputNumber);
             const y = inputNumber - x;
-
-            // Display the equation
             const equation = `${inputNumber} = ${x} + ${y}`;
             document.getElementById('result').innerText = equation;
         }
 
         function changeColor() {
             const button = document.getElementById('colorChangeButton');
-            // Generate a random color
             const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
             button.style.backgroundColor = randomColor; // Change button color
+        }
+
+        function drawChart() {
+            const xValues = document.getElementById('xValues').value.split(',').map(Number);
+            const yValues = document.getElementById('yValues').value.split(',').map(Number);
+
+            if (xValues.length !== yValues.length) {
+                alert("Please ensure both X and Y axis values have the same number of entries.");
+                return;
+            }
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: 'Sample Data',
+                        data: yValues,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'X-axis' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Y-axis' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function calculateSurfaceArea() {
+            let base = parseFloat(document.getElementById('base').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let length = parseFloat(document.getElementById('length').value);
+            let side1 = parseFloat(document.getElementById('side1').value);
+            let side2 = parseFloat(document.getElementById('side2').value);
+            let side3 = parseFloat(document.getElementById('side3').value);
+
+            if (isNaN(base) || isNaN(height) || isNaN(length) || isNaN(side1) || isNaN(side2) || isNaN(side3)) {
+                alert("Please enter valid numbers for all fields.");
+                return;
+            }
+
+            let baseArea = 0.5 * base * height;
+            let perimeter = side1 + side2 + side3;
+            let surfaceArea = (2 * baseArea) + (perimeter * length);
+            document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
+        }
+
+        function addAndDisplay() {
+            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
+            document.getElementById('myDiv01').innerHTML = 'Your answer is: ' + myTotal;
+        }
+
+        function getCityCoordinates() {
+            const city = document.getElementById('city').value;
+            const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+            if (city) {
+                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('City not found');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const lat = data.coord.lat;
+                        const lon = data.coord.lon;
+                        document.getElementById('locationResult').innerHTML = `Latitude: ${lat}, Longitude: ${lon}`;
+                    })
+                    .catch(error => {
+                        document.getElementById('locationResult').innerHTML = error.message;
+                    });
+            } else {
+                document.getElementById('locationResult').innerHTML = 'Please enter a city name.';
+            }
         }
     </script>
 </head>
@@ -140,23 +218,17 @@
     <p id="demo"></p>
 
     <script>
-        // Example of parseInt
         let decimalString = "123";
         let decimalNumber = parseInt(decimalString, 10);
-
         let hexString = "0xF";
         let hexNumber = parseInt(hexString, 16);
-
-        // Displaying the parseInt results
         document.getElementById("demo").innerHTML = 
             `<strong>Decimal:</strong> ${decimalNumber}<br>
             <strong>Hexadecimal:</strong> ${hexNumber}`;
     </script>
 
     <h1>Hello, my name is <span id="name"></span></h1>
-
     <script>
-        // Declare a JavaScript variable for user name
         let userName = "John Doe";
         document.getElementById("name").innerHTML = userName;
     </script>
@@ -198,77 +270,6 @@
         <p id="result"></p>
     </div>
 
-    <script>
-        function drawChart() {
-            const xValues = document.getElementById('xValues').value.split(',').map(Number);
-            const yValues = document.getElementById('yValues').value.split(',').map(Number);
-
-            if (xValues.length !== yValues.length) {
-                alert("Please ensure both X and Y axis values have the same number of entries.");
-                return;
-            }
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        label: 'Sample Data',
-                        data: yValues,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 2,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: {
-                            title: { display: true, text: 'X-axis' }
-                        },
-                        y: {
-                            title: { display: true, text: 'Y-axis' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function calculateSurfaceArea() {
-            // Gather input values
-            let base = parseFloat(document.getElementById('base').value);
-            let height = parseFloat(document.getElementById('height').value);
-            let length = parseFloat(document.getElementById('length').value);
-            let side1 = parseFloat(document.getElementById('side1').value);
-            let side2 = parseFloat(document.getElementById('side2').value);
-            let side3 = parseFloat(document.getElementById('side3').value);
-
-            // Validate inputs
-            if (isNaN(base) || isNaN(height) || isNaN(length) || isNaN(side1) || isNaN(side2) || isNaN(side3)) {
-                alert("Please enter valid numbers for all fields.");
-                return;
-            }
-
-            // Compute surface area
-            let baseArea = 0.5 * base * height;
-            let perimeter = side1 + side2 + side3;
-            let surfaceArea = (2 * baseArea) + (perimeter * length);
-
-            // Display the result
-            document.getElementById('result').innerText = 'Surface Area: ' + surfaceArea.toFixed(2) + ' square units';
-        }
-
-        function addAndDisplay() {
-            const myTotal = parseFloat(document.getElementById('myIn01').value) + parseFloat(document.getElementById('myIn02').value);
-            document.getElementById('myDiv01').innerHTML = 'Your answer is: ' + myTotal;
-        }
-    </script>
-
-    <footer>
-        <a href="https://www.w3schools.com/js/js_variables.asp" target="_blank">W3Schools Variables</a>
-    </footer>
-
     <div class="form-container" id="equationForm">
         <h2>Random Number Equation Generator</h2>
         <label for="numberInput">Enter a random number:</label>
@@ -290,6 +291,19 @@
         <h2>Change Button Color</h2>
         <button id="colorChangeButton" onclick="changeColor()">Click Me to Change Color</button>
     </div>
+    
+    <!-- City Latitude and Longitude Finder -->
+    <div class="form-container" style="margin-top: 20px;">
+        <h2>City Coordinates Finder</h2>
+        <label for="city">Enter city name:</label>
+        <input type="text" id="city" placeholder="e.g., New York">
+        <button onclick="getCityCoordinates()">Get Coordinates</button>
+        <p id="locationResult"></p>
+    </div>
+
+    <footer>
+        <a href="https://www.w3schools.com/js/js_variables.asp" target="_blank">W3Schools Variables</a>
+    </footer>
 
 </body>
 </html>
