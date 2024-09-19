@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full-Screen Image Slideshow</title>
+    <title>Music and Image Slideshow</title>
     <style>
         body {
             margin: 0;
@@ -45,9 +45,25 @@
         .next {
             right: 10px; /* Position for right button */
         }
+
+        h1, p {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            color: white;
+            z-index: 2; /* Ensure text is on top */
+        }
     </style>
 </head>
 <body>
+    <h1>Welcome to My Website</h1>
+    <p>Enjoy the music and the slideshow!</p>
+
+    <audio autoplay loop>
+        <source src="your-audio-file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="slideshow-container">
         <img class="slides" src="https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg" alt="Earth">
         <img class="slides" src="https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg" alt="Galaxy">
