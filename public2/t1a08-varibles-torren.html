@@ -194,7 +194,7 @@
                 fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('City not found');
+                            throw new Error('Didn not work anyways');
                         }
                         return response.json();
                     })
