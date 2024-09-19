@@ -3,57 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoom Out from Earth</title>
+    <title>Image Slideshow</title>
     <style>
-        body, html {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
+            background-color: #f4f4f4;
         }
-        .container {
+
+        .slideshow-container {
             position: relative;
-            width: 100%;
-            height: 100%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
         }
-        .zoom {
+
+        .slideshow {
+            display: flex;
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+        }
+
+        button {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            animation: zoomOut 5s linear infinite;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        @keyframes zoomOut {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            25% {
-                transform: scale(0.5);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scale(0.25);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(0.0625);
-                opacity: 0;
-            }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="zoom" style="background-image: url('https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg'); animation-delay: 0s;"></div>
-        <div class="zoom" style="background-image: url('https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg'); animation-delay: 1s;"></div>
-        <div class="zoom" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/98/Milky_Way_Galaxy_shimmering_over_Nanga_Parbat,_Pakistan.jpg'); animation-delay: 2s;"></div>
-        <div class="zoom" style="background-image: url('https://wallpaperaccess.com/full/1124099.jpg'); animation-delay: 3s;"></div>
+    <div class="slideshow-container">
+        <div class="slideshow">
+            <img class="slides" src="https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg" alt="Earth">
+            <img class="slides" src="https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg" alt="Galaxy">
+            <img class="slides" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Milky_Way_Galaxy_shimmering_over_Nanga_Parbat,_Pakistan.jpg" alt="Milky Way Galaxy">
+            <img class="slides" src="https://wallpaperaccess.com/full/1124099.jpg" alt="Universe">
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slides');
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+
+            slides.forEach((slide, idx) => {
+                slide.style.display = (idx === currentSlide) ? "block" : "none";
+            });
+        }
+
+        // Change slide based on the direction
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Show the first slide initially
+        showSlide(currentSlide);
+
+        // Auto slide every 3 seconds (optional)
+        setInterval(() => {
+            changeSlide(1);
+        }, 3000);
+    </script>
 </body>
 </html>
