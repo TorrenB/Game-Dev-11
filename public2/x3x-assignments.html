@@ -1,52 +1,111 @@
-document.getElementById('deal-button').addEventListener('click', dealCards);
-
-function dealCards() {
-    const playerHand = document.getElementById('player-hand');
-    const computerHand = document.getElementById('computer-hand');
-    const crib = document.getElementById('crib');
-
-    playerHand.innerHTML = '';
-    computerHand.innerHTML = '';
-    crib.innerHTML = '';
-
-    const deck = createDeck();
-    shuffleDeck(deck);
-
-    for (let i = 0; i < 6; i++) {
-        playerHand.appendChild(createCardElement(deck.pop()));
-        computerHand.appendChild(createCardElement(deck.pop()));
-    }
-
-    for (let i = 0; i < 2; i++) {
-        crib.appendChild(createCardElement(deck.pop()));
-    }
-}
-
-function createDeck() {
-    const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-    const deck = [];
-
-    for (const suit of suits) {
-        for (const value of values) {
-            deck.push({ suit, value });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cribbage Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-    }
 
-    return deck;
-}
+        #game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-function shuffleDeck(deck) {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-}
+        .hand {
+            display: flex;
+            margin: 10px;
+        }
 
-function createCardElement(card) {
-    const cardElement = document.createElement('div');
-    cardElement.className = 'card';
-    cardElement.textContent = `${card.value} of ${card.suit}`;
-    return cardElement;
-}
+        .score {
+            margin: 10px;
+        }
 
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .card {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="player-hand" class="hand"></div>
+        <div id="computer-hand" class="hand"></div>
+        <div id="crib" class="hand"></div>
+        <div id="board">
+            <div id="player-score" class="score">Player Score: 0</div>
+            <div id="computer-score" class="score">Computer Score: 0</div>
+        </div>
+        <button id="deal-button">Deal</button>
+    </div>
+    <script>
+        document.getElementById('deal-button').addEventListener('click', dealCards);
+
+        function dealCards() {
+            const playerHand = document.getElementById('player-hand');
+            const computerHand = document.getElementById('computer-hand');
+            const crib = document.getElementById('crib');
+
+            playerHand.innerHTML = '';
+            computerHand.innerHTML = '';
+            crib.innerHTML = '';
+
+            const deck = createDeck();
+            shuffleDeck(deck);
+
+            for (let i = 0; i < 6; i++) {
+                playerHand.appendChild(createCardElement(deck.pop()));
+                computerHand.appendChild(createCardElement(deck.pop()));
+            }
+
+            for (let i = 0; i < 2; i++) {
+                crib.appendChild(createCardElement(deck.pop()));
+            }
+        }
+
+        function createDeck() {
+            const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            const deck = [];
+
+            for (const suit of suits) {
+                for (const value of values) {
+                    deck.push({ suit, value });
+                }
+            }
+
+            return deck;
+        }
+
+        function shuffleDeck(deck) {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function createCardElement(card) {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card';
+            cardElement.textContent = `${card.value} of ${card.suit}`;
+            return cardElement;
+        }
+    </script>
+</body>
+</html>
