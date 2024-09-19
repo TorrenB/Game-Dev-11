@@ -3,109 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cribbage Game</title>
+    <title>Would You Rather</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
         }
-
-        #game {
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .options {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
         }
-
-        .hand {
-            display: flex;
-            margin: 10px;
-        }
-
-        .score {
-            margin: 10px;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        .card {
-            border: 1px solid #000;
+        .option {
+            flex: 1;
+            margin: 0 10px;
             padding: 10px;
-            margin: 5px;
-            background-color: #fff;
+            background: #e0e0e0;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .option:hover {
+            background: #d0d0d0;
         }
     </style>
 </head>
 <body>
-    <div id="game">
-        <div id="player-hand" class="hand"></div>
-        <div id="computer-hand" class="hand"></div>
-        <div id="crib" class="hand"></div>
-        <div id="board">
-            <div id="player-score" class="score">Player Score: 0</div>
-            <div id="computer-score" class="score">Computer Score: 0</div>
+    <div class="container">
+        <h1>Would You Rather?</h1>
+        <div class="question">
+            <p>1. Would you rather be able to fly or be invisible?</p>
+            <div class="options">
+                <div class="option">Fly</div>
+                <div class="option">Invisible</div>
+            </div>
         </div>
-        <button id="deal-button">Deal</button>
+        <div class="question">
+            <p>2. Would you rather live in the city or the countryside?</p>
+            <div class="options">
+                <div class="option">City</div>
+                <div class="option">Countryside</div>
+            </div>
+        </div>
+        <!-- Add more questions here -->
+        <div class="question">
+            <p>3. Would you rather have more time or more money?</p>
+            <div class="options">
+                <div class="option">More Time</div>
+                <div class="option">More Money</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>4. Would you rather be able to talk to animals or speak all human languages?</p>
+            <div class="options">
+                <div class="option">Talk to Animals</div>
+                <div class="option">Speak All Languages</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>5. Would you rather be famous or be rich?</p>
+            <div class="options">
+                <div class="option">Famous</div>
+                <div class="option">Rich</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>6. Would you rather have a rewind button or a pause button on your life?</p>
+            <div class="options">
+                <div class="option">Rewind</div>
+                <div class="option">Pause</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>7. Would you rather be able to teleport anywhere or be able to read minds?</p>
+            <div class="options">
+                <div class="option">Teleport</div>
+                <div class="option">Read Minds</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>8. Would you rather never have to work again or never have to sleep again?</p>
+            <div class="options">
+                <div class="option">Never Work</div>
+                <div class="option">Never Sleep</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>9. Would you rather be able to control fire or water?</p>
+            <div class="options">
+                <div class="option">Control Fire</div>
+                <div class="option">Control Water</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>10. Would you rather be always hot or always cold?</p>
+            <div class="options">
+                <div class="option">Always Hot</div>
+                <div class="option">Always Cold</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>11. Would you rather have a personal chef or a personal chauffeur?</p>
+            <div class="options">
+                <div class="option">Chef</div>
+                <div class="option">Chauffeur</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>12. Would you rather be able to play every musical instrument or master every sport?</p>
+            <div class="options">
+                <div class="option">Play Instruments</div>
+                <div class="option">Master Sports</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>13. Would you rather have unlimited international first-class tickets or never have to pay for food at restaurants?</p>
+            <div class="options">
+                <div class="option">Unlimited Tickets</div>
+                <div class="option">Free Food</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>14. Would you rather be able to see 10 minutes into your own future or 10 minutes into the future of anyone but yourself?</p>
+            <div class="options">
+                <div class="option">Own Future</div>
+                <div class="option">Others' Future</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>15. Would you rather have an easy job working for someone else or work for yourself but work incredibly hard?</p>
+            <div class="options">
+                <div class="option">Easy Job</div>
+                <div class="option">Work Hard</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>16. Would you rather be the first person to explore a planet or be the inventor of a drug that cures a deadly disease?</p>
+            <div class="options">
+                <div class="option">Explore Planet</div>
+                <div class="option">Cure Disease</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>17. Would you rather be able to go to any theme park for free for the rest of your life or eat for free at any fast food restaurant for the rest of your life?</p>
+            <div class="options">
+                <div class="option">Free Theme Parks</div>
+                <div class="option">Free Fast Food</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>18. Would you rather be completely invisible for one day or be able to fly for one day?</p>
+            <div class="options">
+                <div class="option">Invisible</div>
+                <div class="option">Fly</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>19. Would you rather be able to breathe underwater or fly?</p>
+            <div class="options">
+                <div class="option">Breathe Underwater</div>
+                <div class="option">Fly</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>20. Would you rather have a golden voice or a silver tongue?</p>
+            <div class="options">
+                <div class="option">Golden Voice</div>
+                <div class="option">Silver Tongue</div>
+            </div>
+        </div>
     </div>
-    <script>
-        document.getElementById('deal-button').addEventListener('click', dealCards);
-
-        function dealCards() {
-            const playerHand = document.getElementById('player-hand');
-            const computerHand = document.getElementById('computer-hand');
-            const crib = document.getElementById('crib');
-
-            playerHand.innerHTML = '';
-            computerHand.innerHTML = '';
-            crib.innerHTML = '';
-
-            const deck = createDeck();
-            shuffleDeck(deck);
-
-            for (let i = 0; i < 6; i++) {
-                playerHand.appendChild(createCardElement(deck.pop()));
-                computerHand.appendChild(createCardElement(deck.pop()));
-            }
-
-            for (let i = 0; i < 2; i++) {
-                crib.appendChild(createCardElement(deck.pop()));
-            }
-        }
-
-        function createDeck() {
-            const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-            const deck = [];
-
-            for (const suit of suits) {
-                for (const value of values) {
-                    deck.push({ suit, value });
-                }
-            }
-
-            return deck;
-        }
-
-        function shuffleDeck(deck) {
-            for (let i = deck.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [deck[i], deck[j]] = [deck[j], deck[i]];
-            }
-        }
-
-        function createCardElement(card) {
-            const cardElement = document.createElement('div');
-            cardElement.className = 'card';
-            cardElement.textContent = `${card.value} of ${card.suit}`;
-            return cardElement;
-        }
-    </script>
 </body>
 </html>
