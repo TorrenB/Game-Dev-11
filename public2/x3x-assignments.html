@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
+    <title>Advanced Calculator</title>
     <style>
         .calculator {
             display: grid;
@@ -45,6 +45,13 @@
         <button>.</button>
         <button>=</button>
         <button>+</button>
+        <button>sin</button>
+        <button>cos</button>
+        <button>tan</button>
+        <button>√</button>
+        <button>x²</button>
+        <button>log</button>
+        <button>ln</button>
         <button>C</button>
     </div>
     <script>
@@ -86,6 +93,48 @@
                         return;
                     }
 
+                    if (value === 'sin') {
+                        currentInput = Math.sin(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'cos') {
+                        currentInput = Math.cos(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'tan') {
+                        currentInput = Math.tan(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === '√') {
+                        currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'x²') {
+                        currentInput = Math.pow(parseFloat(currentInput), 2).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'log') {
+                        currentInput = Math.log10(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'ln') {
+                        currentInput = Math.log(parseFloat(currentInput)).toString();
+                        display.textContent = currentInput;
+                        return;
+                    }
+
                     currentInput += value;
                     display.textContent = currentInput;
                 });
@@ -94,4 +143,3 @@
     </script>
 </body>
 </html>
-
