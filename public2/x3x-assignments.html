@@ -3,60 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slideshow</title>
+    <title>Full-Screen Image Slideshow</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         .slideshow-container {
             position: relative;
-            max-width: 800px;
-            margin: auto;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
             overflow: hidden;
-        }
-
-        .slideshow {
-            display: flex;
         }
 
         .slides {
             display: none;
-            width: 100%;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            object-fit: cover; /* Cover the entire area */
         }
 
         button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
+            z-index: 1; /* Ensure buttons are on top */
         }
 
         .prev {
-            left: 10px;
+            left: 10px; /* Position for left button */
         }
 
         .next {
-            right: 10px;
+            right: 10px; /* Position for right button */
         }
     </style>
 </head>
 <body>
     <div class="slideshow-container">
-        <div class="slideshow">
-            <img class="slides" src="https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg" alt="Earth">
-            <img class="slides" src="https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg" alt="Galaxy">
-            <img class="slides" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Milky_Way_Galaxy_shimmering_over_Nanga_Parbat,_Pakistan.jpg" alt="Milky Way Galaxy">
-            <img class="slides" src="https://wallpaperaccess.com/full/1124099.jpg" alt="Universe">
-        </div>
+        <img class="slides" src="https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg" alt="Earth">
+        <img class="slides" src="https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg" alt="Galaxy">
+        <img class="slides" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Milky_Way_Galaxy_shimmering_over_Nanga_Parbat,_Pakistan.jpg" alt="Milky Way Galaxy">
+        <img class="slides" src="https://wallpaperaccess.com/full/1124099.jpg" alt="Universe">
         <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
         <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
