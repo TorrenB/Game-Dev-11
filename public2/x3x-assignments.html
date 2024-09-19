@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
+    <title>Graphing Calculator</title>
     <style>
         .calculator {
             display: grid;
@@ -23,6 +23,10 @@
         button {
             padding: 20px;
             font-size: 1.5em;
+        }
+        #graph {
+            grid-column: span 4;
+            height: 400px;
         }
     </style>
 </head>
@@ -53,7 +57,10 @@
         <button>log</button>
         <button>ln</button>
         <button>C</button>
+        <button id="graphBtn">Graph</button>
     </div>
+    <div id="graph"></div>
+    <script src="https://www.desmos.com/api/v1.0/calculator.js?apiKey=YOUR_API_KEY"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
@@ -61,6 +68,8 @@
             let currentInput = '';
             let operator = '';
             let previousInput = '';
+
+            const calculator = Desmos.GraphingCalculator(document.getElementById('graph'));
 
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -71,6 +80,7 @@
                         previousInput = '';
                         operator = '';
                         display.textContent = '0';
+                        calculator.setExpression({ id: 'graph1', latex: '' });
                         return;
                     }
 
@@ -132,6 +142,11 @@
                     if (value === 'ln') {
                         currentInput = Math.log(parseFloat(currentInput)).toString();
                         display.textContent = currentInput;
+                        return;
+                    }
+
+                    if (value === 'Graph') {
+                        calculator.setExpression({ id: 'graph1', latex: currentInput });
                         return;
                     }
 
