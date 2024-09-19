@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Examples: parseInt, Chart, and Surface Area of Triangular Prism</title>
+    <title>JavaScript Examples: parseInt, Chart, Surface Area of Triangular Prism</title>
 
     <!-- Chart.js library for graphing -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -210,6 +210,28 @@
                 document.getElementById('locationResult').innerHTML = 'It doesnt work anuyways.';
             }
         }
+
+        // Mapping of letters to their upside-down counterparts
+        const upsideDownMap = {
+            'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'ʃ', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+            'A': '∀', 'B': '𐐒', 'C': 'Ↄ', 'D': '◖', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁', 'H': 'H', 'I': 'I', 'J': 'ſ', 'K': '⋊', 'L': '⅃', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥', 'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z'
+        };
+
+        // Function to flip a letter upside down
+        function flipLetter(letter) {
+            return upsideDownMap[letter] || letter;
+        }
+
+        function displayFlippedLetter() {
+            const inputLetter = document.getElementById('upsideDownInput').value;
+            let flippedText = '';
+
+            for (let char of inputLetter) {
+                flippedText += flipLetter(char);
+            }
+
+            document.getElementById('flippedResult').innerText = 'Upside down letters: ' + flippedText;
+        }
     </script>
 </head>
 <body>
@@ -299,6 +321,15 @@
         <input type="text" id="city" placeholder="e.g., New York">
         <button onclick="getCityCoordinates()">Get Coordinates</button>
         <p id="locationResult"></p>
+    </div>
+
+    <!-- Upside Down Letter Flipper -->
+    <div class="form-container" style="margin-top: 20px;">
+        <h2>Flip a Letter Upside Down</h2>
+        <label for="upsideDownInput">Enter a letter:</label>
+        <input type="text" id="upsideDownInput" placeholder="e.g., a">
+        <button onclick="displayFlippedLetter()">Flip Letter</button>
+        <p id="flippedResult"></p>
     </div>
 
     <footer>
