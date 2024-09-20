@@ -89,7 +89,7 @@
         .adventure-container {
             display: none; /* Hide adventure container by default */
         }
-        
+
         /* Responsive Design */
         @media (max-width: 600px) {
             h1 {
@@ -116,33 +116,22 @@
             }
         }
 
-        function checkName() {
-            var name = document.getElementById("checkName").value.trim();
-            var hintElement = document.getElementById("hint");
-            
-            if (name.toLowerCase() === "fred") {
-                hintElement.innerText = "Welcome back, Fred! You are the chosen one!";
-                flashScreen();
-            } else {
-                hintElement.innerText = "Sorry, that's not the right name.";
-                freezeScreen();
+        function isFred() {
+            let myIn1 = document.getElementById('myText1').value;
+            document.getElementById('myDiv01').innerHTML = '<br>';
+            if (myIn1 === 'Fred') {
+                document.getElementById('myDiv01').innerHTML = 'Hi Fred';
             }
         }
 
-        function flashScreen() {
-            document.body.classList.add("flash");
-            console.log("Flashing screen for the name Fred");
-            setTimeout(function() {
-                document.body.classList.remove("flash");
-            }, 2000);
-        }
-
-        function freezeScreen() {
-            console.log("Freezing screen for an incorrect name");
-            document.body.classList.add("blackout");
-            setTimeout(function() {
-                document.body.classList.remove("blackout");
-            }, 2000); // Screen stays black for 2 seconds
+        function isFredElse() {
+            let myIn1 = document.getElementById('myText1').value;
+            document.getElementById('myDiv01').innerHTML = '<br>';
+            if (myIn1 === "Fred") {
+                document.getElementById('myDiv01').innerHTML = 'Hi Fred';
+            } else {
+                document.getElementById('myDiv01').innerHTML = 'Was expecting Fred >:';
+            }
         }
 
         const secretWord = "apple";
@@ -392,7 +381,6 @@
             document.getElementById("game-container").style.display = 'none';
             document.getElementById("adventure-container").style.display = 'none';
             document.getElementById("greetingForm").style.display = 'block';
-            document.getElementById("hint").innerText = ""; // Clear hint on return to the form
         }
     </script>
 </head>
@@ -408,17 +396,17 @@
 
         <form onsubmit="return false;">
             <label for="number">Favorite Number:</label>
-            <input type="number" id="number" name="number">
+            <input type="number" id="number" name="number" value="14">
             <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
         </form>
         <p id="favoriteNumber"></p>
 
-        <form onsubmit="return false;">
-            <label for="checkName">Check Name:</label>
-            <input type="text" id="checkName" name="checkName">
-            <button type="button" onclick="checkName()">Check Name</button>
-        </form>
-        <p id="hint"></p> <!-- Added hint paragraph to display name check results -->
+        <h2>Input Check</h2>
+        Input: <input type="text" id="myText1" value="Fred"><br>
+        <input type="button" value="Is Fred" onclick="isFred()"><br>
+        <input type="button" value="Is Fred else" onclick="isFredElse()"><br>
+        <div id="myDiv01"></div>
+
         <button onclick="showGame()">Go to Word Guessing Game</button>
         <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
     </div>
