@@ -4,7 +4,8 @@
     <title>Greeting Form</title>
     <script>
         function sayHello() {
-            alert("Hello");
+            var name = document.getElementById("name").value;
+            document.getElementById("greeting").innerText = "Hello " + name;
         }
     </script>
 </head>
@@ -14,6 +15,7 @@
         <input type="text" id="name" name="name" value="Fred">
         <button type="button" onclick="sayHello()">Greet</button>
     </form>
+    <p id="greeting"></p>
 </body>
 </html>
 
