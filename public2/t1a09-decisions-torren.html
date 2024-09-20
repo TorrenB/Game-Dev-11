@@ -538,10 +538,48 @@
             function fillArea(event) {
                 const x = event.clientX - canvas.offsetLeft;
                 const y = event.clientY - canvas.offsetTop;
+
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const targetColor = getColorAtPixel(imageData, x, y);
-                floodFill(imageData, x, y, targetColor, hexToRgb(currentColor));
+                const fillColor = hexToRgb(currentColor);
+
+                // Check if the target color is the same as fill color to avoid unnecessary work
+                if (isSameColor(targetColor, fillColor)) return;
+
+                floodFill(imageData, x, y, targetColor, fillColor);
                 ctx.putImageData(imageData, 0, 0);
+            }
+
+            function floodFill(imageData, x, y, targetColor, fillColor) {
+                const stack = [[x, y]]; // Use a stack to keep track of pixels to fill
+                const width = imageData.width;
+                const height = imageData.height;
+
+                while (stack.length) {
+                    const [cx, cy] = stack.pop();
+
+                    // Ensure we're within bounds
+                    if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
+
+                    const index = (cy * width + cx) * 4;
+
+                    // Check if the color matches the target color
+                    if (isSameColor(imageData, index, targetColor)) {
+                        setColorAtPixel(imageData, index, fillColor);
+                        // Push the neighboring pixels
+                        stack.push([cx + 1, cy]);
+                        stack.push([cx - 1, cy]);
+                        stack.push([cx, cy + 1]);
+                        stack.push([cx, cy - 1]);
+                    }
+                }
+            }
+
+            function isSameColor(imageData, index, color) {
+                if (index < 0 || index >= imageData.data.length) return false; // Prevent accessing out of bounds
+                return imageData.data[index] === color.r &&
+                       imageData.data[index + 1] === color.g &&
+                       imageData.data[index + 2] === color.b;
             }
 
             function getColorAtPixel(imageData, x, y) {
@@ -561,25 +599,6 @@
                     g: (bigint >> 8) & 255,
                     b: bigint & 255
                 };
-            }
-
-            function floodFill(imageData, x, y, targetColor, fillColor) {
-                const stack = [[x, y]];
-                while (stack.length) {
-                    const [cx, cy] = stack.pop();
-                    const index = (cy * imageData.width + cx) * 4;
-                    if (isSameColor(imageData, index, targetColor)) {
-                        setColorAtPixel(imageData, index, fillColor);
-                        stack.push([cx + 1, cy], [cx - 1, cy], [cx, cy + 1], [cx, cy - 1]);
-                    }
-                }
-            }
-
-            function isSameColor(imageData, index, color) {
-                return imageData.data[index] === color.r &&
-                       imageData.data[index + 1] === color.g &&
-                       imageData.data[index + 2] === color.b &&
-                       imageData.data[index + 3] === color.a;
             }
 
             function setColorAtPixel(imageData, index, color) {
