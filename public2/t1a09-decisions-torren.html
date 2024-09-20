@@ -2,6 +2,16 @@
 <html>
 <head>
     <title>Greeting Form</title>
+    <style>
+        .flash {
+            animation: flash 0.5s alternate 4;
+        }
+
+        @keyframes flash {
+            from { background-color: yellow; }
+            to { background-color: white; }
+        }
+    </style>
     <script>
         function sayHello() {
             var name = document.getElementById("name").value;
@@ -17,9 +27,27 @@
             }
         }
 
-        function showWouldYouRather() {
-            var question = "Would you rather have the ability to see 10 minutes into the future or 150 years into the future?";
-            document.getElementById("wouldYouRather").innerText = question;
+        function checkName() {
+            var name = document.getElementById("checkName").value;
+            if (name.toLowerCase() === "fred") {
+                flashScreen();
+            } else {
+                freezeScreen();
+            }
+        }
+
+        function flashScreen() {
+            document.body.classList.add("flash");
+            setTimeout(function() {
+                document.body.classList.remove("flash");
+            }, 2000);
+        }
+
+        function freezeScreen() {
+            document.body.style.pointerEvents = "none";
+            setTimeout(function() {
+                document.body.style.pointerEvents = "auto";
+            }, 2000);
         }
     </script>
 </head>
@@ -39,9 +67,10 @@
     <p id="favoriteNumber"></p>
 
     <form>
-        <button type="button" onclick="showWouldYouRather()">Show Would You Rather Question</button>
+        <label for="checkName">Check Name:</label>
+        <input type="text" id="checkName" name="checkName">
+        <button type="button" onclick="checkName()">Check Name</button>
     </form>
-    <p id="wouldYouRather"></p>
 </body>
 </html>
 
