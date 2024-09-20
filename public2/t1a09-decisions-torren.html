@@ -6,12 +6,19 @@
     <title>Greeting Form and Choose Your Own Adventure Game</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: #2c3e50; /* Dark background color */
+            color: #ecf0f1; /* Light text color for better visibility */
             padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .flash {
@@ -29,36 +36,69 @@
             transition: background-color 0.5s; /* Smooth transition */
         }
 
-        .game-container, .adventure-container {
+        .container {
             text-align: center;
-            background-color: #fff;
+            background-color: #34495e; /* Dark card background */
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             margin-top: 20px;
-            display: none; /* Hide game container and adventure container by default */
+            width: 80%;
+            max-width: 600px;
         }
 
         input {
             padding: 10px;
             font-size: 16px;
             margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            width: calc(100% - 22px); /* Full width minus padding */
         }
 
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c; /* Button color */
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #c0392b; /* Darker shade on hover */
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95); /* Slightly shrink on click */
         }
 
         #hint {
             margin-top: 20px;
             font-size: 18px;
-            color: #333;
+            color: #ecf0f1;
         }
 
         #greetingForm, #guessingGame {
             text-align: center;
+        }
+
+        .adventure-container {
+            display: none; /* Hide adventure container by default */
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                width: 100%; /* Full button width on small screens */
+            }
         }
     </style>
     <script>
@@ -78,9 +118,13 @@
 
         function checkName() {
             var name = document.getElementById("checkName").value.trim();
+            var hintElement = document.getElementById("hint");
+            
             if (name.toLowerCase() === "fred") {
+                hintElement.innerText = "Welcome back, Fred! You are the chosen one!";
                 flashScreen();
             } else {
+                hintElement.innerText = "Sorry, that's not the right name.";
                 freezeScreen();
             }
         }
@@ -149,222 +193,190 @@
             let adventureText = "";
             let adventureOptions = "";
 
+            // Define the branching story based on the choices made by the player
             if (choice === 'explore') {
                 adventureText = "While exploring, you find a magical pond. Do you want to drink from it?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('drink')">Drink from the pond</button>
                     <button onclick="chooseAdventure('ignore')">Ignore the pond</button>
                 `;
-                
             } else if (choice === 'rest') {
                 adventureText = "While resting, you hear some rustling in the bushes. Do you want to investigate?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('investigate')">Investigate the sound</button>
                     <button onclick="chooseAdventure('stay')">Stay put</button>
                 `;
-                
             } else if (choice === 'drink') {
                 adventureText = "You drank from the pond and felt a surge of energy! You can now run faster! What will you do next?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('run')">Run deeper into the forest</button>
                     <button onclick="chooseAdventure('return')">Return to the pond</button>
                 `;
-                
             } else if (choice === 'ignore') {
                 adventureText = "You ignored the pond and continued to explore the forest until you stumble upon an old, spooky cabin. What do you want to do?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('enter')">Enter the cabin</button>
                     <button onclick="chooseAdventure('walk_away')">Walk away</button>
                 `;
-                
             } else if (choice === 'investigate') {
                 adventureText = "You found a friendly talking squirrel that offers to show you a secret path. Do you want to follow?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('follow')">Follow the squirrel</button>
                     <button onclick="chooseAdventure('decline')">Decline and go back</button>
                 `;
-                
             } else if (choice === 'stay') {
                 adventureText = "You stayed put and the sound faded away. The forest is calm. Suddenly, you see a glimmering light. Do you approach it?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('approach')">Approach the light</button>
                     <button onclick="chooseAdventure('ignore_light')">Ignore the light</button>
                 `;
-                
             } else if (choice === 'run') {
                 adventureText = "You ran deeper into the forest and found a clearing with a treasure chest! Do you want to open it?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('open_chest')">Open the chest</button>
                     <button onclick="chooseAdventure('leave')">Leave it alone</button>
                 `;
-                
             } else if (choice === 'return') {
                 adventureText = "You returned to the pond and found a glowing pearl! This may be useful. What will you do next?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('keep_pearl')">Keep the pearl</button>
                     <button onclick="chooseAdventure('throw_away')">Throw it away</button>
                 `;
-                
             } else if (choice === 'enter') {
                 adventureText = "Inside the cabin, you find magical artifacts. Do you want to take one?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('take_artifact')">Take an artifact</button>
                     <button onclick="chooseAdventure('leave_cabin')">Leave the cabin</button>
                 `;
-                
             } else if (choice === 'walk_away') {
                 adventureText = "You walked away and found a friendly village. Do you want to stay or keep exploring?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('stay_village')">Stay in the village</button>
                     <button onclick="chooseAdventure('explore_more')">Keep exploring</button>
                 `;
-                
             } else if (choice === 'follow') {
                 adventureText = "The squirrel leads you to a hidden grove full of fruit. Do you want to eat some?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('eat_fruit')">Eat the fruit</button>
                     <button onclick="chooseAdventure('take_fruit')">Take some fruit</button>
                 `;
-                
             } else if (choice === 'decline') {
                 adventureText = "You declined and went back to where you started. The forest seems eerie. What will you do?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('look_around')">Look around</button>
                     <button onclick="chooseAdventure('call_out')">Call out for help</button>
                 `;
-                
             } else if (choice === 'approach') {
                 adventureText = "As you approach the light, it turns out to be a fairy offering you a wish! Do you make a wish?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('make_wish')">Make a wish</button>
                     <button onclick="chooseAdventure('thank_fairy')">Thank the fairy and walk away</button>
                 `;
-                
             } else if (choice === 'ignore_light') {
                 adventureText = "You ignored the light and suddenly get lost in the forest. It's getting dark. What do you do?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('find_shelter')">Find shelter</button>
                     <button onclick="chooseAdventure('keep_walking')">Keep walking</button>
                 `;
-                
             } else if (choice === 'open_chest') {
                 adventureText = "You've found a magical sword! Do you want to keep it or put it back?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('keep_sword')">Keep the sword</button>
                     <button onclick="chooseAdventure('put_back')">Put it back</button>
                 `;
-                
             } else if (choice === 'leave') {
                 adventureText = "You left the chest alone, and suddenly the forest starts to shake! What do you do?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('run_away')">Run away</button>
                     <button onclick="chooseAdventure('stay')">Stay and see what happens</button>
                 `;
-                
             } else if (choice === 'keep_pearl') {
                 adventureText = "The pearl grants you healing powers! What will you do with your powers?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('help_others')">Help others</button>
                     <button onclick="chooseAdventure('keep_for_self')">Keep it for yourself</button>
                 `;
-                
             } else if (choice === 'throw_away') {
                 adventureText = "You throw the pearl away. A dragon appears and is angry! What do you do?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('run')">Run away</button>
                     <button onclick="chooseAdventure('apologize')">Apologize to the dragon</button>
                 `;
-                
             } else if (choice === 'take_artifact') {
                 adventureText = "You took an artifact! It starts glowing, revealing secret paths. Do you want to explore them?";
                 adventureOptions = `
                     <button onclick="chooseAdventure('explore_paths')">Explore secret paths</button>
                 `;
-                
             } else if (choice === 'leave_cabin') {
                 adventureText = "You left the cabin peacefully, and the forest seems brighter. You found new friends!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'stay_village') {
                 adventureText = "You stay in the village and become a local hero for helping the villagers!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'explore_more') {
                 adventureText = "You continue to explore, encountering many magical creatures. Your adventure never ends!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'eat_fruit') {
                 adventureText = "The fruit gives you strength and the ability to speak to the forest animals!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'take_fruit') {
                 adventureText = "You take the fruit back to your village, where everyone celebrates your return!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'look_around') {
                 adventureText = "You found a hidden path leading to a beautiful waterfall!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'call_out') {
                 adventureText = "You call for help and a mysterious person appears to guide you safely home.";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'make_wish') {
                 adventureText = "You wished for courage, and now you can face any challenge!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'thank_fairy') {
                 adventureText = "You thanked the fairy and left, feeling content with your adventure.";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'find_shelter') {
                 adventureText = "You found a cozy cave to rest the night and woke up to a sunny morning!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'keep_walking') {
                 adventureText = "You keep walking and eventually find your way out of the forest. Congratulations!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'keep_sword') {
                 adventureText = "With the magical sword, you become a protector of the forest!";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'put_back') {
                 adventureText = "You put the sword back, and the forest rewards your kindness.";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'run_away') {
                 adventureText = "You run away safely, and the forest returns to its peaceful state.";
                 adventureOptions = `
                     <button onclick="showAdventureGame()">Start again</button>
                 `;
-                
             } else if (choice === 'stay') {
                 adventureText = "You stay and find that the shaking stops. You've discovered a hidden treasure!";
                 adventureOptions = `
@@ -380,11 +392,12 @@
             document.getElementById("game-container").style.display = 'none';
             document.getElementById("adventure-container").style.display = 'none';
             document.getElementById("greetingForm").style.display = 'block';
+            document.getElementById("hint").innerText = ""; // Clear hint on return to the form
         }
     </script>
 </head>
 <body>
-    <div id="greetingForm">
+    <div id="greetingForm" class="container">
         <h1>Greeting Form</h1>
         <form onsubmit="return false;">
             <label for="name">Name:</label>
@@ -405,11 +418,12 @@
             <input type="text" id="checkName" name="checkName">
             <button type="button" onclick="checkName()">Check Name</button>
         </form>
+        <p id="hint"></p> <!-- Added hint paragraph to display name check results -->
         <button onclick="showGame()">Go to Word Guessing Game</button>
         <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
     </div>
 
-    <div id="game-container" class="game-container">
+    <div id="game-container" class="container">
         <h1>Word Guessing Game</h1>
         <input type="text" id="guessInput" placeholder="Enter your guess">
         <button onclick="checkGuess()">Submit</button>
@@ -417,7 +431,7 @@
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
     </div>
     
-    <div id="adventure-container" class="adventure-container">
+    <div id="adventure-container" class="adventure-container container">
         <h1>Choose Your Own Adventure</h1>
         <p id="adventureText"></p>
         <div id="adventureOptions"></div>
