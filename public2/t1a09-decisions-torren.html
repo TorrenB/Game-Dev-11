@@ -25,8 +25,8 @@
 
         .blackout {
             background-color: black;
-            color: white; /* Optional: changes text color to white for better visibility */
-            transition: background-color 0.5s; /* Optional: smooth transition */
+            color: white; /* Changes text color to white for better visibility */
+            transition: background-color 0.5s; /* Smooth transition */
         }
 
         .game-container {
@@ -77,7 +77,7 @@
         }
 
         function checkName() {
-            var name = document.getElementById("checkName").value;
+            var name = document.getElementById("checkName").value.trim();
             if (name.toLowerCase() === "fred") {
                 flashScreen();
             } else {
@@ -87,12 +87,14 @@
 
         function flashScreen() {
             document.body.classList.add("flash");
+            console.log("Flashing screen for the name Fred");
             setTimeout(function() {
                 document.body.classList.remove("flash");
             }, 2000);
         }
 
         function freezeScreen() {
+            console.log("Freezing screen for an incorrect name");
             document.body.classList.add("blackout");
             setTimeout(function() {
                 document.body.classList.remove("blackout");
