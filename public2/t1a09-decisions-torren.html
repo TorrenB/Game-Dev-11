@@ -7,6 +7,15 @@
             var name = document.getElementById("name").value;
             document.getElementById("greeting").innerText = "Hello " + name;
         }
+
+        function showFavoriteNumber() {
+            var number = document.getElementById("number").value;
+            if (number) {
+                document.getElementById("favoriteNumber").innerText = "Your favorite number is " + number;
+            } else {
+                document.getElementById("favoriteNumber").innerText = "Please enter a number.";
+            }
+        }
     </script>
 </head>
 <body>
@@ -16,6 +25,12 @@
         <button type="button" onclick="sayHello()">Greet</button>
     </form>
     <p id="greeting"></p>
+
+    <form>
+        <label for="number">Favorite Number:</label>
+        <input type="number" id="number" name="number">
+        <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
+    </form>
+    <p id="favoriteNumber"></p>
 </body>
 </html>
-
