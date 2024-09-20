@@ -1,8 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Greeting Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Form and Word Guessing Game</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
         .flash {
             animation: flash 0.5s alternate 4;
         }
@@ -10,6 +21,44 @@
         @keyframes flash {
             from { background-color: yellow; }
             to { background-color: white; }
+        }
+
+        .blackout {
+            background-color: black;
+            color: white; /* Optional: changes text color to white for better visibility */
+            transition: background-color 0.5s; /* Optional: smooth transition */
+        }
+
+        .game-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none; /* Hide game container by default */
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #hint {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #greetingForm, #guessingGame {
+            text-align: center;
         }
     </style>
     <script>
@@ -29,7 +78,6 @@
 
         function checkName() {
             var name = document.getElementById("checkName").value;
-            console.log("Checking name: " + name); // Debug log
             if (name.toLowerCase() === "fred") {
                 flashScreen();
             } else {
@@ -45,32 +93,79 @@
         }
 
         function freezeScreen() {
-            document.body.style.pointerEvents = "none";
+            document.body.classList.add("blackout");
             setTimeout(function() {
-                document.body.style.pointerEvents = "auto";
-            }, 2000);
+                document.body.classList.remove("blackout");
+            }, 2000); // Screen stays black for 2 seconds
+        }
+
+        const secretWord = "apple";
+        const hints = {
+            "a": "The word starts with 'a'.",
+            "ap": "The word starts with 'ap'.",
+            "app": "The word starts with 'app'.",
+            "appl": "The word starts with 'appl'.",
+        };
+
+        function checkGuess() {
+            const guessInput = document.getElementById("guessInput").value.toLowerCase();
+            const hintElement = document.getElementById("hint");
+
+            if (guessInput === secretWord) {
+                hintElement.textContent = "Congratulations! You guessed the correct word.";
+            } else {
+                let hint = "Incorrect guess.";
+                for (let key in hints) {
+                    if (guessInput.startsWith(key)) {
+                        hint = hints[key];
+                    }
+                }
+                hintElement.textContent = hint;
+            }
+        }
+
+        function showGame() {
+            document.getElementById("greetingForm").style.display = 'none';
+            document.getElementById("game-container").style.display = 'block';
+        }
+
+        function showGreetingForm() {
+            document.getElementById("game-container").style.display = 'none';
+            document.getElementById("greetingForm").style.display = 'block';
         }
     </script>
 </head>
 <body>
-    <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="Fred">
-        <button type="button" onclick="sayHello()">Greet</button>
-    </form>
-    <p id="greeting"></p>
+    <div id="greetingForm">
+        <h1>Greeting Form</h1>
+        <form onsubmit="return false;">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="Fred">
+            <button type="button" onclick="sayHello()">Greet</button>
+        </form>
+        <p id="greeting"></p>
 
-    <form>
-        <label for="number">Favorite Number:</label>
-        <input type="number" id="number" name="number">
-        <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
-    </form>
-    <p id="favoriteNumber"></p>
+        <form onsubmit="return false;">
+            <label for="number">Favorite Number:</label>
+            <input type="number" id="number" name="number">
+            <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
+        </form>
+        <p id="favoriteNumber"></p>
 
-    <form>
-        <label for="checkName">Check Name:</label>
-        <input type="text" id="checkName" name="checkName">
-        <button type="button" onclick="checkName()">Check Name</button>
-    </form>
+        <form onsubmit="return false;">
+            <label for="checkName">Check Name:</label>
+            <input type="text" id="checkName" name="checkName">
+            <button type="button" onclick="checkName()">Check Name</button>
+        </form>
+        <button onclick="showGame()">Go to Word Guessing Game</button>
+    </div>
+
+    <div id="game-container" class="game-container">
+        <h1>Word Guessing Game</h1>
+        <input type="text" id="guessInput" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit</button>
+        <p id="hint"></p>
+        <button onclick="showGreetingForm()">Go to Greeting Form</button>
+    </div>
 </body>
 </html>
