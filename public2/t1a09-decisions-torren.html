@@ -16,6 +16,11 @@
                 document.getElementById("favoriteNumber").innerText = "Please enter a number.";
             }
         }
+
+        function showWouldYouRather() {
+            var question = "Would you rather have the ability to see 10 minutes into the future or 150 years into the future?";
+            document.getElementById("wouldYouRather").innerText = question;
+        }
     </script>
 </head>
 <body>
@@ -32,5 +37,11 @@
         <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
     </form>
     <p id="favoriteNumber"></p>
+
+    <form>
+        <button type="button" onclick="showWouldYouRather()">Show Would You Rather Question</button>
+    </form>
+    <p id="wouldYouRather"></p>
 </body>
 </html>
+
