@@ -78,8 +78,18 @@
         canvas {
             border: 1px solid black;
         }
-        #clearButton {
+        .controls {
             margin-top: 10px;
+        }
+        .color-button, .brush-size-button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .color-button {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
         }
 
         /* Responsive Design */
@@ -414,7 +424,7 @@
 
         <button onclick="showGame()">Go to Word Guessing Game</button>
         <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
-        <button onclick="showDrawingApp()">Open Drawing App</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
     </div>
 
     <div id="game-container" class="container">
@@ -423,7 +433,7 @@
         <button onclick="checkGuess()">Submit</button>
         <p id="hint"></p>
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
-        <button onclick="showDrawingApp()">Open Drawing App</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
     </div>
     
     <div id="adventure-container" class="adventure-container container">
@@ -431,28 +441,71 @@
         <p id="adventureText"></p>
         <div id="adventureOptions"></div>
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
-        <button onclick="showDrawingApp()">Open Drawing App</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
     </div>
 
     <div id="drawingApp" class="container" style="display: none;">
-        <h1>Drawing App</h1>
+        <h1>Enhanced Drawing App</h1>
         <canvas id="drawingCanvas" width="500" height="500"></canvas>
-        <br>
-        <button id="clearButton">Clear</button>
+        <div class="controls">
+            <div>
+                <button id="clearButton">Clear</button>
+                <button id="paintCanButton">Paint Can</button>
+            </div>
+            <div>
+                <span>Brush Size:</span>
+                <button class="brush-size-button" data-size="5">5</button>
+                <button class="brush-size-button" data-size="10">10</button>
+                <button class="brush-size-button" data-size="15">15</button>
+            </div>
+            <div>
+                <span>Colors:</span>
+                <div class="color-button" style="background-color: black;" data-color="black"></div>
+                <div class="color-button" style="background-color: red;" data-color="red"></div>
+                <div class="color-button" style="background-color: blue;" data-color="blue"></div>
+                <div class="color-button" style="background-color: green;" data-color="green"></div>
+                <div class="color-button" style="background-color: yellow;" data-color="yellow"></div>
+                <div class="color-button" style="background-color: orange;" data-color="orange"></div>
+                <div class="color-button" style="background-color: purple;" data-color="purple"></div>
+                <div class="color-button" style="background-color: pink;" data-color="pink"></div>
+                <div class="color-button" style="background-color: brown;" data-color="brown"></div>
+                <div class="color-button" style="background-color: gray;" data-color="gray"></div>
+            </div>
+        </div>
 
         <script>
             const canvas = document.getElementById('drawingCanvas');
             const ctx = canvas.getContext('2d');
             let drawing = false;
+            let currentColor = 'black';
+            let brushSize = 5;
+            let paintCanMode = false;
 
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mousemove', draw);
             document.getElementById('clearButton').addEventListener('click', clearCanvas);
+            document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
+
+            document.querySelectorAll('.color-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    currentColor = button.getAttribute('data-color');
+                });
+            });
+
+            document.querySelectorAll('.brush-size-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    brushSize = button.getAttribute('data-size');
+                });
+            });
 
             function startDrawing(event) {
                 drawing = true;
-                draw(event);
+                if (paintCanMode) {
+                    fillArea(event);
+                } else {
+                    draw(event);
+                }
             }
 
             function stopDrawing() {
@@ -461,11 +514,11 @@
             }
 
             function draw(event) {
-                if (!drawing) return;
+                if (!drawing || paintCanMode) return;
 
-                ctx.lineWidth = 5;
+                ctx.lineWidth = brushSize;
                 ctx.lineCap = 'round';
-                ctx.strokeStyle = 'black';
+                ctx.strokeStyle = currentColor;
 
                 ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
                 ctx.stroke();
@@ -475,6 +528,65 @@
 
             function clearCanvas() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function togglePaintCanMode() {
+                paintCanMode = !paintCanMode;
+                document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
+            }
+
+            function fillArea(event) {
+                const x = event.clientX - canvas.offsetLeft;
+                const y = event.clientY - canvas.offsetTop;
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const targetColor = getColorAtPixel(imageData, x, y);
+                floodFill(imageData, x, y, targetColor, hexToRgb(currentColor));
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            function getColorAtPixel(imageData, x, y) {
+                const index = (y * imageData.width + x) * 4;
+                return {
+                    r: imageData.data[index],
+                    g: imageData.data[index + 1],
+                    b: imageData.data[index + 2],
+                    a: imageData.data[index + 3]
+                };
+            }
+
+            function hexToRgb(hex) {
+                const bigint = parseInt(hex.slice(1), 16);
+                return {
+                    r: (bigint >> 16) & 255,
+                    g: (bigint >> 8) & 255,
+                    b: bigint & 255
+                };
+            }
+
+            function floodFill(imageData, x, y, targetColor, fillColor) {
+                const stack = [[x, y]];
+                while (stack.length) {
+                    const [cx, cy] = stack.pop();
+                    const index = (cy * imageData.width + cx) * 4;
+                    if (isSameColor(imageData, index, targetColor)) {
+                        setColorAtPixel(imageData, index, fillColor);
+                        stack.push([cx + 1, cy], [cx - 1, cy], [cx, cy + 1], [cx, cy - 1]);
+                    }
+                }
+            }
+
+            function isSameColor(imageData, index, color) {
+                return imageData.data[index] === color.r &&
+                       imageData.data[index + 1] === color.g &&
+                       imageData.data[index + 2] === color.b &&
+                       imageData.data[index + 3] === color.a;
+            }
+
+            function setColorAtPixel(imageData, index, color) {
+                imageData.data[index] = color.r;
+                imageData.data[index + 1] = color.g;
+                imageData.data[index + 2] = color.b;
+                imageData.data[index + 3] = 255;
             }
         </script>
     </div>
