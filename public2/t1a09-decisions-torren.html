@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeting Form and Word Guessing Game</title>
+    <title>Greeting Form and Choose Your Own Adventure Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,14 +29,14 @@
             transition: background-color 0.5s; /* Smooth transition */
         }
 
-        .game-container {
+        .game-container, .adventure-container {
             text-align: center;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
-            display: none; /* Hide game container by default */
+            display: none; /* Hide game container and adventure container by default */
         }
 
         input {
@@ -131,8 +131,57 @@
             document.getElementById("game-container").style.display = 'block';
         }
 
+        function showAdventureGame() {
+            document.getElementById("greetingForm").style.display = 'none';
+            document.getElementById("adventure-container").style.display = 'block';
+            startAdventure();
+        }
+
+        function startAdventure() {
+            document.getElementById("adventureText").innerText = "You wake up in a mysterious forest. What do you want to do?";
+            document.getElementById("adventureOptions").innerHTML = `
+                <button onclick="chooseAdventure('explore')">Explore the forest</button>
+                <button onclick="chooseAdventure('rest')">Take a rest</button>
+            `;
+        }
+
+        function chooseAdventure(choice) {
+            let adventureText = "";
+            let adventureOptions = "";
+
+            if (choice === 'explore') {
+                adventureText = "While exploring, you find a magical pond. Do you want to drink from it?";
+                adventureOptions = `
+                    <button onclick="chooseAdventure('drink')">Drink from the pond</button>
+                    <button onclick="chooseAdventure('ignore')">Ignore the pond</button>
+                `;
+            } else if (choice === 'rest') {
+                adventureText = "While resting, you hear some rustling in the bushes. Do you want to investigate?";
+                adventureOptions = `
+                    <button onclick="chooseAdventure('investigate')">Investigate the sound</button>
+                    <button onclick="chooseAdventure('stay')">Stay put</button>
+                `;
+            } else if (choice === 'drink') {
+                adventureText = "You drank from the pond and felt a surge of energy! You can now run faster!";
+                adventureOptions = `<button onclick="startAdventure()">Continue your adventure</button>`;
+            } else if (choice === 'ignore') {
+                adventureText = "You ignored the pond and continued to explore the forest.";
+                adventureOptions = `<button onclick="startAdventure()">Continue your adventure</button>`;
+            } else if (choice === 'investigate') {
+                adventureText = "You found a friendly talking squirrel that offers to be your guide.";
+                adventureOptions = `<button onclick="startAdventure()">Continue your adventure</button>`;
+            } else if (choice === 'stay') {
+                adventureText = "You stayed put and the sound faded away. The forest is calm.";
+                adventureOptions = `<button onclick="startAdventure()">Continue your adventure</button>`;
+            }
+
+            document.getElementById("adventureText").innerText = adventureText;
+            document.getElementById("adventureOptions").innerHTML = adventureOptions;
+        }
+
         function showGreetingForm() {
             document.getElementById("game-container").style.display = 'none';
+            document.getElementById("adventure-container").style.display = 'none';
             document.getElementById("greetingForm").style.display = 'block';
         }
     </script>
@@ -160,6 +209,7 @@
             <button type="button" onclick="checkName()">Check Name</button>
         </form>
         <button onclick="showGame()">Go to Word Guessing Game</button>
+        <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
     </div>
 
     <div id="game-container" class="game-container">
@@ -167,6 +217,13 @@
         <input type="text" id="guessInput" placeholder="Enter your guess">
         <button onclick="checkGuess()">Submit</button>
         <p id="hint"></p>
+        <button onclick="showGreetingForm()">Go to Greeting Form</button>
+    </div>
+    
+    <div id="adventure-container" class="adventure-container">
+        <h1>Choose Your Own Adventure</h1>
+        <p id="adventureText"></p>
+        <div id="adventureOptions"></div>
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
     </div>
 </body>
