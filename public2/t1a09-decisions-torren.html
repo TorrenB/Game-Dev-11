@@ -355,6 +355,11 @@
             let cpsUpgradeCost = 50;
             let upgradeLevel = 0;
 
+            // Function to calculate upgrade costs
+            function calculateUpgradeCost(baseCost) {
+                return Math.floor(baseCost * Math.pow(1.5, upgradeLevel));
+            }
+
             document.getElementById('cookie').addEventListener('click', () => {
                 count += cookiesPerClick;
                 document.getElementById('count').textContent = count;
@@ -362,55 +367,72 @@
             });
 
             document.getElementById('upgrade1').addEventListener('click', () => {
-                if (count >= 10) {
-                    count -= 10;
+                const cost = calculateUpgradeCost(10);
+                if (count >= cost) {
+                    count -= cost;
                     cookiesPerClick += 1;
+                    upgradeLevel++;
                     document.getElementById('count').textContent = count;
+                    updateButtonLabels();
                     saveGame();
                 }
             });
 
             document.getElementById('upgrade2').addEventListener('click', () => {
-                if (count >= 100) {
-                    count -= 100;
+                const cost = calculateUpgradeCost(100);
+                if (count >= cost) {
+                    count -= cost;
                     cookiesPerClick += 1;
+                    upgradeLevel++;
                     document.getElementById('count').textContent = count;
+                    updateButtonLabels();
                     saveGame();
                 }
             });
 
             document.getElementById('cpsUpgrade').addEventListener('click', () => {
-                if (count >= cpsUpgradeCost) {
-                    count -= cpsUpgradeCost;
+                const cost = calculateUpgradeCost(cpsUpgradeCost);
+                if (count >= cost) {
+                    count -= cost;
                     cookiesPerSecond += 1;
-                    cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5);
-                    document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                    cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5); // Increase cost for next purchase
+                    updateButtonLabels();
                     document.getElementById('count').textContent = count;
                     saveGame();
                 }
             });
 
             document.getElementById('upgrade3').addEventListener('click', () => {
-                if (count >= 1000 && upgradeLevel < 420) {
-                    count -= 1000;
+                const cost = calculateUpgradeCost(1000);
+                if (count >= cost && upgradeLevel < 420) {
+                    count -= cost;
                     cookiesPerClick += 500;
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
-                    document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: 1000) Level: ${upgradeLevel}`;
+                    updateButtonLabels();
                     saveGame();
                 }
             });
 
             document.getElementById('upgrade4').addEventListener('click', () => {
-                if (count >= 10000 && upgradeLevel < 420) {
-                    count -= 10000;
+                const cost = calculateUpgradeCost(10000);
+                if (count >= cost && upgradeLevel < 420) {
+                    count -= cost;
                     cookiesPerClick += 500;
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
-                    document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: 10000) Level: ${upgradeLevel}`;
+                    updateButtonLabels();
                     saveGame();
                 }
             });
+
+            function updateButtonLabels() {
+                document.getElementById('upgrade1').textContent = `Upgrade 1 (Cost: ${calculateUpgradeCost(10)})`;
+                document.getElementById('upgrade2').textContent = `Upgrade 2 (Cost: ${calculateUpgradeCost(100)})`;
+                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: ${calculateUpgradeCost(1000)}) Level: ${upgradeLevel}`;
+                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: ${calculateUpgradeCost(10000)}) Level: ${upgradeLevel}`;
+            }
 
             function saveGame() {
                 localStorage.setItem('count', count);
@@ -428,9 +450,7 @@
                 upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || 0;
 
                 document.getElementById('count').textContent = count;
-                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
-                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: 1000) Level: ${upgradeLevel}`;
-                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: 10000) Level: ${upgradeLevel}`;
+                updateButtonLabels();
             }
 
             function generateCookies() {
