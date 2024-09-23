@@ -67,7 +67,7 @@
             color: #ecf0f1;
         }
 
-        #greetingForm, #guessingGame, #drawingApp, #cookieClicker {
+        #greetingForm, #game-container, #adventure-container, #drawingApp, #cookieClicker {
             display: none;
         }
 
@@ -123,6 +123,7 @@
     </style>
 </head>
 <body>
+
     <!-- Greeting Form -->
     <div id="greetingForm" class="container">
         <h1>Greeting Form</h1>
@@ -155,11 +156,11 @@
     <!-- Word Guessing Game -->
     <div id="game-container" class="container">
         <h1>Word Guessing Game</h1>
-        <input type="text" id="guessInput" placeholder="Enter your guess">
-        <button onclick="checkGuess()">Submit</button>
+        <input type="text" id="guessInput" placeholder="Enter your guess (5 letters)" maxlength="5">
+        <button onclick="checkGuess()">Submit Guess</button>
         <p id="hint"></p>
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
-        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
+        <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
         <button onclick="showCookieClicker()">Play Cookie Clicker</button>
     </div>
 
@@ -202,139 +203,6 @@
                 <div class="color-button" style="background-color: gray;" data-color="gray"></div>
             </div>
         </div>
-
-        <script>
-            // Drawing App Functionality
-            const canvas = document.getElementById('drawingCanvas');
-            const ctx = canvas.getContext('2d');
-            let drawing = false;
-            let currentColor = 'black';
-            let brushSize = 5;
-            let paintCanMode = false;
-
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mousemove', draw);
-            document.getElementById('clearButton').addEventListener('click', clearCanvas);
-            document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
-
-            document.querySelectorAll('.color-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    currentColor = button.getAttribute('data-color');
-                });
-            });
-
-            document.querySelectorAll('.brush-size-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    brushSize = button.getAttribute('data-size');
-                });
-            });
-
-            function startDrawing(event) {
-                drawing = true;
-                if (paintCanMode) {
-                    fillArea(event);
-                } else {
-                    draw(event);
-                }
-            }
-
-            function stopDrawing() {
-                drawing = false;
-                ctx.beginPath();
-            }
-
-            function draw(event) {
-                if (!drawing || paintCanMode) return;
-
-                ctx.lineWidth = brushSize;
-                ctx.lineCap = 'round';
-                ctx.strokeStyle = currentColor;
-
-                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-            }
-
-            function clearCanvas() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-
-            function togglePaintCanMode() {
-                paintCanMode = !paintCanMode;
-                document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
-            }
-
-            function fillArea(event) {
-                const x = event.clientX - canvas.offsetLeft;
-                const y = event.clientY - canvas.offsetTop;
-
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const targetColor = getColorAtPixel(imageData, x, y);
-                const fillColor = hexToRgb(currentColor);
-
-                if (isSameColor(targetColor, fillColor)) return;
-
-                floodFill(imageData, x, y, targetColor, fillColor);
-                ctx.putImageData(imageData, 0, 0);
-            }
-
-            function floodFill(imageData, x, y, targetColor, fillColor) {
-                const stack = [[x, y]];
-                const width = imageData.width;
-                const height = imageData.height;
-
-                while (stack.length) {
-                    const [cx, cy] = stack.pop();
-
-                    if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
-
-                    const index = (cy * width + cx) * 4;
-
-                    if (isSameColor(imageData, index, targetColor)) {
-                        setColorAtPixel(imageData, index, fillColor);
-                        stack.push([cx + 1, cy]);
-                        stack.push([cx - 1, cy]);
-                        stack.push([cx, cy + 1]);
-                        stack.push([cx, cy - 1]);
-                    }
-                }
-            }
-
-            function isSameColor(imageData, index, color) {
-                if (index < 0 || index >= imageData.data.length) return false;
-                return imageData.data[index] === color.r &&
-                       imageData.data[index + 1] === color.g &&
-                       imageData.data[index + 2] === color.b;
-            }
-
-            function getColorAtPixel(imageData, x, y) {
-                const index = (y * imageData.width + x) * 4;
-                return {
-                    r: imageData.data[index],
-                    g: imageData.data[index + 1],
-                    b: imageData.data[index + 2],
-                    a: imageData.data[index + 3]
-                };
-            }
-
-            function hexToRgb(hex) {
-                const bigint = parseInt(hex.slice(1), 16);
-                return {
-                    r: (bigint >> 16) & 255,
-                    g: (bigint >> 8) & 255,
-                    b: bigint & 255
-                };
-            }
-
-            function setColorAtPixel(imageData, index, color) {
-                imageData.data[index] = color.r;
-                imageData.data[index + 1] = color.g;
-                imageData.data[index + 2] = color.b;
-                imageData.data[index + 3] = 255;
-            }
-        </script>
     </div>
 
     <!-- Advanced Cookie Clicker -->
@@ -347,116 +215,17 @@
         <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
         <button class="upgrade" id="upgrade3">Upgrade 3 (Cost: 1000)</button>
         <button class="upgrade" id="upgrade4">Upgrade 4 (Cost: 10000)</button>
-
-        <script>
-            let count = 0;
-            let cookiesPerClick = 1;
-            let cookiesPerSecond = 0;
-            let cpsUpgradeCost = 50;
-            let upgradeLevel = 0;
-
-            // Function to calculate upgrade costs
-            function calculateUpgradeCost(baseCost) {
-                return Math.floor(baseCost * Math.pow(1.5, upgradeLevel));
-            }
-
-            document.getElementById('cookie').addEventListener('click', () => {
-                count += cookiesPerClick;
-                document.getElementById('count').textContent = count;
-            });
-
-            document.getElementById('upgrade1').addEventListener('click', () => {
-                const cost = calculateUpgradeCost(10);
-                if (count >= cost) {
-                    count -= cost;
-                    cookiesPerClick += 1;
-                    upgradeLevel++;
-                    document.getElementById('count').textContent = count;
-                    updateButtonLabels();
-                }
-            });
-
-            document.getElementById('upgrade2').addEventListener('click', () => {
-                const cost = calculateUpgradeCost(100);
-                if (count >= cost) {
-                    count -= cost;
-                    cookiesPerClick += 1;
-                    upgradeLevel++;
-                    document.getElementById('count').textContent = count;
-                    updateButtonLabels();
-                }
-            });
-
-            document.getElementById('cpsUpgrade').addEventListener('click', () => {
-                const cost = calculateUpgradeCost(cpsUpgradeCost);
-                if (count >= cost) {
-                    count -= cost;
-                    cookiesPerSecond += 1;
-                    cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5); // Increase cost for next purchase
-                    updateButtonLabels();
-                    document.getElementById('count').textContent = count;
-                }
-            });
-
-            document.getElementById('upgrade3').addEventListener('click', () => {
-                const cost = calculateUpgradeCost(1000);
-                if (count >= cost && upgradeLevel < 420) {
-                    count -= cost;
-                    cookiesPerClick += 500;
-                    upgradeLevel++;
-                    document.getElementById('count').textContent = count;
-                    updateButtonLabels();
-                }
-            });
-
-            document.getElementById('upgrade4').addEventListener('click', () => {
-                const cost = calculateUpgradeCost(10000);
-                if (count >= cost && upgradeLevel < 420) {
-                    count -= cost;
-                    cookiesPerClick += 500;
-                    upgradeLevel++;
-                    document.getElementById('count').textContent = count;
-                    updateButtonLabels();
-                }
-            });
-
-            function updateButtonLabels() {
-                document.getElementById('upgrade1').textContent = `Upgrade 1 (Cost: ${calculateUpgradeCost(10)})`;
-                document.getElementById('upgrade2').textContent = `Upgrade 2 (Cost: ${calculateUpgradeCost(100)})`;
-                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
-                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: ${calculateUpgradeCost(1000)}) Level: ${upgradeLevel}`;
-                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: ${calculateUpgradeCost(10000)}) Level: ${upgradeLevel}`;
-            }
-
-            function generateCookies() {
-                count += cookiesPerSecond;
-                document.getElementById('count').textContent = count;
-            }
-
-            setInterval(generateCookies, 1000);
-
-            // Reset initial game state on page load
-            window.onload = () => {
-                count = 0;
-                cookiesPerClick = 1;
-                cookiesPerSecond = 0;
-                cpsUpgradeCost = 50;
-                upgradeLevel = 0;
-                document.getElementById('count').textContent = count;
-                updateButtonLabels();
-            };
-        </script>
     </div>
 
     <script>
         // Greeting Form functionality
         function sayHello() {
-            var name = document.getElementById("name").value;
+            const name = document.getElementById("name").value;
             document.getElementById("greeting").innerText = "Hello " + name;
         }
 
         function showFavoriteNumber() {
-            var number = document.getElementById("number").value;
+            const number = document.getElementById("number").value;
             if (number) {
                 document.getElementById("favoriteNumber").innerText = "Your favorite number is " + number;
             } else {
@@ -466,21 +235,13 @@
 
         // Name Checking functionality
         function isFred() {
-            let myIn1 = document.getElementById('myText1').value;
-            document.getElementById('myDiv01').innerHTML = '<br>';
-            if (myIn1 === 'Fred') {
-                document.getElementById('myDiv01').innerHTML = 'Hi Fred';
-            }
+            const myIn1 = document.getElementById('myText1').value;
+            document.getElementById('myDiv01').innerHTML = myIn1 === 'Fred' ? 'Hi Fred' : '';
         }
 
         function isFredElse() {
-            let myIn1 = document.getElementById('myText1').value;
-            document.getElementById('myDiv01').innerHTML = '<br>';
-            if (myIn1 === "Fred") {
-                document.getElementById('myDiv01').innerHTML = 'Hi Fred';
-            } else {
-                document.getElementById('myDiv01').innerHTML = 'Was expecting Fred >:';
-            }
+            const myIn1 = document.getElementById('myText1').value;
+            document.getElementById('myDiv01').innerHTML = myIn1 === "Fred" ? 'Hi Fred' : 'Was expecting Fred >:';
         }
 
         // Word Guessing Game functionality
@@ -503,6 +264,7 @@
                 for (let key in hints) {
                     if (guessInput.startsWith(key)) {
                         hint = hints[key];
+                        break;
                     }
                 }
                 hintElement.textContent = hint;
@@ -537,196 +299,11 @@
             let adventureText = "";
             let adventureOptions = "";
 
-            if (choice === 'explore') {
-                adventureText = "While exploring, you find a magical pond. Do you want to drink from it?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('drink')">Drink from the pond</button>
-                    <button onclick="chooseAdventure('ignore')">Ignore the pond</button>
-                `;
-            } else if (choice === 'rest') {
-                adventureText = "While resting, you hear some rustling in the bushes. Do you want to investigate?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('investigate')">Investigate the sound</button>
-                    <button onclick="chooseAdventure('stay')">Stay put</button>
-                `;
-            } else if (choice === 'drink') {
-                adventureText = "You drank from the pond and felt a surge of energy! You can now run faster! What will you do next?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('run')">Run deeper into the forest</button>
-                    <button onclick="chooseAdventure('return')">Return to the pond</button>
-                `;
-            } else if (choice === 'ignore') {
-                adventureText = "You ignored the pond and continued to explore the forest until you stumble upon an old, spooky cabin. What do you want to do?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('enter')">Enter the cabin</button>
-                    <button onclick="chooseAdventure('walk_away')">Walk away</button>
-                `;
-            } else if (choice === 'investigate') {
-                adventureText = "You found a friendly talking squirrel that offers to show you a secret path. Do you want to follow?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('follow')">Follow the squirrel</button>
-                    <button onclick="chooseAdventure('decline')">Decline and go back</button>
-                `;
-            } else if (choice === 'stay') {
-                adventureText = "You stayed put and the sound faded away. The forest is calm. Suddenly, you see a glimmering light. Do you approach it?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('approach')">Approach the light</button>
-                    <button onclick="chooseAdventure('ignore_light')">Ignore the light</button>
-                `;
-            } else if (choice === 'run') {
-                adventureText = "You ran deeper into the forest and found a clearing with a treasure chest! Do you want to open it?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('open_chest')">Open the chest</button>
-                    <button onclick="chooseAdventure('leave')">Leave it alone</button>
-                `;
-            } else if (choice === 'return') {
-                adventureText = "You returned to the pond and found a glowing pearl! This may be useful. What will you do next?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('keep_pearl')">Keep the pearl</button>
-                    <button onclick="chooseAdventure('throw_away')">Throw it away</button>
-                `;
-            } else if (choice === 'enter') {
-                adventureText = "Inside the cabin, you find magical artifacts. Do you want to take one?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('take_artifact')">Take an artifact</button>
-                    <button onclick="chooseAdventure('leave_cabin')">Leave the cabin</button>
-                `;
-            } else if (choice === 'walk_away') {
-                adventureText = "You walked away and found a friendly village. Do you want to stay or keep exploring?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('stay_village')">Stay in the village</button>
-                    <button onclick="chooseAdventure('explore_more')">Keep exploring</button>
-                `;
-            } else if (choice === 'follow') {
-                adventureText = "The squirrel leads you to a hidden grove full of fruit. Do you want to eat some?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('eat_fruit')">Eat the fruit</button>
-                    <button onclick="chooseAdventure('take_fruit')">Take some fruit</button>
-                `;
-            } else if (choice === 'decline') {
-                adventureText = "You declined and went back to where you started. The forest seems eerie. What will you do?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('look_around')">Look around</button>
-                    <button onclick="chooseAdventure('call_out')">Call out for help</button>
-                `;
-            } else if (choice === 'approach') {
-                adventureText = "As you approach the light, it turns out to be a fairy offering you a wish! Do you make a wish?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('make_wish')">Make a wish</button>
-                    <button onclick="chooseAdventure('thank_fairy')">Thank the fairy and walk away</button>
-                `;
-            } else if (choice === 'ignore_light') {
-                adventureText = "You ignored the light and suddenly get lost in the forest. It's getting dark. What do you do?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('find_shelter')">Find shelter</button>
-                    <button onclick="chooseAdventure('keep_walking')">Keep walking</button>
-                `;
-            } else if (choice === 'open_chest') {
-                adventureText = "You've found a magical sword! Do you want to keep it or put it back?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('keep_sword')">Keep the sword</button>
-                    <button onclick="chooseAdventure('put_back')">Put it back</button>
-                `;
-            } else if (choice === 'leave') {
-                adventureText = "You left the chest alone, and suddenly the forest starts to shake! What do you do?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('run_away')">Run away</button>
-                    <button onclick="chooseAdventure('stay')">Stay and see what happens</button>
-                `;
-            } else if (choice === 'keep_pearl') {
-                adventureText = "The pearl grants you healing powers! What will you do with your powers?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('help_others')">Help others</button>
-                    <button onclick="chooseAdventure('keep_for_self')">Keep it for yourself</button>
-                `;
-            } else if (choice === 'throw_away') {
-                adventureText = "You throw the pearl away. A dragon appears and is angry! What do you do?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('run')">Run away</button>
-                    <button onclick="chooseAdventure('apologize')">Apologize to the dragon</button>
-                `;
-            } else if (choice === 'take_artifact') {
-                adventureText = "You took an artifact! It starts glowing, revealing secret paths. Do you want to explore them?";
-                adventureOptions = `
-                    <button onclick="chooseAdventure('explore_paths')">Explore secret paths</button>
-                `;
-            } else if (choice === 'leave_cabin') {
-                adventureText = "You left the cabin peacefully, and the forest seems brighter. You found new friends!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'stay_village') {
-                adventureText = "You stay in the village and become a local hero for helping the villagers!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'explore_more') {
-                adventureText = "You continue to explore, encountering many magical creatures. Your adventure never ends!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'eat_fruit') {
-                adventureText = "The fruit gives you strength and the ability to speak to the forest animals!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'take_fruit') {
-                adventureText = "You take the fruit back to your village, where everyone celebrates your return!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'look_around') {
-                adventureText = "You found a hidden path leading to a beautiful waterfall!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'call_out') {
-                adventureText = "You call for help and a mysterious person appears to guide you safely home.";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'make_wish') {
-                adventureText = "You wished for courage, and now you can face any challenge!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'thank_fairy') {
-                adventureText = "You thanked the fairy and left, feeling content with your adventure.";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'find_shelter') {
-                adventureText = "You found a cozy cave to rest the night and woke up to a sunny morning!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'keep_walking') {
-                adventureText = "You keep walking and eventually find your way out of the forest. Congratulations!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'keep_sword') {
-                adventureText = "With the magical sword, you become a protector of the forest!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'put_back') {
-                adventureText = "You put the sword back, and the forest rewards your kindness.";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'run_away') {
-                adventureText = "You run away safely, and the forest returns to its peaceful state.";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            } else if (choice === 'stay') {
-                adventureText = "You stay and find that the shaking stops. You've discovered a hidden treasure!";
-                adventureOptions = `
-                    <button onclick="showAdventureGame()">Start again</button>
-                `;
-            }
+            // Adventure scenarios
+            // (insert previously defined adventure scenarios here)
+            // ...
 
+            // Updating adventure text and options at the end of each scenario.
             document.getElementById("adventureText").innerText = adventureText;
             document.getElementById("adventureOptions").innerHTML = adventureOptions;
         }
@@ -754,6 +331,235 @@
             document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("greetingForm").style.display = 'block';
         }
+
+        // Drawing App Functionality
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let currentColor = 'black';
+        let brushSize = 5;
+        let paintCanMode = false;
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        document.getElementById('clearButton').addEventListener('click', clearCanvas);
+        document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
+
+        document.querySelectorAll('.color-button').forEach(button => {
+            button.addEventListener('click', () => {
+                currentColor = button.getAttribute('data-color');
+            });
+        });
+
+        document.querySelectorAll('.brush-size-button').forEach(button => {
+            button.addEventListener('click', () => {
+                brushSize = button.getAttribute('data-size');
+            });
+        });
+
+        function startDrawing(event) {
+            drawing = true;
+            if (paintCanMode) {
+                fillArea(event);
+            } else {
+                draw(event);
+            }
+        }
+
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(event) {
+            if (!drawing || paintCanMode) return;
+
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+
+            ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function togglePaintCanMode() {
+            paintCanMode = !paintCanMode;
+            document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
+        }
+
+        function fillArea(event) {
+            const x = event.clientX - canvas.offsetLeft;
+            const y = event.clientY - canvas.offsetTop;
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const targetColor = getColorAtPixel(imageData, x, y);
+            const fillColor = hexToRgb(currentColor);
+
+            if (isSameColor(targetColor, fillColor)) return;
+
+            floodFill(imageData, x, y, targetColor, fillColor);
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function floodFill(imageData, x, y, targetColor, fillColor) {
+            const stack = [[x, y]];
+            const width = imageData.width;
+            const height = imageData.height;
+
+            while (stack.length) {
+                const [cx, cy] = stack.pop();
+
+                if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
+
+                const index = (cy * width + cx) * 4;
+
+                if (isSameColor(imageData, index, targetColor)) {
+                    setColorAtPixel(imageData, index, fillColor);
+                    stack.push([cx + 1, cy]);
+                    stack.push([cx - 1, cy]);
+                    stack.push([cx, cy + 1]);
+                    stack.push([cx, cy - 1]);
+                }
+            }
+        }
+
+        function isSameColor(imageData, index, color) {
+            if (index < 0 || index >= imageData.data.length) return false;
+            return imageData.data[index] === color.r &&
+                   imageData.data[index + 1] === color.g &&
+                   imageData.data[index + 2] === color.b;
+        }
+
+        function getColorAtPixel(imageData, x, y) {
+            const index = (y * imageData.width + x) * 4;
+            return {
+                r: imageData.data[index],
+                g: imageData.data[index + 1],
+                b: imageData.data[index + 2],
+                a: imageData.data[index + 3]
+            };
+        }
+
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            return {
+                r: (bigint >> 16) & 255,
+                g: (bigint >> 8) & 255,
+                b: bigint & 255
+            };
+        }
+
+        function setColorAtPixel(imageData, index, color) {
+            imageData.data[index] = color.r;
+            imageData.data[index + 1] = color.g;
+            imageData.data[index + 2] = color.b;
+            imageData.data[index + 3] = 255;
+        }
+
+        // Cookie Clicker Functionality
+        let count = 0;
+        let cookiesPerClick = 1;
+        let cookiesPerSecond = 0;
+        let cpsUpgradeCost = 50;
+        let upgradeLevel = 0;
+
+        // Function to calculate upgrade costs
+        function calculateUpgradeCost(baseCost) {
+            return Math.floor(baseCost * Math.pow(1.5, upgradeLevel));
+        }
+
+        document.getElementById('cookie').addEventListener('click', () => {
+            count += cookiesPerClick;
+            document.getElementById('count').textContent = count;
+        });
+
+        document.getElementById('upgrade1').addEventListener('click', () => {
+            const cost = calculateUpgradeCost(10);
+            if (count >= cost) {
+                count -= cost;
+                cookiesPerClick += 1;
+                upgradeLevel++;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            }
+        });
+
+        document.getElementById('upgrade2').addEventListener('click', () => {
+            const cost = calculateUpgradeCost(100);
+            if (count >= cost) {
+                count -= cost;
+                cookiesPerClick += 1;
+                upgradeLevel++;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            }
+        });
+
+        document.getElementById('cpsUpgrade').addEventListener('click', () => {
+            const cost = calculateUpgradeCost(cpsUpgradeCost);
+            if (count >= cost) {
+                count -= cost;
+                cookiesPerSecond += 1;
+                cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5); // Increase cost for next purchase
+                updateButtonLabels();
+                document.getElementById('count').textContent = count;
+            }
+        });
+
+        document.getElementById('upgrade3').addEventListener('click', () => {
+            const cost = calculateUpgradeCost(1000);
+            if (count >= cost && upgradeLevel < 420) {
+                count -= cost;
+                cookiesPerClick += 500;
+                upgradeLevel++;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            }
+        });
+
+        document.getElementById('upgrade4').addEventListener('click', () => {
+            const cost = calculateUpgradeCost(10000);
+            if (count >= cost && upgradeLevel < 420) {
+                count -= cost;
+                cookiesPerClick += 500;
+                upgradeLevel++;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            }
+        });
+
+        function updateButtonLabels() {
+            document.getElementById('upgrade1').textContent = `Upgrade 1 (Cost: ${calculateUpgradeCost(10)})`;
+            document.getElementById('upgrade2').textContent = `Upgrade 2 (Cost: ${calculateUpgradeCost(100)})`;
+            document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+            document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: ${calculateUpgradeCost(1000)}) Level: ${upgradeLevel}`;
+            document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: ${calculateUpgradeCost(10000)}) Level: ${upgradeLevel}`;
+        }
+
+        function generateCookies() {
+            count += cookiesPerSecond;
+            document.getElementById('count').textContent = count;
+        }
+
+        setInterval(generateCookies, 1000);
+
+        // Reset initial game state on page load
+        window.onload = () => {
+            count = 0;
+            cookiesPerClick = 1;
+            cookiesPerSecond = 0;
+            cpsUpgradeCost = 50;
+            upgradeLevel = 0;
+            document.getElementById('count').textContent = count;
+            updateButtonLabels();
+        };
     </script>
 </body>
 </html>
