@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-App Interface</title>
+    <title>Multi-App Interface with Cookie Clicker</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -67,8 +67,8 @@
             color: #ecf0f1;
         }
 
-        #greetingForm, #guessingGame, #drawingApp {
-            text-align: center;
+        #greetingForm, #guessingGame, #drawingApp, #cookieClicker {
+            display: none;
         }
 
         .adventure-container {
@@ -78,18 +78,36 @@
         canvas {
             border: 1px solid black;
         }
+        
         .controls {
             margin-top: 10px;
         }
+        
         .color-button, .brush-size-button {
             margin: 5px;
             padding: 10px;
             cursor: pointer;
         }
+        
         .color-button {
             width: 30px;
             height: 30px;
             display: inline-block;
+        }
+
+        /* Cookie Clicker */
+        #cookie {
+            width: 200px;
+            cursor: pointer;
+        }
+        
+        #count {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .upgrade {
+            margin-top: 20px;
         }
 
         /* Responsive Design */
@@ -103,6 +121,303 @@
             }
         }
     </style>
+</head>
+<body>
+    <!-- Greeting Form -->
+    <div id="greetingForm" class="container">
+        <h1>Greeting Form</h1>
+        <form onsubmit="return false;">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="Fred">
+            <button type="button" onclick="sayHello()">Greet</button>
+        </form>
+        <p id="greeting"></p>
+
+        <form onsubmit="return false;">
+            <label for="number">Favorite Number:</label>
+            <input type="number" id="number" name="number" value="14">
+            <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
+        </form>
+        <p id="favoriteNumber"></p>
+
+        <h2>Input Check</h2>
+        Input: <input type="text" id="myText1" value="Fred"><br>
+        <input type="button" value="Is Fred" onclick="isFred()"><br>
+        <input type="button" value="Is Fred else" onclick="isFredElse()"><br>
+        <div id="myDiv01"></div>
+
+        <button onclick="showGame()">Go to Word Guessing Game</button>
+        <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
+        <button onclick="showCookieClicker()">Play Cookie Clicker</button>
+    </div>
+
+    <!-- Word Guessing Game -->
+    <div id="game-container" class="container">
+        <h1>Word Guessing Game</h1>
+        <input type="text" id="guessInput" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit</button>
+        <p id="hint"></p>
+        <button onclick="showGreetingForm()">Go to Greeting Form</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
+        <button onclick="showCookieClicker()">Play Cookie Clicker</button>
+    </div>
+
+    <!-- Choose Your Own Adventure -->
+    <div id="adventure-container" class="adventure-container container">
+        <h1>Choose Your Own Adventure</h1>
+        <p id="adventureText"></p>
+        <div id="adventureOptions"></div>
+        <button onclick="showGreetingForm()">Go to Greeting Form</button>
+        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
+        <button onclick="showCookieClicker()">Play Cookie Clicker</button>
+    </div>
+
+    <!-- Enhanced Drawing App -->
+    <div id="drawingApp" class="container" style="display: none;">
+        <h1>Enhanced Drawing App</h1>
+        <canvas id="drawingCanvas" width="500" height="500"></canvas>
+        <div class="controls">
+            <div>
+                <button id="clearButton">Clear</button>
+                <button id="paintCanButton">Paint Can</button>
+            </div>
+            <div>
+                <span>Brush Size:</span>
+                <button class="brush-size-button" data-size="5">5</button>
+                <button class="brush-size-button" data-size="10">10</button>
+                <button class="brush-size-button" data-size="15">15</button>
+            </div>
+            <div>
+                <span>Colors:</span>
+                <div class="color-button" style="background-color: black;" data-color="black"></div>
+                <div class="color-button" style="background-color: red;" data-color="red"></div>
+                <div class="color-button" style="background-color: blue;" data-color="blue"></div>
+                <div class="color-button" style="background-color: green;" data-color="green"></div>
+                <div class="color-button" style="background-color: yellow;" data-color="yellow"></div>
+                <div class="color-button" style="background-color: orange;" data-color="orange"></div>
+                <div class="color-button" style="background-color: purple;" data-color="purple"></div>
+                <div class="color-button" style="background-color: pink;" data-color="pink"></div>
+                <div class="color-button" style="background-color: brown;" data-color="brown"></div>
+                <div class="color-button" style="background-color: gray;" data-color="gray"></div>
+            </div>
+        </div>
+
+        <script>
+            const canvas = document.getElementById('drawingCanvas');
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+            let currentColor = 'black';
+            let brushSize = 5;
+            let paintCanMode = false;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+            document.getElementById('clearButton').addEventListener('click', clearCanvas);
+            document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
+
+            document.querySelectorAll('.color-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    currentColor = button.getAttribute('data-color');
+                });
+            });
+
+            document.querySelectorAll('.brush-size-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    brushSize = button.getAttribute('data-size');
+                });
+            });
+
+            function startDrawing(event) {
+                drawing = true;
+                if (paintCanMode) {
+                    fillArea(event);
+                } else {
+                    draw(event);
+                }
+            }
+
+            function stopDrawing() {
+                drawing = false;
+                ctx.beginPath();
+            }
+
+            function draw(event) {
+                if (!drawing || paintCanMode) return;
+
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = currentColor;
+
+                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            }
+
+            function clearCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function togglePaintCanMode() {
+                paintCanMode = !paintCanMode;
+                document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
+            }
+
+            function fillArea(event) {
+                const x = event.clientX - canvas.offsetLeft;
+                const y = event.clientY - canvas.offsetTop;
+
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const targetColor = getColorAtPixel(imageData, x, y);
+                const fillColor = hexToRgb(currentColor);
+
+                // Check if the target color is the same as fill color to avoid unnecessary work
+                if (isSameColor(targetColor, fillColor)) return;
+
+                floodFill(imageData, x, y, targetColor, fillColor);
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            function floodFill(imageData, x, y, targetColor, fillColor) {
+                const stack = [[x, y]]; // Use a stack to keep track of pixels to fill
+                const width = imageData.width;
+                const height = imageData.height;
+
+                while (stack.length) {
+                    const [cx, cy] = stack.pop();
+
+                    // Ensure we're within bounds
+                    if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
+
+                    const index = (cy * width + cx) * 4;
+
+                    // Check if the color matches the target color
+                    if (isSameColor(imageData, index, targetColor)) {
+                        setColorAtPixel(imageData, index, fillColor);
+                        // Push the neighboring pixels
+                        stack.push([cx + 1, cy]);
+                        stack.push([cx - 1, cy]);
+                        stack.push([cx, cy + 1]);
+                        stack.push([cx, cy - 1]);
+                    }
+                }
+            }
+
+            function isSameColor(imageData, index, color) {
+                if (index < 0 || index >= imageData.data.length) return false; // Prevent accessing out of bounds
+                return imageData.data[index] === color.r &&
+                       imageData.data[index + 1] === color.g &&
+                       imageData.data[index + 2] === color.b;
+            }
+
+            function getColorAtPixel(imageData, x, y) {
+                const index = (y * imageData.width + x) * 4;
+                return {
+                    r: imageData.data[index],
+                    g: imageData.data[index + 1],
+                    b: imageData.data[index + 2],
+                    a: imageData.data[index + 3]
+                };
+            }
+
+            function hexToRgb(hex) {
+                const bigint = parseInt(hex.slice(1), 16);
+                return {
+                    r: (bigint >> 16) & 255,
+                    g: (bigint >> 8) & 255,
+                    b: bigint & 255
+                };
+            }
+
+            function setColorAtPixel(imageData, index, color) {
+                imageData.data[index] = color.r;
+                imageData.data[index + 1] = color.g;
+                imageData.data[index + 2] = color.b;
+                imageData.data[index + 3] = 255;
+            }
+        </script>
+    </div>
+
+    <!-- Advanced Cookie Clicker -->
+    <div id="cookieClicker" class="container">
+        <h1>Advanced Cookie Clicker</h1>
+        <img id="cookie" src="https://example.com/cookie.png" alt="Cookie">
+        <div id="count">0</div>
+        <button class="upgrade" id="upgrade1">Upgrade 1 (Cost: 10)</button>
+        <button class="upgrade" id="upgrade2">Upgrade 2 (Cost: 100)</button>
+        <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
+
+        <script>
+            let count = 0;
+            let cookiesPerClick = 1;
+            let cookiesPerSecond = 0;
+            let cpsUpgradeCost = 50;
+
+            document.getElementById('cookie').addEventListener('click', () => {
+                count += cookiesPerClick;
+                document.getElementById('count').textContent = count;
+                saveGame();
+            });
+
+            document.getElementById('upgrade1').addEventListener('click', () => {
+                if (count >= 10) {
+                    count -= 10;
+                    cookiesPerClick += 1;
+                    document.getElementById('count').textContent = count;
+                    saveGame();
+                }
+            });
+
+            document.getElementById('upgrade2').addEventListener('click', () => {
+                if (count >= 100) {
+                    count -= 100;
+                    cookiesPerClick += 10;
+                    document.getElementById('count').textContent = count;
+                    saveGame();
+                }
+            });
+
+            document.getElementById('cpsUpgrade').addEventListener('click', () => {
+                if (count >= cpsUpgradeCost) {
+                    count -= cpsUpgradeCost;
+                    cookiesPerSecond += 1;
+                    cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5);
+                    document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                    document.getElementById('count').textContent = count;
+                    saveGame();
+                }
+            });
+
+            function saveGame() {
+                localStorage.setItem('count', count);
+                localStorage.setItem('cookiesPerClick', cookiesPerClick);
+                localStorage.setItem('cookiesPerSecond', cookiesPerSecond);
+                localStorage.setItem('cpsUpgradeCost', cpsUpgradeCost);
+            }
+
+            function loadGame() {
+                count = parseInt(localStorage.getItem('count')) || 0;
+                cookiesPerClick = parseInt(localStorage.getItem('cookiesPerClick')) || 1;
+                cookiesPerSecond = parseInt(localStorage.getItem('cookiesPerSecond')) || 0;
+                cpsUpgradeCost = parseInt(localStorage.getItem('cpsUpgradeCost')) || 50;
+                document.getElementById('count').textContent = count;
+                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+            }
+
+            function generateCookies() {
+                count += cookiesPerSecond;
+                document.getElementById('count').textContent = count;
+                saveGame();
+            }
+
+            setInterval(generateCookies, 1000);
+
+            window.onload = loadGame;
+        </script>
+    </div>
+
     <script>
         // Greeting Form functionality
         function sayHello() {
@@ -167,6 +482,7 @@
         function showGame() {
             document.getElementById("greetingForm").style.display = 'none';
             document.getElementById("drawingApp").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("game-container").style.display = 'block';
         }
 
@@ -174,6 +490,7 @@
         function showAdventureGame() {
             document.getElementById("greetingForm").style.display = 'none';
             document.getElementById("drawingApp").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("adventure-container").style.display = 'block';
             startAdventure();
         }
@@ -388,226 +705,25 @@
             document.getElementById("greetingForm").style.display = 'none';
             document.getElementById("game-container").style.display = 'none';
             document.getElementById("adventure-container").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("drawingApp").style.display = 'block';
+        }
+
+        function showCookieClicker() {
+            document.getElementById("greetingForm").style.display = 'none';
+            document.getElementById("game-container").style.display = 'none';
+            document.getElementById("adventure-container").style.display = 'none';
+            document.getElementById("drawingApp").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'block';
         }
 
         function showGreetingForm() {
             document.getElementById("game-container").style.display = 'none';
             document.getElementById("drawingApp").style.display = 'none';
             document.getElementById("adventure-container").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("greetingForm").style.display = 'block';
         }
     </script>
-</head>
-<body>
-    <div id="greetingForm" class="container">
-        <h1>Greeting Form</h1>
-        <form onsubmit="return false;">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="Fred">
-            <button type="button" onclick="sayHello()">Greet</button>
-        </form>
-        <p id="greeting"></p>
-
-        <form onsubmit="return false;">
-            <label for="number">Favorite Number:</label>
-            <input type="number" id="number" name="number" value="14">
-            <button type="button" onclick="showFavoriteNumber()">Show Favorite Number</button>
-        </form>
-        <p id="favoriteNumber"></p>
-
-        <h2>Input Check</h2>
-        Input: <input type="text" id="myText1" value="Fred"><br>
-        <input type="button" value="Is Fred" onclick="isFred()"><br>
-        <input type="button" value="Is Fred else" onclick="isFredElse()"><br>
-        <div id="myDiv01"></div>
-
-        <button onclick="showGame()">Go to Word Guessing Game</button>
-        <button onclick="showAdventureGame()">Play Choose Your Own Adventure</button>
-        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
-    </div>
-
-    <div id="game-container" class="container">
-        <h1>Word Guessing Game</h1>
-        <input type="text" id="guessInput" placeholder="Enter your guess">
-        <button onclick="checkGuess()">Submit</button>
-        <p id="hint"></p>
-        <button onclick="showGreetingForm()">Go to Greeting Form</button>
-        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
-    </div>
-    
-    <div id="adventure-container" class="adventure-container container">
-        <h1>Choose Your Own Adventure</h1>
-        <p id="adventureText"></p>
-        <div id="adventureOptions"></div>
-        <button onclick="showGreetingForm()">Go to Greeting Form</button>
-        <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
-    </div>
-
-    <div id="drawingApp" class="container" style="display: none;">
-        <h1>Enhanced Drawing App</h1>
-        <canvas id="drawingCanvas" width="500" height="500"></canvas>
-        <div class="controls">
-            <div>
-                <button id="clearButton">Clear</button>
-                <button id="paintCanButton">Paint Can</button>
-            </div>
-            <div>
-                <span>Brush Size:</span>
-                <button class="brush-size-button" data-size="5">5</button>
-                <button class="brush-size-button" data-size="10">10</button>
-                <button class="brush-size-button" data-size="15">15</button>
-            </div>
-            <div>
-                <span>Colors:</span>
-                <div class="color-button" style="background-color: black;" data-color="black"></div>
-                <div class="color-button" style="background-color: red;" data-color="red"></div>
-                <div class="color-button" style="background-color: blue;" data-color="blue"></div>
-                <div class="color-button" style="background-color: green;" data-color="green"></div>
-                <div class="color-button" style="background-color: yellow;" data-color="yellow"></div>
-                <div class="color-button" style="background-color: orange;" data-color="orange"></div>
-                <div class="color-button" style="background-color: purple;" data-color="purple"></div>
-                <div class="color-button" style="background-color: pink;" data-color="pink"></div>
-                <div class="color-button" style="background-color: brown;" data-color="brown"></div>
-                <div class="color-button" style="background-color: gray;" data-color="gray"></div>
-            </div>
-        </div>
-
-        <script>
-            const canvas = document.getElementById('drawingCanvas');
-            const ctx = canvas.getContext('2d');
-            let drawing = false;
-            let currentColor = 'black';
-            let brushSize = 5;
-            let paintCanMode = false;
-
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mousemove', draw);
-            document.getElementById('clearButton').addEventListener('click', clearCanvas);
-            document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
-
-            document.querySelectorAll('.color-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    currentColor = button.getAttribute('data-color');
-                });
-            });
-
-            document.querySelectorAll('.brush-size-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    brushSize = button.getAttribute('data-size');
-                });
-            });
-
-            function startDrawing(event) {
-                drawing = true;
-                if (paintCanMode) {
-                    fillArea(event);
-                } else {
-                    draw(event);
-                }
-            }
-
-            function stopDrawing() {
-                drawing = false;
-                ctx.beginPath();
-            }
-
-            function draw(event) {
-                if (!drawing || paintCanMode) return;
-
-                ctx.lineWidth = brushSize;
-                ctx.lineCap = 'round';
-                ctx.strokeStyle = currentColor;
-
-                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-            }
-
-            function clearCanvas() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-
-            function togglePaintCanMode() {
-                paintCanMode = !paintCanMode;
-                document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
-            }
-
-            function fillArea(event) {
-                const x = event.clientX - canvas.offsetLeft;
-                const y = event.clientY - canvas.offsetTop;
-
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const targetColor = getColorAtPixel(imageData, x, y);
-                const fillColor = hexToRgb(currentColor);
-
-                // Check if the target color is the same as fill color to avoid unnecessary work
-                if (isSameColor(targetColor, fillColor)) return;
-
-                floodFill(imageData, x, y, targetColor, fillColor);
-                ctx.putImageData(imageData, 0, 0);
-            }
-
-            function floodFill(imageData, x, y, targetColor, fillColor) {
-                const stack = [[x, y]]; // Use a stack to keep track of pixels to fill
-                const width = imageData.width;
-                const height = imageData.height;
-
-                while (stack.length) {
-                    const [cx, cy] = stack.pop();
-
-                    // Ensure we're within bounds
-                    if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
-
-                    const index = (cy * width + cx) * 4;
-
-                    // Check if the color matches the target color
-                    if (isSameColor(imageData, index, targetColor)) {
-                        setColorAtPixel(imageData, index, fillColor);
-                        // Push the neighboring pixels
-                        stack.push([cx + 1, cy]);
-                        stack.push([cx - 1, cy]);
-                        stack.push([cx, cy + 1]);
-                        stack.push([cx, cy - 1]);
-                    }
-                }
-            }
-
-            function isSameColor(imageData, index, color) {
-                if (index < 0 || index >= imageData.data.length) return false; // Prevent accessing out of bounds
-                return imageData.data[index] === color.r &&
-                       imageData.data[index + 1] === color.g &&
-                       imageData.data[index + 2] === color.b;
-            }
-
-            function getColorAtPixel(imageData, x, y) {
-                const index = (y * imageData.width + x) * 4;
-                return {
-                    r: imageData.data[index],
-                    g: imageData.data[index + 1],
-                    b: imageData.data[index + 2],
-                    a: imageData.data[index + 3]
-                };
-            }
-
-            function hexToRgb(hex) {
-                const bigint = parseInt(hex.slice(1), 16);
-                return {
-                    r: (bigint >> 16) & 255,
-                    g: (bigint >> 8) & 255,
-                    b: bigint & 255
-                };
-            }
-
-            function setColorAtPixel(imageData, index, color) {
-                imageData.data[index] = color.r;
-                imageData.data[index + 1] = color.g;
-                imageData.data[index + 2] = color.b;
-                imageData.data[index + 3] = 255;
-            }
-        </script>
-    </div>
 </body>
 </html>
