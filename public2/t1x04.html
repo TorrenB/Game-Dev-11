@@ -3,46 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fancy Chess Board</title>
-    <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <title>Advanced Cookie Clicker</title>
     <style>
         body {
-            background-color: #f0f0f0;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
-        #board {
-            width: 400px;
-            margin: 20px auto;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
+        #cookie {
+            width: 200px;
+            cursor: pointer;
         }
-        .chessboard-1.0.0 .white-1e1d7 {
-            background-color: #f0d9b5;
+        #count {
+            font-size: 2em;
+            margin-top: 20px;
         }
-        .chessboard-1.0.0 .black-3c85d {
-            background-color: #b58863;
+        .upgrade {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div id="board"></div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <h1>Advanced Cookie Clicker</h1>
+    <img id="cookie" src="https://example.com/cookie.png" alt="Cookie">
+    <div id="count">0</div>
+    <button class="upgrade" id="upgrade1">Upgrade 1 (Cost: 10)</button>
+    <button class="upgrade" id="upgrade2">Upgrade 2 (Cost: 100)</button>
+    <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
+
     <script>
-        $(document).ready(function() {
-            var board = Chessboard('board', {
-                draggable: true,
-                dropOffBoard: 'snapback',
-                position: 'start'
-            });
+        let count = 0;
+        let cookiesPerClick = 1;
+        let cookiesPerSecond = 0;
+        let cpsUpgradeCost = 50;
+
+        document.getElementById('cookie').addEventListener('click', () => {
+            count += cookiesPerClick;
+            document.getElementById('count').textContent = count;
+            saveGame();
         });
+
+        document.getElementById('upgrade1').addEventListener('click', () => {
+            if (count >= 10) {
+                count -= 10;
+                cookiesPerClick += 1;
+                document.getElementById('count').textContent = count;
+                saveGame();
+            }
+        });
+
+        document.getElementById('upgrade2').addEventListener('click', () => {
+            if (count >= 100) {
+                count -= 100;
+                cookiesPerClick += 10;
+                document.getElementById('count').textContent = count;
+                saveGame();
+            }
+        });
+
+        document.getElementById('cpsUpgrade').addEventListener('click', () => {
+            if (count >= cpsUpgradeCost) {
+                count -= cpsUpgradeCost;
+                cookiesPerSecond += 1;
+                cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5);
+                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                document.getElementById('count').textContent = count;
+                saveGame();
+            }
+        });
+
+        function saveGame() {
+            localStorage.setItem('count', count);
+            localStorage.setItem('cookiesPerClick', cookiesPerClick);
+            localStorage.setItem('cookiesPerSecond', cookiesPerSecond);
+            localStorage.setItem('cpsUpgradeCost', cpsUpgradeCost);
+        }
+
+        function loadGame() {
+            count = parseInt(localStorage.getItem('count')) || 0;
+            cookiesPerClick = parseInt(localStorage.getItem('cookiesPerClick')) || 1;
+            cookiesPerSecond = parseInt(localStorage.getItem('cookiesPerSecond')) || 0;
+            cpsUpgradeCost = parseInt(localStorage.getItem('cpsUpgradeCost')) || 50;
+            document.getElementById('count').textContent = count;
+            document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+        }
+
+        function generateCookies() {
+            count += cookiesPerSecond;
+            document.getElementById('count').textContent = count;
+            saveGame();
+        }
+
+        setInterval(generateCookies, 1000);
+
+        window.onload = loadGame;
     </script>
 </body>
 </html>
