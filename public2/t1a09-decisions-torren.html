@@ -363,7 +363,6 @@
             document.getElementById('cookie').addEventListener('click', () => {
                 count += cookiesPerClick;
                 document.getElementById('count').textContent = count;
-                saveGame();
             });
 
             document.getElementById('upgrade1').addEventListener('click', () => {
@@ -374,7 +373,6 @@
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
                     updateButtonLabels();
-                    saveGame();
                 }
             });
 
@@ -386,7 +384,6 @@
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
                     updateButtonLabels();
-                    saveGame();
                 }
             });
 
@@ -398,7 +395,6 @@
                     cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5); // Increase cost for next purchase
                     updateButtonLabels();
                     document.getElementById('count').textContent = count;
-                    saveGame();
                 }
             });
 
@@ -410,7 +406,6 @@
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
                     updateButtonLabels();
-                    saveGame();
                 }
             });
 
@@ -422,7 +417,6 @@
                     upgradeLevel++;
                     document.getElementById('count').textContent = count;
                     updateButtonLabels();
-                    saveGame();
                 }
             });
 
@@ -434,33 +428,23 @@
                 document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: ${calculateUpgradeCost(10000)}) Level: ${upgradeLevel}`;
             }
 
-            function saveGame() {
-                localStorage.setItem('count', count);
-                localStorage.setItem('cookiesPerClick', cookiesPerClick);
-                localStorage.setItem('cookiesPerSecond', cookiesPerSecond);
-                localStorage.setItem('cpsUpgradeCost', cpsUpgradeCost);
-                localStorage.setItem('upgradeLevel', upgradeLevel);
-            }
-
-            function loadGame() {
-                count = parseInt(localStorage.getItem('count')) || 0;
-                cookiesPerClick = parseInt(localStorage.getItem('cookiesPerClick')) || 1;
-                cookiesPerSecond = parseInt(localStorage.getItem('cookiesPerSecond')) || 0;
-                cpsUpgradeCost = parseInt(localStorage.getItem('cpsUpgradeCost')) || 50;
-                upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || 0;
-
-                document.getElementById('count').textContent = count;
-                updateButtonLabels();
-            }
-
             function generateCookies() {
                 count += cookiesPerSecond;
                 document.getElementById('count').textContent = count;
-                saveGame();
             }
 
             setInterval(generateCookies, 1000);
-            window.onload = loadGame;
+
+            // Reset initial game state on page load
+            window.onload = () => {
+                count = 0;
+                cookiesPerClick = 1;
+                cookiesPerSecond = 0;
+                cpsUpgradeCost = 50;
+                upgradeLevel = 0;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            };
         </script>
     </div>
 
