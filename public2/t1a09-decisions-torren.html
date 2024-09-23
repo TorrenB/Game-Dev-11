@@ -15,7 +15,7 @@
             padding: 20px;
             margin: 0;
         }
-
+        
         h1 {
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -95,7 +95,18 @@
             display: inline-block;
         }
 
-        /* Cookie Clicker */
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                width: 100%; /* Full button width on small screens */
+            }
+        }
+        
+        /* Additional Styles for Cookie Clicker */
         #cookie {
             width: 200px;
             cursor: pointer;
@@ -108,17 +119,6 @@
 
         .upgrade {
             margin-top: 20px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            button {
-                width: 100%; /* Full button width on small screens */
-            }
         }
     </style>
 </head>
@@ -204,6 +204,7 @@
         </div>
 
         <script>
+            // Drawing App Functionality
             const canvas = document.getElementById('drawingCanvas');
             const ctx = canvas.getContext('2d');
             let drawing = false;
@@ -273,7 +274,6 @@
                 const targetColor = getColorAtPixel(imageData, x, y);
                 const fillColor = hexToRgb(currentColor);
 
-                // Check if the target color is the same as fill color to avoid unnecessary work
                 if (isSameColor(targetColor, fillColor)) return;
 
                 floodFill(imageData, x, y, targetColor, fillColor);
@@ -281,22 +281,19 @@
             }
 
             function floodFill(imageData, x, y, targetColor, fillColor) {
-                const stack = [[x, y]]; // Use a stack to keep track of pixels to fill
+                const stack = [[x, y]];
                 const width = imageData.width;
                 const height = imageData.height;
 
                 while (stack.length) {
                     const [cx, cy] = stack.pop();
 
-                    // Ensure we're within bounds
                     if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
 
                     const index = (cy * width + cx) * 4;
 
-                    // Check if the color matches the target color
                     if (isSameColor(imageData, index, targetColor)) {
                         setColorAtPixel(imageData, index, fillColor);
-                        // Push the neighboring pixels
                         stack.push([cx + 1, cy]);
                         stack.push([cx - 1, cy]);
                         stack.push([cx, cy + 1]);
@@ -306,7 +303,7 @@
             }
 
             function isSameColor(imageData, index, color) {
-                if (index < 0 || index >= imageData.data.length) return false; // Prevent accessing out of bounds
+                if (index < 0 || index >= imageData.data.length) return false;
                 return imageData.data[index] === color.r &&
                        imageData.data[index + 1] === color.g &&
                        imageData.data[index + 2] === color.b;
@@ -348,12 +345,15 @@
         <button class="upgrade" id="upgrade1">Upgrade 1 (Cost: 10)</button>
         <button class="upgrade" id="upgrade2">Upgrade 2 (Cost: 100)</button>
         <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
+        <button class="upgrade" id="upgrade3">Upgrade 3 (Cost: 1000)</button>
+        <button class="upgrade" id="upgrade4">Upgrade 4 (Cost: 10000)</button>
 
         <script>
             let count = 0;
             let cookiesPerClick = 1;
             let cookiesPerSecond = 0;
             let cpsUpgradeCost = 50;
+            let upgradeLevel = 0;
 
             document.getElementById('cookie').addEventListener('click', () => {
                 count += cookiesPerClick;
@@ -373,7 +373,7 @@
             document.getElementById('upgrade2').addEventListener('click', () => {
                 if (count >= 100) {
                     count -= 100;
-                    cookiesPerClick += 10;
+                    cookiesPerClick += 1;
                     document.getElementById('count').textContent = count;
                     saveGame();
                 }
@@ -390,11 +390,34 @@
                 }
             });
 
+            document.getElementById('upgrade3').addEventListener('click', () => {
+                if (count >= 1000 && upgradeLevel < 420) {
+                    count -= 1000;
+                    cookiesPerClick += 500;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: 1000) Level: ${upgradeLevel}`;
+                    saveGame();
+                }
+            });
+
+            document.getElementById('upgrade4').addEventListener('click', () => {
+                if (count >= 10000 && upgradeLevel < 420) {
+                    count -= 10000;
+                    cookiesPerClick += 500;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: 10000) Level: ${upgradeLevel}`;
+                    saveGame();
+                }
+            });
+
             function saveGame() {
                 localStorage.setItem('count', count);
                 localStorage.setItem('cookiesPerClick', cookiesPerClick);
                 localStorage.setItem('cookiesPerSecond', cookiesPerSecond);
                 localStorage.setItem('cpsUpgradeCost', cpsUpgradeCost);
+                localStorage.setItem('upgradeLevel', upgradeLevel);
             }
 
             function loadGame() {
@@ -402,8 +425,12 @@
                 cookiesPerClick = parseInt(localStorage.getItem('cookiesPerClick')) || 1;
                 cookiesPerSecond = parseInt(localStorage.getItem('cookiesPerSecond')) || 0;
                 cpsUpgradeCost = parseInt(localStorage.getItem('cpsUpgradeCost')) || 50;
+                upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || 0;
+
                 document.getElementById('count').textContent = count;
                 document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: 1000) Level: ${upgradeLevel}`;
+                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: 10000) Level: ${upgradeLevel}`;
             }
 
             function generateCookies() {
@@ -413,7 +440,6 @@
             }
 
             setInterval(generateCookies, 1000);
-
             window.onload = loadGame;
         </script>
     </div>
