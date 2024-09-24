@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometric Values Calculator</title>
+    <title>Trigonometric Values and Image Converter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,39 +26,101 @@
             border-top: 1px solid #ddd;
             margin: 10px 0;
         }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #converted-images {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Trigonometric Values for Angles from 0° to 360°</h1>
+    <h1>Trigonometric Values and JPEG to PNG Converter</h1>
+
+    <input type="number" id="angleInput" placeholder="Enter angle in degrees">
+    <button onclick="calculateTrigonometricValues()">Calculate Trigonometric Values</button>
     <pre id="output"></pre>
+
+    <input type="file" id="jpegInput" accept="image/jpeg" multiple>
+    <button id="convertButton">Convert to PNG</button>
+
+    <div id="converted-images"></div>
 
     <script>
         // Function to convert degrees to radians
         const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
-        // Function to calculate trigonometric values for angles from 0 to 360 degrees
+        // Function to calculate trigonometric values for a specific angle
         const calculateTrigonometricValues = () => {
-            let output = '';
-            
-            for (let angle = 0; angle <= 360; angle++) {
-                const radians = degreesToRadians(angle);
-                const sine = Math.sin(radians);
-                const cosine = Math.cos(radians);
-                const tangent = Math.tan(radians);
-                
-                output += `Angle: ${angle}°\n`;
-                output += `Sine: ${sine.toFixed(4)}\n`;
-                output += `Cosine: ${cosine.toFixed(4)}\n`;
-                output += `Tangent: ${tangent.toFixed(4)}\n`;
-                output += '-------------------------\n';
+            const angle = document.getElementById('angleInput').value;
+            if (angle === '') {
+                alert("Please enter an angle in degrees.");
+                return;
             }
+            const radians = degreesToRadians(angle);
+            const sine = Math.sin(radians);
+            const cosine = Math.cos(radians);
+            const tangent = Math.tan(radians);
+            
+            let output = `Angle: ${angle}°\n`;
+            output += `Sine: ${sine.toFixed(4)}\n`;
+            output += `Cosine: ${cosine.toFixed(4)}\n`;
+            output += `Tangent: ${tangent.toFixed(4)}\n`;
 
             document.getElementById('output').textContent = output;
         };
 
-        // Execute the function
-        calculateTrigonometricValues();
+        // Function to convert JPEG images to PNG
+        const convertImagesToPNG = () => {
+            const input = document.getElementById('jpegInput');
+            const files = input.files;
+            const convertedImagesContainer = document.getElementById('converted-images');
+            convertedImagesContainer.innerHTML = '';  // Clear previous output
+
+            Array.from(files).forEach(file => {
+                if (file.type === 'image/jpeg') {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.src = e.target.result;
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
+                            const pngDataUrl = canvas.toDataURL('image/png');
+                            
+                            // Create an image element to show the converted image
+                            const convertedImg = document.createElement('img');
+                            convertedImg.src = pngDataUrl;
+                            convertedImg.alt = 'Converted PNG Image';
+                            convertedImg.style.maxWidth = '200px';
+                            convertedImg.style.margin = '10px';
+                            
+                            convertedImagesContainer.appendChild(convertedImg);
+                        };
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        };
+
+        // Add event listener to the button for image conversion
+        document.getElementById('convertButton').addEventListener('click', convertImagesToPNG);
     </script>
 
 </body>
