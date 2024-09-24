@@ -3,106 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music and Image Slideshow</title>
+    <title>Trigonometric Values and Image Converter</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
             margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent scrolling */
+            padding: 20px;
         }
-
-        .slideshow-container {
-            position: relative;
-            width: 100vw; /* Full viewport width */
-            height: 100vh; /* Full viewport height */
-            overflow: hidden;
+        h1 {
+            text-align: center;
         }
-
-        .slides {
-            display: none;
-            width: 100vw; /* Full viewport width */
-            height: 100vh; /* Full viewport height */
-            object-fit: cover; /* Cover the entire area */
-        }
-
-        button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
+        pre {
+            background: #fff;
+            border: 1px solid #ddd;
             padding: 10px;
             border-radius: 5px;
+            overflow-x: auto;
+        }
+        .separator {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
             cursor: pointer;
-            z-index: 1; /* Ensure buttons are on top */
         }
-
-        .prev {
-            left: 10px; /* Position for left button */
-        }
-
-        .next {
-            right: 10px; /* Position for right button */
-        }
-
-        h1, p {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            color: white;
-            z-index: 2; /* Ensure text is on top */
+        #converted-images {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>Enjoy the music and the slideshow!</p>
 
-    <audio autoplay loop>
-        <source src="your-audio-file.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <h1>Trigonometric Values and JPEG to PNG Converter</h1>
 
-    <div class="slideshow-container">
-        <img class="slides" src="https://1.bp.blogspot.com/_qz3ZiMJ4HR8/TRDVdmQUElI/AAAAAAAAAKw/6POIYdrdKEg/s1600/earth.jpg" alt="Earth">
-        <img class="slides" src="https://www.wallpaperflare.com/static/196/663/807/galaxy-space-stars-universe-wallpaper.jpg" alt="Galaxy">
-        <img class="slides" src="https://upload.wikimedia.org/wikipedia/commons/9/98/Milky_Way_Galaxy_shimmering_over_Nanga_Parbat,_Pakistan.jpg" alt="Milky Way Galaxy">
-        <img class="slides" src="https://wallpaperaccess.com/full/1124099.jpg" alt="Universe">
-        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="next" onclick="changeSlide(1)">&#10095;</button>
-    </div>
+    <input type="number" id="angleInput" placeholder="Enter angle in degrees">
+    <button onclick="calculateTrigonometricValues()">Calculate Trigonometric Values</button>
+    <pre id="output"></pre>
+
+    <input type="file" id="jpegInput" accept="image/jpeg" multiple>
+    <button id="convertButton">Convert to PNG</button>
+
+    <div id="converted-images"></div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slides');
+        // Function to convert degrees to radians
+        const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
-        function showSlide(index) {
-            if (index >= slides.length) {
-                currentSlide = 0;
-            } else if (index < 0) {
-                currentSlide = slides.length - 1;
-            } else {
-                currentSlide = index;
+        // Function to calculate trigonometric values for a series of angles
+        const calculateTrigonometricValues = () => {
+            const angle = document.getElementById('angleInput').value;
+            if (angle === '') {
+                alert("Please enter an angle in degrees.");
+                return;
             }
 
-            slides.forEach((slide, idx) => {
-                slide.style.display = (idx === currentSlide) ? "block" : "none";
-            });
-        }
+            let output = '';
+            const maxAngle = parseInt(angle); // Cast to integer for looping
 
-        // Change slide based on the direction
-        function changeSlide(direction) {
-            showSlide(currentSlide + direction);
-        }
+            // Loop from 0 to the entered angle
+            for (let i = 0; i <= maxAngle; i++) {
+                const radians = degreesToRadians(i);
+                const sine = Math.sin(radians);
+                const cosine = Math.cos(radians);
+                const tangent = Math.tan(radians);
+                
+                output += `Angle: ${i}°\n`;
+                output += `Sine: ${sine.toFixed(4)}\n`;
+                output += `Cosine: ${cosine.toFixed(4)}\n`;
+                output += `Tangent: ${tangent.toFixed(4)}\n`;
+                output += '-------------------------\n';
+            }
 
-        // Show the first slide initially
-        showSlide(currentSlide);
+            document.getElementById('output').textContent = output;
+        };
 
-        // Auto slide every 3 seconds (optional)
-        setInterval(() => {
-            changeSlide(1);
-        }, 3000);
+        // Function to convert JPEG images to PNG
+        const convertImagesToPNG = () => {
+            const input = document.getElementById('jpegInput');
+            const files = input.files;
+            const convertedImagesContainer = document.getElementById('converted-images');
+            convertedImagesContainer.innerHTML = '';  // Clear previous output
+
+            // Loop through each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type === 'image/jpeg') {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.src = e.target.result;
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            ctx.drawImage(img, 0, 0);
+                            const pngDataUrl = canvas.toDataURL('image/png');
+                            
+                            // Create an image element to show the converted image
+                            const convertedImg = document.createElement('img');
+                            convertedImg.src = pngDataUrl;
+                            convertedImg.alt = 'Converted PNG Image';
+                            convertedImg.style.maxWidth = '200px';
+                            convertedImg.style.margin = '10px';
+                            
+                            convertedImagesContainer.appendChild(convertedImg);
+                        };
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        };
+
+        // Add event listener to the button for image conversion
+        document.getElementById('convertButton').addEventListener('click', convertImagesToPNG);
     </script>
+
 </body>
 </html>
