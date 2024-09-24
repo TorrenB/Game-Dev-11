@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometric Values and JavaScript Loops</title>
+    <title>Trigonometric Values, Loops, and Higher or Lower Game</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -14,11 +14,7 @@
             padding: 20px;
             line-height: 1.6;
         }
-        h1 {
-            text-align: center;
-            color: #4a4a4a;
-        }
-        h2, h4 {
+        h1, h2, h4 {
             color: #4a4a4a;
         }
         .container {
@@ -81,12 +77,16 @@
         #myDiv01 {
             margin-top: 20px;
         }
+        #gameResult {
+            margin-top: 20px;
+            color: #e74c3c; /* Color for feedback */
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Trigonometric Values and JavaScript Loops</h1>
+        <h1>Trigonometric Values, Loops, and Higher or Lower Game</h1>
 
         <h2 align="center">t1a10-loops</h2>
         <a href="">Good reference to Javascript Loops</a><br>
@@ -123,9 +123,46 @@
         <button id="convertButton">Convert to PNG</button>
 
         <div id="converted-images"></div>
+
+        <div class="separator"></div>
+
+        <h4>Higher or Lower Game</h4>
+        <p>Guess a number between 1 and 100,000!</p>
+        <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="100000">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <div id="gameResult"></div>
+        <button onclick="startGame()">Start New Game</button>
     </div>
 
     <script>
+        let randomNumber;
+        let attempts = 0;
+
+        function startGame() {
+            randomNumber = Math.floor(Math.random() * 100000) + 1; // Generate random number between 1 and 100000
+            attempts = 0;
+            document.getElementById('gameResult').innerText = "New game started! Make a guess.";
+            document.getElementById('guessInput').value = ''; // Clear input
+        }
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            attempts++;
+
+            if (isNaN(guess) || guess < 1 || guess > 100000) {
+                document.getElementById('gameResult').innerText = "Please enter a valid guess between 1 and 100,000.";
+                return;
+            }
+
+            if (guess < randomNumber) {
+                document.getElementById('gameResult').innerText = "Higher! Try again.";
+            } else if (guess > randomNumber) {
+                document.getElementById('gameResult').innerText = "Lower! Try again.";
+            } else {
+                document.getElementById('gameResult').innerText = `Congratulations! You've guessed the number ${randomNumber} in ${attempts} attempts.`;
+            }
+        }
+
         // Function to convert degrees to radians
         const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
