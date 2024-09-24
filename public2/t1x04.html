@@ -3,100 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Cookie Clicker</title>
+    <title>Blackjack Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            background-color: #f8f8f8;
         }
-        #cookie {
-            width: 200px;
+        #output {
+            white-space: pre-wrap; /* Preserve line breaks */
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px auto;
+            width: 300px;
+            text-align: left; /* Align text to the left */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-        }
-        #count {
-            font-size: 2em;
-            margin-top: 20px;
-        }
-        .upgrade {
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Advanced Cookie Clicker</h1>
-    <img id="cookie" src="https://example.com/cookie.png" alt="Cookie">
-    <div id="count">0</div>
-    <button class="upgrade" id="upgrade1">Upgrade 1 (Cost: 10)</button>
-    <button class="upgrade" id="upgrade2">Upgrade 2 (Cost: 100)</button>
-    <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
+    <h1>Blackjack</h1>
+    <button id="startGame">Start Game</button>
+    <div id="output"></div>
 
     <script>
-        let count = 0;
-        let cookiesPerClick = 1;
-        let cookiesPerSecond = 0;
-        let cpsUpgradeCost = 50;
+        const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+        const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 
-        document.getElementById('cookie').addEventListener('click', () => {
-            count += cookiesPerClick;
-            document.getElementById('count').textContent = count;
-            saveGame();
-        });
-
-        document.getElementById('upgrade1').addEventListener('click', () => {
-            if (count >= 10) {
-                count -= 10;
-                cookiesPerClick += 1;
-                document.getElementById('count').textContent = count;
-                saveGame();
+        function createDeck() {
+            const deck = [];
+            for (let suit of suits) {
+                for (let rank of ranks) {
+                    deck.push({ s: suit, r: rank });
+                }
             }
-        });
-
-        document.getElementById('upgrade2').addEventListener('click', () => {
-            if (count >= 100) {
-                count -= 100;
-                cookiesPerClick += 10;
-                document.getElementById('count').textContent = count;
-                saveGame();
-            }
-        });
-
-        document.getElementById('cpsUpgrade').addEventListener('click', () => {
-            if (count >= cpsUpgradeCost) {
-                count -= cpsUpgradeCost;
-                cookiesPerSecond += 1;
-                cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5);
-                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
-                document.getElementById('count').textContent = count;
-                saveGame();
-            }
-        });
-
-        function saveGame() {
-            localStorage.setItem('count', count);
-            localStorage.setItem('cookiesPerClick', cookiesPerClick);
-            localStorage.setItem('cookiesPerSecond', cookiesPerSecond);
-            localStorage.setItem('cpsUpgradeCost', cpsUpgradeCost);
+            return deck;
         }
 
-        function loadGame() {
-            count = parseInt(localStorage.getItem('count')) || 0;
-            cookiesPerClick = parseInt(localStorage.getItem('cookiesPerClick')) || 1;
-            cookiesPerSecond = parseInt(localStorage.getItem('cookiesPerSecond')) || 0;
-            cpsUpgradeCost = parseInt(localStorage.getItem('cpsUpgradeCost')) || 50;
-            document.getElementById('count').textContent = count;
-            document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+        function shuffleDeck(deck) {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
         }
 
-        function generateCookies() {
-            count += cookiesPerSecond;
-            document.getElementById('count').textContent = count;
-            saveGame();
+        function getCardValue(card) {
+            if (card.r === 'Ace') return 11;
+            if (['Jack', 'Queen', 'King'].includes(card.r)) return 10;
+            return parseInt(card.r);
         }
 
-        setInterval(generateCookies, 1000);
+        function calculateHandValue(hand) {
+            let value = hand.reduce((sum, card) => sum + getCardValue(card), 0);
+            let aces = hand.filter(card => card.r === 'Ace').length;
 
-        window.onload = loadGame;
+            while (value > 21 && aces) {
+                value -= 10;
+                aces--;
+            }
+            return value;
+        }
+
+        function updateOutput(message) {
+            const output = document.getElementById("output");
+            output.innerText += message + "\n";
+        }
+
+        function playBlackjack() {
+            const deck = createDeck();
+            shuffleDeck(deck);
+
+            const playerHand = [deck.pop(), deck.pop()];
+            const dealerHand = [deck.pop(), deck.pop()];
+
+            updateOutput("Welcome to Blackjack!\n");
+
+            let playerDone = false;
+
+            while (!playerDone) {
+                updateOutput(`Your hand: ${JSON.stringify(playerHand)} (Value: ${calculateHandValue(playerHand)})`);
+                updateOutput(`Dealer showing: ${dealerHand[0].r} of ${dealerHand[0].s}`);
+
+                const choice = prompt("Do you want to hit (h) or stand (s)?").toLowerCase();
+
+                if (choice === 'h') {
+                    playerHand.push(deck.pop());
+                    if (calculateHandValue(playerHand) > 21) {
+                        playerDone = true;
+                        updateOutput(`Busted! Your hand: ${JSON.stringify(playerHand)} (Value: ${calculateHandValue(playerHand)})`);
+                    }
+                } else if (choice === 's') {
+                    playerDone = true;
+                }
+            }
+
+            if (calculateHandValue(playerHand) <= 21) {
+                while (calculateHandValue(dealerHand) < 17) {
+                    dealerHand.push(deck.pop());
+                }
+                updateOutput(`Dealer's hand: ${JSON.stringify(dealerHand)} (Value: ${calculateHandValue(dealerHand)})`);
+
+                const playerValue = calculateHandValue(playerHand);
+                const dealerValue = calculateHandValue(dealerHand);
+
+                if (dealerValue > 21 || playerValue > dealerValue) {
+                    updateOutput("You win!");
+                } else if (playerValue === dealerValue) {
+                    updateOutput("It's a tie!");
+                } else {
+                    updateOutput("Dealer wins!");
+                }
+            }
+
+            updateOutput("Game over. Thank you for playing!");
+        }
+
+        // Start the game when the button is clicked
+        document.getElementById("startGame").addEventListener("click", playBlackjack);
     </script>
 </body>
 </html>
