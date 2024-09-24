@@ -8,26 +8,26 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f5;
-            color: #333;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #2c3e50; /* Navy text color */
             margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
         h1, h2, h4 {
-            color: #4a4a4a;
+            color: #2c3e50; /* Navy headings */
         }
         .container {
             max-width: 800px;
             margin: auto;
-            background: #ffffff;
+            background: #ffffff; /* White background for the container */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         pre {
-            background: #fafafa;
-            border: 1px solid #ddd;
+            background: #ecf0f1; /* Light gray for code blocks */
+            border: 1px solid #bdc3c7;
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
@@ -39,13 +39,13 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #bdc3c7; /* Light gray borders */
             border-radius: 5px;
             font-size: 16px;
             transition: border 0.3s;
         }
         input[type="number"]:focus, input[type="file"]:focus, input[type="text"]:focus {
-            border-color: #6b5b95; 
+            border-color: #2980b9; /* Navy blue on focus */
             outline: none;
         }
         button {
@@ -55,23 +55,23 @@
             margin: 10px 0;
             border: none;
             border-radius: 5px;
-            background-color: #6b5b95;
+            background-color: #2980b9; /* Navy blue background */
             color: white;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #5a4a85; 
+            background-color: #1c5980; /* Darker navy on hover */
         }
         #converted-images img {
             max-width: 100%;
-            border: 2px solid #ddd;
+            border: 2px solid #bdc3c7; /* Light gray borders for images */
             border-radius: 5px;
             margin-top: 10px;
         }
         .separator {
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #bdc3c7; /* Light gray separator */
             margin: 20px 0;
         }
         #myDiv01 {
@@ -89,7 +89,7 @@
         <h1>Trigonometric Values, Loops, and Higher or Lower Game</h1>
 
         <h2 align="center">t1a10-loops</h2>
-        <a href="">Good reference to Javascript Loops</a><br>
+        <a href="" style="color: #2980b9;">Good reference to Javascript Loops</a><br>
 
         <h4>Example Input Output Code</h4>
         <pre>
@@ -138,16 +138,18 @@
         let randomNumber;
         let attempts = 0;
 
+        // Function to start a new game and generate a new random number
         function startGame() {
             randomNumber = Math.floor(Math.random() * 100000) + 1; // Generate random number between 1 and 100000
-            attempts = 0;
+            attempts = 0; // Reset attempts count
             document.getElementById('gameResult').innerText = "New game started! Make a guess.";
-            document.getElementById('guessInput').value = ''; // Clear input
+            document.getElementById('guessInput').value = ''; // Clear input field
         }
 
+        // Function to check the player's guess against the random number
         function checkGuess() {
             const guess = parseInt(document.getElementById('guessInput').value);
-            attempts++;
+            attempts++; // Increment the number of attempts
 
             if (isNaN(guess) || guess < 1 || guess > 100000) {
                 document.getElementById('gameResult').innerText = "Please enter a valid guess between 1 and 100,000.";
