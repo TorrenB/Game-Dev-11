@@ -8,32 +8,33 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4; /* Light gray background */
-            color: #2c3e50; /* Navy text color */
+            background-color: #001f3f; /* Dark navy background */
+            color: #ecf0f1; /* Light text color for contrast */
             margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
         h1, h2, h4 {
-            color: #2c3e50; /* Navy headings */
+            color: #ecf0f1; /* Light text for headings */
         }
         .container {
             max-width: 800px;
             margin: auto;
-            background: #ffffff; /* White background for the container */
+            background: #2c3e50; /* Darker gray for the container */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         pre {
-            background: #ecf0f1; /* Light gray for code blocks */
-            border: 1px solid #bdc3c7;
+            background: #34495e; /* Even darker gray for code blocks */
+            border: 1px solid #bdc3c7; /* Light gray for code block border */
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
             margin: 20px 0;
+            color: #ecf0f1; /* Light text color for code */
         }
         input[type="number"], input[type="file"], input[type="text"] {
             width: 100%;
@@ -43,9 +44,11 @@
             border-radius: 5px;
             font-size: 16px;
             transition: border 0.3s;
+            background-color: #34495e; /* Darker background for inputs */
+            color: #ecf0f1; /* Light text color for inputs */
         }
         input[type="number"]:focus, input[type="file"]:focus, input[type="text"]:focus {
-            border-color: #2980b9; /* Navy blue on focus */
+            border-color: #3498db; /* Bright blue on focus */
             outline: none;
         }
         button {
@@ -54,15 +57,21 @@
             padding: 12px;
             margin: 10px 0;
             border: none;
-            border-radius: 5px;
-            background-color: #2980b9; /* Navy blue background */
+            border-radius: 6px;
+            background-color: #3498db; /* Bright blue for buttons */
             color: white;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
         }
         button:hover {
-            background-color: #1c5980; /* Darker navy on hover */
+            background-color: #2980b9; /* Darker blue on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        button:active {
+            transform: translateY(0); /* Reset lift on click */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduce shadow on active */
         }
         #converted-images img {
             max-width: 100%;
@@ -89,7 +98,7 @@
         <h1>Trigonometric Values, Loops, and Higher or Lower Game</h1>
 
         <h2 align="center">t1a10-loops</h2>
-        <a href="" style="color: #2980b9;">Good reference to Javascript Loops</a><br>
+        <a href="" style="color: #1abc9c;">Good reference to Javascript Loops</a><br>
 
         <h4>Example Input Output Code</h4>
         <pre>
