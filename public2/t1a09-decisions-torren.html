@@ -15,7 +15,7 @@
             padding: 20px;
             margin: 0;
         }
-
+        
         h1 {
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -67,13 +67,7 @@
             color: #ecf0f1;
         }
 
-        #attemptsRemaining {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #f39c12;
-        }
-
-        #greetingForm, #game-container, #drawingApp, #cookieClicker, #adventure-container {
+        #greetingForm, #guessingGame, #drawingApp, #cookieClicker {
             display: none;
         }
 
@@ -84,36 +78,21 @@
         canvas {
             border: 1px solid black;
         }
-
+        
         .controls {
             margin-top: 10px;
         }
-
+        
         .color-button, .brush-size-button {
             margin: 5px;
             padding: 10px;
             cursor: pointer;
         }
-
+        
         .color-button {
             width: 30px;
             height: 30px;
             display: inline-block;
-        }
-
-        /* Additional Styles for Cookie Clicker */
-        #cookie {
-            width: 200px;
-            cursor: pointer;
-        }
-
-        #count {
-            font-size: 2em;
-            margin-top: 20px;
-        }
-
-        .upgrade {
-            margin-top: 20px;
         }
 
         /* Responsive Design */
@@ -125,6 +104,21 @@
             button {
                 width: 100%; /* Full button width on small screens */
             }
+        }
+        
+        /* Additional Styles for Cookie Clicker */
+        #cookie {
+            width: 200px;
+            cursor: pointer;
+        }
+        
+        #count {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .upgrade {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -164,8 +158,6 @@
         <input type="text" id="guessInput" placeholder="Enter your guess">
         <button onclick="checkGuess()">Submit</button>
         <p id="hint"></p>
-        <p id="attemptsRemaining"></p>
-        <button onclick="resetGame()">Reset Game</button>
         <button onclick="showGreetingForm()">Go to Greeting Form</button>
         <button onclick="showDrawingApp()">Open Enhanced Drawing App</button>
         <button onclick="showCookieClicker()">Play Cookie Clicker</button>
@@ -182,7 +174,7 @@
     </div>
 
     <!-- Enhanced Drawing App -->
-    <div id="drawingApp" class="container">
+    <div id="drawingApp" class="container" style="display: none;">
         <h1>Enhanced Drawing App</h1>
         <canvas id="drawingCanvas" width="500" height="500"></canvas>
         <div class="controls">
@@ -210,6 +202,139 @@
                 <div class="color-button" style="background-color: gray;" data-color="gray"></div>
             </div>
         </div>
+
+        <script>
+            // Drawing App Functionality
+            const canvas = document.getElementById('drawingCanvas');
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+            let currentColor = 'black';
+            let brushSize = 5;
+            let paintCanMode = false;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+            document.getElementById('clearButton').addEventListener('click', clearCanvas);
+            document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
+
+            document.querySelectorAll('.color-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    currentColor = button.getAttribute('data-color');
+                });
+            });
+
+            document.querySelectorAll('.brush-size-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    brushSize = button.getAttribute('data-size');
+                });
+            });
+
+            function startDrawing(event) {
+                drawing = true;
+                if (paintCanMode) {
+                    fillArea(event);
+                } else {
+                    draw(event);
+                }
+            }
+
+            function stopDrawing() {
+                drawing = false;
+                ctx.beginPath();
+            }
+
+            function draw(event) {
+                if (!drawing || paintCanMode) return;
+
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = currentColor;
+
+                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            }
+
+            function clearCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function togglePaintCanMode() {
+                paintCanMode = !paintCanMode;
+                document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
+            }
+
+            function fillArea(event) {
+                const x = event.clientX - canvas.offsetLeft;
+                const y = event.clientY - canvas.offsetTop;
+
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const targetColor = getColorAtPixel(imageData, x, y);
+                const fillColor = hexToRgb(currentColor);
+
+                if (isSameColor(targetColor, fillColor)) return;
+
+                floodFill(imageData, x, y, targetColor, fillColor);
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            function floodFill(imageData, x, y, targetColor, fillColor) {
+                const stack = [[x, y]];
+                const width = imageData.width;
+                const height = imageData.height;
+
+                while (stack.length) {
+                    const [cx, cy] = stack.pop();
+
+                    if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
+
+                    const index = (cy * width + cx) * 4;
+
+                    if (isSameColor(imageData, index, targetColor)) {
+                        setColorAtPixel(imageData, index, fillColor);
+                        stack.push([cx + 1, cy]);
+                        stack.push([cx - 1, cy]);
+                        stack.push([cx, cy + 1]);
+                        stack.push([cx, cy - 1]);
+                    }
+                }
+            }
+
+            function isSameColor(imageData, index, color) {
+                if (index < 0 || index >= imageData.data.length) return false;
+                return imageData.data[index] === color.r &&
+                       imageData.data[index + 1] === color.g &&
+                       imageData.data[index + 2] === color.b;
+            }
+
+            function getColorAtPixel(imageData, x, y) {
+                const index = (y * imageData.width + x) * 4;
+                return {
+                    r: imageData.data[index],
+                    g: imageData.data[index + 1],
+                    b: imageData.data[index + 2],
+                    a: imageData.data[index + 3]
+                };
+            }
+
+            function hexToRgb(hex) {
+                const bigint = parseInt(hex.slice(1), 16);
+                return {
+                    r: (bigint >> 16) & 255,
+                    g: (bigint >> 8) & 255,
+                    b: bigint & 255
+                };
+            }
+
+            function setColorAtPixel(imageData, index, color) {
+                imageData.data[index] = color.r;
+                imageData.data[index + 1] = color.g;
+                imageData.data[index + 2] = color.b;
+                imageData.data[index + 3] = 255;
+            }
+        </script>
     </div>
 
     <!-- Advanced Cookie Clicker -->
@@ -222,6 +347,105 @@
         <button class="upgrade" id="cpsUpgrade">CPS Upgrade (Cost: 50)</button>
         <button class="upgrade" id="upgrade3">Upgrade 3 (Cost: 1000)</button>
         <button class="upgrade" id="upgrade4">Upgrade 4 (Cost: 10000)</button>
+
+        <script>
+            let count = 0;
+            let cookiesPerClick = 1;
+            let cookiesPerSecond = 0;
+            let cpsUpgradeCost = 50;
+            let upgradeLevel = 0;
+
+            // Function to calculate upgrade costs
+            function calculateUpgradeCost(baseCost) {
+                return Math.floor(baseCost * Math.pow(1.5, upgradeLevel));
+            }
+
+            document.getElementById('cookie').addEventListener('click', () => {
+                count += cookiesPerClick;
+                document.getElementById('count').textContent = count;
+            });
+
+            document.getElementById('upgrade1').addEventListener('click', () => {
+                const cost = calculateUpgradeCost(10);
+                if (count >= cost) {
+                    count -= cost;
+                    cookiesPerClick += 1;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    updateButtonLabels();
+                }
+            });
+
+            document.getElementById('upgrade2').addEventListener('click', () => {
+                const cost = calculateUpgradeCost(100);
+                if (count >= cost) {
+                    count -= cost;
+                    cookiesPerClick += 1;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    updateButtonLabels();
+                }
+            });
+
+            document.getElementById('cpsUpgrade').addEventListener('click', () => {
+                const cost = calculateUpgradeCost(cpsUpgradeCost);
+                if (count >= cost) {
+                    count -= cost;
+                    cookiesPerSecond += 1;
+                    cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5); // Increase cost for next purchase
+                    updateButtonLabels();
+                    document.getElementById('count').textContent = count;
+                }
+            });
+
+            document.getElementById('upgrade3').addEventListener('click', () => {
+                const cost = calculateUpgradeCost(1000);
+                if (count >= cost && upgradeLevel < 420) {
+                    count -= cost;
+                    cookiesPerClick += 500;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    updateButtonLabels();
+                }
+            });
+
+            document.getElementById('upgrade4').addEventListener('click', () => {
+                const cost = calculateUpgradeCost(10000);
+                if (count >= cost && upgradeLevel < 420) {
+                    count -= cost;
+                    cookiesPerClick += 500;
+                    upgradeLevel++;
+                    document.getElementById('count').textContent = count;
+                    updateButtonLabels();
+                }
+            });
+
+            function updateButtonLabels() {
+                document.getElementById('upgrade1').textContent = `Upgrade 1 (Cost: ${calculateUpgradeCost(10)})`;
+                document.getElementById('upgrade2').textContent = `Upgrade 2 (Cost: ${calculateUpgradeCost(100)})`;
+                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
+                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: ${calculateUpgradeCost(1000)}) Level: ${upgradeLevel}`;
+                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: ${calculateUpgradeCost(10000)}) Level: ${upgradeLevel}`;
+            }
+
+            function generateCookies() {
+                count += cookiesPerSecond;
+                document.getElementById('count').textContent = count;
+            }
+
+            setInterval(generateCookies, 1000);
+
+            // Reset initial game state on page load
+            window.onload = () => {
+                count = 0;
+                cookiesPerClick = 1;
+                cookiesPerSecond = 0;
+                cpsUpgradeCost = 50;
+                upgradeLevel = 0;
+                document.getElementById('count').textContent = count;
+                updateButtonLabels();
+            };
+        </script>
     </div>
 
     <script>
@@ -267,62 +491,22 @@
             "app": "The word starts with 'app'.",
             "appl": "The word starts with 'appl'.",
         };
-        const generalHints = [
-            "It's a type of fruit.",
-            "It's often found in pies.",
-            "It can be red, green, or yellow.",
-            "It is often associated with a famous tech company."
-        ];
-
-        let attempts = 0;
-        const maxAttempts = 5;
 
         function checkGuess() {
             const guessInput = document.getElementById("guessInput").value.toLowerCase();
             const hintElement = document.getElementById("hint");
-            const attemptsElement = document.getElementById("attemptsRemaining");
-
-            if (attempts >= maxAttempts) {
-                hintElement.textContent = "No attempts left! The word was: " + secretWord;
-                attemptsElement.textContent = "";
-                return;
-            }
 
             if (guessInput === secretWord) {
                 hintElement.textContent = "Congratulations! You guessed the correct word.";
-                attemptsElement.textContent = "";
             } else {
-                attempts++;
                 let hint = "Incorrect guess.";
-
-                // Provide hints based on what has been guessed
                 for (let key in hints) {
                     if (guessInput.startsWith(key)) {
                         hint = hints[key];
                     }
                 }
-
-                // Provide a general hint for every incorrect guess
-                if (attempts < maxAttempts) {
-                    hint += " " + generalHints[Math.floor(Math.random() * generalHints.length)];
-                }
-
-                attemptsElement.textContent = "Attempts remaining: " + (maxAttempts - attempts);
                 hintElement.textContent = hint;
-
-                if (attempts === maxAttempts) {
-                    hintElement.textContent += " You've used all your attempts!";
-                }
             }
-
-            document.getElementById("guessInput").value = ""; // Clear input after each attempt
-        }
-
-        function resetGame() {
-            attempts = 0;
-            document.getElementById("hint").textContent = "";
-            document.getElementById("attemptsRemaining").textContent = "Attempts remaining: " + maxAttempts;
-            document.getElementById("guessInput").value = ""; // Clear input
         }
 
         function showGame() {
@@ -330,7 +514,6 @@
             document.getElementById("drawingApp").style.display = 'none';
             document.getElementById("cookieClicker").style.display = 'none';
             document.getElementById("game-container").style.display = 'block';
-            resetGame(); // Reset the game when it is shown
         }
 
         // Choose Your Own Adventure functionality
@@ -564,206 +747,13 @@
             document.getElementById("cookieClicker").style.display = 'block';
         }
 
-        // Drawing App Functionality
-        const canvas = document.getElementById('drawingCanvas');
-        const ctx = canvas.getContext('2d');
-        let drawing = false;
-        let currentColor = 'black';
-        let brushSize = 5;
-        let paintCanMode = false;
-
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mousemove', draw);
-        document.getElementById('clearButton').addEventListener('click', clearCanvas);
-        document.getElementById('paintCanButton').addEventListener('click', togglePaintCanMode);
-
-        document.querySelectorAll('.color-button').forEach(button => {
-            button.addEventListener('click', () => {
-                currentColor = button.getAttribute('data-color');
-            });
-        });
-
-        document.querySelectorAll('.brush-size-button').forEach(button => {
-            button.addEventListener('click', () => {
-                brushSize = button.getAttribute('data-size');
-            });
-        });
-
-        function startDrawing(event) {
-            drawing = true;
-            if (paintCanMode) {
-                fillArea(event);
-            } else {
-                draw(event);
-            }
+        function showGreetingForm() {
+            document.getElementById("game-container").style.display = 'none';
+            document.getElementById("drawingApp").style.display = 'none';
+            document.getElementById("adventure-container").style.display = 'none';
+            document.getElementById("cookieClicker").style.display = 'none';
+            document.getElementById("greetingForm").style.display = 'block';
         }
-
-        function stopDrawing() {
-            drawing = false;
-            ctx.beginPath();
-        }
-
-        function draw(event) {
-            if (!drawing || paintCanMode) return;
-
-            ctx.lineWidth = brushSize;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = currentColor;
-
-            ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-        }
-
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function togglePaintCanMode() {
-            paintCanMode = !paintCanMode;
-            document.getElementById('paintCanButton').textContent = paintCanMode ? 'Drawing Mode' : 'Paint Can';
-        }
-
-        function fillArea(event) {
-            const x = event.clientX - canvas.offsetLeft;
-            const y = event.clientY - canvas.offsetTop;
-
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const targetColor = getColorAtPixel(imageData, x, y);
-            const fillColor = hexToRgb(currentColor);
-
-            if (isSameColor(targetColor, fillColor)) return;
-
-            floodFill(imageData, x, y, targetColor, fillColor);
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function floodFill(imageData, x, y, targetColor, fillColor) {
-            const stack = [[x, y]];
-            const width = imageData.width;
-            const height = imageData.height;
-
-            while (stack.length) {
-                const [cx, cy] = stack.pop();
-
-                if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
-
-                const index = (cy * width + cx) * 4;
-
-                if (isSameColor(imageData, index, targetColor)) {
-                    setColorAtPixel(imageData, index, fillColor);
-                    stack.push([cx + 1, cy]);
-                    stack.push([cx - 1, cy]);
-                    stack.push([cx, cy + 1]);
-                    stack.push([cx, cy - 1]);
-                }
-            }
-        }
-
-        function isSameColor(imageData, index, color) {
-            if (index < 0 || index >= imageData.data.length) return false;
-            return imageData.data[index] === color.r &&
-                   imageData.data[index + 1] === color.g &&
-                   imageData.data[index + 2] === color.b;
-        }
-
-        function getColorAtPixel(imageData, x, y) {
-            const index = (y * imageData.width + x) * 4;
-            return {
-                r: imageData.data[index],
-                g: imageData.data[index + 1],
-                b: imageData.data[index + 2],
-                a: imageData.data[index + 3]
-            };
-        }
-
-        function hexToRgb(hex) {
-            const bigint = parseInt(hex.slice(1), 16);
-            return {
-                r: (bigint >> 16) & 255,
-                g: (bigint >> 8) & 255,
-                b: bigint & 255
-            };
-        }
-
-        function setColorAtPixel(imageData, index, color) {
-            imageData.data[index] = color.r;
-            imageData.data[index + 1] = color.g;
-            imageData.data[index + 2] = color.b;
-            imageData.data[index + 3] = 255;
-        }
-
-        // Cookie Clicker functionality
-        let count = 0;
-        let cookiesPerClick = 1;
-        let cookiesPerSecond = 0;
-        let cpsUpgradeCost = 50;
-        let upgradeLevel = 0;
-
-        document.getElementById('cookie').addEventListener('click', () => {
-            count += cookiesPerClick;
-            document.getElementById('count').textContent = count;
-        });
-
-        document.getElementById('upgrade1').addEventListener('click', () => {
-            if (count >= 10) {
-                count -= 10;
-                cookiesPerClick += 1;
-                document.getElementById('count').textContent = count;
-            }
-        });
-
-        document.getElementById('upgrade2').addEventListener('click', () => {
-            if (count >= 100) {
-                count -= 100;
-                cookiesPerClick += 1;
-                document.getElementById('count').textContent = count;
-            }
-        });
-
-        document.getElementById('cpsUpgrade').addEventListener('click', () => {
-            if (count >= cpsUpgradeCost) {
-                count -= cpsUpgradeCost;
-                cookiesPerSecond += 1;
-                cpsUpgradeCost = Math.floor(cpsUpgradeCost * 1.5);
-                document.getElementById('cpsUpgrade').textContent = `CPS Upgrade (Cost: ${cpsUpgradeCost})`;
-                document.getElementById('count').textContent = count;
-            }
-        });
-
-        document.getElementById('upgrade3').addEventListener('click', () => {
-            if (count >= 1000 && upgradeLevel < 420) {
-                count -= 1000;
-                cookiesPerClick += 500;
-                upgradeLevel++;
-                document.getElementById('count').textContent = count;
-                document.getElementById('upgrade3').textContent = `Upgrade 3 (Cost: 1000) Level: ${upgradeLevel}`;
-            }
-        });
-
-        document.getElementById('upgrade4').addEventListener('click', () => {
-            if (count >= 10000 && upgradeLevel < 420) {
-                count -= 10000;
-                cookiesPerClick += 500;
-                upgradeLevel++;
-                document.getElementById('count').textContent = count;
-                document.getElementById('upgrade4').textContent = `Upgrade 4 (Cost: 10000) Level: ${upgradeLevel}`;
-            }
-        });
-
-        function generateCookies() {
-            count += cookiesPerSecond;
-            document.getElementById('count').textContent = count;
-        }
-
-        setInterval(generateCookies, 1000);
-        
-        // Load all games
-        window.onload = function() {
-            showGreetingForm(); // Show greeting form by default
-        };
     </script>
 </body>
 </html>
