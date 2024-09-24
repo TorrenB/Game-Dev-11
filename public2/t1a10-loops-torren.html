@@ -1,1 +1,19 @@
+// Function to convert degrees to radians
+function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+// Loop through angles from 0 to 360 degrees
+for (let angle = 0; angle <= 360; angle++) {
+    let radians = degreesToRadians(angle);
+    let sine = Math.sin(radians);
+    let cosine = Math.cos(radians);
+    let tangent = Math.tan(radians);
+
+    console.log(`Angle: ${angle}°`);
+    console.log(`Sine: ${sine.toFixed(4)}`);
+    console.log(`Cosine: ${cosine.toFixed(4)}`);
+    console.log(`Tangent: ${tangent.toFixed(4)}`);
+    console.log('-------------------------');
+}
 
