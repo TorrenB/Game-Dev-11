@@ -4,81 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trigonometric Values and Image Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Google Fonts -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f5;
             color: #333;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
         h1 {
             text-align: center;
+            color: #4a4a4a;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         pre {
-            background: #fff;
+            background: #fafafa;
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
+            white-space: pre-wrap; /* Allow text to wrap */
+            word-wrap: break-word; /* Break long words */
+            margin: 20px 0;
         }
-        .separator {
-            border-top: 1px solid #ddd;
-            margin: 10px 0;
-        }
-        input[type="number"] {
-            width: calc(100% - 22px);
-            padding: 10px;
+        input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
             margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
         }
-        input[type="file"] {
-            display: block;
-            margin: 20px auto;
+        input[type="number"]:focus, input[type="file"]:focus {
+            border-color: #6b5b95; /* Focus border color */
+            outline: none;
         }
         button {
             display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #6b5b95;
+            color: white;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-        #converted-images {
-            margin-top: 20px;
+        button:hover {
+            background-color: #5a4a85; /* Darker on hover */
+        }
+        #converted-images img {
+            max-width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .separator {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
 
-    <h1>Trigonometric Values and JPEG to PNG Converter</h1>
+    <div class="container">
+        <h1>Trigonometric Values and JPEG to PNG Converter</h1>
 
-    <input type="number" id="angleInput" placeholder="Enter angle in degrees">
-    <button onclick="calculateTrigonometricValues()">Calculate Trigonometric Values</button>
-    <pre id="output"></pre>
+        <input type="number" id="angleInput" placeholder="Enter angle in degrees">
+        <button onclick="calculateTrigonometricValues()">Calculate Trigonometric Values</button>
+        <pre id="output"></pre>
 
-    <input type="file" id="jpegInput" accept="image/jpeg" multiple>
-    <button id="convertButton">Convert to PNG</button>
+        <div class="separator"></div>
 
-    <div id="converted-images"></div>
+        <input type="file" id="jpegInput" accept="image/jpeg" multiple>
+        <button id="convertButton">Convert to PNG</button>
+
+        <div id="converted-images"></div>
+    </div>
 
     <script>
         // Function to convert degrees to radians
         const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
-        // Function to calculate trigonometric values for a specific angle
+        // Function to calculate trigonometric values for a series of angles
         const calculateTrigonometricValues = () => {
             const angle = document.getElementById('angleInput').value;
             if (angle === '') {
                 alert("Please enter an angle in degrees.");
                 return;
             }
-            const radians = degreesToRadians(angle);
-            const sine = Math.sin(radians);
-            const cosine = Math.cos(radians);
-            const tangent = Math.tan(radians);
-            
-            let output = `Angle: ${angle}°\n`;
-            output += `Sine: ${sine.toFixed(4)}\n`;
-            output += `Cosine: ${cosine.toFixed(4)}\n`;
-            output += `Tangent: ${tangent.toFixed(4)}\n`;
+
+            let output = '';
+            const maxAngle = parseInt(angle); // Cast to integer for looping
+
+            // Loop from 0 to the entered angle
+            for (let i = 0; i <= maxAngle; i++) {
+                const radians = degreesToRadians(i);
+                const sine = Math.sin(radians);
+                const cosine = Math.cos(radians);
+                const tangent = Math.tan(radians);
+                
+                output += `Angle: ${i}°\n`;
+                output += `Sine: ${sine.toFixed(4)}\n`;
+                output += `Cosine: ${cosine.toFixed(4)}\n`;
+                output += `Tangent: ${tangent.toFixed(4)}\n`;
+                output += '-------------------------\n';
+            }
 
             document.getElementById('output').textContent = output;
         };
@@ -90,7 +133,9 @@
             const convertedImagesContainer = document.getElementById('converted-images');
             convertedImagesContainer.innerHTML = '';  // Clear previous output
 
-            Array.from(files).forEach(file => {
+            // Loop through each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
                 if (file.type === 'image/jpeg') {
                     const reader = new FileReader();
                     reader.onload = (e) => {
@@ -108,15 +153,13 @@
                             const convertedImg = document.createElement('img');
                             convertedImg.src = pngDataUrl;
                             convertedImg.alt = 'Converted PNG Image';
-                            convertedImg.style.maxWidth = '200px';
-                            convertedImg.style.margin = '10px';
                             
                             convertedImagesContainer.appendChild(convertedImg);
                         };
                     };
                     reader.readAsDataURL(file);
                 }
-            });
+            }
         };
 
         // Add event listener to the button for image conversion
