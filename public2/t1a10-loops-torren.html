@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometric Values and Image Converter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Google Fonts -->
+    <title>Trigonometric Values and JavaScript Loops</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -16,6 +16,9 @@
         }
         h1 {
             text-align: center;
+            color: #4a4a4a;
+        }
+        h2, h4 {
             color: #4a4a4a;
         }
         .container {
@@ -32,11 +35,11 @@
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
-            white-space: pre-wrap; /* Allow text to wrap */
-            word-wrap: break-word; /* Break long words */
+            white-space: pre-wrap;
+            word-wrap: break-word;
             margin: 20px 0;
         }
-        input[type="number"], input[type="file"] {
+        input[type="number"], input[type="file"], input[type="text"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
@@ -45,8 +48,8 @@
             font-size: 16px;
             transition: border 0.3s;
         }
-        input[type="number"]:focus, input[type="file"]:focus {
-            border-color: #6b5b95; /* Focus border color */
+        input[type="number"]:focus, input[type="file"]:focus, input[type="text"]:focus {
+            border-color: #6b5b95; 
             outline: none;
         }
         button {
@@ -63,7 +66,7 @@
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #5a4a85; /* Darker on hover */
+            background-color: #5a4a85; 
         }
         #converted-images img {
             max-width: 100%;
@@ -75,18 +78,46 @@
             border-top: 1px solid #ddd;
             margin: 20px 0;
         }
+        #myDiv01 {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Trigonometric Values and JPEG to PNG Converter</h1>
+        <h1>Trigonometric Values and JavaScript Loops</h1>
+
+        <h2 align="center">t1a10-loops</h2>
+        <a href="">Good reference to Javascript Loops</a><br>
+
+        <h4>Example Input Output Code</h4>
+        <pre>
+        
+        </pre>
+
+        <h4>Example Working Code</h4>
+        Max loops: <input id="myNum01" value="4"><br>
+        <input type="button" value="Basic for loop with Decisions" onclick="{
+            document.getElementById('myDiv01').innerHTML = '';
+            let myTemp = '';
+            let myMax = parseInt(document.getElementById('myNum01').value);
+            for (let myLoop = 0; myLoop < myMax; myLoop++) {
+                if (myLoop * 2 > myMax) {
+                    myTemp += ' cool ';
+                }
+                myTemp += 'Loop number: ' + myLoop + '<br>';
+            }
+            document.getElementById('myDiv01').innerHTML = myTemp;
+        }">
+
+        <div id="myDiv01">...</div>
+
+        <div class="separator"></div>
 
         <input type="number" id="angleInput" placeholder="Enter angle in degrees">
         <button onclick="calculateTrigonometricValues()">Calculate Trigonometric Values</button>
         <pre id="output"></pre>
-
-        <div class="separator"></div>
 
         <input type="file" id="jpegInput" accept="image/jpeg" multiple>
         <button id="convertButton">Convert to PNG</button>
