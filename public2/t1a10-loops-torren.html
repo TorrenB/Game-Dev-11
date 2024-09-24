@@ -1,19 +1,65 @@
-// Function to convert degrees to radians
-function degreesToRadians(degrees) {
-    return degrees * (Math.PI / 180);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometric Values Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        pre {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .separator {
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
 
-// Loop through angles from 0 to 360 degrees
-for (let angle = 0; angle <= 360; angle++) {
-    let radians = degreesToRadians(angle);
-    let sine = Math.sin(radians);
-    let cosine = Math.cos(radians);
-    let tangent = Math.tan(radians);
+    <h1>Trigonometric Values for Angles from 0° to 360°</h1>
+    <pre id="output"></pre>
 
-    console.log(`Angle: ${angle}°`);
-    console.log(`Sine: ${sine.toFixed(4)}`);
-    console.log(`Cosine: ${cosine.toFixed(4)}`);
-    console.log(`Tangent: ${tangent.toFixed(4)}`);
-    console.log('-------------------------');
-}
+    <script>
+        // Function to convert degrees to radians
+        const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
+        // Function to calculate trigonometric values for angles from 0 to 360 degrees
+        const calculateTrigonometricValues = () => {
+            let output = '';
+            
+            for (let angle = 0; angle <= 360; angle++) {
+                const radians = degreesToRadians(angle);
+                const sine = Math.sin(radians);
+                const cosine = Math.cos(radians);
+                const tangent = Math.tan(radians);
+                
+                output += `Angle: ${angle}°\n`;
+                output += `Sine: ${sine.toFixed(4)}\n`;
+                output += `Cosine: ${cosine.toFixed(4)}\n`;
+                output += `Tangent: ${tangent.toFixed(4)}\n`;
+                output += '-------------------------\n';
+            }
+
+            document.getElementById('output').textContent = output;
+        };
+
+        // Execute the function
+        calculateTrigonometricValues();
+    </script>
+
+</body>
+</html>
