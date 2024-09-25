@@ -83,7 +83,8 @@
             border-top: 1px solid #bdc3c7; /* Light gray separator */
             margin: 20px 0;
         }
-        #myDiv01, #myDiv02, #myDiv03, #myDiv04, #myDiv05, #myDiv06 {
+        #myDiv01, #myDiv02, #myDiv03, #myDiv04, #myDiv05, #myDiv06, 
+        #myDiv07, #myDiv08, #myDiv09, #myDiv10, #myDiv11, #myDiv12 {
             margin-top: 20px;
         }
         #gameResult {
@@ -210,6 +211,109 @@
             document.getElementById('myDiv06').innerHTML = 'Fibonacci: ' + fibArray.slice(0, fibNum).join(', ');
         }">Generate Fibonacci</button>
         <div id="myDiv06">...</div>
+
+        <div class="separator"></div>
+        
+        <!-- Prime Number Loop -->
+        <h4>7. Prime Numbers less than N</h4>
+        Max value: <input id="myNum07" value="20"><br>
+        <button onclick="{
+            document.getElementById('myDiv07').innerHTML = '';
+            let primeMax = parseInt(document.getElementById('myNum07').value);
+            let output = '';
+            for (let i = 2; i < primeMax; i++) {
+                let isPrime = true;
+                for (let j = 2; j <= Math.sqrt(i); j++) {
+                    if (i % j === 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) output += i + '<br>';
+            }
+            document.getElementById('myDiv07').innerHTML = 'Prime Numbers: <br>' + output;
+        }">Find Primes</button>
+        <div id="myDiv07">...</div>
+
+        <div class="separator"></div>
+        
+        <!-- Even Numbers Loop -->
+        <h4>8. Even Numbers up to N</h4>
+        Max value: <input id="myNum08" value="10"><br>
+        <button onclick="{
+            document.getElementById('myDiv08').innerHTML = '';
+            let evenMax = parseInt(document.getElementById('myNum08').value);
+            let output = '';
+            for (let i = 0; i <= evenMax; i += 2) {
+                output += i + '<br>';
+            }
+            document.getElementById('myDiv08').innerHTML = 'Even Numbers: <br>' + output;
+        }">Find Evens</button>
+        <div id="myDiv08">...</div>
+
+        <div class="separator"></div>
+        
+        <!-- Odd Numbers Loop -->
+        <h4>9. Odd Numbers up to N</h4>
+        Max value: <input id="myNum09" value="10"><br>
+        <button onclick="{
+            document.getElementById('myDiv09').innerHTML = '';
+            let oddMax = parseInt(document.getElementById('myNum09').value);
+            let output = '';
+            for (let i = 1; i <= oddMax; i += 2) {
+                output += i + '<br>';
+            }
+            document.getElementById('myDiv09').innerHTML = 'Odd Numbers: <br>' + output;
+        }">Find Odds</button>
+        <div id="myDiv09">...</div>
+
+        <div class="separator"></div>
+
+        <!-- Multiplication Table Loop -->
+        <h4>10. Multiplication Table for N</h4>
+        Enter number: <input id="myNum10" value="5"><br>
+        <button onclick="{
+            document.getElementById('myDiv10').innerHTML = '';
+            let tableNum = parseInt(document.getElementById('myNum10').value);
+            let output = '';
+            for (let i = 1; i <= 10; i++) {
+                output += `${tableNum} x ${i} = ${tableNum * i}<br>`;
+            }
+            document.getElementById('myDiv10').innerHTML = 'Multiplication Table:<br>' + output;
+        }">Generate Table</button>
+        <div id="myDiv10">...</div>
+
+        <div class="separator"></div>
+
+        <!-- Count Down Loop -->
+        <h4>11. Countdown from N</h4>
+        Max value: <input id="myNum11" value="10"><br>
+        <button onclick="{
+            document.getElementById('myDiv11').innerHTML = '';
+            let countDownMax = parseInt(document.getElementById('myNum11').value);
+            let output = '';
+            for (let i = countDownMax; i >= 0; i--) {
+                output += 'Countdown: ' + i + '<br>';
+            }
+            document.getElementById('myDiv11').innerHTML = output;
+        }">Start Countdown</button>
+        <div id="myDiv11">...</div>
+
+        <div class="separator"></div>
+
+        <!-- Square Numbers Loop -->
+        <h4>12. Square Numbers up to N</h4>
+        Max value: <input id="myNum12" value="10"><br>
+        <button onclick="{
+            document.getElementById('myDiv12').innerHTML = '';
+            let squareMax = parseInt(document.getElementById('myNum12').value);
+            let output = '';
+            for (let i = 1; i <= squareMax; i++) {
+                output += `Square of ${i} is ${i * i}<br>`;
+            }
+            document.getElementById('myDiv12').innerHTML = output;
+        }">Calculate Squares</button>
+        <div id="myDiv12">...</div>
 
         <div class="separator"></div>
 
