@@ -259,18 +259,24 @@
         const moveCircle = () => {
             const circle = document.getElementById('circle');
             let pos = 0; // Initial position
-            const distance = 100; // Move 100 pixels
-            const duration = 1000; // Duration in milliseconds
+            const distance = 400; // Move 400 pixels
+            const duration = 2000; // Duration in milliseconds
             const steps = 100; // Step count for smooth animation
             const interval = duration / steps; // Time interval per step
             const stepAmount = distance / steps; // Amount to move per step
+            let direction = 1; // 1 for right, -1 for left
 
             const move = () => {
-                if (pos < distance) {
-                    pos += stepAmount;
-                    circle.style.left = pos + 'px'; // Update the position
-                    setTimeout(move, interval); // Continue moving
+                pos += stepAmount * direction; // Update position
+
+                if (pos >= distance) { // If the circle reaches the right limit
+                    direction = -1; // Change direction to left
+                } else if (pos <= 0) { // If the circle reaches the left limit
+                    direction = 1; // Change direction to right
                 }
+
+                circle.style.left = pos + 'px'; // Update the position
+                setTimeout(move, interval); // Continue moving
             };
             move(); // Start moving
         };
