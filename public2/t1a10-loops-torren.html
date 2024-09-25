@@ -90,6 +90,15 @@
             margin-top: 20px;
             color: #e74c3c; /* Color for feedback */
         }
+        #circle {
+            position: absolute;
+            top: 20px; /* Position it at the top */
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%; /* Make it a circle */
+        }
     </style>
 </head>
 <body>
@@ -142,6 +151,8 @@
         <div id="gameResult"></div>
         <button onclick="startGame()">Start New Game</button>
     </div>
+
+    <div id="circle"></div> <!-- The red circle element -->
 
     <script>
         let randomNumber;
@@ -243,6 +254,29 @@
 
         // Add event listener to the button for image conversion
         document.getElementById('convertButton').addEventListener('click', convertImagesToPNG);
+
+        // Function to animate the red circle
+        const moveCircle = () => {
+            const circle = document.getElementById('circle');
+            let pos = 0; // Initial position
+            const distance = 100; // Move 100 pixels
+            const duration = 1000; // Duration in milliseconds
+            const steps = 100; // Step count for smooth animation
+            const interval = duration / steps; // Time interval per step
+            const stepAmount = distance / steps; // Amount to move per step
+
+            const move = () => {
+                if (pos < distance) {
+                    pos += stepAmount;
+                    circle.style.left = pos + 'px'; // Update the position
+                    setTimeout(move, interval); // Continue moving
+                }
+            };
+            move(); // Start moving
+        };
+
+        // Start the circle movement when the page loads
+        window.onload = moveCircle;
     </script>
 
 </body>
