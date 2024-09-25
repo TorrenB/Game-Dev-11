@@ -59,6 +59,21 @@
         
         <button onclick="showDocumentWidth()">Show Document Width</button>
         <p id="documentWidth"></p>
+
+        <button onclick="showBookDetails()">Show Book Details</button>
+        <p id="bookDetails"></p>
+
+        <button onclick="showAnimalSound()">Show Animal Sound</button>
+        <p id="animalSound"></p>
+
+        <button onclick="showMovieInfo()">Show Movie Info</button>
+        <p id="movieInfo"></p>
+
+        <button onclick="showCityInfo()">Show City Info</button>
+        <p id="cityInfo"></p>
+
+        <button onclick="showDeviceInfo()">Show Device Info</button>
+        <p id="deviceInfo"></p>
     </main>
 
     <script>
@@ -110,8 +125,118 @@
             const width = document.body.clientWidth; // Built-in property
             document.getElementById('documentWidth').innerText = `Document width is ${width}px`;
         }
+
+        // Define a class named Book
+        class Book {
+            constructor(title, author, year) {
+                this.title = title; // Property
+                this.author = author; // Property
+                this.year = year; // Property
+            }
+
+            // Method to get book details
+            getDetails() {
+                return `${this.title} by ${this.author}, published in ${this.year}`;
+            }
+        }
+
+        // Create an instance of the Book class
+        const myBook = new Book('1984', 'George Orwell', 1949);
+
+        // Function to display book details
+        function showBookDetails() {
+            document.getElementById('bookDetails').innerText = myBook.getDetails();
+        }
+
+        // Define a class named Animal
+        class Animal {
+            constructor(name, sound) {
+                this.name = name; // Property
+                this.sound = sound; // Property
+            }
+
+            // Method to get animal sound
+            makeSound() {
+                return `${this.name} says ${this.sound}`;
+            }
+        }
+
+        // Create an instance of the Animal class
+        const myAnimal = new Animal('Dog', 'Woof');
+
+        // Function to display animal sound
+        function showAnimalSound() {
+            document.getElementById('animalSound').innerText = myAnimal.makeSound();
+        }
+
+        // Define a class named Movie
+        class Movie {
+            constructor(title, director, year) {
+                this.title = title; // Property
+                this.director = director; // Property
+                this.year = year; // Property
+            }
+
+            // Method to get movie info
+            getInfo() {
+                return `${this.title}, directed by ${this.director}, released in ${this.year}`;
+            }
+        }
+
+        // Create an instance of the Movie class
+        const myMovie = new Movie('Inception', 'Christopher Nolan', 2010);
+
+        // Function to display movie info
+        function showMovieInfo() {
+            document.getElementById('movieInfo').innerText = myMovie.getInfo();
+        }
+
+        // Define a class named City
+        class City {
+            constructor(name, country, population) {
+                this.name = name; // Property
+                this.country = country; // Property
+                this.population = population; // Property
+            }
+
+            // Method to get city info
+            getInfo() {
+                return `${this.name}, ${this.country}, population: ${this.population}`;
+            }
+        }
+
+        // Create an instance of the City class
+        const myCity = new City('Tokyo', 'Japan', 13929286);
+
+        // Function to display city info
+        function showCityInfo() {
+            document.getElementById('cityInfo').innerText = myCity.getInfo();
+        }
+
+        // Define a class named Device
+        class Device {
+            constructor(name, brand, year) {
+                this.name = name; // Property
+                this.brand = brand; // Property
+                this.year = year; // Property
+            }
+
+            // Method to get device info
+            getInfo() {
+                return `${this.name} by ${this.brand}, released in ${this.year}`;
+            }
+        }
+
+        // Create an instance of the Device class
+        const myDevice = new Device('iPhone', 'Apple', 2020);
+
+        // Function to display device info
+        function showDeviceInfo() {
+            document.getElementById('deviceInfo').innerText = myDevice.getInfo();
+        }
     </script>
 </body>
 </html>
+
 
 
