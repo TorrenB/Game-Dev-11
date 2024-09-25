@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Example</title>
+</head>
+<body>
+    <h1>JavaScript Class Example</h1>
+    <button onclick="showCarDetails()">Show Car Details</button>
+    <p id="carDetails"></p>
+
+    <script>
+        // Define a class named Car
+        class Car {
+            // Constructor to initialize properties
+            constructor(make, model, year) {
+                this.make = make; // Property
+                this.model = model; // Property
+                this.year = year; // Property
+            }
+
+            // Method to get car details
+            getDetails() {
+                return `${this.year} ${this.make} ${this.model}`;
+            }
+        }
+
+        // Create an instance of the Car class
+        const myCar = new Car('Toyota', 'Corolla', 2021);
+
+        // Function to display car details
+        function showCarDetails() {
+            document.getElementById('carDetails').innerText = myCar.getDetails();
+        }
+    </script>
+</body>
+</html>
