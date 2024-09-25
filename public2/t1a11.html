@@ -13,6 +13,9 @@
     
     <button onclick="showCarDetails()">Show Car Details</button>
     <p id="carDetails"></p>
+    
+    <button onclick="showDocumentWidth()">Show Document Width</button>
+    <p id="documentWidth"></p>
 
     <script>
         // Define the Person class
@@ -57,6 +60,13 @@
         function showCarDetails() {
             document.getElementById('carDetails').innerText = myCar.getDetails();
         }
+
+        // Function to display the document width
+        function showDocumentWidth() {
+            const width = document.body.clientWidth; // Built-in property
+            document.getElementById('documentWidth').innerText = `Document width is ${width}px`;
+        }
     </script>
 </body>
 </html>
+
