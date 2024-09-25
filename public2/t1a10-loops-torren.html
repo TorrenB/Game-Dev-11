@@ -83,8 +83,9 @@
             border-top: 1px solid #bdc3c7; /* Light gray separator */
             margin: 20px 0;
         }
-        #myDiv01, #myDiv02, #myDiv03, #myDiv04, #myDiv05, #myDiv06, 
-        #myDiv07, #myDiv08, #myDiv09, #myDiv10, #myDiv11, #myDiv12 {
+        #myDiv01, #myDiv02, #myDiv03, #myDiv04, #myDiv05, #myDiv06,
+        #myDiv07, #myDiv08, #myDiv09, #myDiv10, #myDiv11, #myDiv12,
+        #myDiv13 {
             margin-top: 20px;
         }
         #gameResult {
@@ -314,6 +315,31 @@
             document.getElementById('myDiv12').innerHTML = output;
         }">Calculate Squares</button>
         <div id="myDiv12">...</div>
+
+        <div class="separator"></div>
+
+        <!-- Sum of Prime Numbers Loop -->
+        <h4>13. Sum of Prime Numbers below N</h4>
+        Max value: <input id="myNum13" value="20"><br>
+        <button onclick="{
+            document.getElementById('myDiv13').innerHTML = '';
+            let sumMax = parseInt(document.getElementById('myNum13').value);
+            let sumOfPrimes = 0;
+            for (let i = 2; i < sumMax; i++) {
+                let isPrime = true;
+                for (let j = 2; j <= Math.sqrt(i); j++) {
+                    if (i % j === 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    sumOfPrimes += i;
+                }
+            }
+            document.getElementById('myDiv13').innerHTML = 'Sum of Prime Numbers below ' + sumMax + ': ' + sumOfPrimes;
+        }">Calculate Sum of Primes</button>
+        <div id="myDiv13">...</div>
 
         <div class="separator"></div>
 
