@@ -4,18 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Class Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #002147; /* Navy */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        button {
+            background-color: #005f73; /* Darker Navy */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #003f5c; /* Even Darker Navy */
+        }
+        p {
+            background-color: #e0e0e0; /* Light Gray */
+            padding: 10px;
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>JavaScript Class Example</h1>
-    
-    <button onclick="showGreeting()">Show Greeting</button>
-    <p id="greeting"></p>
-    
-    <button onclick="showCarDetails()">Show Car Details</button>
-    <p id="carDetails"></p>
-    
-    <button onclick="showDocumentWidth()">Show Document Width</button>
-    <p id="documentWidth"></p>
+    <header>
+        <h1>JavaScript Class Example</h1>
+    </header>
+    <main>
+        <button onclick="showGreeting()">Show Greeting</button>
+        <p id="greeting"></p>
+        
+        <button onclick="showCarDetails()">Show Car Details</button>
+        <p id="carDetails"></p>
+        
+        <button onclick="showDocumentWidth()">Show Document Width</button>
+        <p id="documentWidth"></p>
+    </main>
 
     <script>
         // Define the Person class
@@ -69,4 +113,5 @@
     </script>
 </body>
 </html>
+
 
