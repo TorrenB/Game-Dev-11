@@ -114,7 +114,7 @@
         <!-- Basic For Loop with Decisions -->
         <h4>1. Basic for loop with Decisions</h4>
         Max loops: <input id="myNum01" value="4"><br>
-        <input type="button" value="Execute" onclick="{
+        <button onclick="{
             document.getElementById('myDiv01').innerHTML = '';
             let myTemp = '';
             let myMax = parseInt(document.getElementById('myNum01').value);
@@ -125,7 +125,7 @@
                 myTemp += 'Loop number: ' + myLoop + '<br>';
             }
             document.getElementById('myDiv01').innerHTML = myTemp;
-        }">
+        }">Execute</button>
         <div id="myDiv01">...</div>
 
         <div class="separator"></div>
@@ -133,7 +133,7 @@
         <!-- Counting Loop -->
         <h4>2. Counting from 1 to N</h4>
         Max value: <input id="myNum02" value="5"><br>
-        <input type="button" value="Count" onclick="{
+        <button onclick="{
             document.getElementById('myDiv02').innerHTML = '';
             let countMax = parseInt(document.getElementById('myNum02').value);
             let output = '';
@@ -141,7 +141,7 @@
                 output += 'Count: ' + i + '<br>';
             }
             document.getElementById('myDiv02').innerHTML = output;
-        }">
+        }">Count</button>
         <div id="myDiv02">...</div>
 
         <div class="separator"></div>
@@ -149,7 +149,7 @@
         <!-- Sum Loop -->
         <h4>3. Sum of first N natural numbers</h4>
         Max value: <input id="myNum03" value="5"><br>
-        <input type="button" value="Calculate Sum" onclick="{
+        <button onclick="{
             document.getElementById('myDiv03').innerHTML = '';
             let sumMax = parseInt(document.getElementById('myNum03').value);
             let sum = 0;
@@ -157,7 +157,7 @@
                 sum += i;
             }
             document.getElementById('myDiv03').innerHTML = 'Sum: ' + sum;
-        }">
+        }">Calculate Sum</button>
         <div id="myDiv03">...</div>
 
         <div class="separator"></div>
@@ -165,7 +165,7 @@
         <!-- Factorial Loop -->
         <h4>4. Factorial of N</h4>
         Max value: <input id="myNum04" value="5"><br>
-        <input type="button" value="Calculate Factorial" onclick="{
+        <button onclick="{
             document.getElementById('myDiv04').innerHTML = '';
             let factNum = parseInt(document.getElementById('myNum04').value);
             let factorial = 1;
@@ -173,7 +173,7 @@
                 factorial *= i;
             }
             document.getElementById('myDiv04').innerHTML = 'Factorial: ' + factorial;
-        }">
+        }">Calculate Factorial</button>
         <div id="myDiv04">...</div>
 
         <div class="separator"></div>
@@ -181,7 +181,7 @@
         <!-- FizzBuzz Loop -->
         <h4>5. FizzBuzz (1 to N)</h4>
         Max value: <input id="myNum05" value="15"><br>
-        <input type="button" value="Execute FizzBuzz" onclick="{
+        <button onclick="{
             document.getElementById('myDiv05').innerHTML = '';
             let fizzBuzzMax = parseInt(document.getElementById('myNum05').value);
             let output = '';
@@ -192,7 +192,7 @@
                 else output += i + '<br>';
             }
             document.getElementById('myDiv05').innerHTML = output;
-        }">
+        }">Execute FizzBuzz</button>
         <div id="myDiv05">...</div>
 
         <div class="separator"></div>
@@ -200,7 +200,7 @@
         <!-- Fibonacci Loop -->
         <h4>6. Fibonacci Sequence (Up to N)</h4>
         Max value: <input id="myNum06" value="10"><br>
-        <input type="button" value="Generate Fibonacci" onclick="{
+        <button onclick="{
             document.getElementById('myDiv06').innerHTML = '';
             let fibNum = parseInt(document.getElementById('myNum06').value);
             let fibArray = [0, 1];
@@ -208,7 +208,7 @@
                 fibArray[i] = fibArray[i - 1] + fibArray[i - 2];
             }
             document.getElementById('myDiv06').innerHTML = 'Fibonacci: ' + fibArray.slice(0, fibNum).join(', ');
-        }">
+        }">Generate Fibonacci</button>
         <div id="myDiv06">...</div>
 
         <div class="separator"></div>
