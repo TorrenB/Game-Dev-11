@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class Example</title>
+    <title>JavaScript Class Example</title>
 </head>
 <body>
     <h1>JavaScript Class Example</h1>
+    
+    <button onclick="showGreeting()">Show Greeting</button>
+    <p id="greeting"></p>
+    
     <button onclick="showCarDetails()">Show Car Details</button>
     <p id="carDetails"></p>
 
     <script>
+        // Define the Person class
+        class Person {
+            constructor(name) {
+                this.name = name; // Property
+            }
+
+            // Method
+            greet() {
+                return `Hello, my name is ${this.name}!`;
+            }
+        }
+
+        // Create an instance of the Person class
+        const person = new Person('Alice');
+
+        // Function to display the greeting
+        function showGreeting() {
+            document.getElementById('greeting').innerText = person.greet();
+        }
+
         // Define a class named Car
         class Car {
             // Constructor to initialize properties
