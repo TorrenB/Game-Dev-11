@@ -67,6 +67,10 @@
     <input type="number" id="matrixInput">
     <button onclick="addMatrix()">Add to Matrix</button>
     
+    <h2>Fibonacci Sequence</h2>
+    <input type="number" id="fibonacciInput" placeholder="Enter a number">
+    <button onclick="generateFibonacci()">Generate Fibonacci</button>
+    
     <div id="output"></div>
 
     <script>
@@ -76,6 +80,7 @@
         const mixedArray = [];
         const users = [];
         const matrix = [[], [], []];
+        let fibonacciSequence = [];
 
         // Add number to numbers array
         function addNumber() {
@@ -128,6 +133,22 @@
             }
         }
 
+        // Generate Fibonacci sequence
+        function generateFibonacci() {
+            const n = document.getElementById('fibonacciInput').value;
+            fibonacciSequence = [];
+            for (let i = 0; i < n; i++) {
+                if (i === 0) {
+                    fibonacciSequence.push(0);
+                } else if (i === 1) {
+                    fibonacciSequence.push(1);
+                } else {
+                    fibonacciSequence.push(fibonacciSequence[i - 1] + fibonacciSequence[i - 2]);
+                }
+            }
+            displayResults();
+        }
+
         // Display results
         function displayResults() {
             const sum = numbers.reduce((acc, num) => acc + num, 0);
@@ -143,6 +164,7 @@
                 <p>Strings in mixed array: ${stringsOnly.join(", ")}</p>
                 <p>User with ID 2: ${user ? user.name : "Not found"}</p>
                 <p>Flattened matrix: ${flattenedMatrix.join(", ")}</p>
+                <p>Fibonacci sequence: ${fibonacciSequence.join(", ")}</p>
             `;
         }
     </script>
