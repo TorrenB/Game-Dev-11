@@ -3,61 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Arrays Example</title>
+    <title>JavaScript Arrays with Dynamic Input</title>
 </head>
 <body>
-    <h1>JavaScript Arrays Example</h1>
+    <h1>JavaScript Arrays with Dynamic Input</h1>
+    
+    <h2>Numbers</h2>
+    <input type="number" id="numberInput">
+    <button onclick="addNumber()">Add Number</button>
+    
+    <h2>Fruits</h2>
+    <input type="text" id="fruitInput">
+    <button onclick="addFruit()">Add Fruit</button>
+    
+    <h2>Mixed Data</h2>
+    <input type="text" id="mixedInput">
+    <button onclick="addMixed()">Add Mixed Data</button>
+    
+    <h2>Users</h2>
+    <input type="text" id="userNameInput" placeholder="Name">
+    <button onclick="addUser()">Add User</button>
+    
+    <h2>Matrix</h2>
+    <input type="number" id="matrixInput">
+    <button onclick="addMatrix()">Add to Matrix</button>
+    
     <div id="output"></div>
 
     <script>
-        // Array of numbers
-        const numbers = [1, 2, 3, 4, 5];
+        // Arrays
+        const numbers = [];
+        const fruits = [];
+        const mixedArray = [];
+        const users = [];
+        const matrix = [[], [], []];
 
-        // Array of strings
-        const fruits = ["apple", "banana", "cherry", "date", "elderberry"];
+        // Add number to numbers array
+        function addNumber() {
+            const number = document.getElementById('numberInput').value;
+            if (number) {
+                numbers.push(Number(number));
+                displayResults();
+            }
+        }
 
-        // Array of mixed data types
-        const mixedArray = [42, "hello", true, null, { name: "John" }];
+        // Add fruit to fruits array
+        function addFruit() {
+            const fruit = document.getElementById('fruitInput').value;
+            if (fruit) {
+                fruits.push(fruit);
+                displayResults();
+            }
+        }
 
-        // Array of objects
-        const users = [
-            { id: 1, name: "Alice" },
-            { id: 2, name: "Bob" },
-            { id: 3, name: "Charlie" }
-        ];
+        // Add mixed data to mixedArray
+        function addMixed() {
+            const mixed = document.getElementById('mixedInput').value;
+            if (mixed) {
+                mixedArray.push(mixed);
+                displayResults();
+            }
+        }
 
-        // Array of arrays (2D array)
-        const matrix = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]
-        ];
+        // Add user to users array
+        function addUser() {
+            const userName = document.getElementById('userNameInput').value;
+            if (userName) {
+                const userId = users.length + 1;
+                users.push({ id: userId, name: userName });
+                displayResults();
+            }
+        }
 
-        // Example operations
-        // 1. Sum of numbers array
-        const sum = numbers.reduce((acc, num) => acc + num, 0);
-
-        // 2. Uppercase all fruit names
-        const uppercasedFruits = fruits.map(fruit => fruit.toUpperCase());
-
-        // 3. Filter mixed array for only strings
-        const stringsOnly = mixedArray.filter(item => typeof item === "string");
-
-        // 4. Find user by ID
-        const user = users.find(user => user.id === 2);
-
-        // 5. Flatten the matrix array
-        const flattenedMatrix = matrix.flat();
+        // Add number to matrix
+        function addMatrix() {
+            const number = document.getElementById('matrixInput').value;
+            if (number) {
+                const row = Math.floor(matrix.flat().length / 3);
+                if (row < 3) {
+                    matrix[row].push(Number(number));
+                    displayResults();
+                } else {
+                    alert("Matrix is full");
+                }
+            }
+        }
 
         // Display results
-        const outputDiv = document.getElementById("output");
-        outputDiv.innerHTML = `
-            <p>Sum of numbers: ${sum}</p>
-            <p>Uppercased fruits: ${uppercasedFruits.join(", ")}</p>
-            <p>Strings in mixed array: ${stringsOnly.join(", ")}</p>
-            <p>User with ID 2: ${user ? user.name : "Not found"}</p>
-            <p>Flattened matrix: ${flattenedMatrix.join(", ")}</p>
-        `;
+        function displayResults() {
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            const uppercasedFruits = fruits.map(fruit => fruit.toUpperCase());
+            const stringsOnly = mixedArray.filter(item => typeof item === "string");
+            const user = users.find(user => user.id === 2);
+            const flattenedMatrix = matrix.flat();
+
+            const outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = `
+                <p>Sum of numbers: ${sum}</p>
+                <p>Uppercased fruits: ${uppercasedFruits.join(", ")}</p>
+                <p>Strings in mixed array: ${stringsOnly.join(", ")}</p>
+                <p>User with ID 2: ${user ? user.name : "Not found"}</p>
+                <p>Flattened matrix: ${flattenedMatrix.join(", ")}</p>
+            `;
+        }
     </script>
 </body>
 </html>
