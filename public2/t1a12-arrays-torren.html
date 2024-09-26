@@ -49,11 +49,17 @@
             margin-left: 10px;
             border: 1px solid #ffffff;
         }
+        #clearButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
     </style>
 </head>
 <body>
+    <button id="clearButton" onclick="clearOutputs()">Clear All</button>
     <h1>JavaScript Arrays with Dynamic Input</h1>
-    
+
     <h2>Numbers</h2>
     <input type="number" id="numberInput">
     <button onclick="addNumber()">Add Number</button>
@@ -224,6 +230,21 @@
         function fibonacci(n) {
             if (n < 2) return n;
             return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+
+        // Clear output function
+        function clearOutputs() {
+            document.getElementById("numbersOutput").innerHTML = '';
+            document.getElementById("fruitsOutput").innerHTML = '';
+            document.getElementById("mixedOutput").innerHTML = '';
+            document.getElementById("usersOutput").innerHTML = '';
+            document.getElementById("uniqueNumbersOutput").innerHTML = '';
+            document.getElementById("randomColorsOutput").innerHTML = '';
+            document.getElementById("averageOutput").innerHTML = '';
+            document.getElementById("sortedNumbersOutput").innerHTML = '';
+            document.getElementById("shuffledNumbersOutput").innerHTML = '';
+            document.getElementById("matrixOutput").innerHTML = '';
+            document.getElementById("fibonacciOutput").innerHTML = '';
         }
 
         // Display results
