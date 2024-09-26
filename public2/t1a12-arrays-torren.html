@@ -7,30 +7,30 @@
     <title>JavaScript Arrays with Dynamic Input</title>
     <style>
         body {
-            background-color: #2c2c2c; /* Dark Grey Background */
-            color: #ffffff; /* White text color */
+            background-color: #f5f5f5; /* Light background */
+            color: #333; /* Dark text color */
             font-family: Arial, sans-serif;
-            padding: 20px;
+            padding: 40px; /* Increased padding for a professional look */
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: hidden; /* Prevent scrolling */
+            overflow-y: auto; /* Allow vertical scrolling */
         }
 
         h1 {
-            color: #e0e0e0; /* Light Grey Title */
+            color: #4a92d5; /* Professional blue */
             margin-bottom: 20px;
             text-align: center;
         }
 
         #clearButton {
-            position: absolute;
+            position: fixed; /* Make the button fixed */
             top: 20px;
-            left: 20px;
+            right: 20px;
             width: 120px;
             height: 40px;
-            background-color: #4a4a4a; /* Medium Grey Button */
+            background-color: #006400; /* Dark Green Button */
             border: none;
             border-radius: 5px;
             color: white;
@@ -39,59 +39,67 @@
         }
 
         button:hover {
-            background-color: #6b6b6b; /* Lighter Grey on Hover */
+            background-color: #008000; /* Light Green on Hover */
         }
 
         .form-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; /* Space between items */
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minimum size for better alignment */
+            gap: 30px; /* Space between items */
+            max-width: 1200px; /* Increased max-width */
             width: 100%;
             margin-bottom: 20px;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch; /* Align items in the column */
+            background-color: #ffffff; /* White background for form groups */
+            border: 1px solid #ddd; /* Light grey border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding for form groups */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
         }
 
         input {
-            padding: 10px;
+            padding: 12px;
             margin-top: 5px;
-            border: none;
+            border: 1px solid #ccc; /* Light border */
             border-radius: 5px;
             width: 100%;
             box-sizing: border-box;
-            background-color: #4a4a4a; /* Medium Grey Input Background */
-            color: #ffffff; /* White text color in inputs */
+            background-color: #f9f9f9; /* Light input background */
+            color: #333; /* Dark text color in inputs */
         }
 
         input::placeholder {
-            color: #b0b0b0; /* Placeholder color */
+            color: #999; /* Placeholder color */
         }
 
         button {
-            padding: 10px;
-            margin-top: 5px;
+            padding: 12px;
+            margin-top: 10px; /* Increased margin for buttons */
             border: none;
             border-radius: 5px;
-            background-color: #4a4a4a; /* Medium Grey Button */
+            background-color: #4a92d5; /* Professional blue Button */
             color: #ffffff; /* White buttons */
             cursor: pointer;
             width: 100%;
+            font-size: 16px; /* Increase font size */
+        }
+
+        button:hover {
+            background-color: #6ab5ef; /* Lighter blue on hover */
         }
 
         .output-box {
             margin-top: 10px;
             padding: 10px;
-            background-color: #3d3d3d; /* Darker Grey for Output */
+            background-color: #e8f4fa; /* Light blue for output */
             border-radius: 5px;
             width: 100%;
-            height: 60px;
+            height: 60px; /* Fixed height */
             overflow-y: auto; /* Allows vertical scrolling within the output box */
             overflow-wrap: break-word;
+            border: 1px solid #4a92d5; /* Blue border for output */
         }
         
         .color-box {
@@ -101,6 +109,7 @@
             margin-left: 10px;
             border: 1px solid #ffffff; /* White border for color boxes */
         }
+
     </style>
 </head>
 
