@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,39 +10,80 @@
             background-color: #001f3f;
             color: #ffffff;
             font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
-        h1, h2 {
+        
+        h1 {
             color: #ffdc00;
+            margin-bottom: 20px;
         }
-        input, button {
-            padding: 10px;
-            margin: 5px;
+
+        #clearButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background-color: #0074d9;
             border: none;
             border-radius: 5px;
-        }
-        input {
-            width: 200px;
-        }
-        button {
-            background-color: #0074d9;
-            color: #ffffff;
+            color: white;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #005bb5;
         }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0074d9;
+            color: #ffffff;
+            cursor: pointer;
+            width: 100%;
+        }
+
         .output-box {
             margin-top: 10px;
             padding: 10px;
             background-color: #003366;
             border-radius: 5px;
-            width: 80%;
-            text-align: left;
+            width: 100%;
+            overflow-wrap: break-word;
         }
+
         .color-box {
             display: inline-block;
             width: 20px;
@@ -49,71 +91,91 @@
             margin-left: 10px;
             border: 1px solid #ffffff;
         }
-        #clearButton {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
     </style>
 </head>
+
 <body>
     <button id="clearButton" onclick="clearOutputs()">Clear All</button>
     <h1>JavaScript Arrays with Dynamic Input</h1>
-
-    <h2>Numbers</h2>
-    <input type="number" id="numberInput">
-    <button onclick="addNumber()">Add Number</button>
-    <div id="numbersOutput" class="output-box"></div>
     
-    <h2>Fruits</h2>
-    <input type="text" id="fruitInput">
-    <button onclick="addFruit()">Add Fruit</button>
-    <div id="fruitsOutput" class="output-box"></div>
-    
-    <h2>Mixed Data</h2>
-    <input type="text" id="mixedInput">
-    <button onclick="addMixed()">Add Mixed Data</button>
-    <div id="mixedOutput" class="output-box"></div>
-    
-    <h2>Users</h2>
-    <input type="text" id="userNameInput" placeholder="Name">
-    <button onclick="addUser()">Add User</button>
-    <div id="usersOutput" class="output-box"></div>
+    <div class="form-container">
+        <div class="form-group">
+            <h2>Numbers</h2>
+            <input type="number" id="numberInput">
+            <button onclick="addNumber()">Add Number</button>
+            <div id="numbersOutput" class="output-box"></div>
+        </div>
 
-    <h2>Unique Values</h2>
-    <input type="text" id="uniqueInput" placeholder="Comma-separated numbers">
-    <button onclick="getUniqueNumbers()">Get Unique Numbers</button>
-    <div id="uniqueNumbersOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Fruits</h2>
+            <input type="text" id="fruitInput">
+            <button onclick="addFruit()">Add Fruit</button>
+            <div id="fruitsOutput" class="output-box"></div>
+        </div>
 
-    <h2>Random Colors</h2>
-    <input type="number" id="randomColorsCount" placeholder="Number of colors" min="1">
-    <button onclick="generateRandomColors()">Generate Random Colors</button>
-    <div id="randomColorsOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Mixed Data</h2>
+            <input type="text" id="mixedInput">
+            <button onclick="addMixed()">Add Mixed Data</button>
+            <div id="mixedOutput" class="output-box"></div>
+        </div>
 
-    <h2>Average of Numbers</h2>
-    <input type="text" id="averageInput" placeholder="Comma-separated numbers">
-    <button onclick="calculateAverage()">Calculate Average</button>
-    <div id="averageOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Users</h2>
+            <input type="text" id="userNameInput" placeholder="Name">
+            <button onclick="addUser()">Add User</button>
+            <div id="usersOutput" class="output-box"></div>
+        </div>
 
-    <h2>Sort Numbers</h2>
-    <input type="text" id="sortInput" placeholder="Comma-separated numbers">
-    <button onclick="sortManualNumbers()">Sort Manual Numbers</button>
-    <div id="sortedNumbersOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Unique Values</h2>
+            <input type="text" id="uniqueInput" placeholder="Comma-separated numbers">
+            <button onclick="getUniqueNumbers()">Get Unique Numbers</button>
+            <div id="uniqueNumbersOutput" class="output-box"></div>
+        </div>
 
-    <h2>Shuffle Numbers</h2>
-    <input type="text" id="shuffleInput" placeholder="Comma-separated numbers">
-    <button onclick="shuffleManualNumbers()">Shuffle Manual Numbers</button>
-    <div id="shuffledNumbersOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Random Colors</h2>
+            <input type="number" id="randomColorsCount" placeholder="Number of colors" min="1">
+            <button onclick="generateRandomColors()">Generate</button>
+            <div id="randomColorsOutput" class="output-box"></div>
+        </div>
 
-    <h2>Matrix</h2>
-    <input type="number" id="matrixInput">
-    <button onclick="addMatrix()">Add to Matrix</button>
-    <div id="matrixOutput" class="output-box"></div>
-    
-    <h2>Fibonacci Sequence</h2>
-    <input type="number" id="fibonacciInput" placeholder="Enter a number">
-    <button onclick="generateFibonacci()">Generate Fibonacci</button>
-    <div id="fibonacciOutput" class="output-box"></div>
+        <div class="form-group">
+            <h2>Average of Numbers</h2>
+            <input type="text" id="averageInput" placeholder="Comma-separated numbers">
+            <button onclick="calculateAverage()">Calculate</button>
+            <div id="averageOutput" class="output-box"></div>
+        </div>
+
+        <div class="form-group">
+            <h2>Sort Numbers</h2>
+            <input type="text" id="sortInput" placeholder="Comma-separated numbers">
+            <button onclick="sortManualNumbers()">Sort</button>
+            <div id="sortedNumbersOutput" class="output-box"></div>
+        </div>
+
+        <div class="form-group">
+            <h2>Shuffle Numbers</h2>
+            <input type="text" id="shuffleInput" placeholder="Comma-separated numbers">
+            <button onclick="shuffleManualNumbers()">Shuffle</button>
+            <div id="shuffledNumbersOutput" class="output-box"></div>
+        </div>
+
+        <div class="form-group">
+            <h2>Matrix</h2>
+            <input type="number" id="matrixInput">
+            <button onclick="addMatrix()">Add</button>
+            <div id="matrixOutput" class="output-box"></div>
+        </div>
+
+        <div class="form-group">
+            <h2>Fibonacci Sequence</h2>
+            <input type="number" id="fibonacciInput" placeholder="Enter a number">
+            <button onclick="generateFibonacci()">Generate</button>
+            <div id="fibonacciOutput" class="output-box"></div>
+        </div>
+    </div>
 
     <script>
         // Arrays
@@ -266,4 +328,5 @@
         }
     </script>
 </body>
+
 </html>
