@@ -97,6 +97,21 @@
     <button onclick="generateFibonacci()">Generate Fibonacci</button>
     <div id="fibonacciOutput" class="output-box"></div>
     
+    <h2>Calculate Average</h2>
+    <input type="text" id="averageInput" placeholder="Comma-separated numbers">
+    <button onclick="calculateAverage()">Calculate Average</button>
+    <div id="manualAverageOutput" class="output-box"></div>
+
+    <h2>Sort Manual Numbers</h2>
+    <input type="text" id="sortInput" placeholder="Comma-separated numbers">
+    <button onclick="sortManualNumbers()">Sort Manual Numbers</button>
+    <div id="manualSortedNumbersOutput" class="output-box"></div>
+
+    <h2>Shuffle Manual Numbers</h2>
+    <input type="text" id="shuffleInput" placeholder="Comma-separated numbers">
+    <button onclick="shuffleManualNumbers()">Shuffle Manual Numbers</button>
+    <div id="manualShuffledNumbersOutput" class="output-box"></div>
+
     <script>
         // Arrays
         const numbers = [];
@@ -170,6 +185,31 @@
         function shuffleNumbers() {
             const shuffledNumbers = [...numbers].sort(() => Math.random() - 0.5);
             document.getElementById("shuffledNumbersOutput").innerHTML = `Shuffled Numbers: ${shuffledNumbers.join(", ")}`;
+        }
+        
+        // Manually calculate average from input
+        function calculateManualAverage() {
+            const input = document.getElementById('averageInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            const average = (numbers.length > 0) ? (sum / numbers.length) : 0;
+            document.getElementById("manualAverageOutput").innerHTML = `Manual Average: ${average}`;
+        }
+
+        // Manually sort numbers from input
+        function sortManualNumbers() {
+            const input = document.getElementById('sortInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const sortedNumbers = numbers.sort((a, b) => a - b);
+            document.getElementById("manualSortedNumbersOutput").innerHTML = `Sorted Manual Numbers: ${sortedNumbers.join(", ")}`;
+        }
+
+        // Manually shuffle numbers from input
+        function shuffleManualNumbers() {
+            const input = document.getElementById('shuffleInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            const shuffledNumbers = numbers.sort(() => Math.random() - 0.5);
+            document.getElementById("manualShuffledNumbersOutput").innerHTML = `Shuffled Manual Numbers: ${shuffledNumbers.join(", ")}`;
         }
 
         // Add number to matrix
