@@ -16,7 +16,7 @@
             flex-direction: column;
             align-items: center;
         }
-        
+
         h1 {
             color: #ffdc00;
             margin-bottom: 20px;
@@ -83,20 +83,16 @@
             background-color: #003366;
             border-radius: 5px;
             width: 100%;
+            height: 60px;
             overflow-wrap: break-word;
         }
-
+        
         .color-box {
             display: inline-block;
             width: 20px;
             height: 20px;
             margin-left: 10px;
             border: 1px solid #ffffff;
-        }
-
-        /* Added a fixed height for consistency in box alignment */
-        .output-box {
-            height: 60px; /* Set a fixed height for output boxes to keep them uniform */
         }
     </style>
 </head>
@@ -197,7 +193,7 @@
             const number = document.getElementById('numberInput').value;
             if (number) {
                 numbers.push(Number(number));
-                displayResults();
+                document.getElementById("numbersOutput").innerHTML = `Sum of numbers: ${numbers.reduce((a, b) => a + b, 0)}`;
             }
         }
 
@@ -206,7 +202,7 @@
             const fruit = document.getElementById('fruitInput').value;
             if (fruit) {
                 fruits.push(fruit);
-                displayResults();
+                document.getElementById("fruitsOutput").innerHTML = `Fruits: ${fruits.join(", ")}`;
             }
         }
 
@@ -215,7 +211,7 @@
             const mixed = document.getElementById('mixedInput').value;
             if (mixed) {
                 mixedArray.push(mixed);
-                displayResults();
+                document.getElementById("mixedOutput").innerHTML = `Mixed Data: ${mixedArray.join(", ")}`;
             }
         }
 
@@ -224,7 +220,7 @@
             const userName = document.getElementById('userNameInput').value;
             if (userName) {
                 users.push({ id: users.length + 1, name: userName });
-                displayResults();
+                document.getElementById("usersOutput").innerHTML = `Users: ${users.map(user => user.name).join(", ")}`;
             }
         }
 
@@ -278,7 +274,7 @@
                 const row = Math.floor(matrix.flat().length / 3);
                 if (row < 3) {
                     matrix[row].push(Number(number));
-                    displayResults();
+                    document.getElementById("matrixOutput").innerHTML = `Matrix: ${matrix.map(row => row.join(", ")).join(" | ")}`;
                 } else {
                     alert("Matrix is full");
                 }
@@ -292,7 +288,7 @@
             for (let i = 0; i < n; i++) {
                 fibonacciSequence.push(fibonacci(i));
             }
-            displayResults(fibonacciSequence);
+            document.getElementById("fibonacciOutput").innerHTML = `Fibonacci sequence: ${fibonacciSequence.join(", ")}`;
         }
 
         // Fibonacci function
@@ -314,24 +310,6 @@
             document.getElementById("shuffledNumbersOutput").innerHTML = '';
             document.getElementById("matrixOutput").innerHTML = '';
             document.getElementById("fibonacciOutput").innerHTML = '';
-        }
-
-        // Display results
-        function displayResults(fibonacciSequence) {
-            const sum = numbers.reduce((acc, num) => acc + num, 0);
-            const uppercasedFruits = fruits.map(fruit => fruit.toUpperCase());
-            const stringsOnly = mixedArray.filter(item => typeof item === "string");
-            const user = users.find(user => user.id === 2);
-            const flattenedMatrix = matrix.flat();
-
-            document.getElementById("numbersOutput").innerHTML = `Sum of numbers: ${sum}`;
-            document.getElementById("fruitsOutput").innerHTML = `Uppercased fruits: ${uppercasedFruits.join(", ")}`;
-            document.getElementById("mixedOutput").innerHTML = `Strings in mixed array: ${stringsOnly.join(", ")}`;
-            document.getElementById("usersOutput").innerHTML = `User with ID 2: ${user ? user.name : "Not found"}`;
-            document.getElementById("matrixOutput").innerHTML = `Flattened matrix: ${flattenedMatrix.join(", ")}`;
-            if (fibonacciSequence) {
-                document.getElementById("fibonacciOutput").innerHTML = `Fibonacci sequence: ${fibonacciSequence.join(", ")}`;
-            }
         }
     </script>
 </body>
