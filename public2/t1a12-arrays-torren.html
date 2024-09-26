@@ -68,23 +68,28 @@
     <div id="usersOutput" class="output-box"></div>
 
     <h2>Unique Values</h2>
+    <input type="text" id="uniqueInput" placeholder="Comma-separated numbers">
     <button onclick="getUniqueNumbers()">Get Unique Numbers</button>
     <div id="uniqueNumbersOutput" class="output-box"></div>
 
     <h2>Random Colors</h2>
+    <input type="number" id="randomColorsCount" placeholder="Number of colors" min="1">
     <button onclick="generateRandomColors()">Generate Random Colors</button>
     <div id="randomColorsOutput" class="output-box"></div>
 
     <h2>Average of Numbers</h2>
+    <input type="text" id="averageInput" placeholder="Comma-separated numbers">
     <button onclick="calculateAverage()">Calculate Average</button>
     <div id="averageOutput" class="output-box"></div>
 
     <h2>Sort Numbers</h2>
-    <button onclick="sortNumbers()">Sort Numbers Ascending</button>
+    <input type="text" id="sortInput" placeholder="Comma-separated numbers">
+    <button onclick="sortManualNumbers()">Sort Manual Numbers</button>
     <div id="sortedNumbersOutput" class="output-box"></div>
 
     <h2>Shuffle Numbers</h2>
-    <button onclick="shuffleNumbers()">Shuffle Numbers</button>
+    <input type="text" id="shuffleInput" placeholder="Comma-separated numbers">
+    <button onclick="shuffleManualNumbers()">Shuffle Manual Numbers</button>
     <div id="shuffledNumbersOutput" class="output-box"></div>
 
     <h2>Matrix</h2>
@@ -96,21 +101,6 @@
     <input type="number" id="fibonacciInput" placeholder="Enter a number">
     <button onclick="generateFibonacci()">Generate Fibonacci</button>
     <div id="fibonacciOutput" class="output-box"></div>
-    
-    <h2>Calculate Average</h2>
-    <input type="text" id="averageInput" placeholder="Comma-separated numbers">
-    <button onclick="calculateAverage()">Calculate Average</button>
-    <div id="manualAverageOutput" class="output-box"></div>
-
-    <h2>Sort Manual Numbers</h2>
-    <input type="text" id="sortInput" placeholder="Comma-separated numbers">
-    <button onclick="sortManualNumbers()">Sort Manual Numbers</button>
-    <div id="manualSortedNumbersOutput" class="output-box"></div>
-
-    <h2>Shuffle Manual Numbers</h2>
-    <input type="text" id="shuffleInput" placeholder="Comma-separated numbers">
-    <button onclick="shuffleManualNumbers()">Shuffle Manual Numbers</button>
-    <div id="manualShuffledNumbersOutput" class="output-box"></div>
 
     <script>
         // Arrays
@@ -156,44 +146,27 @@
             }
         }
 
-        // Get unique numbers from numbers array
+        // Get unique numbers from user input
         function getUniqueNumbers() {
-            const uniqueNumbers = [...new Set(numbers)];
+            const input = document.getElementById('uniqueInput').value;
+            const uniqueNumbers = [...new Set(input.split(',').map(num => Number(num.trim())))];
             document.getElementById("uniqueNumbersOutput").innerHTML = `Unique Numbers: ${uniqueNumbers.join(", ")}`;
         }
 
         // Generate random colors
         function generateRandomColors() {
-            const colors = Array.from({ length: 5 }, () => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+            const count = Number(document.getElementById('randomColorsCount').value) || 5;
+            const colors = Array.from({ length: count }, () => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
             document.getElementById("randomColorsOutput").innerHTML = `Random Colors: ${colors.join(", ")}`;
         }
 
-        // Calculate average of numbers
+        // Calculate average of numbers from user input
         function calculateAverage() {
-            const sum = numbers.reduce((acc, num) => acc + num, 0);
-            const average = (numbers.length > 0) ? (sum / numbers.length) : 0;
-            document.getElementById("averageOutput").innerHTML = `Average of Numbers: ${average}`;
-        }
-
-        // Sort numbers in ascending order
-        function sortNumbers() {
-            const sortedNumbers = [...numbers].sort((a, b) => a - b);
-            document.getElementById("sortedNumbersOutput").innerHTML = `Sorted Numbers: ${sortedNumbers.join(", ")}`;
-        }
-
-        // Shuffle numbers array
-        function shuffleNumbers() {
-            const shuffledNumbers = [...numbers].sort(() => Math.random() - 0.5);
-            document.getElementById("shuffledNumbersOutput").innerHTML = `Shuffled Numbers: ${shuffledNumbers.join(", ")}`;
-        }
-        
-        // Manually calculate average from input
-        function calculateManualAverage() {
             const input = document.getElementById('averageInput').value;
             const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
             const sum = numbers.reduce((acc, num) => acc + num, 0);
             const average = (numbers.length > 0) ? (sum / numbers.length) : 0;
-            document.getElementById("manualAverageOutput").innerHTML = `Manual Average: ${average}`;
+            document.getElementById("averageOutput").innerHTML = `Manual Average: ${average}`;
         }
 
         // Manually sort numbers from input
@@ -201,7 +174,7 @@
             const input = document.getElementById('sortInput').value;
             const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
             const sortedNumbers = numbers.sort((a, b) => a - b);
-            document.getElementById("manualSortedNumbersOutput").innerHTML = `Sorted Manual Numbers: ${sortedNumbers.join(", ")}`;
+            document.getElementById("sortedNumbersOutput").innerHTML = `Sorted Manual Numbers: ${sortedNumbers.join(", ")}`;
         }
 
         // Manually shuffle numbers from input
@@ -209,7 +182,7 @@
             const input = document.getElementById('shuffleInput').value;
             const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
             const shuffledNumbers = numbers.sort(() => Math.random() - 0.5);
-            document.getElementById("manualShuffledNumbersOutput").innerHTML = `Shuffled Manual Numbers: ${shuffledNumbers.join(", ")}`;
+            document.getElementById("shuffledNumbersOutput").innerHTML = `Shuffled Manual Numbers: ${shuffledNumbers.join(", ")}`;
         }
 
         // Add number to matrix
