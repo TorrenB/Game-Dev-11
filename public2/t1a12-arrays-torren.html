@@ -7,7 +7,7 @@
     <title>JavaScript Arrays with Dynamic Input</title>
     <style>
         body {
-            background-color: #f5f5f5; /* Light background */
+            background-color: #d6fffe; /* Light background */
             color: #333; /* Dark text color */
             font-family: Arial, sans-serif;
             padding: 40px; /* Increased padding for a professional look */
@@ -53,7 +53,7 @@
             background-color: #4a92d5; /* Professional blue Button */
             color: #ffffff; /* White buttons */
             cursor: pointer;
-            width: 100%;
+            width: 100%; /* Set button width to 100% of the parent */
             font-size: 16px; /* Increase font size */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Added shadow for 3D effect */
             transition: box-shadow 0.2s ease; /* Smooth transition for shadow effects */
@@ -86,7 +86,7 @@
             margin-top: 5px;
             border: 1px solid #ccc; /* Light border */
             border-radius: 5px;
-            width: 100%;
+            width: 100%; /* Set input width to 100% of the parent */
             box-sizing: border-box;
             background-color: #f9f9f9; /* Light input background */
             color: #333; /* Dark text color in inputs */
@@ -101,13 +101,14 @@
             padding: 10px;
             background-color: #e8f4fa; /* Light blue for output */
             border-radius: 5px;
-            width: 100%; /* Match the width of the input fields/buttons */
+            width: calc(100% - 22px); /* Match width with padding consideration */
             height: 60px; /* Fixed height */
             overflow-y: auto; /* Allows vertical scrolling within the output box */
             overflow-wrap: break-word;
             border: 1px solid #4a92d5; /* Blue border for output */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the output box */
             margin-bottom: 10px; /* Space below output box */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
         
         .color-box {
