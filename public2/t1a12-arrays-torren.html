@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Arrays Example</title>
+</head>
+<body>
+    <h1>JavaScript Arrays Example</h1>
+    <div id="output"></div>
+
+    <script>
+        // Array of numbers
+        const numbers = [1, 2, 3, 4, 5];
+
+        // Array of strings
+        const fruits = ["apple", "banana", "cherry", "date", "elderberry"];
+
+        // Array of mixed data types
+        const mixedArray = [42, "hello", true, null, { name: "John" }];
+
+        // Array of objects
+        const users = [
+            { id: 1, name: "Alice" },
+            { id: 2, name: "Bob" },
+            { id: 3, name: "Charlie" }
+        ];
+
+        // Array of arrays (2D array)
+        const matrix = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ];
+
+        // Example operations
+        // 1. Sum of numbers array
+        const sum = numbers.reduce((acc, num) => acc + num, 0);
+
+        // 2. Uppercase all fruit names
+        const uppercasedFruits = fruits.map(fruit => fruit.toUpperCase());
+
+        // 3. Filter mixed array for only strings
+        const stringsOnly = mixedArray.filter(item => typeof item === "string");
+
+        // 4. Find user by ID
+        const user = users.find(user => user.id === 2);
+
+        // 5. Flatten the matrix array
+        const flattenedMatrix = matrix.flat();
+
+        // Display results
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = `
+            <p>Sum of numbers: ${sum}</p>
+            <p>Uppercased fruits: ${uppercasedFruits.join(", ")}</p>
+            <p>Strings in mixed array: ${stringsOnly.join(", ")}</p>
+            <p>User with ID 2: ${user ? user.name : "Not found"}</p>
+            <p>Flattened matrix: ${flattenedMatrix.join(", ")}</p>
+        `;
+    </script>
+</body>
+</html>
