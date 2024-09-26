@@ -7,7 +7,7 @@
     <title>JavaScript Arrays with Dynamic Input</title>
     <style>
         body {
-            background-color: #d6fffe; /* Light background */
+            background-color: #f5f5f5; /* Light background */
             color: #333; /* Dark text color */
             font-family: Arial, sans-serif;
             padding: 40px; /* Increased padding for a professional look */
@@ -36,10 +36,32 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Added shadow for 3D effect */
+            transition: box-shadow 0.2s ease; /* Smooth transition for shadow effects */
+        }
+
+        #clearButton:hover {
+            background-color: #008000; /* Light Green on Hover */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+        }
+
+        button {
+            padding: 12px;
+            margin-top: 10px; /* Increased margin for buttons */
+            border: none;
+            border-radius: 5px;
+            background-color: #4a92d5; /* Professional blue Button */
+            color: #ffffff; /* White buttons */
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px; /* Increase font size */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Added shadow for 3D effect */
+            transition: box-shadow 0.2s ease; /* Smooth transition for shadow effects */
         }
 
         button:hover {
-            background-color: #008000; /* Light Green on Hover */
+            background-color: #6ab5ef; /* Lighter blue on hover */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
         }
 
         .form-container {
@@ -74,22 +96,6 @@
             color: #999; /* Placeholder color */
         }
 
-        button {
-            padding: 12px;
-            margin-top: 10px; /* Increased margin for buttons */
-            border: none;
-            border-radius: 5px;
-            background-color: #4a92d5; /* Professional blue Button */
-            color: #ffffff; /* White buttons */
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px; /* Increase font size */
-        }
-
-        button:hover {
-            background-color: #6ab5ef; /* Lighter blue on hover */
-        }
-
         .output-box {
             margin-top: 10px;
             padding: 10px;
@@ -101,7 +107,7 @@
             overflow-wrap: break-word;
             border: 1px solid #4a92d5; /* Blue border for output */
         }
-        
+
         .color-box {
             display: inline-block;
             width: 20px;
@@ -109,7 +115,6 @@
             margin-left: 10px;
             border: 1px solid #ffffff; /* White border for color boxes */
         }
-
     </style>
 </head>
 
