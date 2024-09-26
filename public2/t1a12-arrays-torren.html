@@ -34,11 +34,11 @@
         button:hover {
             background-color: #005bb5;
         }
-        #output {
-            margin-top: 20px;
-            padding: 20px;
+        .output-box {
+            margin-top: 10px;
+            padding: 10px;
             background-color: #003366;
-            border-radius: 10px;
+            border-radius: 5px;
             width: 80%;
             text-align: left;
         }
@@ -50,29 +50,33 @@
     <h2>Numbers</h2>
     <input type="number" id="numberInput">
     <button onclick="addNumber()">Add Number</button>
+    <div id="numbersOutput" class="output-box"></div>
     
     <h2>Fruits</h2>
     <input type="text" id="fruitInput">
     <button onclick="addFruit()">Add Fruit</button>
+    <div id="fruitsOutput" class="output-box"></div>
     
     <h2>Mixed Data</h2>
     <input type="text" id="mixedInput">
     <button onclick="addMixed()">Add Mixed Data</button>
+    <div id="mixedOutput" class="output-box"></div>
     
     <h2>Users</h2>
     <input type="text" id="userNameInput" placeholder="Name">
     <button onclick="addUser()">Add User</button>
+    <div id="usersOutput" class="output-box"></div>
     
     <h2>Matrix</h2>
     <input type="number" id="matrixInput">
     <button onclick="addMatrix()">Add to Matrix</button>
+    <div id="matrixOutput" class="output-box"></div>
     
     <h2>Fibonacci Sequence</h2>
     <input type="number" id="fibonacciInput" placeholder="Enter a number">
     <button onclick="generateFibonacci()">Generate Fibonacci</button>
+    <div id="fibonacciOutput" class="output-box"></div>
     
-    <div id="output"></div>
-
     <script>
         // Arrays
         const numbers = [];
@@ -157,16 +161,58 @@
             const user = users.find(user => user.id === 2);
             const flattenedMatrix = matrix.flat();
 
-            const outputDiv = document.getElementById("output");
-            outputDiv.innerHTML = `
-                <p>Sum of numbers: ${sum}</p>
-                <p>Uppercased fruits: ${uppercasedFruits.join(", ")}</p>
-                <p>Strings in mixed array: ${stringsOnly.join(", ")}</p>
-                <p>User with ID 2: ${user ? user.name : "Not found"}</p>
-                <p>Flattened matrix: ${flattenedMatrix.join(", ")}</p>
-                <p>Fibonacci sequence: ${fibonacciSequence.join(", ")}</p>
-            `;
+            document.getElementById("numbersOutput").innerHTML = `Sum of numbers: ${sum}`;
+            document.getElementById("fruitsOutput").innerHTML = `Uppercased fruits: ${uppercasedFruits.join(", ")}`;
+            document.getElementById("mixedOutput").innerHTML = `Strings in mixed array: ${stringsOnly.join(", ")}`;
+            document.getElementById("usersOutput").innerHTML = `User with ID 2: ${user ? user.name : "Not found"}`;
+            document.getElementById("matrixOutput").innerHTML = `Flattened matrix: ${flattenedMatrix.join(", ")}`;
+            document.getElementById("fibonacciOutput").innerHTML = `Fibonacci sequence: ${fibonacciSequence.join(", ")}`;
         }
+
+        // Cool loops
+        function coolLoops() {
+            // Loop with a twist using for...of and entries()
+            const fruits = ["apple", "banana", "cherry"];
+            for (const [index, fruit] of fruits.entries()) {
+                console.log(`Index: ${index}, Fruit: ${fruit}`);
+            }
+
+            // Loop through an object's properties using Object.entries()
+            const user = { name: "Alice", age: 25, city: "Wonderland" };
+            for (const [key, value] of Object.entries(user)) {
+                console.log(`${key}: ${value}`);
+            }
+
+            // Loop with a delay using setTimeout inside a for loop
+            const numbers = [1, 2, 3, 4, 5];
+            for (let i = 0; i < numbers.length; i++) {
+                setTimeout(() => {
+                    console.log(numbers[i]);
+                }, i * 1000); // Delay increases with each iteration
+            }
+
+            // Loop through a string using for...of
+            const str = "Hello, World!";
+            for (const char of str) {
+                console.log(char);
+            }
+
+            // Loop with a generator function
+            function* fibonacci(n) {
+                let a = 0, b = 1;
+                for (let i = 0; i < n; i++) {
+                    yield a;
+                    [a, b] = [b, a + b];
+                }
+            }
+
+            for (const num of fibonacci(10)) {
+                console.log(num);
+            }
+        }
+
+        // Call cool loops function to demonstrate
+        coolLoops();
     </script>
 </body>
 </html>
