@@ -53,44 +53,42 @@
         <!-- Multiple-Choice Questions -->
         <div class="question">
             <label for="q1">1. What is the plastic piece called on the end of a shoelace?</label>
-            <input type="radio" id="q1a" name="q1" value="Brome" required> Brome<br>
+            <input type="radio" id="q1a" name="q1" value="Brome"> Brome<br>
             <input type="radio" id="q1b" name="q1" value="Plimer"> Plimer<br>
-            <input type="radio" id="q1c" name="q1" value="Aglet"> Aglet<br>
+            <input type="radio" id="q1c" name="q1" value="Aglet" checked> Aglet<br> <!-- default selected -->
         </div>
         <div class="question">
             <label for="q2">2. What are the two planets of the solar system that I have no moons?</label>
-            <input type="radio" id="q2a" name="q2" value="3" required> Jupiter and Uranus<br>
-            <input type="radio" id="q2b" name="q2" value="4"> Mercury and Venus<br>
+            <input type="radio" id="q2a" name="q2" value="3"> Jupiter and Uranus<br>
+            <input type="radio" id="q2b" name="q2" value="4" checked> Mercury and Venus<br> <!-- default selected -->
             <input type="radio" id="q2c" name="q2" value="5"> Pluto and the Sun<br>
         </div>
         <div class="question">
             <label for="q3">3. What is chemical symbol for silver?</label>
-            <input type="radio" id="q3a" name="q3" value="Ag"> Ag  <br>
-            <input type="radio" id="q3b" name="q3" value="Green" required> Au<br>
-            <input type="radio" id="q3c" name="q3" value="Red"> Si<br>
+            <input type="radio" id="q3a" name="q3" value="Ag" checked> Ag  <br> <!-- default selected -->
+            <input type="radio" id="q3b" name="q3" value="Au"> Au<br>
+            <input type="radio" id="q3c" name="q3" value="Si"> Si<br>
         </div>
-        Testing Button:<br>
-        <input type="radio" name="myRad" value="Pie"> Pie<br>
-        <input type="radio" name="myRad" value="shrimp"> Shrimp<br>
-    </div>
+        
         <div class="question">
             <label for="q4">4. What language has one of the most words?</label>
-            <input type="radio" id="q4a" name="q4" value="Lion" required> Korean<br>
-            <input type="radio" id="q4b" name="q4" value="Elephant"> English<br>
+            <input type="radio" id="q4a" name="q4" value="Lion"> Korean<br>
+            <input type="radio" id="q4b" name="q4" value="Elephant" checked> English<br> <!-- default selected -->
             <input type="radio" id="q4c" name="q4" value="Tiger"> Arabic<br>
         </div>
         <div class="question">
             <label for="q5">5. What is the largest tree?</label>
-            <input type="radio" id="q5a" name="q5" value="Earth" required> Giant Redwood<br>
+            <input type="radio" id="q5a" name="q5" value="Earth" checked> Giant Redwood<br> <!-- default selected -->
             <input type="radio" id="q5b" name="q5" value="Jupiter"> Cedar Tree<br>
             <input type="radio" id="q5c" name="q5" value="Mars"> Bonsai<br>
         </div>
         <div class="question">
             <label for="q6">6. What is the hex code for a banana?</label>
-            <input type="radio" id="q6a" name="q6" value="Yellow" required> #E3C75D<br>
+            <input type="radio" id="q6a" name="q6" value="Yellow" checked> #E3C75D<br> <!-- default selected -->
             <input type="radio" id="q6b" name="q6" value="Blue"> #7A9A9F<br>
             <input type="radio" id="q6c" name="q6" value="Purple"> #E57C7C<br>
         </div>
+        
         <!-- Text Input Questions -->
         <div class="question">
             <label for="q7">7. Is a tomato a fruit?</label>
@@ -114,16 +112,15 @@
             <label for="nerdFace">Submit Your Nerd Face:</label>
             <input type="file" id="nerdFace" name="nerdFace" accept="image/*" required>
         </div>
+        
         Select one for yourself<br>
-        <select >
-            <option value="a">a</option>
-                   <option value="b">b</option>
-               <option value="c">c</option>
+        <select>
+            <option value="a" selected>a</option> <!-- default selected -->
+            <option value="b">b</option>
+            <option value="c">c</option>
         </select>
 
         <button type="submit">Submit your final answer</button>
     </form>
 </body>
 </html>
-    
-       
