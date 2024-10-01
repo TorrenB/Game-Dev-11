@@ -194,7 +194,7 @@
                 fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Didn not work anyways');
+                            throw new Error('Failed to retrieve data.');
                         }
                         return response.json();
                     })
@@ -207,7 +207,7 @@
                         document.getElementById('locationResult').innerHTML = error.message;
                     });
             } else {
-                document.getElementById('locationResult').innerHTML = 'It doesnt work anuyways.';
+                document.getElementById('locationResult').innerHTML = 'Please enter a city name.';
             }
         }
 
@@ -261,9 +261,9 @@
         <div class="form-container" id="inputForm">
             <h2>Input Data for Chart</h2>
             <label for="xValues">X-axis values (comma separated):</label>
-            <input type="text" id="xValues" placeholder="e.g., 1,2,3,4">
+            <input type="text" id="xValues" placeholder="e.g., 1,2,3,4" value="1,2,3,4">
             <label for="yValues">Y-axis values (comma separated):</label>
-            <input type="text" id="yValues" placeholder="e.g., 10,20,30,40">
+            <input type="text" id="yValues" placeholder="e.g., 10,20,30,40" value="10,20,30,40">
             <button onclick="drawChart()">Draw Chart</button>
         </div>
         
@@ -275,18 +275,18 @@
     <div class="form-container" id="prismForm">
         <h2>Surface Area of a Triangular Prism</h2>
         <form onsubmit="event.preventDefault(); calculateSurfaceArea();">
-            <label for="base">Base of Triangle:</label>
-            <input type="number" id="base" required>
-            <label for="height">Height of Triangle:</label>
-            <input type="number" id="height" required>
-            <label for="length">Length of Prism:</label>
-            <input type="number" id="length" required>
-            <label for="side1">Side 1 of Triangle:</label>
-            <input type="number" id="side1" required>
-            <label for="side2">Side 2 of Triangle:</label>
-            <input type="number" id="side2" required>
-            <label for="side3">Side 3 of Triangle:</label>
-            <input type="number" id="side3" required>
+            <label for="base">Base of Triangle (default 5):</label>
+            <input type="number" id="base" value="5" required>
+            <label for="height">Height of Triangle (default 5):</label>
+            <input type="number" id="height" value="5" required>
+            <label for="length">Length of Prism (default 10):</label>
+            <input type="number" id="length" value="10" required>
+            <label for="side1">Side 1 of Triangle (default 5):</label>
+            <input type="number" id="side1" value="5" required>
+            <label for="side2">Side 2 of Triangle (default 5):</label>
+            <input type="number" id="side2" value="5" required>
+            <label for="side3">Side 3 of Triangle (default 5):</label>
+            <input type="number" id="side3" value="5" required>
             <button type="submit">Calculate Surface Area</button>
         </form>
         <p id="result"></p>
@@ -295,7 +295,7 @@
     <div class="form-container" id="equationForm">
         <h2>Random Number Equation Generator</h2>
         <label for="numberInput">Enter a random number:</label>
-        <input type="text" id="numberInput">
+        <input type="text" id="numberInput" value="10">
         <button onclick="generateEquation()">Generate Equation</button>
         <p id="result"></p>
     </div>
@@ -318,7 +318,7 @@
     <div class="form-container" style="margin-top: 20px;">
         <h2>City Coordinates Finder</h2>
         <label for="city">Enter city name:</label>
-        <input type="text" id="city" placeholder="e.g., New York">
+        <input type="text" id="city" placeholder="e.g., New York" value="New York">
         <button onclick="getCityCoordinates()">Get Coordinates</button>
         <p id="locationResult"></p>
     </div>
@@ -327,7 +327,7 @@
     <div class="form-container" style="margin-top: 20px;">
         <h2>Flip a Letter Upside Down</h2>
         <label for="upsideDownInput">Enter a letter:</label>
-        <input type="text" id="upsideDownInput" placeholder="e.g., a">
+        <input type="text" id="upsideDownInput" placeholder="e.g., a" value="a">
         <button onclick="displayFlippedLetter()">Flip Letter</button>
         <p id="flippedResult"></p>
     </div>
