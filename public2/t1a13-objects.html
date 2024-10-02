@@ -163,10 +163,10 @@
         <input type="text" id="lastName" value="Doe" placeholder="Enter your last name" oninput="updateProgress()"><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" placeholder="Enter your email" oninput="updateProgress()"><br>
+        <input type="email" id="email" value="john.doe@example.com" placeholder="Enter your email" oninput="updateProgress()"><br>
 
         <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" placeholder="Enter your phone number" oninput="updateProgress()"><br>
+        <input type="tel" id="phone" value="123-456-7890" placeholder="Enter your phone number" oninput="updateProgress()"><br>
 
         <label for="age">Age:</label>
         <input type="number" id="age" value="30" min="0" placeholder="Enter your age" oninput="updateProgress()"><br>
@@ -178,10 +178,10 @@
         <input type="text" id="hairColor" value="Brown" placeholder="Enter your hair color" oninput="updateProgress()"><br>
 
         <label for="occupation">Occupation:</label>
-        <input type="text" id="occupation" placeholder="Enter your occupation" oninput="updateProgress()"><br>
+        <input type="text" id="occupation" value="Engineer" placeholder="Enter your occupation" oninput="updateProgress()"><br>
 
         <label for="experience">Experience in Space Exploration (years):</label>
-        <input type="number" id="experience" placeholder="Enter years of experience" oninput="updateProgress()"><br>
+        <input type="number" id="experience" value="1" placeholder="Enter years of experience" oninput="updateProgress()"><br>
 
         <label for="heightPounds">Height (pounds):</label>
         <input type="number" id="heightPounds" value="150" min="0" oninput="updateKgFromPounds(); updateProgress()"><br>
@@ -228,14 +228,14 @@
             firstName: "John",
             lastName: "Doe",
             age: 30,
-            email: "",
-            phone: "",
+            email: "john.doe@example.com",
+            phone: "123-456-7890",
             eyeColor: "Blue",
             hairColor: "Brown",
             heightPounds: 150,
             heightKg: 68,
-            occupation: "",
-            experience: 0,
+            occupation: "Engineer",
+            experience: 1,
             hobbies: ["Reading"],
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
@@ -244,6 +244,8 @@
                 this.hobbies.push(hobby);
             }
         };
+
+        const totalFields = 10; // total number of fields that contribute to progress
 
         function showContent(contentId) {
             document.querySelectorAll('.content').forEach(content => {
@@ -300,7 +302,6 @@
         }
 
         function updateProgress() {
-            let totalFields = 10; // total number of fields in the form
             let filledFields = 0;
 
             // Count non-empty fields
@@ -311,7 +312,7 @@
                 }
             });
 
-            // Calculate progress percentage
+            // Calculate progress percentage and ensure it fills evenly
             let progressPercent = (filledFields / totalFields) * 100;
             document.getElementById("progressBar").style.width = progressPercent + "%";
         }
