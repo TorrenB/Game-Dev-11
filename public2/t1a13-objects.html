@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +11,24 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1a1a2e; /* Dark space-like background */
-            color: #e0e0e0; /* Light gray for text */
+            background-color: #1a1a2e;
+            /* Dark space-like background */
+            color: #e0e0e0;
+            /* Light gray for text */
         }
 
         header {
-            background-color: #16213e; /* Dark blue header */
-            color: #ffde59; /* Bright yellow text */
+            background-color: #16213e;
+            /* Dark blue header */
+            color: #ffde59;
+            /* Bright yellow text */
             text-align: center;
             padding: 15px 0;
         }
 
         nav {
-            background-color: #0f3460; /* Very dark blue for nav */
+            background-color: #0f3460;
+            /* Very dark blue for nav */
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -31,13 +37,15 @@
         .tab {
             margin: 0 15px;
             padding: 10px 20px;
-            color: #fff; /* White text */
+            color: #fff;
+            /* White text */
             text-decoration: none;
             transition: background 0.3s;
         }
 
         .tab:hover {
-            background-color: #1b1b2f; /* Slightly lighter dark blue on hover */
+            background-color: #1b1b2f;
+            /* Slightly lighter dark blue on hover */
             border-radius: 5px;
         }
 
@@ -45,7 +53,8 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #0e0e1b; /* Darker content area */
+            background-color: #0e0e1b;
+            /* Darker content area */
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
@@ -56,7 +65,8 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #28a745; /* Green for the popup */
+            background-color: #28a745;
+            /* Green for the popup */
             color: white;
             padding: 15px;
             border-radius: 5px;
@@ -69,30 +79,45 @@
         footer {
             text-align: center;
             padding: 10px 0;
-            background-color: #16213e; /* Dark blue footer */
-            color: #ffde59; /* Bright yellow footer text */
+            background-color: #16213e;
+            /* Dark blue footer */
+            color: #ffde59;
+            /* Bright yellow footer text */
             position: relative;
             bottom: 0;
             width: 100%;
         }
 
-        input[type="text"], input[type="number"], input[type="email"], input[type="tel"], select {
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        select {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #444; /* Darker border */
+            border: 1px solid #444;
+            /* Darker border */
             border-radius: 4px;
-            background-color: #1f1f2b; /* Input background */
-            color: #e0e0e0; /* Light text for input */
+            background-color: #1f1f2b;
+            /* Input background */
+            color: #e0e0e0;
+            /* Light text for input */
         }
 
-        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
-            border-color: #ffde59; /* Focus border color */
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            border-color: #ffde59;
+            /* Focus border color */
             outline: none;
         }
 
         button {
-            background-color: #4e4e80; /* Dark purple button */
+            background-color: #4e4e80;
+            /* Dark purple button */
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -102,31 +127,39 @@
         }
 
         button:hover {
-            background-color: #3b3b6e; /* Darker purple on hover */
+            background-color: #3b3b6e;
+            /* Darker purple on hover */
         }
 
         /* Secondary button style */
         .secondary {
-            background-color: #2980b9; /* Blue for secondary button */
+            background-color: #2980b9;
+            /* Blue for secondary button */
         }
 
         .secondary:hover {
-            background-color: #1f5d83; /* Darker blue on hover */
+            background-color: #1f5d83;
+            /* Darker blue on hover */
+        }
+
+        .country-flag {
+            width: 20px;
+            /* Adjust flag width */
+            height: auto;
+            vertical-align: middle;
+            /* Align flag vertically with text */
+            margin-right: 5px;
+            /* Space between flag and country name */
         }
 
         /* Space above and below the text in the Our Mission section */
         #mission p {
-            margin: 3px 0; /* Adds 3 pixels above and below the paragraph */
-        }
-
-        .country-flag {
-            width: 20px; /* Adjust flag width */
-            height: auto;
-            margin-right: 5px; /* Space between flag and country name */
-            vertical-align: middle; /* Align flag vertically with text */
+            margin: 3px 0;
+            /* Adds 3 pixels above and below the paragraph */
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Welcome to the Saturnites Colony Registration</h1>
@@ -136,7 +169,10 @@
         <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
         <a href="#" class="tab" onclick="showContent('about')">About Us</a>
         <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
-        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a> 
+        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a>
+        <a href="#" class="tab" onclick="showContent('spaceships')">Spaceships</a>
+        <a href="#" class="tab" onclick="showContent('colonists')">Colonists</a>
+        <a href="#" class="tab" onclick="showContent('missions')">Missions</a>
     </nav>
 
     <div class="content" id="form">
@@ -169,13 +205,255 @@
         <input type="text" id="occupation" placeholder="Enter your occupation"><br>
 
         <label for="country">Country of Origin:</label>
-        <select id="country">
-            <option value="Canada" selected>Canada</option>
-            <option value="United States">United States</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="Australia">Australia</option>
-            <option value="France">France</option>
+        <select id="country" onchange="updateSelectedCountry()">
+            <option value="AF" data-flag="https://flagcdn.com/w20/af.png">Afghanistan</option>
+            <option value="AL" data-flag="https://flagcdn.com/w20/al.png">Albania</option>
+            <option value="DZ" data-flag="https://flagcdn.com/w20/dz.png">Algeria</option>
+            <option value="AS" data-flag="https://flagcdn.com/w20/as.png">American Samoa</option>
+            <option value="AD" data-flag="https://flagcdn.com/w20/ad.png">Andorra</option>
+            <option value="AO" data-flag="https://flagcdn.com/w20/ao.png">Angola</option>
+            <option value="AI" data-flag="https://flagcdn.com/w20/ai.png">Anguilla</option>
+            <option value="AQ" data-flag="https://flagcdn.com/w20/aq.png">Antarctica</option>
+            <option value="AG" data-flag="https://flagcdn.com/w20/ag.png">Antigua and Barbuda</option>
+            <option value="AR" data-flag="https://flagcdn.com/w20/ar.png">Argentina</option>
+            <option value="AM" data-flag="https://flagcdn.com/w20/am.png">Armenia</option>
+            <option value="AW" data-flag="https://flagcdn.com/w20/aw.png">Aruba</option>
+            <option value="AU" data-flag="https://flagcdn.com/w20/au.png">Australia</option>
+            <option value="AT" data-flag="https://flagcdn.com/w20/at.png">Austria</option>
+            <option value="AZ" data-flag="https://flagcdn.com/w20/az.png">Azerbaijan</option>
+            <option value="BS" data-flag="https://flagcdn.com/w20/bs.png">Bahamas</option>
+            <option value="BH" data-flag="https://flagcdn.com/w20/bh.png">Bahrain</option>
+            <option value="BD" data-flag="https://flagcdn.com/w20/bd.png">Bangladesh</option>
+            <option value="BB" data-flag="https://flagcdn.com/w20/bb.png">Barbados</option>
+            <option value="BY" data-flag="https://flagcdn.com/w20/by.png">Belarus</option>
+            <option value="BE" data-flag="https://flagcdn.com/w20/be.png">Belgium</option>
+            <option value="BZ" data-flag="https://flagcdn.com/w20/bz.png">Belize</option>
+            <option value="BJ" data-flag="https://flagcdn.com/w20/bj.png">Benin</option>
+            <option value="BM" data-flag="https://flagcdn.com/w20/bm.png">Bermuda</option>
+            <option value="BT" data-flag="https://flagcdn.com/w20/bt.png">Bhutan</option>
+            <option value="BO" data-flag="https://flagcdn.com/w20/bo.png">Bolivia</option>
+            <option value="BQ" data-flag="https://flagcdn.com/w20/bq.png">Bonaire, Sint Eustatius, and Saba</option>
+            <option value="BA" data-flag="https://flagcdn.com/w20/ba.png">Bosnia and Herzegovina</option>
+            <option value="BW" data-flag="https://flagcdn.com/w20/bw.png">Botswana</option>
+            <option value="BV" data-flag="https://flagcdn.com/w20/bv.png">Bouvet Island</option>
+            <option value="BR" data-flag="https://flagcdn.com/w20/br.png">Brazil</option>
+            <option value="IO" data-flag="https://flagcdn.com/w20/io.png">British Indian Ocean Territory</option>
+            <option value="BN" data-flag="https://flagcdn.com/w20/bn.png">Brunei Darussalam</option>
+            <option value="BG" data-flag="https://flagcdn.com/w20/bg.png">Bulgaria</option>
+            <option value="BF" data-flag="https://flagcdn.com/w20/bf.png">Burkina Faso</option>
+            <option value="BI" data-flag="https://flagcdn.com/w20/bi.png">Burundi</option>
+            <option value="CV" data-flag="https://flagcdn.com/w20/cv.png">Cabo Verde</option>
+            <option value="KH" data-flag="https://flagcdn.com/w20/kh.png">Cambodia</option>
+            <option value="CM" data-flag="https://flagcdn.com/w20/cm.png">Cameroon</option>
+            <option value="CA" data-flag="https://flagcdn.com/w20/ca.png">Canada</option>
+            <option value="KY" data-flag="https://flagcdn.com/w20/ky.png">Cayman Islands</option>
+            <option value="CF" data-flag="https://flagcdn.com/w20/cf.png">Central African Republic</option>
+            <option value="TD" data-flag="https://flagcdn.com/w20/td.png">Chad</option>
+            <option value="CL" data-flag="https://flagcdn.com/w20/cl.png">Chile</option>
+            <option value="CN" data-flag="https://flagcdn.com/w20/cn.png">China</option>
+            <option value="CX" data-flag="https://flagcdn.com/w20/cx.png">Christmas Island</option>
+            <option value="CC" data-flag="https://flagcdn.com/w20/cc.png">Cocos (Keeling) Islands</option>
+            <option value="CO" data-flag="https://flagcdn.com/w20/co.png">Colombia</option>
+            <option value="KM" data-flag="https://flagcdn.com/w20/km.png">Comoros</option>
+            <option value="CD" data-flag="https://flagcdn.com/w20/cd.png">Congo, Democratic Republic of the</option>
+            <option value="CG" data-flag="https://flagcdn.com/w20/cg.png">Congo, Republic of the</option>
+            <option value="CK" data-flag="https://flagcdn.com/w20/ck.png">Cook Islands</option>
+            <option value="CR" data-flag="https://flagcdn.com/w20/cr.png">Costa Rica</option>
+            <option value="HR" data-flag="https://flagcdn.com/w20/hr.png">Croatia</option>
+            <option value="CU" data-flag="https://flagcdn.com/w20/cu.png">Cuba</option>
+            <option value="CW" data-flag="https://flagcdn.com/w20/cw.png">Curaçao</option>
+            <option value="CY" data-flag="https://flagcdn.com/w20/cy.png">Cyprus</option>
+            <option value="CZ" data-flag="https://flagcdn.com/w20/cz.png">Czechia</option>
+            <option value="CI" data-flag="https://flagcdn.com/w20/ci.png">Côte d'Ivoire</option>
+            <option value="DK" data-flag="https://flagcdn.com/w20/dk.png">Denmark</option>
+            <option value="DJ" data-flag="https://flagcdn.com/w20/dj.png">Djibouti</option>
+            <option value="DM" data-flag="https://flagcdn.com/w20/dm.png">Dominica</option>
+            <option value="DO" data-flag="https://flagcdn.com/w20/do.png">Dominican Republic</option>
+            <option value="EC" data-flag="https://flagcdn.com/w20/ec.png">Ecuador</option>
+            <option value="EG" data-flag="https://flagcdn.com/w20/eg.png">Egypt</option>
+            <option value="SV" data-flag="https://flagcdn.com/w20/sv.png">El Salvador</option>
+            <option value="GQ" data-flag="https://flagcdn.com/w20/gq.png">Equatorial Guinea</option>
+            <option value="ER" data-flag="https://flagcdn.com/w20/er.png">Eritrea</option>
+            <option value="EE" data-flag="https://flagcdn.com/w20/ee.png">Estonia</option>
+            <option value="SZ" data-flag="https://flagcdn.com/w20/sz.png">Eswatini</option>
+            <option value="ET" data-flag="https://flagcdn.com/w20/et.png">Ethiopia</option>
+            <option value="FK" data-flag="https://flagcdn.com/w20/fk.png">Falkland Islands</option>
+            <option value="FO" data-flag="https://flagcdn.com/w20/fo.png">Faroe Islands</option>
+            <option value="FJ" data-flag="https://flagcdn.com/w20/fj.png">Fiji</option>
+            <option value="FI" data-flag="https://flagcdn.com/w20/fi.png">Finland</option>
+            <option value="FR" data-flag="https://flagcdn.com/w20/fr.png">France</option>
+            <option value="GF" data-flag="https://flagcdn.com/w20/gf.png">French Guiana</option>
+            <option value="PF" data-flag="https://flagcdn.com/w20/pf.png">French Polynesia</option>
+            <option value="TF" data-flag="https://flagcdn.com/w20/tf.png">French Southern Territories</option>
+            <option value="GA" data-flag="https://flagcdn.com/w20/ga.png">Gabon</option>
+            <option value="GM" data-flag="https://flagcdn.com/w20/gm.png">Gambia</option>
+            <option value="GE" data-flag="https://flagcdn.com/w20/ge.png">Georgia</option>
+            <option value="DE" data-flag="https://flagcdn.com/w20/de.png">Germany</option>
+            <option value="GH" data-flag="https://flagcdn.com/w20/gh.png">Ghana</option>
+            <option value="GI" data-flag="https://flagcdn.com/w20/gi.png">Gibraltar</option>
+            <option value="GR" data-flag="https://flagcdn.com/w20/gr.png">Greece</option>
+            <option value="GL" data-flag="https://flagcdn.com/w20/gl.png">Greenland</option>
+            <option value="GD" data-flag="https://flagcdn.com/w20/gd.png">Grenada</option>
+            <option value="GP" data-flag="https://flagcdn.com/w20/gp.png">Guadeloupe</option>
+            <option value="GU" data-flag="https://flagcdn.com/w20/gu.png">Guam</option>
+            <option value="GT" data-flag="https://flagcdn.com/w20/gt.png">Guatemala</option>
+            <option value="GG" data-flag="https://flagcdn.com/w20/gg.png">Guernsey</option>
+            <option value="GN" data-flag="https://flagcdn.com/w20/gn.png">Guinea</option>
+            <option value="GW" data-flag="https://flagcdn.com/w20/gw.png">Guinea-Bissau</option>
+            <option value="GY" data-flag="https://flagcdn.com/w20/gy.png">Guyana</option>
+            <option value="HT" data-flag="https://flagcdn.com/w20/ht.png">Haiti</option>
+            <option value="HM" data-flag="https://flagcdn.com/w20/hm.png">Heard Island and McDonald Islands</option>
+            <option value="VA" data-flag="https://flagcdn.com/w20/va.png">Holy See</option>
+            <option value="HN" data-flag="https://flagcdn.com/w20/hn.png">Honduras</option>
+            <option value="HK" data-flag="https://flagcdn.com/w20/hk.png">Hong Kong</option>
+            <option value="HU" data-flag="https://flagcdn.com/w20/hu.png">Hungary</option>
+            <option value="IS" data-flag="https://flagcdn.com/w20/is.png">Iceland</option>
+            <option value="IN" data-flag="https://flagcdn.com/w20/in.png">India</option>
+            <option value="ID" data-flag="https://flagcdn.com/w20/id.png">Indonesia</option>
+            <option value="IR" data-flag="https://flagcdn.com/w20/ir.png">Iran</option>
+            <option value="IQ" data-flag="https://flagcdn.com/w20/iq.png">Iraq</option>
+            <option value="IE" data-flag="https://flagcdn.com/w20/ie.png">Ireland</option>
+            <option value="IM" data-flag="https://flagcdn.com/w20/im.png">Isle of Man</option>
+            <option value="IL" data-flag="https://flagcdn.com/w20/il.png">Israel</option>
+            <option value="IT" data-flag="https://flagcdn.com/w20/it.png">Italy</option>
+            <option value="JM" data-flag="https://flagcdn.com/w20/jm.png">Jamaica</option>
+            <option value="JP" data-flag="https://flagcdn.com/w20/jp.png">Japan</option>
+            <option value="JE" data-flag="https://flagcdn.com/w20/je.png">Jersey</option>
+            <option value="JO" data-flag="https://flagcdn.com/w20/jo.png">Jordan</option>
+            <option value="KZ" data-flag="https://flagcdn.com/w20/kz.png">Kazakhstan</option>
+            <option value="KE" data-flag="https://flagcdn.com/w20/ke.png">Kenya</option>
+            <option value="KI" data-flag="https://flagcdn.com/w20/ki.png">Kiribati</option>
+            <option value="KP" data-flag="https://flagcdn.com/w20/kp.png">Korea, North</option>
+            <option value="KR" data-flag="https://flagcdn.com/w20/kr.png">Korea, South</option>
+            <option value="KW" data-flag="https://flagcdn.com/w20/kw.png">Kuwait</option>
+            <option value="KG" data-flag="https://flagcdn.com/w20/kg.png">Kyrgyzstan</option>
+            <option value="LA" data-flag="https://flagcdn.com/w20/la.png">Lao People's Democratic Republic</option>
+            <option value="LV" data-flag="https://flagcdn.com/w20/lv.png">Latvia</option>
+            <option value="LB" data-flag="https://flagcdn.com/w20/lb.png">Lebanon</option>
+            <option value="LS" data-flag="https://flagcdn.com/w20/ls.png">Lesotho</option>
+            <option value="LR" data-flag="https://flagcdn.com/w20/lr.png">Liberia</option>
+            <option value="LY" data-flag="https://flagcdn.com/w20/ly.png">Libya</option>
+            <option value="LI" data-flag="https://flagcdn.com/w20/li.png">Liechtenstein</option>
+            <option value="LT" data-flag="https://flagcdn.com/w20/lt.png">Lithuania</option>
+            <option value="LU" data-flag="https://flagcdn.com/w20/lu.png">Luxembourg</option>
+            <option value="MO" data-flag="https://flagcdn.com/w20/mo.png">Macao</option>
+            <option value="MG" data-flag="https://flagcdn.com/w20/mg.png">Madagascar</option>
+            <option value="MW" data-flag="https://flagcdn.com/w20/mw.png">Malawi</option>
+            <option value="MY" data-flag="https://flagcdn.com/w20/my.png">Malaysia</option>
+            <option value="MV" data-flag="https://flagcdn.com/w20/mv.png">Maldives</option>
+            <option value="ML" data-flag="https://flagcdn.com/w20/ml.png">Mali</option>
+            <option value="MT" data-flag="https://flagcdn.com/w20/mt.png">Malta</option>
+            <option value="MH" data-flag="https://flagcdn.com/w20/mh.png">Marshall Islands</option>
+            <option value="MQ" data-flag="https://flagcdn.com/w20/mq.png">Martinique</option>
+            <option value="MR" data-flag="https://flagcdn.com/w20/mr.png">Mauritania</option>
+            <option value="MU" data-flag="https://flagcdn.com/w20/mu.png">Mauritius</option>
+            <option value="YT" data-flag="https://flagcdn.com/w20/yt.png">Mayotte</option>
+            <option value="MX" data-flag="https://flagcdn.com/w20/mx.png">Mexico</option>
+            <option value="FM" data-flag="https://flagcdn.com/w20/fm.png">Micronesia</option>
+            <option value="MD" data-flag="https://flagcdn.com/w20/md.png">Moldova</option>
+            <option value="MC" data-flag="https://flagcdn.com/w20/mc.png">Monaco</option>
+            <option value="MN" data-flag="https://flagcdn.com/w20/mn.png">Mongolia</option>
+            <option value="ME" data-flag="https://flagcdn.com/w20/me.png">Montenegro</option>
+            <option value="MS" data-flag="https://flagcdn.com/w20/ms.png">Montserrat</option>
+            <option value="MA" data-flag="https://flagcdn.com/w20/ma.png">Morocco</option>
+            <option value="MZ" data-flag="https://flagcdn.com/w20/mz.png">Mozambique</option>
+            <option value="MM" data-flag="https://flagcdn.com/w20/mm.png">Myanmar</option>
+            <option value="NA" data-flag="https://flagcdn.com/w20/na.png">Namibia</option>
+            <option value="NR" data-flag="https://flagcdn.com/w20/nr.png">Nauru</option>
+            <option value="NP" data-flag="https://flagcdn.com/w20/np.png">Nepal</option>
+            <option value="NL" data-flag="https://flagcdn.com/w20/nl.png">Netherlands</option>
+            <option value="NC" data-flag="https://flagcdn.com/w20/nc.png">New Caledonia</option>
+            <option value="NZ" data-flag="https://flagcdn.com/w20/nz.png">New Zealand</option>
+            <option value="NI" data-flag="https://flagcdn.com/w20/ni.png">Nicaragua</option>
+            <option value="NE" data-flag="https://flagcdn.com/w20/ne.png">Niger</option>
+            <option value="NG" data-flag="https://flagcdn.com/w20/ng.png">Nigeria</option>
+            <option value="NU" data-flag="https://flagcdn.com/w20/nu.png">Niue</option>
+            <option value="NF" data-flag="https://flagcdn.com/w20/nf.png">Norfolk Island</option>
+            <option value="MP" data-flag="https://flagcdn.com/w20/mp.png">Northern Mariana Islands</option>
+            <option value="NO" data-flag="https://flagcdn.com/w20/no.png">Norway</option>
+            <option value="OM" data-flag="https://flagcdn.com/w20/om.png">Oman</option>
+            <option value="PK" data-flag="https://flagcdn.com/w20/pk.png">Pakistan</option>
+            <option value="PW" data-flag="https://flagcdn.com/w20/pw.png">Palau</option>
+            <option value="PS" data-flag="https://flagcdn.com/w20/ps.png">Palestine, State of</option>
+            <option value="PA" data-flag="https://flagcdn.com/w20/pa.png">Panama</option>
+            <option value="PG" data-flag="https://flagcdn.com/w20/pg.png">Papua New Guinea</option>
+            <option value="PY" data-flag="https://flagcdn.com/w20/py.png">Paraguay</option>
+            <option value="PE" data-flag="https://flagcdn.com/w20/pe.png">Peru</option>
+            <option value="PH" data-flag="https://flagcdn.com/w20/ph.png">Philippines</option>
+            <option value="PN" data-flag="https://flagcdn.com/w20/pn.png">Pitcairn</option>
+            <option value="PL" data-flag="https://flagcdn.com/w20/pl.png">Poland</option>
+            <option value="PT" data-flag="https://flagcdn.com/w20/pt.png">Portugal</option>
+            <option value="PR" data-flag="https://flagcdn.com/w20/pr.png">Puerto Rico</option>
+            <option value="QA" data-flag="https://flagcdn.com/w20/qa.png">Qatar</option>
+            <option value="RE" data-flag="https://flagcdn.com/w20/re.png">Réunion</option>
+            <option value="RO" data-flag="https://flagcdn.com/w20/ro.png">Romania</option>
+            <option value="RU" data-flag="https://flagcdn.com/w20/ru.png">Russian Federation</option>
+            <option value="RW" data-flag="https://flagcdn.com/w20/rw.png">Rwanda</option>
+            <option value="BL" data-flag="https://flagcdn.com/w20/bl.png">Saint Barthélemy</option>
+            <option value="SH" data-flag="https://flagcdn.com/w20/sh.png">Saint Helena, Ascension and Tristan da Cunha</option>
+            <option value="KN" data-flag="https://flagcdn.com/w20/kn.png">Saint Kitts and Nevis</option>
+            <option value="LC" data-flag="https://flagcdn.com/w20/lc.png">Saint Lucia</option>
+            <option value="MF" data-flag="https://flagcdn.com/w20/mf.png">Saint Martin (French part)</option>
+            <option value="SX" data-flag="https://flagcdn.com/w20/sx.png">Saint Martin (Dutch part)</option>
+            <option value="PM" data-flag="https://flagcdn.com/w20/pm.png">Saint Pierre and Miquelon</option>
+            <option value="VC" data-flag="https://flagcdn.com/w20/vc.png">Saint Vincent and the Grenadines</option>
+            <option value="WS" data-flag="https://flagcdn.com/w20/ws.png">Samoa</option>
+            <option value="SM" data-flag="https://flagcdn.com/w20/sm.png">San Marino</option>
+            <option value="ST" data-flag="https://flagcdn.com/w20/st.png">Sao Tome and Principe</option>
+            <option value="SA" data-flag="https://flagcdn.com/w20/sa.png">Saudi Arabia</option>
+            <option value="SN" data-flag="https://flagcdn.com/w20/sn.png">Senegal</option>
+            <option value="RS" data-flag="https://flagcdn.com/w20/rs.png">Serbia</option>
+            <option value="SC" data-flag="https://flagcdn.com/w20/sc.png">Seychelles</option>
+            <option value="SL" data-flag="https://flagcdn.com/w20/sl.png">Sierra Leone</option>
+            <option value="SG" data-flag="https://flagcdn.com/w20/sg.png">Singapore</option>
+            <option value="SX" data-flag="https://flagcdn.com/w20/sx.png">Sint Maarten</option>
+            <option value="SK" data-flag="https://flagcdn.com/w20/sk.png">Slovakia</option>
+            <option value="SI" data-flag="https://flagcdn.com/w20/si.png">Slovenia</option>
+            <option value="SB" data-flag="https://flagcdn.com/w20/sb.png">Solomon Islands</option>
+            <option value="SO" data-flag="https://flagcdn.com/w20/so.png">Somalia</option>
+            <option value="ZA" data-flag="https://flagcdn.com/w20/za.png">South Africa</option>
+            <option value="GS" data-flag="https://flagcdn.com/w20/gs.png">South Georgia and the South Sandwich Islands</option>
+            <option value="SS" data-flag="https://flagcdn.com/w20/ss.png">South Sudan</option>
+            <option value="ES" data-flag="https://flagcdn.com/w20/es.png">Spain</option>
+            <option value="LK" data-flag="https://flagcdn.com/w20/lk.png">Sri Lanka</option>
+            <option value="SD" data-flag="https://flagcdn.com/w20/sd.png">Sudan</option>
+            <option value="SR" data-flag="https://flagcdn.com/w20/sr.png">Suriname</option>
+            <option value="SJ" data-flag="https://flagcdn.com/w20/sj.png">Svalbard and Jan Mayen</option>
+            <option value="SZ" data-flag="https://flagcdn.com/w20/sz.png">Eswatini</option>
+            <option value="SE" data-flag="https://flagcdn.com/w20/se.png">Sweden</option>
+            <option value="CH" data-flag="https://flagcdn.com/w20/ch.png">Switzerland</option>
+            <option value="SY" data-flag="https://flagcdn.com/w20/sy.png">Syrian Arab Republic</option>
+            <option value="TW" data-flag="https://flagcdn.com/w20/tw.png">Taiwan, Province of China</option>
+            <option value="TJ" data-flag="https://flagcdn.com/w20/tj.png">Tajikistan</option>
+            <option value="TZ" data-flag="https://flagcdn.com/w20/tz.png">Tanzania</option>
+            <option value="TH" data-flag="https://flagcdn.com/w20/th.png">Thailand</option>
+            <option value="TL" data-flag="https://flagcdn.com/w20/tl.png">Timor-Leste</option>
+            <option value="TG" data-flag="https://flagcdn.com/w20/tg.png">Togo</option>
+            <option value="TK" data-flag="https://flagcdn.com/w20/tk.png">Tokelau</option>
+            <option value="TO" data-flag="https://flagcdn.com/w20/to.png">Tonga</option>
+            <option value="TT" data-flag="https://flagcdn.com/w20/tt.png">Trinidad and Tobago</option>
+            <option value="TN" data-flag="https://flagcdn.com/w20/tn.png">Tunisia</option>
+            <option value="TR" data-flag="https://flagcdn.com/w20/tr.png">Turkey</option>
+            <option value="TM" data-flag="https://flagcdn.com/w20/tm.png">Turkmenistan</option>
+            <option value="TC" data-flag="https://flagcdn.com/w20/tc.png">Turks and Caicos Islands</option>
+            <option value="TV" data-flag="https://flagcdn.com/w20/tv.png">Tuvalu</option>
+            <option value="UG" data-flag="https://flagcdn.com/w20/ug.png">Uganda</option>
+            <option value="UA" data-flag="https://flagcdn.com/w20/ua.png">Ukraine</option>
+            <option value="AE" data-flag="https://flagcdn.com/w20/ae.png">United Arab Emirates</option>
+            <option value="GB" data-flag="https://flagcdn.com/w20/gb.png">United Kingdom</option>
+            <option value="US" data-flag="https://flagcdn.com/w20/us.png">United States</option>
+            <option value="UY" data-flag="https://flagcdn.com/w20/uy.png">Uruguay</option>
+            <option value="UZ" data-flag="https://flagcdn.com/w20/uz.png">Uzbekistan</option>
+            <option value="VU" data-flag="https://flagcdn.com/w20/vu.png">Vanuatu</option>
+            <option value="VE" data-flag="https://flagcdn.com/w20/ve.png">Venezuela</option>
+            <option value="VN" data-flag="https://flagcdn.com/w20/vn.png">Viet Nam</option>
+            <option value="WF" data-flag="https://flagcdn.com/w20/wf.png">Wallis and Futuna</option>
+            <option value="EH" data-flag="https://flagcdn.com/w20/eh.png">Western Sahara</option>
+            <option value="YE" data-flag="https://flagcdn.com/w20/ye.png">Yemen</option>
+            <option value="ZM" data-flag="https://flagcdn.com/w20/zm.png">Zambia</option>
+            <option value="ZW" data-flag="https://flagcdn.com/w20/zw.png">Zimbabwe</option>
         </select>
+        <img id="countryFlag" class="country-flag" src="https://flagcdn.com/w20/ca.png" alt="Flag" />
 
         <label for="experience">Experience in Space Exploration (years):</label>
         <input type="number" id="experience" placeholder="Enter years of experience"><br>
@@ -213,6 +491,24 @@
         <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity.</p>
     </div>
 
+    <div class="content" id="spaceships" style="display: none;">
+        <h2>Spaceships</h2>
+        <p>Here are some of the ships used in our missions:</p>
+        <ul id="spaceshipList"></ul>
+    </div>
+
+    <div class="content" id="colonists" style="display: none;">
+        <h2>Other Colonists</h2>
+        <p>Meet our fellow colonists:</p>
+        <ul id="colonistList"></ul>
+    </div>
+
+    <div class="content" id="missions" style="display: none;">
+        <h2>Missions</h2>
+        <p>Upcoming missions for the Saturnites Colony:</p>
+        <ul id="missionList"></ul>
+    </div>
+
     <footer>
         <p>&copy; 2023 Saturnites Colony. All rights reserved.</p>
     </footer>
@@ -233,19 +529,94 @@
             experience: 0,
             country: "Canada",
             hobbies: [],
-            getFullName: function() {
+            getFullName: function () {
                 return this.firstName + " " + this.lastName;
             },
-            addHobby: function(hobby) {
+            addHobby: function (hobby) {
                 this.hobbies.push(hobby);
             }
         };
+
+        // Define other objects
+
+        // Spaceships object
+        const spaceships = [
+            { name: "Prometheus", type: "Exploration", capacity: 5 },
+            { name: "Odyssey", type: "Transport", capacity: 10 },
+            { name: "Elysium", type: "Cargo", capacity: 20 }
+        ];
+
+        // Colonists object
+        const colonists = [
+            { firstName: "Alice", lastName: "Johnson", age: 28, occupation: "Biologist" },
+            { firstName: "Bob", lastName: "Smith", age: 34, occupation: "Engineer" },
+            { firstName: "Charlie", lastName: "Lee", age: 22, occupation: "Geologist" }
+        ];
+
+        // Missions object
+        const missions = [
+            { missionName: "Lunar Base Construction", date: "2024-05-01" },
+            { missionName: "Mars Reconnaissance", date: "2025-08-15" },
+            { missionName: "Asteroid Mining", date: "2026-11-10" }
+        ];
 
         function showContent(contentId) {
             document.querySelectorAll('.content').forEach(content => {
                 content.style.display = 'none';
             });
             document.getElementById(contentId).style.display = 'block';
+
+            // Populate Spaceships
+            if (contentId === "spaceships") {
+                populateSpaceships();
+            }
+
+            // Populate Colonists
+            if (contentId === "colonists") {
+                populateColonists();
+            }
+
+            // Populate Missions
+            if (contentId === "missions") {
+                populateMissions();
+            }
+        }
+
+        function populateSpaceships() {
+            const spaceshipList = document.getElementById("spaceshipList");
+            spaceshipList.innerHTML = ""; // Clear existing entries
+            spaceships.forEach(spaceship => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${spaceship.name} - Type: ${spaceship.type}, Capacity: ${spaceship.capacity}`;
+                spaceshipList.appendChild(listItem);
+            });
+        }
+
+        function populateColonists() {
+            const colonistList = document.getElementById("colonistList");
+            colonistList.innerHTML = ""; // Clear existing entries
+            colonists.forEach(colonist => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${colonist.firstName} ${colonist.lastName} - Age: ${colonist.age}, Occupation: ${colonist.occupation}`;
+                colonistList.appendChild(listItem);
+            });
+        }
+
+        function populateMissions() {
+            const missionList = document.getElementById("missionList");
+            missionList.innerHTML = ""; // Clear existing entries
+            missions.forEach(mission => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${mission.missionName} - Date: ${mission.date}`;
+                missionList.appendChild(listItem);
+            });
+        }
+
+        function updateSelectedCountry() {
+            const countrySelect = document.getElementById("country");
+            const flagSrc = countrySelect.options[countrySelect.selectedIndex].getAttribute("data-flag");
+            const countryFlag = document.getElementById("countryFlag");
+            countryFlag.src = flagSrc;
         }
 
         function updatePerson() {
@@ -271,16 +642,16 @@
 
         function displayPersonDetails() {
             let details = "Full Name: " + person.getFullName() + "<br>" +
-                          "Email: " + person.email + "<br>" +
-                          "Phone: " + person.phone + "<br>" +
-                          "Age: " + person.age + "<br>" +
-                          "Eye Color: " + person.eyeColor + "<br>" +
-                          "Hair Color: " + person.hairColor + "<br>" +
-                          "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
-                          "Occupation: " + person.occupation + "<br>" +
-                          "Country of Origin: " + person.country + "<br>" +
-                          "Experience in Space Exploration: " + person.experience + " years<br>" +
-                          "Hobbies: " + person.hobbies.join(", ");
+                "Email: " + person.email + "<br>" +
+                "Phone: " + person.phone + "<br>" +
+                "Age: " + person.age + "<br>" +
+                "Eye Color: " + person.eyeColor + "<br>" +
+                "Hair Color: " + person.hairColor + "<br>" +
+                "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
+                "Occupation: " + person.occupation + "<br>" +
+                "Country of Origin: " + person.country + "<br>" +
+                "Experience in Space Exploration: " + person.experience + " years<br>" +
+                "Hobbies: " + person.hobbies.join(", ");
             document.getElementById("personDetails").innerHTML = details;
         }
 
@@ -301,4 +672,5 @@
         showContent('form');
     </script>
 </body>
+
 </html>
