@@ -75,6 +75,14 @@
             bottom: 0;
             width: 100%;
         }
+
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 22px); /* 100% width minus padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -93,28 +101,28 @@
         <p>Enter your details and see the output below:</p>
 
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName"><br><br>
+        <input type="text" id="firstName" value="John" placeholder="Enter your first name"><br>
 
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName"><br><br>
+        <input type="text" id="lastName" value="Doe" placeholder="Enter your last name"><br>
 
         <label for="age">Age:</label>
-        <input type="number" id="age" value="30"><br><br>
+        <input type="number" id="age" value="30" min="0" placeholder="Enter your age"><br>
 
         <label for="eyeColor">Eye Color:</label>
-        <input type="text" id="eyeColor"><br><br>
+        <input type="text" id="eyeColor" value="Blue" placeholder="Enter your eye color"><br>
 
         <label for="hairColor">Hair Color:</label>
-        <input type="text" id="hairColor"><br><br>
+        <input type="text" id="hairColor" value="Brown" placeholder="Enter your hair color"><br>
 
         <label for="heightPounds">Height (pounds):</label>
-        <input type="number" id="heightPounds" value="150"><br><br>
+        <input type="number" id="heightPounds" value="150" min="0" placeholder="Enter height in pounds"><br>
 
         <label for="heightKg">Height (kg):</label>
-        <input type="number" id="heightKg" value="68"><br><br>
+        <input type="number" id="heightKg" value="68" min="0" placeholder="Enter height in kg"><br>
 
         <label for="hobby">Hobby:</label>
-        <input type="text" id="hobby"><br><br>
+        <input type="text" id="hobby" value="Reading" placeholder="Enter your hobby"><br>
 
         <button onclick="updatePerson()">Update Person</button>
         <button onclick="submitPerson()">Submit</button>
@@ -142,14 +150,14 @@
     <script>
         // Define the person object
         let person = {
-            firstName: "",
-            lastName: "",
+            firstName: "John",
+            lastName: "Doe",
             age: 30,
-            eyeColor: "",
-            hairColor: "",
+            eyeColor: "Blue",
+            hairColor: "Brown",
             heightPounds: 150,
             heightKg: 68,
-            hobbies: [],
+            hobbies: ["Reading"],
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
             },
