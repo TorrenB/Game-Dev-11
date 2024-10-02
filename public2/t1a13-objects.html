@@ -16,7 +16,19 @@
     <input type="text" id="lastName"><br><br>
 
     <label for="age">Age:</label>
-    <input type="number" id="age"><br><br>
+    <input type="number" id="age" value="30"><br><br>
+
+    <label for="eyeColor">Eye Color:</label>
+    <input type="text" id="eyeColor"><br><br>
+
+    <label for="hairColor">Hair Color:</label>
+    <input type="text" id="hairColor"><br><br>
+
+    <label for="heightPounds">Height (pounds):</label>
+    <input type="number" id="heightPounds" value="150"><br><br>
+
+    <label for="heightKg">Height (kg):</label>
+    <input type="number" id="heightKg" value="68"><br><br>
 
     <label for="hobby">Hobby:</label>
     <input type="text" id="hobby"><br><br>
@@ -31,7 +43,11 @@
         let person = {
             firstName: "",
             lastName: "",
-            age: 0,
+            age: 30,
+            eyeColor: "",
+            hairColor: "",
+            heightPounds: 150,
+            heightKg: 68,
             hobbies: [],
             // Method to get the full name
             getFullName: function() {
@@ -48,6 +64,10 @@
             person.firstName = document.getElementById("firstName").value;
             person.lastName = document.getElementById("lastName").value;
             person.age = document.getElementById("age").value;
+            person.eyeColor = document.getElementById("eyeColor").value;
+            person.hairColor = document.getElementById("hairColor").value;
+            person.heightPounds = document.getElementById("heightPounds").value;
+            person.heightKg = document.getElementById("heightKg").value;
             let hobby = document.getElementById("hobby").value;
             if (hobby) {
                 person.addHobby(hobby);
@@ -59,10 +79,12 @@
         function displayPersonDetails() {
             let details = "Full Name: " + person.getFullName() + "<br>" +
                           "Age: " + person.age + "<br>" +
+                          "Eye Color: " + person.eyeColor + "<br>" +
+                          "Hair Color: " + person.hairColor + "<br>" +
+                          "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
                           "Hobbies: " + person.hobbies.join(", ");
             document.getElementById("personDetails").innerHTML = details;
         }
     </script>
 </body>
 </html>
-
