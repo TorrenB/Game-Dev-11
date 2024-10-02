@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive JavaScript Objects Example</title>
+    <style>
+        #popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+    </style>
 </head>
 <body>
     <h1>Interactive JavaScript Objects Example</h1>
@@ -34,9 +51,12 @@
     <input type="text" id="hobby"><br><br>
 
     <button onclick="updatePerson()">Update Person</button>
+    <button onclick="submitPerson()">Submit</button>
 
     <h2>Person Details:</h2>
     <p id="personDetails"></p>
+
+    <div id="popup">Your response has been sent to the Saturnites Colony. We wish you well with giving us your information.</div>
 
     <script>
         // Define an object to represent a person
@@ -84,6 +104,21 @@
                           "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
                           "Hobbies: " + person.hobbies.join(", ");
             document.getElementById("personDetails").innerHTML = details;
+        }
+
+        // Function to handle the submit action
+        function submitPerson() {
+            const popup = document.getElementById("popup");
+            popup.style.display = "block"; // Show the popup
+            popup.style.opacity = 1;       // Fade in effect
+            
+            // Hide the popup after a few seconds
+            setTimeout(() => {
+                popup.style.opacity = 0;     // Fade out effect
+                setTimeout(() => {
+                    popup.style.display = "none"; // Remove from view
+                }, 500); // Wait for fade-out effect to complete
+            }, 3000); // Popup visible for 3 seconds
         }
     </script>
 </body>
