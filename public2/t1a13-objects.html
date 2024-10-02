@@ -3,19 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Objects Example</title>
+    <title>Interactive JavaScript Objects Example</title>
 </head>
 <body>
-    <h1>JavaScript Objects Example</h1>
-    <p>Open the console to see the output.</p>
+    <h1>Interactive JavaScript Objects Example</h1>
+    <p>Enter your details and see the output below:</p>
+
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName"><br><br>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName"><br><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age"><br><br>
+
+    <label for="hobby">Hobby:</label>
+    <input type="text" id="hobby"><br><br>
+
+    <button onclick="updatePerson()">Update Person</button>
+
+    <h2>Person Details:</h2>
+    <p id="personDetails"></p>
 
     <script>
         // Define an object to represent a person
         let person = {
-            firstName: "John",
-            lastName: "Doe",
-            age: 30,
-            hobbies: ["reading", "traveling", "swimming"],
+            firstName: "",
+            lastName: "",
+            age: 0,
+            hobbies: [],
             // Method to get the full name
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
@@ -26,13 +43,25 @@
             }
         };
 
-        // Accessing object properties
-        console.log(person.firstName); // Output: John
-        console.log(person.getFullName()); // Output: John Doe
+        // Function to update the person object with user input
+        function updatePerson() {
+            person.firstName = document.getElementById("firstName").value;
+            person.lastName = document.getElementById("lastName").value;
+            person.age = document.getElementById("age").value;
+            let hobby = document.getElementById("hobby").value;
+            if (hobby) {
+                person.addHobby(hobby);
+            }
+            displayPersonDetails();
+        }
 
-        // Adding a new hobby
-        person.addHobby("coding");
-        console.log(person.hobbies); // Output: ["reading", "traveling", "swimming", "coding"]
+        // Function to display the person details
+        function displayPersonDetails() {
+            let details = "Full Name: " + person.getFullName() + "<br>" +
+                          "Age: " + person.age + "<br>" +
+                          "Hobbies: " + person.hobbies.join(", ");
+            document.getElementById("personDetails").innerHTML = details;
+        }
     </script>
 </body>
 </html>
