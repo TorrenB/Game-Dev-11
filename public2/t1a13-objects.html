@@ -76,7 +76,7 @@
             width: 100%;
         }
 
-        input[type="text"], input[type="number"], input[type="email"], input[type="tel"] {
+        input[type="text"], input[type="number"], input[type="email"], input[type="tel"], select {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
@@ -86,7 +86,7 @@
             color: #e0e0e0; /* Light text for input */
         }
 
-        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
             border-color: #ffde59; /* Focus border color */
             outline: none;
         }
@@ -119,20 +119,11 @@
             margin: 3px 0; /* Adds 3 pixels above and below the paragraph */
         }
 
-        /* Progress Bar Styles */
-        .progress-container {
-            width: 100%;
-            background-color: #444;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-bar {
-            height: 20px;
-            background-color: #ffde59;
-            width: 0%; /* Starts at 0% */
-            transition: width 0.4s ease-in-out;
+        .country-flag {
+            width: 20px; /* Adjust flag width */
+            height: auto;
+            margin-right: 5px; /* Space between flag and country name */
+            vertical-align: middle; /* Align flag vertically with text */
         }
     </style>
 </head>
@@ -152,45 +143,51 @@
         <h2>Registration Form</h2>
         <p>Enter your details and see the output below:</p>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-
+        <!-- Input fields for user data -->
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" value="John" placeholder="Enter your first name" oninput="updateProgress()"><br>
+        <input type="text" id="firstName" placeholder="Enter your first name"><br>
 
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" value="Doe" placeholder="Enter your last name" oninput="updateProgress()"><br>
+        <input type="text" id="lastName" placeholder="Enter your last name"><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" value="john.doe@example.com" placeholder="Enter your email" oninput="updateProgress()"><br>
+        <input type="email" id="email" placeholder="Enter your email"><br>
 
         <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" value="123-456-7890" placeholder="Enter your phone number" oninput="updateProgress()"><br>
+        <input type="tel" id="phone" placeholder="Enter your phone number"><br>
 
         <label for="age">Age:</label>
-        <input type="number" id="age" value="30" min="0" placeholder="Enter your age" oninput="updateProgress()"><br>
+        <input type="number" id="age" min="0" placeholder="Enter your age"><br>
 
         <label for="eyeColor">Eye Color:</label>
-        <input type="text" id="eyeColor" value="Blue" placeholder="Enter your eye color" oninput="updateProgress()"><br>
+        <input type="text" id="eyeColor" placeholder="Enter your eye color"><br>
 
         <label for="hairColor">Hair Color:</label>
-        <input type="text" id="hairColor" value="Brown" placeholder="Enter your hair color" oninput="updateProgress()"><br>
+        <input type="text" id="hairColor" placeholder="Enter your hair color"><br>
 
         <label for="occupation">Occupation:</label>
-        <input type="text" id="occupation" value="Engineer" placeholder="Enter your occupation" oninput="updateProgress()"><br>
+        <input type="text" id="occupation" placeholder="Enter your occupation"><br>
+
+        <label for="country">Country of Origin:</label>
+        <select id="country">
+            <option value="Canada" selected>Canada</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Australia">Australia</option>
+            <option value="France">France</option>
+        </select>
 
         <label for="experience">Experience in Space Exploration (years):</label>
-        <input type="number" id="experience" value="1" placeholder="Enter years of experience" oninput="updateProgress()"><br>
+        <input type="number" id="experience" placeholder="Enter years of experience"><br>
 
         <label for="heightPounds">Height (pounds):</label>
-        <input type="number" id="heightPounds" value="150" min="0" oninput="updateKgFromPounds(); updateProgress()"><br>
+        <input type="number" id="heightPounds" min="0"><br>
 
         <label for="heightKg">Height (kg):</label>
-        <input type="number" id="heightKg" value="68" min="0" oninput="updatePoundsFromKg(); updateProgress()"><br>
+        <input type="number" id="heightKg" min="0"><br>
 
         <label for="hobby">Hobby:</label>
-        <input type="text" id="hobby" value="Reading" placeholder="Enter your hobby" oninput="updateProgress()"><br>
+        <input type="text" id="hobby" placeholder="Enter your hobby"><br>
 
         <button class="secondary" onclick="updatePerson()">Update Person</button>
         <button onclick="submitPerson()">Submit</button>
@@ -203,19 +200,17 @@
 
     <div class="content" id="about" style="display: none;">
         <h2>About Us</h2>
-        <p>The Saturnites Colony is a visionary community dedicated to exploring the possibilities of life on Saturn's moons. Join us in our mission to expand humanity's reach into the cosmos! If you are a newcomer, we welcome
-        you to join our mission to succeed what many thought was impossible. We ask that you be patient with us as we try to work out any hurdles that may be encountered.</p>
+        <p>The Saturnites Colony is a visionary community dedicated to exploring the possibilities of life on Saturn's moons. Join us in our mission to expand humanity's reach into the cosmos!</p>
     </div>
 
     <div class="content" id="contact" style="display: none;">
         <h2>Contact Us</h2>
-        <p>For any inquiries, please email us at: contact@saturnitescolony.org. Or if you need immediate help, or have any questions that desperately need to be attended to, please reach out by 1-800-SATURNITES. Please be aware that 
-        we are incredibly busy and may not get to you within the first hour of your message.</p>
+        <p>For any inquiries, please email us at: contact@saturnitescolony.org.</p>
     </div>
 
     <div class="content" id="mission" style="display: none;">
         <h2>Our Mission</h2>
-        <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity. We envision a future where lunar bases serve as stepping stones for interplanetary exploration. By harnessing local resources, we aim to create sustainable habitats that will support our growing civilization. Our commitment to technology and innovation will drive us to overcome the challenges of living on the moon. We strive to ensure that every step we take contributes to the advancement of our civilization. Collaboration across technology, science, and engineering will be key to our success. We believe that by uniting as a community, we can transform our dreams of lunar habitation into reality. Together, we will make history by shaping the future of space exploration. Join us as we embark on this extraordinary journey to expand humanity’s frontiers.</p>
+        <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity.</p>
     </div>
 
     <footer>
@@ -225,18 +220,19 @@
     <script>
         // Define the person object
         let person = {
-            firstName: "John",
-            lastName: "Doe",
-            age: 30,
-            email: "john.doe@example.com",
-            phone: "123-456-7890",
-            eyeColor: "Blue",
-            hairColor: "Brown",
-            heightPounds: 150,
-            heightKg: 68,
-            occupation: "Engineer",
-            experience: 1,
-            hobbies: ["Reading"],
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            age: 0,
+            eyeColor: "",
+            hairColor: "",
+            heightPounds: 0,
+            heightKg: 0,
+            occupation: "",
+            experience: 0,
+            country: "Canada",
+            hobbies: [],
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
             },
@@ -244,8 +240,6 @@
                 this.hobbies.push(hobby);
             }
         };
-
-        const totalFields = 10; // total number of fields that contribute to progress
 
         function showContent(contentId) {
             document.querySelectorAll('.content').forEach(content => {
@@ -265,6 +259,7 @@
             person.email = document.getElementById("email").value;
             person.phone = document.getElementById("phone").value;
             person.occupation = document.getElementById("occupation").value;
+            person.country = document.getElementById("country").value;
             person.experience = document.getElementById("experience").value;
 
             let hobby = document.getElementById("hobby").value;
@@ -283,6 +278,7 @@
                           "Hair Color: " + person.hairColor + "<br>" +
                           "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
                           "Occupation: " + person.occupation + "<br>" +
+                          "Country of Origin: " + person.country + "<br>" +
                           "Experience in Space Exploration: " + person.experience + " years<br>" +
                           "Hobbies: " + person.hobbies.join(", ");
             document.getElementById("personDetails").innerHTML = details;
@@ -299,36 +295,6 @@
                     popup.style.display = "none";
                 }, 500);
             }, 3000);
-        }
-
-        function updateProgress() {
-            let filledFields = 0;
-
-            // Count non-empty fields
-            const inputs = document.querySelectorAll('#form input[type="text"], #form input[type="number"], #form input[type="email"], #form input[type="tel"]');
-            inputs.forEach(input => {
-                if (input.value.trim() !== "") {
-                    filledFields++;
-                }
-            });
-
-            // Calculate progress percentage and ensure it fills evenly
-            let progressPercent = (filledFields / totalFields) * 100;
-            document.getElementById("progressBar").style.width = progressPercent + "%";
-        }
-
-        function updateKgFromPounds() {
-            const poundsValue = parseFloat(document.getElementById("heightPounds").value) || 0;
-            const kgValue = poundsValue * 0.453592;
-            document.getElementById("heightKg").value = kgValue.toFixed(2); // Set the kg with 2 decimal points
-            updateProgress();
-        }
-
-        function updatePoundsFromKg() {
-            const kgValue = parseFloat(document.getElementById("heightKg").value) || 0;
-            const poundsValue = kgValue * 2.20462;
-            document.getElementById("heightPounds").value = poundsValue.toFixed(2); // Set the pounds with 2 decimal points
-            updateProgress();
         }
 
         // Show the registration form by default on page load
