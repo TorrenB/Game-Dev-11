@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +10,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #1a1a2e; /* Dark space-like background */
+            color: #e0e0e0; /* Light gray for text */
             background-color: #1a1a2e;
             /* Dark space-like background */
             color: #e0e0e0;
@@ -18,6 +19,8 @@
         }
 
         header {
+            background-color: #16213e; /* Dark blue header */
+            color: #ffde59; /* Bright yellow text */
             background-color: #16213e;
             /* Dark blue header */
             color: #ffde59;
@@ -27,16 +30,16 @@
         }
 
         nav {
+            background-color: #0f3460; /* Very dark blue for nav */
             background-color: #0f3460;
             /* Very dark blue for nav */
             display: flex;
             justify-content: center;
             padding: 10px 0;
-        }
-
         .tab {
             margin: 0 15px;
             padding: 10px 20px;
+            color: #fff; /* White text */
             color: #fff;
             /* White text */
             text-decoration: none;
@@ -44,6 +47,7 @@
         }
 
         .tab:hover {
+            background-color: #1b1b2f; /* Slightly lighter dark blue on hover */
             background-color: #1b1b2f;
             /* Slightly lighter dark blue on hover */
             border-radius: 5px;
@@ -53,32 +57,26 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
+            background-color: #0e0e1b; /* Darker content area */
             background-color: #0e0e1b;
             /* Darker content area */
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-
-        #popup {
-            display: none;
-            position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
+            background-color: #28a745; /* Green for the popup */
             background-color: #28a745;
             /* Green for the popup */
             color: white;
             padding: 15px;
             border-radius: 5px;
-            z-index: 1000;
-            font-size: 16px;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
         footer {
             text-align: center;
             padding: 10px 0;
+            background-color: #16213e; /* Dark blue footer */
+            color: #ffde59; /* Bright yellow footer text */
             background-color: #16213e;
             /* Dark blue footer */
             color: #ffde59;
@@ -88,6 +86,7 @@
             width: 100%;
         }
 
+        input[type="text"], input[type="number"], input[type="email"], input[type="tel"], select {
         input[type="text"],
         input[type="number"],
         input[type="email"],
@@ -96,15 +95,20 @@
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #444; /* Darker border */
             border: 1px solid #444;
             /* Darker border */
             border-radius: 4px;
+            background-color: #1f1f2b; /* Input background */
+            color: #e0e0e0; /* Light text for input */
             background-color: #1f1f2b;
             /* Input background */
             color: #e0e0e0;
             /* Light text for input */
         }
 
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
+            border-color: #ffde59; /* Focus border color */
         input[type="text"]:focus,
         input[type="number"]:focus,
         input[type="email"]:focus,
@@ -116,42 +120,49 @@
         }
 
         button {
+            background-color: #4e4e80; /* Dark purple button */
             background-color: #4e4e80;
             /* Dark purple button */
             color: #fff;
             border: none;
             padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
         }
 
         button:hover {
+            background-color: #3b3b6e; /* Darker purple on hover */
             background-color: #3b3b6e;
             /* Darker purple on hover */
         }
 
         /* Secondary button style */
         .secondary {
+            background-color: #2980b9; /* Blue for secondary button */
             background-color: #2980b9;
             /* Blue for secondary button */
         }
 
         .secondary:hover {
+            background-color: #1f5d83; /* Darker blue on hover */
+        }
+        /* Space above and below the text in the Our Mission section */
+        #mission p {
+            margin: 3px 0; /* Adds 3 pixels above and below the paragraph */
             background-color: #1f5d83;
             /* Darker blue on hover */
         }
 
         .country-flag {
+            width: 20px; /* Adjust flag width */
             width: 20px;
             /* Adjust flag width */
             height: auto;
+            margin-right: 5px; /* Space between flag and country name */
+            vertical-align: middle; /* Align flag vertically with text */
             vertical-align: middle;
             /* Align flag vertically with text */
             margin-right: 5px;
             /* Space between flag and country name */
         }
-
         /* Space above and below the text in the Our Mission section */
         #mission p {
             margin: 3px 0;
@@ -159,16 +170,13 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <h1>Welcome to the Saturnites Colony Registration</h1>
-    </header>
-
-    <nav>
         <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
         <a href="#" class="tab" onclick="showContent('about')">About Us</a>
         <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
+        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a> 
         <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a>
         <a href="#" class="tab" onclick="showContent('spaceships')">Spaceships</a>
         <a href="#" class="tab" onclick="showContent('colonists')">Colonists</a>
@@ -176,35 +184,15 @@
     </nav>
 
     <div class="content" id="form">
-        <h2>Registration Form</h2>
-        <p>Enter your details and see the output below:</p>
-
-        <!-- Input fields for user data -->
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" placeholder="Enter your first name"><br>
-
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" placeholder="Enter your last name"><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" placeholder="Enter your email"><br>
-
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" placeholder="Enter your phone number"><br>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" min="0" placeholder="Enter your age"><br>
-
-        <label for="eyeColor">Eye Color:</label>
-        <input type="text" id="eyeColor" placeholder="Enter your eye color"><br>
-
-        <label for="hairColor">Hair Color:</label>
-        <input type="text" id="hairColor" placeholder="Enter your hair color"><br>
-
-        <label for="occupation">Occupation:</label>
         <input type="text" id="occupation" placeholder="Enter your occupation"><br>
 
         <label for="country">Country of Origin:</label>
+        <select id="country">
+            <option value="Canada" selected>Canada</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Australia">Australia</option>
+            <option value="France">France</option>
         <select id="country" onchange="updateSelectedCountry()">
             <option value="AF" data-flag="https://flagcdn.com/w20/af.png">Afghanistan</option>
             <option value="AL" data-flag="https://flagcdn.com/w20/al.png">Albania</option>
@@ -457,37 +445,6 @@
 
         <label for="experience">Experience in Space Exploration (years):</label>
         <input type="number" id="experience" placeholder="Enter years of experience"><br>
-
-        <label for="heightPounds">Height (pounds):</label>
-        <input type="number" id="heightPounds" min="0"><br>
-
-        <label for="heightKg">Height (kg):</label>
-        <input type="number" id="heightKg" min="0"><br>
-
-        <label for="hobby">Hobby:</label>
-        <input type="text" id="hobby" placeholder="Enter your hobby"><br>
-
-        <button class="secondary" onclick="updatePerson()">Update Person</button>
-        <button onclick="submitPerson()">Submit</button>
-
-        <h2>Person Details:</h2>
-        <p id="personDetails"></p>
-
-        <div id="popup">Your response has been sent to the Saturnites Colony. We wish you well with giving us your information.</div>
-    </div>
-
-    <div class="content" id="about" style="display: none;">
-        <h2>About Us</h2>
-        <p>The Saturnites Colony is a visionary community dedicated to exploring the possibilities of life on Saturn's moons. Join us in our mission to expand humanity's reach into the cosmos!</p>
-    </div>
-
-    <div class="content" id="contact" style="display: none;">
-        <h2>Contact Us</h2>
-        <p>For any inquiries, please email us at: contact@saturnitescolony.org.</p>
-    </div>
-
-    <div class="content" id="mission" style="display: none;">
-        <h2>Our Mission</h2>
         <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity.</p>
     </div>
 
@@ -496,92 +453,69 @@
         <p>Here are some of the ships used in our missions:</p>
         <ul id="spaceshipList"></ul>
     </div>
-
     <div class="content" id="colonists" style="display: none;">
         <h2>Other Colonists</h2>
         <p>Meet our fellow colonists:</p>
         <ul id="colonistList"></ul>
     </div>
-
     <div class="content" id="missions" style="display: none;">
         <h2>Missions</h2>
         <p>Upcoming missions for the Saturnites Colony:</p>
         <ul id="missionList"></ul>
     </div>
-
     <footer>
         <p>&copy; 2023 Saturnites Colony. All rights reserved.</p>
     </footer>
-
-    <script>
-        // Define the person object
-        let person = {
-            firstName: "Gurp",
-            lastName: "Minecraft",
-            email: "GurpIsGreat@greatness.com",
-            phone: "2 23523 3523-35223",
-            age: 21,
-            eyeColor: "Blue",
-            hairColor: "Yellow",
-            heightPounds: 21,
-            heightKg: 23,
-            occupation: "Newspaper Mascot",
             experience: 0,
             country: "Canada",
-            hobbies: [Brushing Teeth, Eating Screws],
+            hobbies: [],
+            getFullName: function() {
             getFullName: function () {
                 return this.firstName + " " + this.lastName;
             },
+            addHobby: function(hobby) {
             addHobby: function (hobby) {
                 this.hobbies.push(hobby);
             }
         };
 
         // Define other objects
-
         // Spaceships object
         const spaceships = [
             { name: "Prometheus", type: "Exploration", capacity: 5 },
             { name: "Odyssey", type: "Transport", capacity: 10 },
             { name: "Elysium", type: "Cargo", capacity: 20 }
         ];
-
         // Colonists object
         const colonists = [
             { firstName: "Alice", lastName: "Johnson", age: 28, occupation: "Biologist" },
             { firstName: "Bob", lastName: "Smith", age: 34, occupation: "Engineer" },
             { firstName: "Charlie", lastName: "Lee", age: 22, occupation: "Geologist" }
         ];
-
         // Missions object
         const missions = [
             { missionName: "Lunar Base Construction", date: "2024-05-01" },
             { missionName: "Mars Reconnaissance", date: "2025-08-15" },
             { missionName: "Asteroid Mining", date: "2026-11-10" }
         ];
-
         function showContent(contentId) {
             document.querySelectorAll('.content').forEach(content => {
                 content.style.display = 'none';
             });
             document.getElementById(contentId).style.display = 'block';
-
             // Populate Spaceships
             if (contentId === "spaceships") {
                 populateSpaceships();
             }
-
             // Populate Colonists
             if (contentId === "colonists") {
                 populateColonists();
             }
-
             // Populate Missions
             if (contentId === "missions") {
                 populateMissions();
             }
         }
-
         function populateSpaceships() {
             const spaceshipList = document.getElementById("spaceshipList");
             spaceshipList.innerHTML = ""; // Clear existing entries
@@ -591,7 +525,6 @@
                 spaceshipList.appendChild(listItem);
             });
         }
-
         function populateColonists() {
             const colonistList = document.getElementById("colonistList");
             colonistList.innerHTML = ""; // Clear existing entries
@@ -601,7 +534,6 @@
                 colonistList.appendChild(listItem);
             });
         }
-
         function populateMissions() {
             const missionList = document.getElementById("missionList");
             missionList.innerHTML = ""; // Clear existing entries
@@ -611,7 +543,6 @@
                 missionList.appendChild(listItem);
             });
         }
-
         function updateSelectedCountry() {
             const countrySelect = document.getElementById("country");
             const flagSrc = countrySelect.options[countrySelect.selectedIndex].getAttribute("data-flag");
@@ -620,28 +551,19 @@
         }
 
         function updatePerson() {
-            person.firstName = document.getElementById("firstName").value;
-            person.lastName = document.getElementById("lastName").value;
-            person.age = document.getElementById("age").value;
-            person.eyeColor = document.getElementById("eyeColor").value;
-            person.hairColor = document.getElementById("hairColor").value;
-            person.heightPounds = document.getElementById("heightPounds").value;
-            person.heightKg = document.getElementById("heightKg").value;
-            person.email = document.getElementById("email").value;
-            person.phone = document.getElementById("phone").value;
-            person.occupation = document.getElementById("occupation").value;
-            person.country = document.getElementById("country").value;
-            person.experience = document.getElementById("experience").value;
-
-            let hobby = document.getElementById("hobby").value;
-            if (hobby) {
-                person.addHobby(hobby);
-            }
-            displayPersonDetails();
-        }
 
         function displayPersonDetails() {
             let details = "Full Name: " + person.getFullName() + "<br>" +
+                          "Email: " + person.email + "<br>" +
+                          "Phone: " + person.phone + "<br>" +
+                          "Age: " + person.age + "<br>" +
+                          "Eye Color: " + person.eyeColor + "<br>" +
+                          "Hair Color: " + person.hairColor + "<br>" +
+                          "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
+                          "Occupation: " + person.occupation + "<br>" +
+                          "Country of Origin: " + person.country + "<br>" +
+                          "Experience in Space Exploration: " + person.experience + " years<br>" +
+                          "Hobbies: " + person.hobbies.join(", ");
                 "Email: " + person.email + "<br>" +
                 "Phone: " + person.phone + "<br>" +
                 "Age: " + person.age + "<br>" +
@@ -655,22 +577,7 @@
             document.getElementById("personDetails").innerHTML = details;
         }
 
-        function submitPerson() {
-            const popup = document.getElementById("popup");
-            popup.style.display = "block";
-            popup.style.opacity = 1;
-
-            setTimeout(() => {
-                popup.style.opacity = 0;
-                setTimeout(() => {
-                    popup.style.display = "none";
-                }, 500);
-            }, 3000);
-        }
-
-        // Show the registration form by default on page load
         showContent('form');
     </script>
 </body>
-
 </html>
