@@ -76,7 +76,7 @@
             width: 100%;
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"], input[type="number"], input[type="email"], input[type="tel"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
@@ -86,7 +86,7 @@
             color: #e0e0e0; /* Light text for input */
         }
 
-        input[type="text"]:focus, input[type="number"]:focus {
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
             border-color: #ffde59; /* Focus border color */
             outline: none;
         }
@@ -118,6 +118,22 @@
         #mission p {
             margin: 3px 0; /* Adds 3 pixels above and below the paragraph */
         }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            width: 100%;
+            background-color: #444;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #ffde59;
+            width: 0%; /* Starts at 0% */
+            transition: width 0.4s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -129,36 +145,52 @@
         <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
         <a href="#" class="tab" onclick="showContent('about')">About Us</a>
         <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
-        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a> <!-- New tab added here -->
+        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a> 
     </nav>
 
     <div class="content" id="form">
         <h2>Registration Form</h2>
         <p>Enter your details and see the output below:</p>
 
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" value="John" placeholder="Enter your first name"><br>
+        <input type="text" id="firstName" value="John" placeholder="Enter your first name" oninput="updateProgress()"><br>
 
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" value="Doe" placeholder="Enter your last name"><br>
+        <input type="text" id="lastName" value="Doe" placeholder="Enter your last name" oninput="updateProgress()"><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" oninput="updateProgress()"><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" oninput="updateProgress()"><br>
 
         <label for="age">Age:</label>
-        <input type="number" id="age" value="30" min="0" placeholder="Enter your age"><br>
+        <input type="number" id="age" value="30" min="0" placeholder="Enter your age" oninput="updateProgress()"><br>
 
         <label for="eyeColor">Eye Color:</label>
-        <input type="text" id="eyeColor" value="Blue" placeholder="Enter your eye color"><br>
+        <input type="text" id="eyeColor" value="Blue" placeholder="Enter your eye color" oninput="updateProgress()"><br>
 
         <label for="hairColor">Hair Color:</label>
-        <input type="text" id="hairColor" value="Brown" placeholder="Enter your hair color"><br>
+        <input type="text" id="hairColor" value="Brown" placeholder="Enter your hair color" oninput="updateProgress()"><br>
+
+        <label for="occupation">Occupation:</label>
+        <input type="text" id="occupation" placeholder="Enter your occupation" oninput="updateProgress()"><br>
+
+        <label for="experience">Experience in Space Exploration (years):</label>
+        <input type="number" id="experience" placeholder="Enter years of experience" oninput="updateProgress()"><br>
 
         <label for="heightPounds">Height (pounds):</label>
-        <input type="number" id="heightPounds" value="150" min="0" oninput="convertKgToPounds()"><br>
+        <input type="number" id="heightPounds" value="150" min="0" oninput="updateKgFromPounds(); updateProgress()"><br>
 
         <label for="heightKg">Height (kg):</label>
-        <input type="number" id="heightKg" value="68" min="0" oninput="convertPoundsToKg()"><br>
+        <input type="number" id="heightKg" value="68" min="0" oninput="updatePoundsFromKg(); updateProgress()"><br>
 
         <label for="hobby">Hobby:</label>
-        <input type="text" id="hobby" value="Reading" placeholder="Enter your hobby"><br>
+        <input type="text" id="hobby" value="Reading" placeholder="Enter your hobby" oninput="updateProgress()"><br>
 
         <button class="secondary" onclick="updatePerson()">Update Person</button>
         <button onclick="submitPerson()">Submit</button>
@@ -181,7 +213,7 @@
         we are incredibly busy and may not get to you within the first hour of your message.</p>
     </div>
 
-    <div class="content" id="mission" style="display: none;"> <!-- New Mission Content -->
+    <div class="content" id="mission" style="display: none;">
         <h2>Our Mission</h2>
         <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity. We envision a future where lunar bases serve as stepping stones for interplanetary exploration. By harnessing local resources, we aim to create sustainable habitats that will support our growing civilization. Our commitment to technology and innovation will drive us to overcome the challenges of living on the moon. We strive to ensure that every step we take contributes to the advancement of our civilization. Collaboration across technology, science, and engineering will be key to our success. We believe that by uniting as a community, we can transform our dreams of lunar habitation into reality. Together, we will make history by shaping the future of space exploration. Join us as we embark on this extraordinary journey to expand humanity’s frontiers.</p>
     </div>
@@ -196,10 +228,14 @@
             firstName: "John",
             lastName: "Doe",
             age: 30,
+            email: "",
+            phone: "",
             eyeColor: "Blue",
             hairColor: "Brown",
             heightPounds: 150,
             heightKg: 68,
+            occupation: "",
+            experience: 0,
             hobbies: ["Reading"],
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
@@ -224,6 +260,11 @@
             person.hairColor = document.getElementById("hairColor").value;
             person.heightPounds = document.getElementById("heightPounds").value;
             person.heightKg = document.getElementById("heightKg").value;
+            person.email = document.getElementById("email").value;
+            person.phone = document.getElementById("phone").value;
+            person.occupation = document.getElementById("occupation").value;
+            person.experience = document.getElementById("experience").value;
+
             let hobby = document.getElementById("hobby").value;
             if (hobby) {
                 person.addHobby(hobby);
@@ -233,10 +274,14 @@
 
         function displayPersonDetails() {
             let details = "Full Name: " + person.getFullName() + "<br>" +
+                          "Email: " + person.email + "<br>" +
+                          "Phone: " + person.phone + "<br>" +
                           "Age: " + person.age + "<br>" +
                           "Eye Color: " + person.eyeColor + "<br>" +
                           "Hair Color: " + person.hairColor + "<br>" +
                           "Height: " + person.heightPounds + " pounds / " + person.heightKg + " kg<br>" +
+                          "Occupation: " + person.occupation + "<br>" +
+                          "Experience in Space Exploration: " + person.experience + " years<br>" +
                           "Hobbies: " + person.hobbies.join(", ");
             document.getElementById("personDetails").innerHTML = details;
         }
@@ -254,16 +299,35 @@
             }, 3000);
         }
 
-        function convertKgToPounds() {
-            const kgValue = parseFloat(document.getElementById("heightKg").value) || 0;
-            const poundsValue = kgValue * 2.20462;
-            document.getElementById("heightPounds").value = poundsValue.toFixed(2); // Set the pounds with 2 decimal points
+        function updateProgress() {
+            let totalFields = 10; // total number of fields in the form
+            let filledFields = 0;
+
+            // Count non-empty fields
+            const inputs = document.querySelectorAll('#form input[type="text"], #form input[type="number"], #form input[type="email"], #form input[type="tel"]');
+            inputs.forEach(input => {
+                if (input.value.trim() !== "") {
+                    filledFields++;
+                }
+            });
+
+            // Calculate progress percentage
+            let progressPercent = (filledFields / totalFields) * 100;
+            document.getElementById("progressBar").style.width = progressPercent + "%";
         }
 
-        function convertPoundsToKg() {
+        function updateKgFromPounds() {
             const poundsValue = parseFloat(document.getElementById("heightPounds").value) || 0;
             const kgValue = poundsValue * 0.453592;
             document.getElementById("heightKg").value = kgValue.toFixed(2); // Set the kg with 2 decimal points
+            updateProgress();
+        }
+
+        function updatePoundsFromKg() {
+            const kgValue = parseFloat(document.getElementById("heightKg").value) || 0;
+            const poundsValue = kgValue * 2.20462;
+            document.getElementById("heightPounds").value = poundsValue.toFixed(2); // Set the pounds with 2 decimal points
+            updateProgress();
         }
 
         // Show the registration form by default on page load
