@@ -10,19 +10,19 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9; /* Light background */
-            color: #2c3e50; /* Dark text for contrast */
+            background-color: #1a1a2e; /* Dark space-like background */
+            color: #e0e0e0; /* Light gray for text */
         }
 
         header {
-            background-color: #e74c3c; /* Light red header */
-            color: #fff; /* White text */
+            background-color: #16213e; /* Dark blue header */
+            color: #ffde59; /* Bright yellow text */
             text-align: center;
             padding: 15px 0;
         }
 
         nav {
-            background-color: #c0392b; /* Deeper red for nav */
+            background-color: #0f3460; /* Very dark blue for nav */
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -37,7 +37,7 @@
         }
 
         .tab:hover {
-            background-color: #a93226; /* Darker red on hover */
+            background-color: #1b1b2f; /* Slightly lighter dark blue on hover */
             border-radius: 5px;
         }
 
@@ -45,9 +45,9 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff; /* White content area */
+            background-color: #0e0e1b; /* Darker content area */
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
         #popup {
@@ -69,8 +69,8 @@
         footer {
             text-align: center;
             padding: 10px 0;
-            background-color: #e74c3c; /* Light red footer */
-            color: #fff;
+            background-color: #16213e; /* Dark blue footer */
+            color: #ffde59; /* Bright yellow footer text */
             position: relative;
             bottom: 0;
             width: 100%;
@@ -80,19 +80,19 @@
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ddd; /* Light gray border */
+            border: 1px solid #444; /* Darker border */
             border-radius: 4px;
-            background-color: #f2f2f2; /* Light gray background */
-            color: #2c3e50; /* Dark text */
+            background-color: #1f1f2b; /* Input background */
+            color: #e0e0e0; /* Light text for input */
         }
 
         input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #e74c3c; /* Focus border color */
+            border-color: #ffde59; /* Focus border color */
             outline: none;
         }
 
         button {
-            background-color: #e74c3c; /* Light red button */
+            background-color: #4e4e80; /* Dark purple button */
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -102,12 +102,12 @@
         }
 
         button:hover {
-            background-color: #c0392b; /* Darker red on hover */
+            background-color: #3b3b6e; /* Darker purple on hover */
         }
 
         /* Secondary button style */
         .secondary {
-            background-color: #2980b9; /* Color for secondary button */
+            background-color: #2980b9; /* Blue for secondary button */
         }
 
         .secondary:hover {
@@ -124,6 +124,7 @@
         <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
         <a href="#" class="tab" onclick="showContent('about')">About Us</a>
         <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
+        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a> <!-- New tab added here -->
     </nav>
 
     <div class="content" id="form">
@@ -173,6 +174,11 @@
         <h2>Contact Us</h2>
         <p>For any inquiries, please email us at: contact@saturnitescolony.org. Or if you need immediate help, or have any questions that desperately need to be attended to, please reach out by 1-800-SATURNITES. Please be aware that 
         we are incredibly busy and may not get to you within the first hour of your message.</p>
+    </div>
+
+    <div class="content" id="mission" style="display: none;"> <!-- New Mission Content -->
+        <h2>Our Mission</h2>
+        <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity. We envision a future where lunar bases serve as stepping stones for interplanetary exploration. By harnessing local resources, we aim to create sustainable habitats that will support our growing civilization. Our commitment to technology and innovation will drive us to overcome the challenges of living on the moon. We strive to ensure that every step we take contributes to the advancement of our civilization. Collaboration across technology, science, and engineering will be key to our success. We believe that by uniting as a community, we can transform our dreams of lunar habitation into reality. Together, we will make history by shaping the future of space exploration. Join us as we embark on this extraordinary journey to expand humanity’s frontiers.</p>
     </div>
 
     <footer>
