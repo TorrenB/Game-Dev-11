@@ -3,15 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive JavaScript Objects Example</title>
+    <title>Saturnites Colony Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #005b96;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        nav {
+            background-color: #00407a;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .tab {
+            margin: 0 15px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #0069c2;
+            border-radius: 5px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         #popup {
             display: none;
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4CAF50; /* Green */
+            background-color: #28a745; /* Green */
             color: white;
             padding: 15px;
             border-radius: 5px;
@@ -20,46 +65,82 @@
             opacity: 0;
             transition: opacity 0.5s;
         }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #005b96;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <h1>Interactive JavaScript Objects Example</h1>
-    <p>Enter your details and see the output below:</p>
+    <header>
+        <h1>Welcome to the Saturnites Colony Registration</h1>
+    </header>
 
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName"><br><br>
+    <nav>
+        <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
+        <a href="#" class="tab" onclick="showContent('about')">About Us</a>
+        <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
+    </nav>
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName"><br><br>
+    <div class="content" id="form">
+        <h2>Registration Form</h2>
+        <p>Enter your details and see the output below:</p>
 
-    <label for="age">Age:</label>
-    <input type="number" id="age" value="30"><br><br>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName"><br><br>
 
-    <label for="eyeColor">Eye Color:</label>
-    <input type="text" id="eyeColor"><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName"><br><br>
 
-    <label for="hairColor">Hair Color:</label>
-    <input type="text" id="hairColor"><br><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" value="30"><br><br>
 
-    <label for="heightPounds">Height (pounds):</label>
-    <input type="number" id="heightPounds" value="150"><br><br>
+        <label for="eyeColor">Eye Color:</label>
+        <input type="text" id="eyeColor"><br><br>
 
-    <label for="heightKg">Height (kg):</label>
-    <input type="number" id="heightKg" value="68"><br><br>
+        <label for="hairColor">Hair Color:</label>
+        <input type="text" id="hairColor"><br><br>
 
-    <label for="hobby">Hobby:</label>
-    <input type="text" id="hobby"><br><br>
+        <label for="heightPounds">Height (pounds):</label>
+        <input type="number" id="heightPounds" value="150"><br><br>
 
-    <button onclick="updatePerson()">Update Person</button>
-    <button onclick="submitPerson()">Submit</button>
+        <label for="heightKg">Height (kg):</label>
+        <input type="number" id="heightKg" value="68"><br><br>
 
-    <h2>Person Details:</h2>
-    <p id="personDetails"></p>
+        <label for="hobby">Hobby:</label>
+        <input type="text" id="hobby"><br><br>
 
-    <div id="popup">Your response has been sent to the Saturnites Colony. We wish you well with giving us your information.</div>
+        <button onclick="updatePerson()">Update Person</button>
+        <button onclick="submitPerson()">Submit</button>
+
+        <h2>Person Details:</h2>
+        <p id="personDetails"></p>
+
+        <div id="popup">Your response has been sent to the Saturnites Colony. We wish you well with giving us your information.</div>
+    </div>
+
+    <div class="content" id="about" style="display: none;">
+        <h2>About Us</h2>
+        <p>The Saturnites Colony is a visionary community dedicated to exploring the possibilities of life on Saturn's moons. Join us in our mission to expand humanity's reach into the cosmos!</p>
+    </div>
+
+    <div class="content" id="contact" style="display: none;">
+        <h2>Contact Us</h2>
+        <p>For any inquiries, please email us at: contact@saturnitescolony.org</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Saturnites Colony. All rights reserved.</p>
+    </footer>
 
     <script>
-        // Define an object to represent a person
+        // Define the person object
         let person = {
             firstName: "",
             lastName: "",
@@ -69,17 +150,21 @@
             heightPounds: 150,
             heightKg: 68,
             hobbies: [],
-            // Method to get the full name
             getFullName: function() {
                 return this.firstName + " " + this.lastName;
             },
-            // Method to add a new hobby
             addHobby: function(hobby) {
                 this.hobbies.push(hobby);
             }
         };
 
-        // Function to update the person object with user input
+        function showContent(contentId) {
+            document.querySelectorAll('.content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(contentId).style.display = 'block';
+        }
+
         function updatePerson() {
             person.firstName = document.getElementById("firstName").value;
             person.lastName = document.getElementById("lastName").value;
@@ -95,7 +180,6 @@
             displayPersonDetails();
         }
 
-        // Function to display the person details
         function displayPersonDetails() {
             let details = "Full Name: " + person.getFullName() + "<br>" +
                           "Age: " + person.age + "<br>" +
@@ -106,20 +190,21 @@
             document.getElementById("personDetails").innerHTML = details;
         }
 
-        // Function to handle the submit action
         function submitPerson() {
             const popup = document.getElementById("popup");
-            popup.style.display = "block"; // Show the popup
-            popup.style.opacity = 1;       // Fade in effect
-            
-            // Hide the popup after a few seconds
+            popup.style.display = "block";
+            popup.style.opacity = 1;
+
             setTimeout(() => {
-                popup.style.opacity = 0;     // Fade out effect
+                popup.style.opacity = 0;
                 setTimeout(() => {
-                    popup.style.display = "none"; // Remove from view
-                }, 500); // Wait for fade-out effect to complete
-            }, 3000); // Popup visible for 3 seconds
+                    popup.style.display = "none";
+                }, 500);
+            }, 3000);
         }
+
+        // Show the registration form by default on page load
+        showContent('form');
     </script>
 </body>
 </html>
