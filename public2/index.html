@@ -14,11 +14,9 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Aligns items to the left */
-            justify-content: center;
+            justify-content: space-between; /* Distributes space between items */
+            align-items: flex-start; /* Aligns items to the top */
             height: 100vh;
-            text-align: left; /* Align text to the left */
             overflow-y: auto;
         }
 
@@ -32,10 +30,11 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            width: 50%; /* Occupies half the width for left links */
         }
 
         .links a {
-            display: block; /* Make each link a block element */
+            display: block;
             text-decoration: none;
             padding: 20px;
             border-radius: 8px;
@@ -61,11 +60,13 @@
             text-align: center; /* Center align footer text */
             width: 100%; /* Allow footer to take full width */
         }
-        
+
         .parent {
-            position: absolute;
-            top: 20px;
-            left: 20px; /* Align the parent links to the left */
+            position: relative; /* Changed from absolute */
+            right: 20px; 
+            top: 20px; 
+            width: 40%; /* Occupies the remaining width for right links */
+            text-align: right; /* Align text to the right */
         }
 
         .parent a {
@@ -89,26 +90,29 @@
 
 <body>
 
-    <h1>Torrens Index</h1>
-    
-    <ul class="links">
-        <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a11-classes-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a12-arrays-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a13-objects-torren</a></li>
-    </ul>
+    <div>
+        <h1>Torrens Index</h1>
+
+        <ul class="links">
+            <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a11-classes-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a12-arrays-torren</a></li>
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a13-objects-torren</a></li>
+        </ul>
+    </div>
 
     <div class="parent">
+        <h1>X Assignments</h1> <!-- Optional heading for the right section -->
         <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
         <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
     </div>
