@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Classes Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .example {
+            margin-bottom: 20px;
+        }
+        .example h2 {
+            color: #4CAF50;
+        }
+        .example pre {
+            background: #f4f4f9;
+            padding: 10px;
+            border-left: 5px solid #4CAF50;
+            overflow-x: auto;
+        }
+        .input-output {
+            margin-top: 20px;
+        }
+        .input-output input, .input-output button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-output button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .input-output button:hover {
+            background-color: #45a049;
+        }
+        .input-output output {
+            display: block;
+            padding: 10px;
+            background: #f4f4f9;
+            border-left: 5px solid #4CAF50;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Classes Examples</h1>
+        <div class="example">
+            <h2>Example 1: Basic Class</h2>
+            <pre>
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    speak() {
+        console.log(`${this.name} makes a noise.`);
+    }
+}
+const animal = new Animal('Dog');
+animal.speak();
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 2: Class Inheritance</h2>
+            <pre>
+class Dog extends Animal {
+    speak() {
+        console.log(`${this.name} barks.`);
+    }
+}
+const dog = new Dog('Rex');
+dog.speak();
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 3: Static Methods</h2>
+            <pre>
+class MathUtil {
+    static add(a, b) {
+        return a + b;
+    }
+}
+console.log(MathUtil.add(5, 3));
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 4: Getters and Setters</h2>
+            <pre>
+class Person {
+    constructor(name) {
+        this._name = name;
+    }
+    get name() {
+        return this._name;
+    }
+    set name(newName) {
+        this._name = newName;
+    }
+}
+const person = new Person('Alice');
+console.log(person.name);
+person.name = 'Bob';
+console.log(person.name);
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 5: Private Fields</h2>
+            <pre>
+class Car {
+    #brand;
+    constructor(brand) {
+        this.#brand = brand;
+    }
+    getBrand() {
+        return this.#brand;
+    }
+}
+const car = new Car('Toyota');
+console.log(car.getBrand());
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 6: Class Expressions</h2>
+            <pre>
+const Rectangle = class {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+    getArea() {
+        return this.width * this.height;
+    }
+};
+const rectangle = new Rectangle(10, 5);
+console.log(rectangle.getArea());
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 7: Abstract Classes (using new.target)</h2>
+            <pre>
+class Shape {
+    constructor() {
+        if (new.target === Shape) {
+            throw new TypeError("Cannot construct Shape instances directly");
+        }
+    }
+    getArea() {
+        throw new Error("Method 'getArea()' must be implemented.");
+    }
+}
+class Circle extends Shape {
+    constructor(radius) {
+        super();
+        this.radius = radius;
+    }
+    getArea() {
+        return Math.PI * this.radius * this.radius;
+    }
+}
+const circle = new Circle(5);
+console.log(circle.getArea());
+            </pre>
+        </div>
+        <div class="example">
+            <h2>Example 8: Mixins</h2>
+            <pre>
+const canFly = (Base) => class extends Base {
+    fly() {
+        console.log(`${this.name} is flying.`);
+    }
+};
+class Bird extends canFly(Animal) {}
+const bird = new Bird('Parrot');
+bird.speak();
+bird.fly();
+            </pre>
+        </div>
+        <div class="input-output">
+            <h2>Interactive Examples</h2>
+            <div>
+                <label for="animalName">Enter Animal Name:</label>
+                <input type="text" id="animalName" placeholder="e.g., Cat">
+                <button onclick="createAnimal()">Create Animal</button>
+                <output id="animalOutput"></output>
+            </div>
+            <div>
+                <label for="dogName">Enter Dog Name:</label>
+                <input type="text" id="dogName" placeholder="e.g., Max">
+                <button onclick="createDog()">Create Dog</button>
+                <output id="dogOutput"></output>
+            </div>
+            <div>
+                <label for="addNumbers">Enter Numbers to Add (comma separated):</label>
+                <input type="text" id="addNumbers" placeholder="e.g., 4,5">
+                <button onclick="addNumbers()">Add Numbers</button>
+                <output id="addOutput"></output>
+            </div>
+        </div>
+    </div>
+    <script>
+        function createAnimal() {
+            const name = document.getElementById('animalName').value;
+            const animal = new Animal(name);
+            document.getElementById('animalOutput').innerText = `${animal.name} makes a noise.`;
+        }
+
+        function createDog() {
+            const name = document.getElementById('dogName').value;
+            const dog = new Dog(name);
+            document.getElementById('dogOutput').innerText = `${dog.name} barks.`;
+        }
+
+        function addNumbers() {
+            const numbers = document.getElementById('addNumbers').value.split(',').map(Number);
+            const result = MathUtil.add(numbers, numbers);
+            document.getElementById('addOutput').innerText = `Result: ${result}`;
+        }
+    </script>
+</body>
+</html>
 
