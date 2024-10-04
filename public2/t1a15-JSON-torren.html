@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON and Hypixel Skyblock Profile Viewer</title>
+    <title>Combined JSON Fetch Example</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -24,7 +24,7 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: none; /* Disable resizing */
+            resize: none;
             background-color: #fff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
@@ -34,11 +34,17 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
         }
         .content h2 {
             color: #2980b9;
             font-size: 24px;
             margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
         footer {
             text-align: center;
@@ -46,7 +52,7 @@
             color: #777;
             margin-top: 20px;
         }
-        #myDiv1, #skyblockProfile {
+        #output, #myDiv1, #minecraftProfile {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -58,11 +64,46 @@
 </head>
 <body>
 
-<h1>JSON Fetcher & Hypixel Skyblock Profile Viewer</h1>
+<h1>Combined JSON and JavaScript Features</h1>
 
+<!-- Section for JSON Fetch -->
 <div class="content">
-    <h2>Fetch and Display JSON</h2>
+    <h2>Fetch JSON Data</h2>
+    <button id="fetchDataButton">Fetch JSON Data</button>
+    <div id="output"></div>
+</div>
 
+<!-- Section for JSON textarea -->
+<div class="content">
+    <h2>Overview of JSON</h2>
+    <textarea readonly>
+Sure! Here’s a version that sounds like it’s written by a 16-year-old with just a few weeks of coding under their belt:
+
+---
+
+**JSON (JavaScript Object Notation)** is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
+
+### Here’s the Deal:
+
+1. **Format**:  
+   - JSON is just data. JavaScript files are where the actual coding happens to make things work.
+
+2. **Structure**:  
+   - JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.
+
+3. **Execution**:  
+   - JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.
+
+4. **File Extension**:  
+   - JSON files usually end in .json, while JavaScript files end in .js.
+
+So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right? 
+    </textarea>
+</div>
+
+<!-- Section for specific JSON URL Fetch -->
+<div class="content">
+    <h2>Fetch Specific JSON</h2>
     Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
     <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
 
@@ -71,18 +112,27 @@
         <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
     </select><br><br>
 
-    JSON Output:<br>
+    You make the JSON show up in the DIV<br><br>
     <div id="myDiv1">...</div>
 </div>
 
+<!-- Minecraft Profile Fetcher -->
 <div class="content">
-    <h2>Hypixel Skyblock Profile Viewer</h2>
-
-    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID">
-    <input type="button" value="Fetch Skyblock Profile" onclick="fetchSkyblockProfile()"><br><br>
+    <h2>Minecraft Profile Fetcher</h2>
+    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID here">
+    <input type="button" value="Fetch Player Info" onclick="fetchMinecraftProfile()"><br><br>
     
-    Skyblock Profile Info:<br>
-    <div id="skyblockProfile">...</div>
+    Player Name History:<br>
+    <div id="minecraftProfile">...</div>
+</div>
+
+<!-- Gray Scale Photo Fetcher -->
+<div class="content">
+    <h2>Gray Scale Photo Fetcher</h2>
+    <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
+    <br>
+    <button id="fetchButton">Fetch Gray Scale Photo</button>
+    <div id="message"></div>
 </div>
 
 <footer>
@@ -90,62 +140,102 @@
 </footer>
 
 <script>
-    // Fetch JSON functionality
-    async function fetchJSON(url) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
-        } catch (error) {
-            document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
+// JSON fetch for multiple URLs
+const urls = [
+    'https://api.example.com/data1',
+    'https://api.example.com/data2',
+    'https://api.example.com/data3',
+    'https://api.example.com/data4',
+    'https://api.example.com/data5',
+    'https://api.example.com/data6'
+];
+
+// Mock function to simulate fetching data; replace with actual fetch calls in production.
+const mockFetch = (url) => {
+    const dataMap = {
+        'https://api.example.com/data1': { "title": "Data 1", "description": "This is the description for data 1." },
+        'https://api.example.com/data2': { "title": "Data 2", "description": "This data is about various topics." },
+        'https://api.example.com/data3': { "title": "Data 3", "description": "Key insights and details found here." },
+        'https://api.example.com/data4': { "title": "Data 4", "description": "Learn about the latest trends." },
+        'https://api.example.com/data5': { "title": "Data 5", "description": "Here is an overview of significant events." },
+        'https://api.example.com/data6': { "title": "Data 6", "description": "Final thoughts and conclusions." }
+    };
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ json: () => Promise.resolve(dataMap[url]) });
+        }, 500); // Simulate network delay
+    });
+};
+
+document.getElementById('fetchDataButton').addEventListener('click', () => {
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = ''; // Clear previous output
+
+    // Loop through the URLs and fetch data
+    urls.forEach(url => {
+        mockFetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Display the title and description
+                const dataDiv = document.createElement('div');
+                dataDiv.innerHTML = `<strong>${data.title}</strong><br>${data.description}<hr>`;
+                outputDiv.appendChild(dataDiv);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                const errorDiv = document.createElement('div');
+                errorDiv.innerHTML = 'Error fetching data from ' + url;
+                outputDiv.appendChild(errorDiv);
+            });
+    });
+});
+
+// Fetch JSON functionality for specific input
+async function fetchJSON(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        const data = await response.json();
+        document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
     }
+}
 
-    // Fetch Hypixel Skyblock profile
-    async function fetchSkyblockProfile() {
-        const uuid = document.getElementById('uuidInput').value.trim();
-        if (!uuid) {
-            document.getElementById('skyblockProfile').textContent = 'Please enter a UUID.';
-            return;
-        }
-
-        // Replace with your actual Hypixel API key
-        const apiKey = 'YOUR_HYPIXEL_API_KEY'; 
-        const playerUrl = `https://api.hypixel.net/player?key=${apiKey}&uuid=${uuid}`;
-
-        try {
-            const response = await fetch(playerUrl);
-            if (!response.ok) {
-                throw new Error('Player not found or invalid UUID');
-            }
-            const playerData = await response.json();
-            if (!playerData.success) {
-                throw new Error(playerData.cause || 'Error fetching player data');
-            }
-
-            // Extracting Skyblock profile information
-            const skyblockProfiles = playerData.player?.skyblockProfiles;
-            if (!skyblockProfiles) {
-                document.getElementById('skyblockProfile').textContent = 'No Skyblock profiles found for this player.';
-                return;
-            }
-
-            let profileInfo = '';
-            for (const profile in skyblockProfiles) {
-                const profileData = skyblockProfiles[profile];
-                profileInfo += `Profile Name: ${profile}\n`;
-                profileInfo += `Last Save: ${new Date(profileData.lastSave).toLocaleString()}\n`;
-                profileInfo += `Members: ${JSON.stringify(profileData.members)}\n\n`;
-            }
-
-            document.getElementById('skyblockProfile').textContent = profileInfo;
-        } catch (error) {
-            document.getElementById('skyblockProfile').textContent = 'Error: ' + error.message;
-        }
+// Minecraft profile fetcher
+async function fetchMinecraftProfile() {
+    const uuid = document.getElementById('uuidInput').value;
+    if (!uuid) {
+        document.getElementById('minecraftProfile').textContent = 'Please enter a UUID.';
+        return;
     }
+    const url = `https://api.mojang.com/user/profiles/${uuid}/names`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Player not found or invalid UUID');
+        }
+        const data = await response.json();
+        document.getElementById('minecraftProfile').textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        document.getElementById('minecraftProfile').textContent = 'Error: ' + error.message;
+    }
+}
+
+// Kitchen sink photo fetcher
+document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
+
+function fetchSinkPhoto() {
+    const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
+    const imgElement = document.getElementById('sinkImage');
+    imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
+    imgElement.style.display = 'block';
+    document.getElementById('message').textContent = '';
+}
+
 </script>
 
 </body>
