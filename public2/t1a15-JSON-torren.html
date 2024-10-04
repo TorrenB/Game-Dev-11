@@ -55,6 +55,14 @@
             color: #777;
             margin-top: 20px;
         }
+        #myDiv1 {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -94,6 +102,34 @@ Let me know if you’d like any more changes!
 <footer>
     &copy; 2023 Your Name
 </footer>
+
+<h2>Fetch and Display JSON</h2>
+
+Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
+<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
+
+<select size="1" onchange="fetchJSON(this.value)">
+    <option value="https://randomfox.ca/floof/">Random Fox</option>
+    <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+</select><br><br>
+
+You make the JSON show up in the DIV<br><br>
+<div id="myDiv1">...</div>
+
+<script>
+    async function fetchJSON(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
+        }
+    }
+</script>
 
 </body>
 </html>
