@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Difference Between JSON and JavaScript</title>
+    <title>JSON and JavaScript with Kitchen Sink Photo Fetcher</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -26,28 +26,24 @@
             border-radius: 5px;
             resize: none; /* Disable resizing */
             background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Doubled shadow effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
         .content {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Doubled shadow effect */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
         .content h2 {
             color: #2980b9;
             font-size: 24px;
             margin-bottom: 10px;
         }
-        .content p {
-            margin-bottom: 10px;
-        }
-        .content ol {
-            margin-left: 20px;
-        }
-        .content li {
-            margin-bottom: 10px;
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
         footer {
             text-align: center;
@@ -99,24 +95,36 @@ Let me know if you’d like any more changes!
     </textarea>
 </div>
 
+<div class="content">
+    <h2>Fetch and Display JSON</h2>
+
+    Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
+    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
+
+    <select size="1" onchange="fetchJSON(this.value)">
+        <option value="https://randomfox.ca/floof/">Random Fox</option>
+        <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+    </select><br><br>
+
+    You make the JSON show up in the DIV<br><br>
+    <div id="myDiv1">...</div>
+</div>
+
+<div class="content">
+    <h2>Kitchen Sink Photo Fetcher</h2>
+
+    <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
+    <br>
+    <button id="fetchButton">Fetch Kitchen Sink Photo</button>
+    <div id="message"></div>
+</div>
+
 <footer>
     &copy; 2023 Your Name
 </footer>
 
-<h2>Fetch and Display JSON</h2>
-
-Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
-<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
-
-<select size="1" onchange="fetchJSON(this.value)">
-    <option value="https://randomfox.ca/floof/">Random Fox</option>
-    <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
-</select><br><br>
-
-You make the JSON show up in the DIV<br><br>
-<div id="myDiv1">...</div>
-
 <script>
+    // Fetch JSON functionality
     async function fetchJSON(url) {
         try {
             const response = await fetch(url);
@@ -128,6 +136,17 @@ You make the JSON show up in the DIV<br><br>
         } catch (error) {
             document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
         }
+    }
+
+    // Kitchen sink photo fetcher
+    document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
+
+    function fetchSinkPhoto() {
+        const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
+        const imgElement = document.getElementById('sinkImage');
+        imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
+        imgElement.style.display = 'block';
+        document.getElementById('message').textContent = '';
     }
 </script>
 
