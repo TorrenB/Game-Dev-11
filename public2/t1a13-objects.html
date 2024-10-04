@@ -80,6 +80,8 @@
             color: #fff;
             border: none;
             padding: 10px 15px;
+            cursor: pointer; /* Change cursor on hover */
+            margin-top: 10px; /* Add some space above the button */
         }
 
         button:hover {
@@ -130,6 +132,8 @@
         
         <label class="label" for="experience">Experience in Space Exploration (years):</label>
         <input type="number" id="experience" placeholder="Enter years of experience" value="5"><br>
+        
+        <button onclick="submitForm()">Submit</button> <!-- Submit button -->
         
         <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity.</p>
     </div>
@@ -226,6 +230,19 @@
                 listItem.textContent = `${mission.missionName} - Date: ${mission.date}`;
                 missionList.appendChild(listItem);
             });
+        }
+
+        function submitForm() {
+            const occupation = document.getElementById("occupation").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const age = document.getElementById("age").value;
+            const eyeColor = document.getElementById("eyeColor").value;
+            const hairColor = document.getElementById("hairColor").value;
+            const experience = document.getElementById("experience").value;
+
+            // You can handle the submission here, e.g., sending data to a server or displaying it.
+            alert(`Form submitted!\n\nOccupation: ${occupation}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nEye Color: ${eyeColor}\nHair Color: ${hairColor}\nExperience: ${experience} years`);
         }
 
         showContent('form');
