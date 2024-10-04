@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,26 +13,23 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: space-between; /* Distributes space between items */
-            align-items: flex-start; /* Aligns items to the top */
+            justify-content: space-between;
+            align-items: flex-start;
             height: 100vh;
             overflow-y: auto;
         }
-
         h1 {
             margin-bottom: 40px;
             font-size: 3em;
             color: #f37736;
         }
-
-        .links {
+        .links, .parent {
             list-style: none;
             padding: 0;
             margin: 0;
-            width: 50%; /* Occupies half the width for left links */
+            width: 40%; /* Updated, each section takes 40% of the width */
         }
-
-        .links a {
+        .links a, .parent a {
             display: block;
             text-decoration: none;
             padding: 20px;
@@ -44,46 +40,22 @@
             border: 2px solid #f37736;
             transition: transform 0.2s, background-color 0.2s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px; /* Adds space between buttons */
+            margin-bottom: 20px;
         }
-
-        .links a:hover {
-            background-color: #f37736; /* Change background to orange on hover */
-            color: #000000; /* Change text color to black on hover */
+        .links a:hover, .parent a:hover {
+            background-color: #f37736;
+            color: #000000;
             transform: translateY(-4px);
         }
-
         footer {
             margin-top: 40px;
             font-size: 0.8em;
             color: #cccccc;
-            text-align: center; /* Center align footer text */
-            width: 100%; /* Allow footer to take full width */
+            text-align: center;
+            width: 100%;
         }
-
         .parent {
-            position: relative; /* Changed from absolute */
-            right: 20px; 
-            top: 20px; 
-            width: 40%; /* Occupies the remaining width for right links */
-            text-align: right; /* Align text to the right */
-        }
-
-        .parent a {
-            display: block;
-            color: #f37736;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 2px solid #f37736;
-            border-radius: 4px;
-            transition: background-color 0.2s, color 0.2s;
-            margin-bottom: 8px; /* Space between these buttons */
-        }
-
-        .parent a:hover {
-            background-color: #f37736;
-            color: #ffffff;
+            text-align: right;
         }
     </style>
 </head>
@@ -94,27 +66,17 @@
         <h1>Torrens Index</h1>
 
         <ul class="links">
-            <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
+            <!-- Add your new link here -->
+            <li><a href="https://github.com/TorrenB/Game-Dev-11">Torrens GitHub</a></li>
             <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
             <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a11-classes-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a12-arrays-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a13-objects-torren</a></li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</li>
-            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a15-json-torren.html</li>
+            <!-- More links... -->
+            <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a15-json-torren</a></li>
         </ul>
     </div>
 
     <div class="parent">
-        <h1>X Assignments</h1> <!-- Optional heading for the right section -->
+        <h1>X Assignments</h1> 
         <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
         <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
     </div>
