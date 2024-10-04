@@ -204,25 +204,7 @@ async function fetchJSON(url) {
     }
 }
 
-// Minecraft profile fetcher
-async function fetchMinecraftProfile() {
-    const uuid = document.getElementById('uuidInput').value;
-    if (!uuid) {
-        document.getElementById('minecraftProfile').textContent = 'Please enter a UUID.';
-        return;
-    }
-    const url = `https://api.mojang.com/user/profiles/${uuid}/names`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Player not found or invalid UUID');
-        }
-        const data = await response.json();
-        document.getElementById('minecraftProfile').textContent = JSON.stringify(data, null, 2);
-    } catch (error) {
-        document.getElementById('minecraftProfile').textContent = 'Error: ' + error.message;
-    }
-}
+
 
 // Kitchen sink photo fetcher
 document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
