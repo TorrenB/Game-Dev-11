@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON and JavaScript with Kitchen Sink Photo Fetcher</title>
+    <title>JSON and Hypixel Skyblock Profile Viewer</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -40,18 +40,13 @@
             font-size: 24px;
             margin-bottom: 10px;
         }
-        img {
-            max-width: 100%;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
         footer {
             text-align: center;
             font-size: 14px;
             color: #777;
             margin-top: 20px;
         }
-        #myDiv1, #minecraftProfile {
+        #myDiv1, #skyblockProfile {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -63,37 +58,7 @@
 </head>
 <body>
 
-<h1>Difference Between JSON and JavaScript Files</h1>
-
-<div class="content">
-    <h2>Overview</h2>
-    <textarea readonly>
-Sure! Here’s a version that sounds like it’s written by a 16-year-old with just a few weeks of coding under their belt:
-
----
-
-**JSON (JavaScript Object Notation)** is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
-
-### Here’s the Deal:
-
-1. **Format**:  
-   - JSON is just data. JavaScript files are where the actual coding happens to make things work.
-
-2. **Structure**:  
-   - JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.
-
-3. **Execution**:  
-   - JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.
-
-4. **File Extension**:  
-   - JSON files usually end in .json, while JavaScript files end in .js.
-
-So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right? 
-
----
-Let me know if you’d like any more changes!
-    </textarea>
-</div>
+<h1>JSON Fetcher & Hypixel Skyblock Profile Viewer</h1>
 
 <div class="content">
     <h2>Fetch and Display JSON</h2>
@@ -106,27 +71,18 @@ Let me know if you’d like any more changes!
         <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
     </select><br><br>
 
-    You make the JSON show up in the DIV<br><br>
+    JSON Output:<br>
     <div id="myDiv1">...</div>
 </div>
 
 <div class="content">
-    <h2>Minecraft Profile Fetcher</h2>
+    <h2>Hypixel Skyblock Profile Viewer</h2>
 
-    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID here">
-    <input type="button" value="Fetch Player Info" onclick="fetchMinecraftProfile()"><br><br>
+    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID">
+    <input type="button" value="Fetch Skyblock Profile" onclick="fetchSkyblockProfile()"><br><br>
     
-    Player Name History:<br>
-    <div id="minecraftProfile">...</div>
-</div>
-
-<div class="content">
-    <h2>Gray Scale Photo Fetcher</h2>
-
-    <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
-    <br>
-    <button id="fetchButton">Fetch Gray Scale Photo</button>
-    <div id="message"></div>
+    Skyblock Profile Info:<br>
+    <div id="skyblockProfile">...</div>
 </div>
 
 <footer>
@@ -148,35 +104,47 @@ Let me know if you’d like any more changes!
         }
     }
 
-    // Minecraft profile fetcher
-    async function fetchMinecraftProfile() {
-        const uuid = document.getElementById('uuidInput').value;
+    // Fetch Hypixel Skyblock profile
+    async function fetchSkyblockProfile() {
+        const uuid = document.getElementById('uuidInput').value.trim();
         if (!uuid) {
-            document.getElementById('minecraftProfile').textContent = 'Please enter a UUID.';
+            document.getElementById('skyblockProfile').textContent = 'Please enter a UUID.';
             return;
         }
-        const url = `https://api.mojang.com/user/profiles/${uuid}/names`;
+
+        // Replace with your actual Hypixel API key
+        const apiKey = 'YOUR_HYPIXEL_API_KEY'; 
+        const playerUrl = `https://api.hypixel.net/player?key=${apiKey}&uuid=${uuid}`;
+
         try {
-            const response = await fetch(url);
+            const response = await fetch(playerUrl);
             if (!response.ok) {
                 throw new Error('Player not found or invalid UUID');
             }
-            const data = await response.json();
-            document.getElementById('minecraftProfile').textContent = JSON.stringify(data, null, 2);
+            const playerData = await response.json();
+            if (!playerData.success) {
+                throw new Error(playerData.cause || 'Error fetching player data');
+            }
+
+            // Extracting Skyblock profile information
+            const skyblockProfiles = playerData.player?.skyblockProfiles;
+            if (!skyblockProfiles) {
+                document.getElementById('skyblockProfile').textContent = 'No Skyblock profiles found for this player.';
+                return;
+            }
+
+            let profileInfo = '';
+            for (const profile in skyblockProfiles) {
+                const profileData = skyblockProfiles[profile];
+                profileInfo += `Profile Name: ${profile}\n`;
+                profileInfo += `Last Save: ${new Date(profileData.lastSave).toLocaleString()}\n`;
+                profileInfo += `Members: ${JSON.stringify(profileData.members)}\n\n`;
+            }
+
+            document.getElementById('skyblockProfile').textContent = profileInfo;
         } catch (error) {
-            document.getElementById('minecraftProfile').textContent = 'Error: ' + error.message;
+            document.getElementById('skyblockProfile').textContent = 'Error: ' + error.message;
         }
-    }
-
-    // Kitchen sink photo fetcher
-    document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
-
-    function fetchSinkPhoto() {
-        const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
-        const imgElement = document.getElementById('sinkImage');
-        imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
-        imgElement.style.display = 'block';
-        document.getElementById('message').textContent = '';
     }
 </script>
 
