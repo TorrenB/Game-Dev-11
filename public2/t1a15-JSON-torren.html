@@ -141,7 +141,7 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
 <script>
 // JSON fetch for multiple URLs
 const urls = [
-    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+    'https://catfact.ninja/fact',
     'https://api.example.com/data2',
     'https://api.example.com/data3',
     'https://api.example.com/data4',
@@ -152,7 +152,7 @@ const urls = [
 // Mock function to simulate fetching data; replace with actual fetch calls in production.
 const mockFetch = (url) => {
     const dataMap = {
-        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd': { "BitCoin": "Data 1", "description": "This is BitCoin." },
+        'https://catfact.ninja/fact': { "BitCoin": "Data 1", "description": "This is BitCoin." },
         'https://api.example.com/data2': { "title": "Data 2", "description": "This data is about various topics." },
         'https://api.example.com/data3': { "title": "Data 3", "description": "Key insights and details found here." },
         'https://api.example.com/data4': { "title": "Data 4", "description": "Learn about the latest trends." },
