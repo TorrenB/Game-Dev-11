@@ -97,19 +97,36 @@
         #mission p {
             margin: 3px 0; /* Adds 3 pixels above and below the paragraph */
         }
+
+        /* Notification Box */
+        #notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745; /* Green background */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000; /* Ensure it appears above other elements */
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Welcome to the Saturnites Colony Registration</h1>
-        <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
-        <a href="#" class="tab" onclick="showContent('about')">About Us</a>
-        <a href="#" class="tab" onclick="showContent('contact')">Contact</a>
-        <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a>
-        <a href="#" class="tab" onclick="showContent('spaceships')">Spaceships</a>
-        <a href="#" class="tab" onclick="showContent('colonists')">Colonists</a>
-        <a href="#" class="tab" onclick="showContent('missions')">Missions</a>
-    </nav>
+        <nav>
+            <a href="#" class="tab" onclick="showContent('form')">Registration Form</a>
+            <a href="#" class="tab" onclick="showContent('about')">About Us</a>
+            <a href="#" class="tab" onclick="showContent('contact')">Contact Us</a>
+            <a href="#" class="tab" onclick="showContent('mission')">Our Mission</a>
+            <a href="#" class="tab" onclick="showContent('spaceships')">Spaceships</a>
+            <a href="#" class="tab" onclick="showContent('colonists')">Colonists</a>
+            <a href="#" class="tab" onclick="showContent('missions')">Missions</a>
+        </nav>
+    </header>
 
     <div class="content" id="form">
         <label class="label" for="occupation">Occupation:</label>
@@ -138,6 +155,20 @@
         <p>At the Saturnites Colony, our mission is to conquer the moon and establish a thriving outpost for humanity.</p>
     </div>
 
+    <div class="content" id="about" style="display: none;">
+        <h2>About Us</h2>
+        <p>The Saturnites Colony aims to establish a permanent human settlement on the Moon. Our team consists of scientists, explorers, and engineers committed to pioneering space exploration for the next generation. We believe that with the right preparation and commitment, humanity can thrive beyond Earth.</p>
+        <p>Join us in our mission to explore the unknown and expand the frontier of human civilization!</p>
+    </div>
+
+    <div class="content" id="contact" style="display: none;">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, please feel free to reach out!</p>
+        <p>Email: <a href="mailto:info@saturnitescolony.com" style="color: #ffde59;">info@saturnitescolony.com</a></p>
+        <p>Phone: <a href="tel:1234567890" style="color: #ffde59;">123-456-7890</a></p>
+        <p>Address: 123 Space Lane, Lunar Base, Moon 40404</p>
+    </div>
+
     <div class="content" id="spaceships" style="display: none;">
         <h2>Spaceships</h2>
         <p>Here are some of the ships used in our missions:</p>
@@ -155,7 +186,10 @@
         <p>Upcoming missions for the Saturnites Colony:</p>
         <ul id="missionList"></ul>
     </div>
-    
+
+    <!-- Notification Box -->
+    <div id="notification"></div>
+
     <footer>
         <p>&copy; 2023 Saturnites Colony. All rights reserved.</p>
     </footer>
@@ -241,8 +275,14 @@
             const hairColor = document.getElementById("hairColor").value;
             const experience = document.getElementById("experience").value;
 
-            // You can handle the submission here, e.g., sending data to a server or displaying it.
-            alert(`Form submitted!\n\nOccupation: ${occupation}\nEmail: ${email}\nPhone: ${phone}\nAge: ${age}\nEye Color: ${eyeColor}\nHair Color: ${hairColor}\nExperience: ${experience} years`);
+            // Show the notification message
+            const notification = document.getElementById("notification");
+            notification.textContent = "Thank you for submitting your information!";
+            notification.style.display = "block";
+            // Automatically hide the notification after 3 seconds
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 3000);
         }
 
         showContent('form');
