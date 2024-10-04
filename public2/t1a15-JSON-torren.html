@@ -149,16 +149,31 @@ const urls = [
     'https://api.example.com/data6'
 ];
 
-// Mock function to simulate fetching data; replace with actual fetch calls in production.
+// Mock function to simulate fetching data
 const mockFetch = (url) => {
-    const dataMap = {
-        'https://catfact.ninja/fact': { "BitCoin": "Data 1", "description": "This is BitCoin." },
-        'https://api.example.com/data2': { "title": "Data 2", "description": "This data is about various topics." },
-        'https://api.example.com/data3': { "title": "Data 3", "description": "Key insights and details found here." },
-        'https://api.example.com/data4': { "title": "Data 4", "description": "Learn about the latest trends." },
-        'https://api.example.com/data5': { "title": "Data 5", "description": "Here is an overview of significant events." },
-        'https://api.example.com/data6': { "title": "Data 6", "description": "Final thoughts and conclusions." }
-    };
+    return new Promise((resolve) => {
+        const dataMap = {
+            'https://catfact.ninja/fact': { "BitCoin": "Data 1", "description": "This is BitCoin." },
+            'https://api.example.com/data2': { "title": "Data 2", "description": "This data is about various topics." },
+            'https://api.example.com/data3': { "title": "Data 3", "description": "Key insights and details found here." },
+            'https://api.example.com/data4': { "title": "Data 4", "description": "Learn about the latest trends." },
+            'https://api.example.com/data5': { "title": "Data 5", "description": "Here is an overview of significant events." },
+            'https://api.example.com/data6': { "title": "Data 6", "description": "Final thoughts and conclusions." }
+        };
+        resolve(dataMap[url]); // Return the data corresponding to the URL
+    });
+};
+
+const fetchData = async () => {
+    try {
+        const results = await Promise.all(urls.map(url => mockFetch(url)));
+        console.log(results);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+
+fetchData();
     
     return new Promise((resolve) => {
         setTimeout(() => {
