@@ -51,7 +51,7 @@
             color: #777;
             margin-top: 20px;
         }
-        #myDiv1 {
+        #myDiv1, #minecraftProfile {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -111,6 +111,16 @@ Let me know if you’d like any more changes!
 </div>
 
 <div class="content">
+    <h2>Minecraft Profile Fetcher</h2>
+
+    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID here">
+    <input type="button" value="Fetch Player Info" onclick="fetchMinecraftProfile()"><br><br>
+    
+    Player Name History:<br>
+    <div id="minecraftProfile">...</div>
+</div>
+
+<div class="content">
     <h2>Gray Scale Photo Fetcher</h2>
 
     <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
@@ -135,6 +145,26 @@ Let me know if you’d like any more changes!
             document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
         } catch (error) {
             document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
+        }
+    }
+
+    // Minecraft profile fetcher
+    async function fetchMinecraftProfile() {
+        const uuid = document.getElementById('uuidInput').value;
+        if (!uuid) {
+            document.getElementById('minecraftProfile').textContent = 'Please enter a UUID.';
+            return;
+        }
+        const url = `https://api.mojang.com/user/profiles/${uuid}/names`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Player not found or invalid UUID');
+            }
+            const data = await response.json();
+            document.getElementById('minecraftProfile').textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById('minecraftProfile').textContent = 'Error: ' + error.message;
         }
     }
 
