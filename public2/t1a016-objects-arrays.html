@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Objects and Arrays Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Objects and Arrays Example</h1>
 
+    <h2>1. Standalone Objects</h2>
+    <h3>Person</h3>
+    <label for="firstName">First Name: </label>
+    <input type="text" id="firstName" value="John"><br>
+    
+    <label for="lastName">Last Name: </label>
+    <input type="text" id="lastName" value="Doe"><br>
+    
+    <button onclick="updatePerson()">Update Person</button>
+    <p id="personOutput"></p>
+
+    <h3>Car</h3>
+    <label for="carBrand">Brand: </label>
+    <input type="text" id="carBrand" value="Toyota"><br>
+    
+    <label for="carModel">Model: </label>
+    <input type="text" id="carModel" value="Camry"><br>
+    
+    <button onclick="updateCar()">Update Car</button>
+    <p id="carOutput"></p>
+
+    <h2>2. Arrays</h2>
+    <p><strong>Fruits:</strong> <span id="fruitsOutput"></span></p>
+    <p><strong>Numbers:</strong> <span id="numbersOutput"></span></p>
+
+    <h2>3. Objects in Arrays</h2>
+    <p><strong>Students:</strong> <span id="studentsOutput"></span></p>
+    <p><strong>Products:</strong> <span id="productsOutput"></span></p>
+
+    <h2>4. Arrays in Objects</h2>
+    <p><strong>Library:</strong> <span id="libraryOutput"></span></p>
+    <p><strong>User Profile:</strong> <span id="userProfileOutput"></span></p>
+
+    <script>
+        // Two examples of standalone objects with default values
+        let person = {
+            firstName: "John",
+            lastName: "Doe",
+            greet: function() {
+                return `Hello, my name is ${this.firstName} ${this.lastName}.`;
+            }
+        };
+
+        let car = {
+            brand: "Toyota",
+            model: "Camry",
+            start: function() {
+                return "The car has started.";
+            }
+        };
+
+        // Function to update and display the person object
+        function updatePerson() {
+            person.firstName = document.getElementById("firstName").value;
+            person.lastName = document.getElementById("lastName").value;
+            document.getElementById("personOutput").innerText = person.greet();
+        }
+
+        // Function to update and display the car object
+        function updateCar() {
+            car.brand = document.getElementById("carBrand").value;
+            car.model = document.getElementById("carModel").value;
+            document.getElementById("carOutput").innerText = `Car: ${car.brand} ${car.model}`;
+        }
+
+        // Two examples of arrays
+        const fruits = ["Apple", "Banana", "Cherry"];
+        const numbers = [1, 2, 3, 4, 5];
+
+        // Display arrays
+        document.getElementById("fruitsOutput").innerText = fruits.join(', ');
+        document.getElementById("numbersOutput").innerText = numbers.join(', ');
+
+        // Two examples of objects in arrays
+        const students = [
+            { name: "Alice", age: 22 },
+            { name: "Bob", age: 24 }
+        ];
+
+        const products = [
+            { name: "Laptop", price: 999.99 },
+            { name: "Smartphone", price: 499.99 }
+        ];
+
+        // Display arrays with objects
+        document.getElementById("studentsOutput").innerText = JSON.stringify(students);
+        document.getElementById("productsOutput").innerText = JSON.stringify(products);
+
+        // Two examples of arrays in objects
+        const library = {
+            name: "City Library",
+            books: ["1984", "Brave New World", "To Kill a Mockingbird"]
+        };
+
+        const userProfile = {
+            username: "johndoe",
+            favoriteMovies: ["Inception", "The Matrix", "Interstellar"]
+        };
+        
+        // Display objects with arrays
+        document.getElementById("libraryOutput").innerText = `${library.name}: ${library.books.join(', ')}`;
+        document.getElementById("userProfileOutput").innerText = `${userProfile.username}'s favorite movies: ${userProfile.favoriteMovies.join(', ')}`;
+    </script>
+</body>
+</html>
