@@ -77,6 +77,14 @@
             justify-content: space-between;
             margin-top: 5px;
         }
+
+        .clear-button {
+            background-color: #dc3545;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 
@@ -118,6 +126,7 @@
             </div>
         </div>
         <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
+        <button class="clear-button" onclick="clearFruits()">Clear Fruits</button>
 
         <h3>Numbers</h3>
         <div id="numbersInputs" class="array-inputs">
@@ -127,6 +136,7 @@
             </div>
         </div>
         <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
+        <button class="clear-button" onclick="clearNumbers()">Clear Numbers</button>
 
         <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
     </section>
@@ -137,6 +147,7 @@
         <div id="studentsInputs">
             <input type="text" id="studentName" placeholder="Student Name">
             <input type="number" id="studentAge" placeholder="Student Age">
+            <input type="text" id="studentHairColor" placeholder="Hair Color">
             <button onclick="addStudent()">Add Student</button>
         </div>
         <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
@@ -145,6 +156,7 @@
         <div id="productsInputs">
             <input type="text" id="productName" placeholder="Product Name">
             <input type="number" id="productPrice" placeholder="Product Price">
+            <input type="text" id="productOrigin" placeholder="Product of Origin">
             <button onclick="addProduct()">Add Product</button>
         </div>
         <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
@@ -152,8 +164,17 @@
 
     <section>
         <h2>4. Arrays in Objects</h2>
-        <p><strong>Library:</strong> <span id="libraryOutput" class="output"></span></p>
-        <p><strong>User Profile:</strong> <span id="userProfileOutput" class="output"></span></p>
+        <h3>Library (Authors & Books)</h3>
+        <div>
+            <input type="text" id="authorName" placeholder="Author Name">
+            <button onclick="addAuthor()">Add Author</button>
+        </div>
+        <div>
+            <input type="text" id="bookTitle" placeholder="Book Title">
+            <button onclick="addBook()">Add Book</button>
+        </div>
+        <p><strong>Authors:</strong> <span id="libraryAuthorsOutput" class="output"></span></p>
+        <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
     </section>
 
     <script>
@@ -193,7 +214,7 @@
         function updateCar() {
             myObject.car.brand = document.getElementById("carBrand").value;
             myObject.car.model = document.getElementById("carModel").value;
-            document.getElementById("carOutput").innerText = `Car: ${myObject.car.brand} ${myObject.car.model}`;
+            document.getElementById("carOutput").innerText = `Your car of choice is ${myObject.car.brand} ${myObject.car.model}.`;
         }
 
         // Example arrays
@@ -239,6 +260,18 @@
             document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
         }
 
+        // Function to clear the fruits array
+        function clearFruits() {
+            myArray.fruits = [];
+            updateFruitsOutput();
+        }
+
+        // Function to clear the numbers array
+        function clearNumbers() {
+            myArray.numbers = [];
+            updateNumbersOutput();
+        }
+
         // Two examples of objects in arrays
         let students = [];
         let products = [];
@@ -247,34 +280,70 @@
         function addStudent() {
             const name = document.getElementById("studentName").value;
             const age = parseInt(document.getElementById("studentAge").value);
+            const hairColor = document.getElementById("studentHairColor").value; // Get hair color input
             if (name && !isNaN(age)) {
-                students.push({ name, age });
+                students.push({ name, age, hairColor }); // Store hair color in student object
                 document.getElementById("studentName").value = ""; // Clear input field
                 document.getElementById("studentAge").value = ""; // Clear input field
+                document.getElementById("studentHairColor").value = ""; // Clear hair color input
                 updateStudentsOutput();
             }
         }
 
         // Function to update the output display for students
         function updateStudentsOutput() {
-            document.getElementById("studentsOutput").innerText = JSON.stringify(students);
+            document.getElementById("studentsOutput").innerText = JSON.stringify(students, null, 2);
         }
 
         // Function to add a new product
         function addProduct() {
             const name = document.getElementById("productName").value;
             const price = parseFloat(document.getElementById("productPrice").value);
+            const origin = document.getElementById("productOrigin").value; // Get product origin input
             if (name && !isNaN(price)) {
-                products.push({ name, price });
+                products.push({ name, price, origin }); // Store origin in product object
                 document.getElementById("productName").value = ""; // Clear input field
                 document.getElementById("productPrice").value = ""; // Clear input field
+                document.getElementById("productOrigin").value = ""; // Clear product origin input
                 updateProductsOutput();
             }
         }
 
         // Function to update the output display for products
         function updateProductsOutput() {
-            document.getElementById("productsOutput").innerText = JSON.stringify(products);
+            document.getElementById("productsOutput").innerText = JSON.stringify(products, null, 2);
+        }
+
+        // Example object containing arrays for the library
+        let library = {
+            authors: [],
+            books: []
+        };
+
+        // Function to add a new author
+        function addAuthor() {
+            const authorName = document.getElementById("authorName").value;
+            if (authorName) {
+                library.authors.push(authorName);
+                document.getElementById("authorName").value = ""; // Clear input field
+                updateLibraryOutputs();
+            }
+        }
+
+        // Function to add a new book
+        function addBook() {
+            const bookTitle = document.getElementById("bookTitle").value;
+            if (bookTitle) {
+                library.books.push(bookTitle);
+                document.getElementById("bookTitle").value = ""; // Clear input field
+                updateLibraryOutputs();
+            }
+        }
+
+        // Function to update the output display for library authors and books
+        function updateLibraryOutputs() {
+            document.getElementById("libraryAuthorsOutput").innerText = library.authors.join(', ');
+            document.getElementById("libraryBooksOutput").innerText = library.books.join(', ');
         }
 
         // Initial display of fruits and numbers
