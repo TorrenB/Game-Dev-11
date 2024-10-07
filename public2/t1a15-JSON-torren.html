@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combined JSON Fetch Example</title>
+    <title>Difference Between JSON and JavaScript</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -24,27 +24,30 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: none;
+            resize: none; /* Disable resizing */
             background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Doubled shadow effect */
             margin-bottom: 20px;
         }
         .content {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            margin-top: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Doubled shadow effect */
         }
         .content h2 {
             color: #2980b9;
             font-size: 24px;
             margin-bottom: 10px;
         }
-        img {
-            max-width: 100%;
-            border-radius: 5px;
-            margin-bottom: 20px;
+        .content p {
+            margin-bottom: 10px;
+        }
+        .content ol {
+            margin-left: 20px;
+        }
+        .content li {
+            margin-bottom: 10px;
         }
         footer {
             text-align: center;
@@ -52,7 +55,7 @@
             color: #777;
             margin-top: 20px;
         }
-        #output, #myDiv1, #minecraftProfile {
+        #myDiv1 {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -64,19 +67,12 @@
 </head>
 <body>
 
-<h1>Combined JSON and JavaScript Features</h1>
+<h1>Difference Between JSON and JavaScript Files</h1>
 
-<!-- Section for JSON Fetch -->
 <div class="content">
-    <h2>Fetch JSON Data</h2>
-    <button id="fetchDataButton">Fetch JSON Data</button>
-    <div id="output"></div>
-</div>
-
-<!-- Section for JSON textarea -->
-<div class="content">
-    <h2>Overview of JSON</h2>
+    <h2>Overview</h2>
     <textarea readonly>
+Sure! Here’s a version that sounds like it’s written by a 16-year-old with just a few weeks of coding under their belt:
 
 ---
 
@@ -97,142 +93,38 @@
    - JSON files usually end in .json, while JavaScript files end in .js.
 
 So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right? 
+
+---
+Let me know if you’d like any more changes!
     </textarea>
 </div>
 
-<!-- Section for specific JSON URL Fetch -->
-<div class="content">
-    <h2>Fetch Specific JSON</h2>
-    Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
-    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
-
-    <select size="1" onchange="fetchJSON(this.value)">
-        <option value="https://randomfox.ca/floof/">Random Fox</option>
-        <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
-    </select><br><br>
-
-    You make the JSON show up in the DIV<br><br>
-    <div id="myDiv1">...</div>
-</div>
-
-<!-- Minecraft Profile Fetcher -->
-<div class="content">
-    <h2>Minecraft Profile Fetcher</h2>
-    Enter a Minecraft UUID: <input type="text" id="uuidInput" placeholder="Enter UUID here">
-    <input type="button" value="Fetch Player Info" onclick="fetchMinecraftProfile()"><br><br>
-    
-    Player Name History:<br>
-    <div id="minecraftProfile">...</div>
-</div>
-
-<!-- Gray Scale Photo Fetcher -->
-<div class="content">
-    <h2>Gray Scale Photo Fetcher</h2>
-    <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
-    <br>
-    <button id="fetchButton">Fetch Gray Scale Photo</button>
-    <div id="message"></div>
-</div>
-
 <footer>
-    &copy; 2024 DO NOT COPY YOU NUGGET
+    &copy; 2023 Your Name
 </footer>
 
+<h2>Fetch and Display JSON</h2>
+Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
+<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
+<select size="1" onchange="fetchJSON(this.value)">
+    <option value="https://randomfox.ca/floof/">Random Fox</option>
+    <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+</select><br><br>
+You make the JSON show up in the DIV<br><br>
+<div id="myDiv1">...</div>
 <script>
-// JSON fetch for multiple URLs
-const urls = [
-    'https://catfact.ninja/fact',
-    'https://api.example.com/data2',
-    'https://api.example.com/data3',
-    'https://api.example.com/data4',
-    'https://api.example.com/data5',
-    'https://api.example.com/data6'
-];
-
-// Mock function to simulate fetching data
-const mockFetch = (url) => {
-    return new Promise((resolve) => {
-        const dataMap = {
-            'https://catfact.ninja/fact': { "BitCoin": "Data 1", "description": "This is BitCoin." },
-            'https://api.example.com/data2': { "title": "Data 2", "description": "This data is about various topics." },
-            'https://api.example.com/data3': { "title": "Data 3", "description": "Key insights and details found here." },
-            'https://api.example.com/data4': { "title": "Data 4", "description": "Learn about the latest trends." },
-            'https://api.example.com/data5': { "title": "Data 5", "description": "Here is an overview of significant events." },
-            'https://api.example.com/data6': { "title": "Data 6", "description": "Final thoughts and conclusions." }
-        };
-        resolve(dataMap[url]); // Return the data corresponding to the URL
-    });
-};
-
-const fetchData = async () => {
-    try {
-        const results = await Promise.all(urls.map(url => mockFetch(url)));
-        console.log(results);
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
-};
-
-fetchData();
-    
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({ json: () => Promise.resolve(dataMap[url]) });
-        }, 500); // Simulate network delay
-    });
-};
-
-document.getElementById('fetchDataButton').addEventListener('click', () => {
-    const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = ''; // Clear previous output
-
-    // Loop through the URLs and fetch data
-    urls.forEach(url => {
-        mockFetch(url)
-            .then(response => response.json())
-            .then(data => {
-                // Display the title and description
-                const dataDiv = document.createElement('div');
-                dataDiv.innerHTML = `<strong>${data.title}</strong><br>${data.description}<hr>`;
-                outputDiv.appendChild(dataDiv);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                const errorDiv = document.createElement('div');
-                errorDiv.innerHTML = 'Error fetching data from ' + url;
-                outputDiv.appendChild(errorDiv);
-            });
-    });
-});
-
-// Fetch JSON functionality for specific input
-async function fetchJSON(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+    async function fetchJSON(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
         }
-        const data = await response.json();
-        document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
-    } catch (error) {
-        document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
     }
-}
-
-
-
-// Kitchen sink photo fetcher
-document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
-
-function fetchSinkPhoto() {
-    const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
-    const imgElement = document.getElementById('sinkImage');
-    imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
-    imgElement.style.display = 'block';
-    document.getElementById('message').textContent = '';
-}
-
 </script>
-
 </body>
 </html>
