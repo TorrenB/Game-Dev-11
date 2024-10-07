@@ -219,6 +219,28 @@
         <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
     </section>
 
+    <section>
+        <h2>6. Array in an Object Example</h2>
+        <h3>Course with Topics</h3>
+        <div>
+            <input type="text" id="courseName" placeholder="Course Name">
+            <button class="clear-button" onclick="document.getElementById('courseName').value = '';">Clear</button>
+            <input type="text" id="topicInput" placeholder="Enter Topic">
+            <button class="clear-button" onclick="document.getElementById('topicInput').value = '';">Clear</button>
+            <button onclick="addTopic()">Add Topic</button>
+        </div>
+        <p><strong>Course Object:</strong> <span id="courseOutput" class="output"></span></p>
+    </section>
+
+    <section>
+        <h2>7. Cause a Crash</h2>
+        <h3>Input "red" Below</h3>
+        <div>
+            <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
+            <button onclick="checkCrashInput()">Submit</button>
+        </div>
+    </section>
+
     <script>
         // Two examples of standalone objects with default values
         let myObject = {
@@ -406,6 +428,41 @@
             document.getElementById("subjectsOutput").innerText = subjects.join(', ');
         }
 
+        // New section for array in an object example
+        let courseOverview = {};
+
+        // Function to add a topic to a course
+        function addTopic() {
+            const courseName = document.getElementById("courseName").value;
+            const topic = document.getElementById("topicInput").value;
+
+            if (courseName && topic) {
+                if (!courseOverview[courseName]) {
+                    courseOverview[courseName] = { topics: [] };
+                }
+                courseOverview[courseName].topics.push(topic);
+                document.getElementById("topicInput").value = ""; // Clear input field
+                updateCourseOutput();
+            }
+        }
+
+        // Function to update the output display for the course object
+        function updateCourseOutput() {
+            document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
+        }
+
+        // Function to check input for "red"
+        function checkCrashInput() {
+            const crashInput = document.getElementById("crashInput").value.trim();
+            if (crashInput.toLowerCase() === "red") {
+                // Intentionally cause an error
+                throw new Error("You have entered 'red', causing a crash!");
+            } else {
+                alert("Input accepted: " + crashInput);
+            }
+            document.getElementById("crashInput").value = ""; // Clear input field
+        }
+
         // Initial display of fruits and numbers
         updateFruitsOutput();
         updateNumbersOutput();
@@ -413,6 +470,7 @@
         updateProductsOutput();
         updateLibraryOutputs();
         updateSubjectsOutput();
+        updateCourseOutput();
     </script>
 </body>
 
