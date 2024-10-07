@@ -179,6 +179,76 @@ Let me know if you’d like any more changes!
         <button id="fetchButton">Fetch Gray Scale Photo</button>
         <div id="message"></div>
         <div id="myDiv1"></div> <!-- Added this div to display fetched JSON -->
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch SpaceX Launch and Chuck Norris Jokes</title>
+</head>
+<body>
+
+<h2>Latest SpaceX Launch Details</h2>
+
+<div id="spacexFetcher">
+    <div id="launchInfo"></div>
+    <br>
+    <button id="fetchLaunchButton">Fetch Latest Launch</button>
+    <div id="launchMessage"></div>
+</div>
+
+<h2>Random Chuck Norris Joke</h2>
+
+<div id="jokeFetcher">
+    <div id="jokeInfo"></div>
+    <br>
+    <button id="fetchJokeButton">Fetch Random Joke</button>
+    <div id="jokeMessage"></div>
+</div>
+
+<script>
+    async function fetchLatestLaunch() {
+        try {
+            const response = await fetch('https://api.spacexdata.com/v4/launches/latest');
+            const data = await response.json();
+            if (data) {
+                const infoDiv = document.getElementById('launchInfo');
+                infoDiv.innerHTML = `
+                    <h3>Mission Name: ${data.name}</h3>
+                    <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+                    <p>Rocket: ${data.rocket}</p>
+                    <p>Details: ${data.details || 'No details available.'}</p>
+                `;
+                document.getElementById('launchMessage').textContent = 'Launch details fetched successfully!';
+            } else {
+                document.getElementById('launchMessage').textContent = 'No launch data found!';
+            }
+        } catch (error) {
+            document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+        }
+    }
+
+    async function fetchRandomJoke() {
+        try {
+            const response = await fetch('https://api.chucknorris.io/jokes/random');
+            const data = await response.json();
+            if (data) {
+                const infoDiv = document.getElementById('jokeInfo');
+                infoDiv.innerHTML = `<p>${data.value}</p>`;
+                document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+            } else {
+                document.getElementById('jokeMessage').textContent = 'No joke found!';
+            }
+        } catch (error) {
+            document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+        }
+    }
+
+    document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
+    document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke)
+    
+
+</body>
     </div>
 
     <script>
