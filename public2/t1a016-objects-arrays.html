@@ -67,6 +67,16 @@
             font-weight: bold;
             color: #007BFF;
         }
+
+        .array-inputs {
+            margin-top: 10px;
+        }
+
+        .array-item {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -99,14 +109,43 @@
 
     <section>
         <h2>2. Arrays</h2>
-        <p><strong>Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
-        <p><strong>Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
-        <button onclick="updateArrays()" aria-label="Update Arrays">Update Arrays</button>
+        <h3>Fruits</h3>
+        <div id="fruitsInputs" class="array-inputs">
+            <div class="array-item">
+                <input type="text" id="newFruit" placeholder="Enter new fruit">
+                <button onclick="addFruit()">Add</button>
+            </div>
+        </div>
+        <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
+
+        <h3>Numbers</h3>
+        <div id="numbersInputs" class="array-inputs">
+            <div class="array-item">
+                <input type="number" id="newNumber" placeholder="Enter new number">
+                <button onclick="addNumber()">Add</button>
+            </div>
+        </div>
+        <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
+
+        <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
     </section>
 
     <section>
         <h2>3. Objects in Arrays</h2>
+        <h3>Students</h3>
+        <div id="studentsInputs">
+            <input type="text" id="studentName" placeholder="Student Name">
+            <input type="number" id="studentAge" placeholder="Student Age">
+            <button onclick="addStudent()">Add Student</button>
+        </div>
         <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
+
+        <h3>Products</h3>
+        <div id="productsInputs">
+            <input type="text" id="productName" placeholder="Product Name">
+            <input type="number" id="productPrice" placeholder="Product Price">
+            <button onclick="addProduct()">Add Product</button>
+        </div>
         <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
     </section>
 
@@ -130,7 +169,7 @@
                 brand: "Toyota",
                 model: "Camry",
                 start: function () {
-                    return "The car has started. Your welcome!";
+                    return "The car has started.";
                 }
             }
         };
@@ -155,47 +194,84 @@
             numbers: [1, 2, 3, 4, 5]
         };
 
-        // Display arrays
-        document.getElementById("fruitsOutput").innerText = myArray.fruits.join(', ');
-        document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
+        // Function to add a new fruit
+        function addFruit() {
+            const fruit = document.getElementById("newFruit").value;
+            if (fruit) {
+                myArray.fruits.push(fruit);
+                document.getElementById("newFruit").value = ""; // Clear input field
+                updateFruitsOutput();
+            }
+        }
 
-        // Function to update the arrays
-        function updateArrays() {
-            myArray.fruits.push(prompt("Enter a new fruit:"));
-            myArray.numbers.push(parseInt(prompt("Enter a new number:")));
+        // Function to add a new number
+        function addNumber() {
+            const number = parseInt(document.getElementById("newNumber").value);
+            if (!isNaN(number)) {
+                myArray.numbers.push(number);
+                document.getElementById("newNumber").value = ""; // Clear input field
+                updateNumbersOutput();
+            }
+        }
+
+        // Function to shuffle the arrays
+        function shuffleArrays() {
+            myArray.fruits.sort(() => 0.5 - Math.random());
+            myArray.numbers.sort(() => 0.5 - Math.random());
+            updateFruitsOutput();
+            updateNumbersOutput();
+        }
+
+        // Functions to update the output display for fruits and numbers
+        function updateFruitsOutput() {
             document.getElementById("fruitsOutput").innerText = myArray.fruits.join(', ');
+        }
+
+        function updateNumbersOutput() {
             document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
         }
 
         // Two examples of objects in arrays
-        const students = [
-            { name: "Alice", age: 22 },
-            { name: "Bob", age: 24 }
-        ];
+        let students = [];
+        let products = [];
 
-        const products = [
-            { name: "Laptop", price: 999.99 },
-            { name: "Smartphone", price: 499.99 }
-        ];
+        // Function to add a new student
+        function addStudent() {
+            const name = document.getElementById("studentName").value;
+            const age = parseInt(document.getElementById("studentAge").value);
+            if (name && !isNaN(age)) {
+                students.push({ name, age });
+                document.getElementById("studentName").value = ""; // Clear input field
+                document.getElementById("studentAge").value = ""; // Clear input field
+                updateStudentsOutput();
+            }
+        }
 
-        // Display arrays with objects
-        document.getElementById("studentsOutput").innerText = JSON.stringify(students);
-        document.getElementById("productsOutput").innerText = JSON.stringify(products);
+        // Function to update the output display for students
+        function updateStudentsOutput() {
+            document.getElementById("studentsOutput").innerText = JSON.stringify(students);
+        }
 
-        // Two examples of arrays in objects
-        const library = {
-            name: "City Library",
-            books: ["1984", "Brave New World", "To Kill a Mockingbird"]
-        };
+        // Function to add a new product
+        function addProduct() {
+            const name = document.getElementById("productName").value;
+            const price = parseFloat(document.getElementById("productPrice").value);
+            if (name && !isNaN(price)) {
+                products.push({ name, price });
+                document.getElementById("productName").value = ""; // Clear input field
+                document.getElementById("productPrice").value = ""; // Clear input field
+                updateProductsOutput();
+            }
+        }
 
-        const userProfile = {
-            username: "johndoe",
-            favoriteMovies: ["Inception", "The Matrix", "Interstellar"]
-        };
+        // Function to update the output display for products
+        function updateProductsOutput() {
+            document.getElementById("productsOutput").innerText = JSON.stringify(products);
+        }
 
-        // Display objects with arrays
-        document.getElementById("libraryOutput").innerText = `${library.name}: ${library.books.join(', ')}`;
-        document.getElementById("userProfileOutput").innerText = `${userProfile.username}'s favorite movies: ${userProfile.favoriteMovies.join(', ')}`;
+        // Initial display of fruits and numbers
+        updateFruitsOutput();
+        updateNumbersOutput();
     </script>
 </body>
 
