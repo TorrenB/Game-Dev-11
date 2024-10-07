@@ -103,21 +103,44 @@ Let me know if you’d like any more changes!
     &copy; 2023 Your Name
 </footer>
 
-<h2>Fetch and Display JSON</h2>
-Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
-<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
-<select size="1" onchange="fetchJSON(this.value)">
-    <option value="https://randomfox.ca/floof/">Random Fox</option>
-    <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
-</select><br><br>
-You make the JSON show up in the DIV<br><br>
-<div id="myDiv1">...</div>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gray Scale Photo Fetcher</title>
+    <title>Fetch and Display JSON</title>
+    <script>
+        function fetchJSON(url) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("myDiv1").innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error;
+                });
+        }
+    </script>
 </head>
 <body>
+    <h2>Fetch and Display JSON</h2>
+    Enter a JSON returning URL: <input type="text" id="myText" value="https://randomfox.ca/floof/">
+    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
+    
+    <select size="1" onchange="fetchJSON(this.value)">
+        <option value="https://randomfox.ca/floof/">Random Fox</option>
+        <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+        <option value="https://aws.random.cat/meow">Random Cat</option>
+        <option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
+        <option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
+        <option value="https://api.coindesk.com/v1/bpi/currentprice.json">Bitcoin Price Index</option>
+        <option value="https://dogapi.com/v1/breeds">Dog Breeds List</option>
+    </select><br><br>
+
+    You make the JSON show up in the DIV<br><br>
+    <div id="myDiv1">...</div>
+</body>
+</html>
 
     <div class="content">
         <h2>Gray Scale Photo Fetcher</h2>
