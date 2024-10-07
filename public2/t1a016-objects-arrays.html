@@ -94,6 +94,7 @@
         <input type="text" id="lastName" value="Doe">
 
         <button onclick="updatePerson()" aria-label="Update Person">Update Person</button>
+        <button onclick="unupdatePerson()" aria-label="Unupdate Person">Unupdate Person</button>
         <p id="personOutput" class="output"></p>
 
         <h3>Car</h3>
@@ -179,6 +180,13 @@
             myObject.person.firstName = document.getElementById("firstName").value;
             myObject.person.lastName = document.getElementById("lastName").value;
             document.getElementById("personOutput").innerText = myObject.person.greet();
+        }
+
+        // Function to display the greeting sentence backwards
+        function unupdatePerson() {
+            const greeting = myObject.person.greet();
+            const reversedGreeting = greeting.split('').reverse().join('');
+            document.getElementById("personOutput").innerText = reversedGreeting;
         }
 
         // Function to update and display the car object
