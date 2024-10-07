@@ -104,6 +104,7 @@ Let me know if you’d like any more changes!
 </footer>
 
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -129,6 +130,8 @@ Let me know if you’d like any more changes!
                     } else {
                         currentImageUrl = ''; // Reset image if no image URL found
                     }
+
+                    showImage();  // Call to show the image after fetching
                 })
                 .catch(error => {
                     document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error;
@@ -169,8 +172,6 @@ Let me know if you’d like any more changes!
     <br><br>
     <img id="jsonImage" src="" alt="Fetched Image" style="max-width: 300px; max-height: 300px; display: block;">
 </body>
-</html>
-
     <div class="content">
         <h2>Gray Scale Photo Fetcher</h2>
 
