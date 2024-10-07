@@ -104,38 +104,41 @@ Let me know if you’d like any more changes!
 </footer>
 
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch and Display JSON</title>
+    <style>
+        #jsonImage { max-width: 300px; max-height: 300px; display: block; }
+    </style>
     <script>
         let currentImageUrl = '';
 
-        function fetchJSON(url) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("myDiv1").innerText = JSON.stringify(data, null, 2);
+        async function fetchJSON(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+                document.getElementById("myDiv1").innerText = JSON.stringify(data, null, 2);
 
-                    // Set the currentImageUrl based on the data received
-                    if (data && data.image) {
-                        currentImageUrl = data.image; // For Random Fox
-                    } else if (data && data.message) {
-                        currentImageUrl = data.message; // For Random Dog and similar APIs
-                    } else if (data && data[0] && data[0].url) {
-                        currentImageUrl = data[0].url; // For Cat API (array response)
-                    } else if (data && data.url) {
-                        currentImageUrl = data.url; // If the JSON has a direct image URL
-                    } else {
-                        currentImageUrl = ''; // Reset image if no image URL found
-                    }
+                // Set the currentImageUrl based on the data received
+                if (data && data.image) {
+                    currentImageUrl = data.image; // For Random Fox
+                } else if (data && data.message) {
+                    currentImageUrl = data.message; // For Random Dog and similar APIs
+                } else if (data && data[0] && data[0].url) {
+                    currentImageUrl = data[0].url; // For Cat API (array response)
+                } else if (data && data.url) {
+                    currentImageUrl = data.url; // If there is a direct image URL
+                } else {
+                    currentImageUrl = ''; // Reset image if no image URL found
+                }
 
-                    showImage();  // Call to show the image after fetching
-                })
-                .catch(error => {
-                    document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error;
-                });
+                showImage();  // Show the image after fetching
+            } catch (error) {
+                document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
+            }
         }
 
         function showImage() {
@@ -148,6 +151,46 @@ Let me know if you’d like any more changes!
                 imgElement.alt = "No image available";
             }
         }
+
+        async function fetchLatestLaunch() {
+            try {
+                const response = await fetch('https://api.spacexdata.com/v4/launches/latest');
+                const data = await response.json();
+                if (data) {
+                    document.getElementById('launchInfo').innerHTML = `
+                        <h3>Mission Name: ${data.name}</h3>
+                        <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+                        <p>Rocket: ${data.rocket}</p>
+                        <p>Details: ${data.details || 'No details available.'}</p>
+                    `;
+                    document.getElementById('launchMessage').textContent = 'Launch details fetched successfully!';
+                } else {
+                    document.getElementById('launchMessage').textContent = 'No launch data found!';
+                }
+            } catch (error) {
+                document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+            }
+        }
+
+        async function fetchRandomJoke() {
+            try {
+                const response = await fetch('https://api.chucknorris.io/jokes/random');
+                const data = await response.json();
+                if (data) {
+                    document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
+                    document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+                } else {
+                    document.getElementById('jokeMessage').textContent = 'No joke found!';
+                }
+            } catch (error) {
+                document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
+            document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
+        });
     </script>
 </head>
 <body>
@@ -157,129 +200,27 @@ Let me know if you’d like any more changes!
     
     <select size="1" onchange="fetchJSON(this.value)">
         <option value="https://randomfox.ca/floof/">Random Fox</option>
-        <option value="https://picsum.photos/id/1/200/300>Random Dog></option>
+        <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
         <option value="https://aws.random.cat/meow">Random Cat</option>
         <option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
         <option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
-        <option value="https://dogapi.com/v1/breeds">Dog Breeds List</option>
     </select><br><br>
 
-    You make the JSON show up in the DIV<br><br>
     <div id="myDiv1">...</div>
     <br>
-    <input type="button" value="Show Image" onclick="showImage()">
+    <img id="jsonImage" src="" alt="Fetched Image">
     <br><br>
-    <img id="jsonImage" src="" alt="Fetched Image" style="max-width: 300px; max-height: 300px; display: block;">
-</body>
-    <div class="content">
-        <h2>Gray Scale Photo Fetcher</h2>
 
-        <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
-        <br>
-        <button id="fetchButton">Fetch Gray Scale Photo</button>
-        <div id="message"></div>
-        <div id="myDiv1"></div> <!-- Added this div to display fetched JSON -->
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch SpaceX Launch and Chuck Norris Jokes</title>
-</head>
-<body>
-
-<h2>Latest SpaceX Launch Details</h2>
-
-<div id="spacexFetcher">
+    <h2>Latest SpaceX Launch Details</h2>
     <div id="launchInfo"></div>
     <br>
     <button id="fetchLaunchButton">Fetch Latest Launch</button>
     <div id="launchMessage"></div>
-</div>
 
-<h2>Random Chuck Norris Joke</h2>
-
-<div id="jokeFetcher">
+    <h2>Random Chuck Norris Joke</h2>
     <div id="jokeInfo"></div>
     <br>
     <button id="fetchJokeButton">Fetch Random Joke</button>
     <div id="jokeMessage"></div>
-</div>
-
-<script>
-    async function fetchLatestLaunch() {
-        try {
-            const response = await fetch('https://api.spacexdata.com/v4/launches/latest');
-            const data = await response.json();
-            if (data) {
-                const infoDiv = document.getElementById('launchInfo');
-                infoDiv.innerHTML = `
-                    <h3>Mission Name: ${data.name}</h3>
-                    <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
-                    <p>Rocket: ${data.rocket}</p>
-                    <p>Details: ${data.details || 'No details available.'}</p>
-                `;
-                document.getElementById('launchMessage').textContent = 'Launch details fetched successfully!';
-            } else {
-                document.getElementById('launchMessage').textContent = 'No launch data found!';
-            }
-        } catch (error) {
-            document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
-        }
-    }
-
-    async function fetchRandomJoke() {
-        try {
-            const response = await fetch('https://api.chucknorris.io/jokes/random');
-            const data = await response.json();
-            if (data) {
-                const infoDiv = document.getElementById('jokeInfo');
-                infoDiv.innerHTML = `<p>${data.value}</p>`;
-                document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
-            } else {
-                document.getElementById('jokeMessage').textContent = 'No joke found!';
-            }
-        } catch (error) {
-            document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
-        }
-    }
-
-    document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
-    document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke)
-    
-
-</body>
-    </div>
-
-    <script>
-        async function fetchJSON(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
-            }
-        }
-
-        // Kitchen sink photo fetcher
-        document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
-
-        function fetchSinkPhoto() {
-            const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
-            const imgElement = document.getElementById('sinkImage');
-            imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
-            imgElement.style.display = 'block';
-            document.getElementById('message').textContent = '';
-
-            // If you want to fetch JSON data from another endpoint related, 
-            // uncomment the following line and specify a valid URL
-            // fetchJSON('YOUR_JSON_API_URL_HERE');
-        }
-    </script>
-
 </body>
 </html>
