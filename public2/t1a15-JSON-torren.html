@@ -112,37 +112,52 @@ Enter a JSON returning URL: <input type="text" id="myText" value="https://random
 </select><br><br>
 You make the JSON show up in the DIV<br><br>
 <div id="myDiv1">...</div>
-<script>
-    async function fetchJSON(url) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
-        } catch (error) {
-            document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
-        }
-    }
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Scale Photo Fetcher</title>
+</head>
+<body>
+
     <div class="content">
-    <h2>Gray Scale Photo Fetcher</h2>
+        <h2>Gray Scale Photo Fetcher</h2>
 
-    <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
-    <br>
-    <button id="fetchButton">Fetch Gray Scale Photo</button>
-    <div id="message"></div>
-</div>
-     // Kitchen sink photo fetcher
-    document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
+        <img id="sinkImage" src="" alt="Kitchen Sink" style="display: none;">
+        <br>
+        <button id="fetchButton">Fetch Gray Scale Photo</button>
+        <div id="message"></div>
+        <div id="myDiv1"></div> <!-- Added this div to display fetched JSON -->
+    </div>
 
-    function fetchSinkPhoto() {
-        const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
-        const imgElement = document.getElementById('sinkImage');
-        imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
-        imgElement.style.display = 'block';
-        document.getElementById('message').textContent = '';
-    }
+    <script>
+        async function fetchJSON(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                document.getElementById('myDiv1').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('myDiv1').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Kitchen sink photo fetcher
+        document.getElementById('fetchButton').addEventListener('click', fetchSinkPhoto);
+
+        function fetchSinkPhoto() {
+            const apiUrl = 'https://picsum.photos/200/300?grayscale'; // API URL for grayscale images
+            const imgElement = document.getElementById('sinkImage');
+            imgElement.src = apiUrl + '&random=' + new Date().getTime(); // Append a timestamp to get a new image
+            imgElement.style.display = 'block';
+            document.getElementById('message').textContent = '';
+
+            // If you want to fetch JSON data from another endpoint related, 
+            // uncomment the following line and specify a valid URL
+            // fetchJSON('YOUR_JSON_API_URL_HERE');
+        }
+    </script>
+
 </body>
 </html>
