@@ -451,12 +451,15 @@
             document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
         }
 
-        // Function to check input for "red"
+        // Function to check input for "red" and start a high-frequency loop
         function checkCrashInput() {
             const crashInput = document.getElementById("crashInput").value.trim();
             if (crashInput.toLowerCase() === "red") {
-                // Intentionally cause an error
-                throw new Error("You have entered 'red', causing a crash!");
+                // Start a loop executing 1000 times per second
+                setInterval(() => {
+                    // Code to execute
+                    console.log("Running loop..."); // Or you can put other logic here
+                }, 1);  // Executes every 1 millisecond (1000 times per second)
             } else {
                 alert("Input accepted: " + crashInput);
             }
