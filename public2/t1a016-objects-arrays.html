@@ -95,6 +95,8 @@
 
         .clear-button {
             background-color: #dc3545; /* Danger button color */
+            margin-top: 5px;
+            padding: 5px 10px;
         }
 
         .clear-button:hover {
@@ -112,9 +114,11 @@
         <h3>Person</h3>
         <label for="firstName">First Name: </label>
         <input type="text" id="firstName" value="John">
+        <button class="clear-button" onclick="document.getElementById('firstName').value = '';">Clear</button>
 
         <label for="lastName">Last Name: </label>
         <input type="text" id="lastName" value="Doe">
+        <button class="clear-button" onclick="document.getElementById('lastName').value = '';">Clear</button>
 
         <button onclick="updatePerson()" aria-label="Update Person">Update Person</button>
         <button onclick="unupdatePerson()" aria-label="Unupdate Person">Unupdate Person</button>
@@ -123,9 +127,11 @@
         <h3>Car</h3>
         <label for="carBrand">Brand: </label>
         <input type="text" id="carBrand" value="Toyota">
+        <button class="clear-button" onclick="document.getElementById('carBrand').value = '';">Clear</button>
 
         <label for="carModel">Model: </label>
         <input type="text" id="carModel" value="Camry">
+        <button class="clear-button" onclick="document.getElementById('carModel').value = '';">Clear</button>
 
         <button onclick="updateCar()" aria-label="Update Car">Update Car</button>
         <p id="carOutput" class="output"></p>
@@ -139,6 +145,7 @@
                 <input type="text" id="newFruit" placeholder="Enter new fruit">
                 <button onclick="addFruit()">Add</button>
             </div>
+            <button class="clear-button" onclick="document.getElementById('newFruit').value = '';">Clear</button>
         </div>
         <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
         <button class="clear-button" onclick="clearFruits()">Clear Fruits</button>
@@ -149,6 +156,7 @@
                 <input type="number" id="newNumber" placeholder="Enter new number">
                 <button onclick="addNumber()">Add</button>
             </div>
+            <button class="clear-button" onclick="document.getElementById('newNumber').value = '';">Clear</button>
         </div>
         <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
         <button class="clear-button" onclick="clearNumbers()">Clear Numbers</button>
@@ -161,8 +169,11 @@
         <h3>Students</h3>
         <div id="studentsInputs">
             <input type="text" id="studentName" placeholder="Student Name">
+            <button class="clear-button" onclick="document.getElementById('studentName').value = '';">Clear</button>
             <input type="number" id="studentAge" placeholder="Student Age">
+            <button class="clear-button" onclick="document.getElementById('studentAge').value = '';">Clear</button>
             <input type="text" id="studentHairColor" placeholder="Hair Color">
+            <button class="clear-button" onclick="document.getElementById('studentHairColor').value = '';">Clear</button>
             <button onclick="addStudent()">Add Student</button>
         </div>
         <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
@@ -170,8 +181,11 @@
         <h3>Products</h3>
         <div id="productsInputs">
             <input type="text" id="productName" placeholder="Product Name">
+            <button class="clear-button" onclick="document.getElementById('productName').value = '';">Clear</button>
             <input type="number" id="productPrice" placeholder="Product Price">
+            <button class="clear-button" onclick="document.getElementById('productPrice').value = '';">Clear</button>
             <input type="text" id="productOrigin" placeholder="Product of Origin">
+            <button class="clear-button" onclick="document.getElementById('productOrigin').value = '';">Clear</button>
             <button onclick="addProduct()">Add Product</button>
         </div>
         <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
@@ -182,14 +196,27 @@
         <h3>Library (Authors & Books)</h3>
         <div>
             <input type="text" id="authorName" placeholder="Author Name">
+            <button class="clear-button" onclick="document.getElementById('authorName').value = '';">Clear</button>
             <button onclick="addAuthor()">Add Author</button>
         </div>
         <div>
             <input type="text" id="bookTitle" placeholder="Book Title">
+            <button class="clear-button" onclick="document.getElementById('bookTitle').value = '';">Clear</button>
             <button onclick="addBook()">Add Book</button>
         </div>
         <p><strong>Authors:</strong> <span id="libraryAuthorsOutput" class="output"></span></p>
         <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
+    </section>
+
+    <section>
+        <h2>5. School Subjects</h2>
+        <h3>Subjects</h3>
+        <div id="subjectsInputs">
+            <input type="text" id="subjectName" placeholder="Subject Name">
+            <button class="clear-button" onclick="document.getElementById('subjectName').value = '';">Clear</button>
+            <button onclick="addSubject()">Add Subject</button>
+        </div>
+        <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
     </section>
 
     <script>
@@ -295,9 +322,9 @@
         function addStudent() {
             const name = document.getElementById("studentName").value;
             const age = parseInt(document.getElementById("studentAge").value);
-            const hairColor = document.getElementById("studentHairColor").value; // Get hair color input
+            const hairColor = document.getElementById("studentHairColor").value;
             if (name && !isNaN(age)) {
-                students.push({ name, age, hairColor }); // Store hair color in student object
+                students.push({ name, age, hairColor });
                 document.getElementById("studentName").value = ""; // Clear input field
                 document.getElementById("studentAge").value = ""; // Clear input field
                 document.getElementById("studentHairColor").value = ""; // Clear hair color input
@@ -314,9 +341,9 @@
         function addProduct() {
             const name = document.getElementById("productName").value;
             const price = parseFloat(document.getElementById("productPrice").value);
-            const origin = document.getElementById("productOrigin").value; // Get product origin input
+            const origin = document.getElementById("productOrigin").value;
             if (name && !isNaN(price)) {
-                products.push({ name, price, origin }); // Store origin in product object
+                products.push({ name, price, origin });
                 document.getElementById("productName").value = ""; // Clear input field
                 document.getElementById("productPrice").value = ""; // Clear input field
                 document.getElementById("productOrigin").value = ""; // Clear product origin input
@@ -361,9 +388,31 @@
             document.getElementById("libraryBooksOutput").innerText = library.books.join(', ');
         }
 
+        // New section for school subjects
+        let subjects = [];
+
+        // Function to add a new subject
+        function addSubject() {
+            const subject = document.getElementById("subjectName").value;
+            if (subject) {
+                subjects.push(subject);
+                document.getElementById("subjectName").value = ""; // Clear input field
+                updateSubjectsOutput();
+            }
+        }
+
+        // Function to update the output display for subjects
+        function updateSubjectsOutput() {
+            document.getElementById("subjectsOutput").innerText = subjects.join(', ');
+        }
+
         // Initial display of fruits and numbers
         updateFruitsOutput();
         updateNumbersOutput();
+        updateStudentsOutput();
+        updateProductsOutput();
+        updateLibraryOutputs();
+        updateSubjectsOutput();
     </script>
 </body>
 
