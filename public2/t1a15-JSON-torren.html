@@ -110,15 +110,41 @@ Let me know if you’d like any more changes!
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch and Display JSON</title>
     <script>
+        let currentImageUrl = '';
+
         function fetchJSON(url) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("myDiv1").innerText = JSON.stringify(data, null, 2);
+
+                    // Set the currentImageUrl based on the data received
+                    if (data && data.image) {
+                        currentImageUrl = data.image; // For Random Fox
+                    } else if (data && data.message) {
+                        currentImageUrl = data.message; // For Random Dog and similar APIs
+                    } else if (data && data[0] && data[0].url) {
+                        currentImageUrl = data[0].url; // For Cat API (array response)
+                    } else if (data && data.url) {
+                        currentImageUrl = data.url; // If the JSON has a direct image URL
+                    } else {
+                        currentImageUrl = ''; // Reset image if no image URL found
+                    }
                 })
                 .catch(error => {
                     document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error;
                 });
+        }
+
+        function showImage() {
+            const imgElement = document.getElementById("jsonImage");
+            if (currentImageUrl) {
+                imgElement.src = currentImageUrl;
+                imgElement.alt = "Fetched Image";
+            } else {
+                imgElement.src = '';
+                imgElement.alt = "No image available";
+            }
         }
     </script>
 </head>
@@ -139,6 +165,10 @@ Let me know if you’d like any more changes!
 
     You make the JSON show up in the DIV<br><br>
     <div id="myDiv1">...</div>
+    <br>
+    <input type="button" value="Show Image" onclick="showImage()">
+    <br><br>
+    <img id="jsonImage" src="" alt="Fetched Image" style="max-width: 300px; max-height: 300px; display: block;">
 </body>
 </html>
 
