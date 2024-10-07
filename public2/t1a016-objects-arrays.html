@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,84 +8,164 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            width: calc(100% - 16px);
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+            border-top: 1px solid #f1f1f1;
+            padding-top: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .output {
+            font-weight: bold;
+            color: #007BFF;
         }
     </style>
 </head>
+
 <body>
     <h1>JavaScript Objects and Arrays Example</h1>
 
-    <h2>1. Standalone Objects</h2>
-    <h3>Person</h3>
-    <label for="firstName">First Name: </label>
-    <input type="text" id="firstName" value="John"><br>
-    
-    <label for="lastName">Last Name: </label>
-    <input type="text" id="lastName" value="Doe"><br>
-    
-    <button onclick="updatePerson()">Update Person</button>
-    <p id="personOutput"></p>
+    <section>
+        <h2>1. Standalone Objects</h2>
 
-    <h3>Car</h3>
-    <label for="carBrand">Brand: </label>
-    <input type="text" id="carBrand" value="Toyota"><br>
-    
-    <label for="carModel">Model: </label>
-    <input type="text" id="carModel" value="Camry"><br>
-    
-    <button onclick="updateCar()">Update Car</button>
-    <p id="carOutput"></p>
+        <h3>Person</h3>
+        <label for="firstName">First Name: </label>
+        <input type="text" id="firstName" value="John">
 
-    <h2>2. Arrays</h2>
-    <p><strong>Fruits:</strong> <span id="fruitsOutput"></span></p>
-    <p><strong>Numbers:</strong> <span id="numbersOutput"></span></p>
+        <label for="lastName">Last Name: </label>
+        <input type="text" id="lastName" value="Doe">
 
-    <h2>3. Objects in Arrays</h2>
-    <p><strong>Students:</strong> <span id="studentsOutput"></span></p>
-    <p><strong>Products:</strong> <span id="productsOutput"></span></p>
+        <button onclick="updatePerson()" aria-label="Update Person">Update Person</button>
+        <p id="personOutput" class="output"></p>
 
-    <h2>4. Arrays in Objects</h2>
-    <p><strong>Library:</strong> <span id="libraryOutput"></span></p>
-    <p><strong>User Profile:</strong> <span id="userProfileOutput"></span></p>
+        <h3>Car</h3>
+        <label for="carBrand">Brand: </label>
+        <input type="text" id="carBrand" value="Toyota">
+
+        <label for="carModel">Model: </label>
+        <input type="text" id="carModel" value="Camry">
+
+        <button onclick="updateCar()" aria-label="Update Car">Update Car</button>
+        <p id="carOutput" class="output"></p>
+    </section>
+
+    <section>
+        <h2>2. Arrays</h2>
+        <p><strong>Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
+        <p><strong>Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
+        <button onclick="updateArrays()" aria-label="Update Arrays">Update Arrays</button>
+    </section>
+
+    <section>
+        <h2>3. Objects in Arrays</h2>
+        <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
+        <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
+    </section>
+
+    <section>
+        <h2>4. Arrays in Objects</h2>
+        <p><strong>Library:</strong> <span id="libraryOutput" class="output"></span></p>
+        <p><strong>User Profile:</strong> <span id="userProfileOutput" class="output"></span></p>
+    </section>
 
     <script>
         // Two examples of standalone objects with default values
-        let person = {
-            firstName: "John",
-            lastName: "Doe",
-            greet: function() {
-                return `Hello, my name is ${this.firstName} ${this.lastName}.`;
-            }
-        };
-
-        let car = {
-            brand: "Toyota",
-            model: "Camry",
-            start: function() {
-                return "The car has started.";
+        let myObject = {
+            person: {
+                firstName: "John",
+                lastName: "Doe",
+                greet: function () {
+                    return `Hello, my name is ${this.firstName} ${this.lastName}.`;
+                }
+            },
+            car: {
+                brand: "Toyota",
+                model: "Camry",
+                start: function () {
+                    return "The car has started.";
+                }
             }
         };
 
         // Function to update and display the person object
         function updatePerson() {
-            person.firstName = document.getElementById("firstName").value;
-            person.lastName = document.getElementById("lastName").value;
-            document.getElementById("personOutput").innerText = person.greet();
+            myObject.person.firstName = document.getElementById("firstName").value;
+            myObject.person.lastName = document.getElementById("lastName").value;
+            document.getElementById("personOutput").innerText = myObject.person.greet();
         }
 
         // Function to update and display the car object
         function updateCar() {
-            car.brand = document.getElementById("carBrand").value;
-            car.model = document.getElementById("carModel").value;
-            document.getElementById("carOutput").innerText = `Car: ${car.brand} ${car.model}`;
+            myObject.car.brand = document.getElementById("carBrand").value;
+            myObject.car.model = document.getElementById("carModel").value;
+            document.getElementById("carOutput").innerText = `Car: ${myObject.car.brand} ${myObject.car.model}`;
         }
 
-        // Two examples of arrays
-        const fruits = ["Apple", "Banana", "Cherry"];
-        const numbers = [1, 2, 3, 4, 5];
+        // Example arrays
+        let myArray = {
+            fruits: ["Apple", "Banana", "Cherry"],
+            numbers: [1, 2, 3, 4, 5]
+        };
 
         // Display arrays
-        document.getElementById("fruitsOutput").innerText = fruits.join(', ');
-        document.getElementById("numbersOutput").innerText = numbers.join(', ');
+        document.getElementById("fruitsOutput").innerText = myArray.fruits.join(', ');
+        document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
+
+        // Function to update the arrays
+        function updateArrays() {
+            myArray.fruits.push(prompt("Enter a new fruit:"));
+            myArray.numbers.push(parseInt(prompt("Enter a new number:")));
+            document.getElementById("fruitsOutput").innerText = myArray.fruits.join(', ');
+            document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
+        }
 
         // Two examples of objects in arrays
         const students = [
@@ -111,10 +192,11 @@
             username: "johndoe",
             favoriteMovies: ["Inception", "The Matrix", "Interstellar"]
         };
-        
+
         // Display objects with arrays
         document.getElementById("libraryOutput").innerText = `${library.name}: ${library.books.join(', ')}`;
         document.getElementById("userProfileOutput").innerText = `${userProfile.username}'s favorite movies: ${userProfile.favoriteMovies.join(', ')}`;
     </script>
 </body>
+
 </html>
