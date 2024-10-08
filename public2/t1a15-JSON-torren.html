@@ -3,106 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Difference Between JSON and JavaScript</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 300px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: none; /* Disable resizing */
-            background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Doubled shadow effect */
-            margin-bottom: 20px;
-        }
-        .content {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Doubled shadow effect */
-        }
-        .content h2 {
-            color: #2980b9;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .content p {
-            margin-bottom: 10px;
-        }
-        .content ol {
-            margin-left: 20px;
-        }
-        .content li {
-            margin-bottom: 10px;
-        }
-        footer {
-            text-align: center;
-            font-size: 14px;
-            color: #777;
-            margin-top: 20px;
-        }
-        #myDiv1 {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-
-<h1>Difference Between JSON and JavaScript Files</h1>
-
-<div class="content">
-    <h2>Overview</h2>
-    <textarea readonly>
-
----
-
-**JSON (JavaScript Object Notation)** is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
-
-### Here’s the Deal:
-
-1. **Format**:  
-   - JSON is just data. JavaScript files are where the actual coding happens to make things work.
-
-2. **Structure**:  
-   - JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.
-
-3. **Execution**:  
-   - JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.
-
-4. **File Extension**:  
-   - JSON files usually end in .json, while JavaScript files end in .js.
-
-So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right? 
-
----
-    </textarea>
-</div>
-
-<footer>
-    &copy; 2024 DO NOT TOUCH MY PRECIOUS!
-</footer>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch and Display JSON</title>
     <style>
         #jsonImage { max-width: 300px; max-height: 300px; display: block; margin-top: 10px; }
@@ -233,6 +133,10 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
         <option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
         <option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
         <option value="https://jsonplaceholder.typicode.com/users">Placeholder Users</option>
+        <option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
+        <option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
+        <option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
+        <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info</option>
     </select><br><br>
 
     <img id="jsonImage" src="" alt="Fetched Image"><br>
