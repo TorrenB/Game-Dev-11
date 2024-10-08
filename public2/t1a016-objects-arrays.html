@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,15 +101,22 @@
         .clear-button:hover {
             background-color: #c82333; /* Darker red on hover */
         }
+
+        .output-area {
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            border: 1px solid #4d4d4d;
+            padding: 5px;
+            background-color: #444; /* Dark Area for output */
+        }
     </style>
 </head>
-
 <body>
     <h1>JavaScript Objects and Arrays Example</h1>
 
     <section>
         <h2>1. Standalone Objects</h2>
-
         <h3>Person</h3>
         <label for="firstName">First Name: </label>
         <input type="text" id="firstName" value="John">
@@ -239,6 +245,15 @@
             <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
             <button onclick="checkCrashInput()">Submit</button>
         </div>
+    </section>
+
+    <section>
+        <h2>8. Display "Blue"</h2>
+        <div>
+            <input type="text" id="colorInput" placeholder="Type 'blue' to display">
+            <button onclick="checkColorInput()">Submit</button>
+        </div>
+        <div class="output-area" id="blueOutputArea"></div>
     </section>
 
     <script>
@@ -451,19 +466,41 @@
             document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
         }
 
-        // Function to check input for "red" and start a high-frequency loop
+        // Function to check input for "red" and potentially start a high-frequency loop
         function checkCrashInput() {
             const crashInput = document.getElementById("crashInput").value.trim();
             if (crashInput.toLowerCase() === "red") {
                 // Start a loop executing 1000 times per second
                 setInterval(() => {
                     // Code to execute
-                    console.log("Running loop..."); // Or you can put other logic here
+                    console.log("Running loop..."); // You can put other logic here
                 }, 1);  // Executes every 1 millisecond (1000 times per second)
             } else {
                 alert("Input accepted: " + crashInput);
             }
             document.getElementById("crashInput").value = ""; // Clear input field
+        }
+
+        // New function for displaying "blue"
+        let displayInterval;
+
+        function checkColorInput() {
+            const colorInput = document.getElementById("colorInput").value.trim();
+            const outputArea = document.getElementById("blueOutputArea");
+
+            // If "blue", start displaying it 300 times per second
+            if (colorInput.toLowerCase() === "blue") {
+                clearInterval(displayInterval); // Clear any existing interval
+
+                displayInterval = setInterval(() => {
+                    outputArea.innerHTML += "blue<br>"; // Append "blue" to the output area
+                }, 1000 / 300); // 1000 ms per second divided by frequency (300)
+            } else {
+                outputArea.innerHTML = ""; // Clear output for other input
+            }
+
+            // Clear input field
+            document.getElementById("colorInput").value = "";
         }
 
         // Initial display of fruits and numbers
@@ -476,5 +513,4 @@
         updateCourseOutput();
     </script>
 </body>
-
 </html>
