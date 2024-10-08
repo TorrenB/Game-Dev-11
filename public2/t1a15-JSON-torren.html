@@ -100,17 +100,13 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
 <footer>
     &copy; 2024 DO NOT TOUCH MY PRECIOUS!
 </footer>
-
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch and Display JSON</title>
     <style>
-        #jsonImage { max-width: 300px; max-height: 300px; display: block; }
-        #myDiv1 { white-space: pre-wrap; background-color: #f4f4f4; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        #jsonImage { max-width: 300px; max-height: 300px; display: block; margin-top: 10px; }
+        #myDiv1 { white-space: pre-wrap; background-color: #f4f4f4; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; }
         #countriesInfo, #pokemonInfo { margin-top: 20px; }
         select { margin-bottom: 20px; }
     </style>
@@ -123,7 +119,7 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
                 if (!response.ok) throw new Error('Network response was not ok');
                 
                 const data = await response.json();
-                formatAndDisplayJSON(data);  // Call a new function to display formatted JSON
+                formatAndDisplayJSON(data);  // Display formatted JSON
 
                 // Set the currentImageUrl based on the data received
                 if (data && data.image) {
@@ -151,33 +147,72 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
 
         function showImage() {
             const imgElement = document.getElementById("jsonImage");
-            if (currentImageUrl) {
-                imgElement.src = currentImageUrl;
-                imgElement.alt = "Fetched Image";
-            } else {
-                imgElement.src = '';
-                imgElement.alt = "No image available";
-            }
+            imgElement.src = currentImageUrl || ''; // Set image source
+            imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available"; // Set alt attribute
         }
 
         async function fetchLatestLaunch() {
-            // Existing fetchLatestLaunch code...
+            try {
+                const response = await fetch('https://api.spacexdata.com/v4/launches/latest');
+                const data = await response.json();
+
+                if (data) {
+                    document.getElementById('launchInfo').innerHTML = `
+                        <h3>Mission Name: ${data.name}</h3>
+                        <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+                        <p>Rocket: ${data.rocket}</p>
+                        <p>Details: ${data.details || 'No details available.'}</p>
+                    `;
+                    document.getElementById('launchMessage').textContent = 'Launch details fetched successfully!';
+                } else {
+                    document.getElementById('launchMessage').textContent = 'No launch data found!';
+                }
+            } catch (error) {
+                document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+            }
         }
 
         async function fetchRandomJoke() {
-            // Existing fetchRandomJoke code...
+            try {
+                const response = await fetch('https://api.chucknorris.io/jokes/random');
+                const data = await response.json();
+                document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
+                document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+            } catch (error) {
+                document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+            }
         }
 
         async function fetchCountries() {
-            // Existing fetchCountries code...
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+                const countriesList = data.map(country => `${country.name.common} - Capital: ${country.capital ? country.capital[0] : 'N/A'}`).join('<br>');
+                document.getElementById('countriesInfo').innerHTML = `<h3>Countries and Capitals</h3>${countriesList}`;
+            } catch (error) {
+                document.getElementById('countriesInfo').innerText = 'Error fetching countries data!';
+            }
         }
 
         async function fetchPokemon() {
-            // Existing fetchPokemon code...
+            try {
+                const response = await fetch('https://pokeapi.co/api/v2/pokemon/1');
+                const data = await response.json();
+                const pokemonInfo = `
+                    <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.id})</h3>
+                    <p>Height: ${data.height}</p>
+                    <p>Weight: ${data.weight}</p>
+                    <p>Base Experience: ${data.base_experience}</p>
+                    <p>Abilities: ${data.abilities.map(ability => ability.ability.name).join(', ')}</p>
+                    <img src="${data.sprites.front_default}" alt="${data.name}" style="max-width: 100px; max-height: 100px;">
+                `;
+                document.getElementById('pokemonInfo').innerHTML = pokemonInfo;
+            } catch (error) {
+                document.getElementById('pokemonInfo').innerText = 'Error fetching Pokémon data!';
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Existing event listeners...
             document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
             document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
             document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
@@ -220,6 +255,5 @@ So basically, JSON is for sending and getting data, and JavaScript files are for
     <h2>Fetch Pokémon Info</h2>
     <button id="fetchPokemonButton">Fetch Pokémon</button>
     <div id="pokemonInfo"></div>
-
 </body>
 </html>
