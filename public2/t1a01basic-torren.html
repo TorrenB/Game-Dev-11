@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t1a01basic-torren.html</title>
+    <title>Language Selector with Dark Mode</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -30,17 +30,18 @@
             text-align: center;
         }
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .dotted-border {
             border: 4px dotted #4CAF50;
             padding: 10px;
+            width: fit-content;
             margin: auto;
+            display: inline-block;
         }
         .zoom {
-            display: block;
-            margin: 30px auto;
             width: 200px;
+            margin: 20px 0;
             animation: zoomInOut 3s infinite;
         }
         @keyframes zoomInOut {
@@ -90,8 +91,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 10px 0;
+            margin-bottom: 20px;
         }
         #darkModeButton {
             margin-left: 20px;
@@ -117,16 +117,18 @@
 
         <h1><div class="dotted-border"><i id="helloWorld">Hello World</i></div></h1>
         <h2><a id="githubLink" href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file" style="text-decoration: none; color: #4CAF50;"><b>My Github</b></a></h2>
+        
         <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain" alt="Zooming Image">
         
-        <button id="randomButton">Click me!</button>
-        <div id="result"></div>
+        <div>
+            <button id="randomButton">Generate Random Number</button>
+            <div id="dropdownResult"></div>
+        </div>
         
-        <button id="timeButton">Get Time</button>
-        <div id="timeResult"></div>
-        
-        <button id="dropdownButton">Translate!</button>
-        <div id="dropdownResult"></div>
+        <div>
+            <button id="timeButton">Get Current Time</button>
+            <div id="timeResult"></div>
+        </div>
     </div>
 
     <script>
@@ -134,91 +136,81 @@
             en: {
                 helloWorld: "Hello World",
                 githubLink: "My Github",
-                clickMe: "Click me!",
-                getTime: "Get Time",
+                clickMe: "Generate Random Number",
+                getTime: "Get Current Time",
                 timeMessage: "Time: {time} nanoseconds :)",
                 selectLanguageText: "Select Language:",
-                translate: "Translate!",
                 number: "Number",
             },
             es: {
                 helloWorld: "Hola Mundo",
                 githubLink: "Mi Github",
-                clickMe: "¡Haz clic en mí!",
+                clickMe: "Generar Número Aleatorio",
                 getTime: "Obtener Hora",
                 timeMessage: "Hora: {time} nanosegundos :)",
                 selectLanguageText: "Seleccionar Idioma:",
-                translate: "¡Traducir!",
                 number: "Número",
             },
             fr: {
                 helloWorld: "Bonjour le monde",
                 githubLink: "Mon Github",
-                clickMe: "Cliquez moi !",
+                clickMe: "Générer un Nombre Aléatoire",
                 getTime: "Obtenir l'heure",
                 timeMessage: "Temps : {time} nanosecondes :)",
                 selectLanguageText: "Choisir la langue :",
-                translate: "Traduire !",
                 number: "Nombre",
             },
             de: {
                 helloWorld: "Hallo Welt",
                 githubLink: "Mein Github",
-                clickMe: "Klick mich!",
+                clickMe: "Zufallszahl Generieren",
                 getTime: "Zeit bekommen",
                 timeMessage: "Zeit: {time} Nanosekunden :)",
                 selectLanguageText: "Sprache wählen:",
-                translate: "Übersetzen!",
                 number: "Nummer",
             },
             it: {
                 helloWorld: "Ciao Mondo",
                 githubLink: "Il mio Github",
-                clickMe: "Cliccami!",
+                clickMe: "Genera Numero Casuale",
                 getTime: "Ottieni l'ora",
                 timeMessage: "Tempo: {time} nanosecondi :)",
                 selectLanguageText: "Seleziona Lingua:",
-                translate: "Traduci!",
                 number: "Numero",
             },
             ja: {
                 helloWorld: "こんにちは世界",
                 githubLink: "私のGithub",
-                clickMe: "クリックして！",
+                clickMe: "ランダムな数を生成する",
                 getTime: "時間を取得",
                 timeMessage: "時間: {time} ナノ秒 :)",
                 selectLanguageText: "言語を選択:",
-                translate: "翻訳する！",
                 number: "番号",
             },
             zh: {
                 helloWorld: "你好，世界",
                 githubLink: "我的Github",
-                clickMe: "点击我！",
+                clickMe: "生成随机数",
                 getTime: "获取时间",
                 timeMessage: "时间：{time} 纳秒 :)",
                 selectLanguageText: "选择语言：",
-                translate: "翻译！",
                 number: "数字",
             },
             ru: {
                 helloWorld: "Привет, мир",
                 githubLink: "Мой Github",
-                clickMe: "Нажми на меня!",
+                clickMe: "Сгенерировать случайное число",
                 getTime: "Получить время",
                 timeMessage: "Время: {time} наносекунд :)",
                 selectLanguageText: "Выбрать язык:",
-                translate: "Перевести!",
                 number: "Число",
             }
         };
 
         const randomButton = document.getElementById('randomButton');
-        const result = document.getElementById('result');
+        const result = document.getElementById('dropdownResult');
         const timeButton = document.getElementById('timeButton');
         const timeResult = document.getElementById('timeResult');
-        const dropdownButton = document.getElementById('dropdownButton');
-        const dropdownResult = document.getElementById('dropdownResult');
         const languageDropdown = document.getElementById('languageDropdown');
         const darkModeButton = document.getElementById('darkModeButton');
         const body = document.body;
@@ -228,7 +220,6 @@
             document.getElementById('githubLink').textContent = translations[language].githubLink;
             randomButton.textContent = translations[language].clickMe;
             timeButton.textContent = translations[language].getTime;
-            dropdownButton.textContent = translations[language].translate;
             document.getElementById('languageLabel').textContent = translations[language].selectLanguageText;
         }
 
@@ -245,18 +236,11 @@
             timeResult.textContent = translations[currentLanguage].timeMessage.replace("{time}", nanoseconds);
         });
 
-        dropdownButton.addEventListener('click', () => {
-            const randomNumber = Math.floor(Math.random() * 100) + 1;
-            const selectedLanguage = languageDropdown.value;
-            dropdownResult.textContent = `${translations[selectedLanguage].number}: ${randomNumber}`;
-        });
-
         languageDropdown.addEventListener('change', () => {
             const selectedLanguage = languageDropdown.value;
             updateLanguage(selectedLanguage);
             result.textContent = ''; // Clear result
             timeResult.textContent = ''; // Clear time result
-            dropdownResult.textContent = ''; // Clear dropdown result
         });
 
         darkModeButton.addEventListener('click', () => {
