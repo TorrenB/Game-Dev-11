@@ -115,6 +115,7 @@
 <body>
     <h1>JavaScript Objects and Arrays Example</h1>
 
+    <!-- Section for standalone objects -->
     <section>
         <h2>1. Standalone Objects</h2>
         <h3>Person</h3>
@@ -143,6 +144,7 @@
         <p id="carOutput" class="output"></p>
     </section>
 
+    <!-- Section for arrays -->
     <section>
         <h2>2. Arrays</h2>
         <h3>Fruits</h3>
@@ -170,6 +172,7 @@
         <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
     </section>
 
+    <!-- Section for objects in arrays -->
     <section>
         <h2>3. Objects in Arrays</h2>
         <h3>Students</h3>
@@ -197,6 +200,7 @@
         <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
     </section>
 
+    <!-- Section for arrays in objects -->
     <section>
         <h2>4. Arrays in Objects</h2>
         <h3>Library (Authors & Books)</h3>
@@ -214,6 +218,7 @@
         <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
     </section>
 
+    <!-- Section for school subjects -->
     <section>
         <h2>5. School Subjects</h2>
         <h3>Subjects</h3>
@@ -225,19 +230,23 @@
         <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
     </section>
 
+    <!-- Section for courses with topics -->
     <section>
-        <h2>6. Array in an Object Example</h2>
-        <h3>Course with Topics</h3>
+        <h2>6. Courses with Topics</h2>
         <div>
-            <input type="text" id="courseName" placeholder="Course Name">
-            <button class="clear-button" onclick="document.getElementById('courseName').value = '';">Clear</button>
+            <input type="text" id="newCourseName" placeholder="Course Name">
+            <button class="clear-button" onclick="document.getElementById('newCourseName').value = '';">Clear</button>
+            <button onclick="addCourse()">Add Course</button>
+        </div>
+        <div>
             <input type="text" id="topicInput" placeholder="Enter Topic">
             <button class="clear-button" onclick="document.getElementById('topicInput').value = '';">Clear</button>
-            <button onclick="addTopic()">Add Topic</button>
+            <button onclick="addTopicToLastCourse()">Add Topic to Last Course</button>
         </div>
-        <p><strong>Course Object:</strong> <span id="courseOutput" class="output"></span></p>
+        <p><strong>Courses:</strong> <span id="coursesOutput" class="output"></span></p>
     </section>
 
+    <!-- Section for cause a crash -->
     <section>
         <h2>7. Cause a Crash</h2>
         <h3>Input "red" Below</h3>
@@ -247,6 +256,7 @@
         </div>
     </section>
 
+    <!-- Section for displaying 'blue' -->
     <section>
         <h2>8. Display "Blue"</h2>
         <div>
@@ -443,27 +453,32 @@
             document.getElementById("subjectsOutput").innerText = subjects.join(', ');
         }
 
-        // New section for array in an object example
-        let courseOverview = {};
+        // New section for courses and topics
+        let courses = [];
 
-        // Function to add a topic to a course
-        function addTopic() {
-            const courseName = document.getElementById("courseName").value;
-            const topic = document.getElementById("topicInput").value;
-
-            if (courseName && topic) {
-                if (!courseOverview[courseName]) {
-                    courseOverview[courseName] = { topics: [] };
-                }
-                courseOverview[courseName].topics.push(topic);
-                document.getElementById("topicInput").value = ""; // Clear input field
-                updateCourseOutput();
+        // Function to add a course
+        function addCourse() {
+            const courseName = document.getElementById("newCourseName").value;
+            if (courseName) {
+                courses.push({ name: courseName, topics: [] });
+                document.getElementById("newCourseName").value = ""; // Clear input field
+                updateCoursesOutput();
             }
         }
 
-        // Function to update the output display for the course object
-        function updateCourseOutput() {
-            document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
+        // Function to update the output display for courses
+        function updateCoursesOutput() {
+            document.getElementById("coursesOutput").innerText = JSON.stringify(courses, null, 2);
+        }
+
+        // Adding topics to the last course (if any) when the add topic button is pressed
+        function addTopicToLastCourse() {
+            const topic = document.getElementById("topicInput").value;
+            if (topic && courses.length > 0) {
+                courses[courses.length - 1].topics.push(topic); // Add topic to the most recently added course
+                document.getElementById("topicInput").value = ""; // Clear input field
+                updateCoursesOutput();
+            }
         }
 
         // Function to check input for "red" and potentially start a high-frequency loop
@@ -510,7 +525,7 @@
         updateProductsOutput();
         updateLibraryOutputs();
         updateSubjectsOutput();
-        updateCourseOutput();
+        updateCoursesOutput();
     </script>
 </body>
 </html>
