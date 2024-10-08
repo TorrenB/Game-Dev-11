@@ -21,41 +21,66 @@
                 transform: scale(1.5);
             }
         }
-        #randomButton, #timeButton {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+        #randomButton, #timeButton, #dropdownButton {
+            width: 150px;
+            height: 50px;
+            border-radius: 5px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
             display: block;
-            margin: 20px auto;
+            margin: 10px auto;
         }
         #result, #timeResult {
             text-align: center;
             font-size: 24px;
             margin-top: 20px;
         }
+        select {
+            width: 160px;
+            height: 40px;
+            margin: 10px auto;
+            display: block;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body style="background-color: #09f822;">
-    <h1 align="center"><div class="dotted-border">Hello World</div></h1><br>
-    <h1 align="center"><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">My Github</a></h1><br>
-    <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain">
+    <h1 align="center"><div class="dotted-border"><i>Hello World</i></div></h1><br>
+    <h2 align="center"><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file"><b>My Github</b></a></h2><br>
+    <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain" alt="Zooming Image">
     
     <button id="randomButton">Click me!</button>
     <div id="result"></div>
     
     <button id="timeButton">Get Time</button>
     <div id="timeResult"></div>
-
+    
+    <label for="languageDropdown" style="text-align: center; display: block; font-size: 18px;">Select Language:</label>
+    <select id="languageDropdown">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="it">Italian</option>
+        <option value="ja">Japanese</option>
+        <option value="zh">Chinese</option>
+        <option value="ru">Russian</option>
+    </select>
+    
+    <button id="dropdownButton">Translate!</button>
+    <div id="dropdownResult"></div>
+    
     <script>
         const randomButton = document.getElementById('randomButton');
         const result = document.getElementById('result');
         const timeButton = document.getElementById('timeButton');
         const timeResult = document.getElementById('timeResult');
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownResult = document.getElementById('dropdownResult');
+        const languageDropdown = document.getElementById('languageDropdown');
 
         const languages = ['en', 'es', 'fr', 'de', 'it', 'ja', 'zh', 'ru'];
         const translations = {
@@ -81,7 +106,13 @@
             const nanoseconds = Math.floor(now * 1e6);
             timeResult.textContent = `Time: ${nanoseconds} nanoseconds :)`;
         });
+
+        dropdownButton.addEventListener('click', () => {
+            const selectedLanguage = languageDropdown.value;
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+            const translatedNumber = `${translations[selectedLanguage]}: ${randomNumber}`;
+            dropdownResult.textContent = translatedNumber;
+        });
     </script>
 </body>
 </html>
-
