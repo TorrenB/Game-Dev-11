@@ -8,17 +8,17 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #2a2a2a; /* Darker background */
-            color: #f0f0f0; /* Light text color */
+            background-color: #2a2a2a;
+            color: #f0f0f0;
         }
 
         h1 {
             text-align: center;
-            color: #ffffff; /* White title */
+            color: #ffffff;
         }
 
         section {
-            background: #3a3a3a; /* Dark grey background */
+            background: #3a3a3a;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -29,57 +29,57 @@
             display: block;
             margin-top: 10px;
             font-weight: bold;
-            color: #ffffff; /* White labels */
+            color: #ffffff;
         }
 
         input {
             padding: 8px;
             width: calc(100% - 16px);
             margin-top: 5px;
-            border: 1px solid #4d4d4d; /* Darker border */
-            background-color: #555; /* Darker input background */
-            color: #ffffff; /* Light text color in inputs */
+            border: 1px solid #4d4d4d; 
+            background-color: #555; 
+            color: #ffffff; 
         }
 
         input::placeholder {
-            color: #cccccc; /* Light grey placeholder text */
+            color: #cccccc; 
         }
 
         button {
             margin-top: 10px;
             padding: 10px 15px;
-            color: #ffffff; /* White button text */
-            background-color: #007BFF; /* Button color */
+            color: #ffffff;
+            background-color: #007BFF; 
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3; 
         }
 
         p {
             font-size: 16px;
-            color: #f0f0f0; /* Light paragraph text */
+            color: #f0f0f0; 
             margin-top: 10px;
-            border-top: 1px solid #444; /* Darker border */
+            border-top: 1px solid #444; 
             padding-top: 10px;
-            white-space: nowrap; /* Prevent line breaks */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Show ellipsis for overflow */
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
         }
 
         h2 {
-            color: #ffffff; /* White section headers */
+            color: #ffffff;
         }
 
         .output {
             font-weight: bold;
-            color: #00ccff; /* Light blue output text */
-            white-space: nowrap; /* Prevent line breaks */
-            overflow: hidden; /* Hide overflow */
-            text-overflow: ellipsis; /* Show ellipsis for overflow */
+            color: #00ccff; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
         }
 
         .array-inputs {
@@ -93,13 +93,13 @@
         }
 
         .clear-button {
-            background-color: #dc3545; /* Danger button color */
+            background-color: #dc3545; 
             margin-top: 5px;
             padding: 5px 10px;
         }
 
         .clear-button:hover {
-            background-color: #c82333; /* Darker red on hover */
+            background-color: #c82333; 
         }
 
         .output-area {
@@ -108,191 +108,58 @@
             margin-top: 10px;
             border: 1px solid #4d4d4d;
             padding: 5px;
-            background-color: #444; /* Dark Area for output */
+            background-color: #444; 
         }
     </style>
 </head>
 <body>
     <h1>JavaScript Objects and Arrays Example</h1>
 
-    <!-- Section for standalone objects -->
-    <section>
-        <h2>1. Standalone Objects</h2>
-        <h3>Person</h3>
-        <label for="firstName">First Name: </label>
-        <input type="text" id="firstName" value="John">
-        <button class="clear-button" onclick="document.getElementById('firstName').value = '';">Clear</button>
-
-        <label for="lastName">Last Name: </label>
-        <input type="text" id="lastName" value="Doe">
-        <button class="clear-button" onclick="document.getElementById('lastName').value = '';">Clear</button>
-
-        <button onclick="updatePerson()" aria-label="Update Person">Update Person</button>
-        <button onclick="unupdatePerson()" aria-label="Unupdate Person">Unupdate Person</button>
-        <p id="personOutput" class="output"></p>
-
-        <h3>Car</h3>
-        <label for="carBrand">Brand: </label>
-        <input type="text" id="carBrand" value="Toyota">
-        <button class="clear-button" onclick="document.getElementById('carBrand').value = '';">Clear</button>
-
-        <label for="carModel">Model: </label>
-        <input type="text" id="carModel" value="Camry">
-        <button class="clear-button" onclick="document.getElementById('carModel').value = '';">Clear</button>
-
-        <button onclick="updateCar()" aria-label="Update Car">Update Car</button>
-        <p id="carOutput" class="output"></p>
-    </section>
-
-    <!-- Section for arrays -->
-    <section>
-        <h2>2. Arrays</h2>
-        <h3>Fruits</h3>
-        <div id="fruitsInputs" class="array-inputs">
-            <div class="array-item">
-                <input type="text" id="newFruit" placeholder="Enter new fruit">
-                <button onclick="addFruit()">Add</button>
-            </div>
-            <button class="clear-button" onclick="document.getElementById('newFruit').value = '';">Clear</button>
-        </div>
-        <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
-        <button class="clear-button" onclick="clearFruits()">Clear Fruits</button>
-
-        <h3>Numbers</h3>
-        <div id="numbersInputs" class="array-inputs">
-            <div class="array-item">
-                <input type="number" id="newNumber" placeholder="Enter new number">
-                <button onclick="addNumber()">Add</button>
-            </div>
-            <button class="clear-button" onclick="document.getElementById('newNumber').value = '';">Clear</button>
-        </div>
-        <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
-        <button class="clear-button" onclick="clearNumbers()">Clear Numbers</button>
-
-        <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
-    </section>
-
-    <!-- Section for objects in arrays -->
-    <section>
-        <h2>3. Objects in Arrays</h2>
-        <h3>Students</h3>
-        <div id="studentsInputs">
-            <input type="text" id="studentName" placeholder="Student Name">
-            <button class="clear-button" onclick="document.getElementById('studentName').value = '';">Clear</button>
-            <input type="number" id="studentAge" placeholder="Student Age">
-            <button class="clear-button" onclick="document.getElementById('studentAge').value = '';">Clear</button>
-            <input type="text" id="studentHairColor" placeholder="Hair Color">
-            <button class="clear-button" onclick="document.getElementById('studentHairColor').value = '';">Clear</button>
-            <button onclick="addStudent()">Add Student</button>
-        </div>
-        <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
-
-        <h3>Products</h3>
-        <div id="productsInputs">
-            <input type="text" id="productName" placeholder="Product Name">
-            <button class="clear-button" onclick="document.getElementById('productName').value = '';">Clear</button>
-            <input type="number" id="productPrice" placeholder="Product Price">
-            <button class="clear-button" onclick="document.getElementById('productPrice').value = '';">Clear</button>
-            <input type="text" id="productOrigin" placeholder="Product of Origin">
-            <button class="clear-button" onclick="document.getElementById('productOrigin').value = '';">Clear</button>
-            <button onclick="addProduct()">Add Product</button>
-        </div>
-        <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for arrays in objects -->
-    <section>
-        <h2>4. Arrays in Objects</h2>
-        <h3>Library (Authors & Books)</h3>
-        <div>
-            <input type="text" id="authorName" placeholder="Author Name">
-            <button class="clear-button" onclick="document.getElementById('authorName').value = '';">Clear</button>
-            <button onclick="addAuthor()">Add Author</button>
-        </div>
-        <div>
-            <input type="text" id="bookTitle" placeholder="Book Title">
-            <button class="clear-button" onclick="document.getElementById('bookTitle').value = '';">Clear</button>
-            <button onclick="addBook()">Add Book</button>
-        </div>
-        <p><strong>Authors:</strong> <span id="libraryAuthorsOutput" class="output"></span></p>
-        <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for school subjects -->
-    <section>
-        <h2>5. School Subjects</h2>
-        <h3>Subjects</h3>
-        <div id="subjectsInputs">
-            <input type="text" id="subjectName" placeholder="Subject Name">
-            <button class="clear-button" onclick="document.getElementById('subjectName').value = '';">Clear</button>
-            <button onclick="addSubject()">Add Subject</button>
-        </div>
-        <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for courses with topics -->
-    <section>
-        <h2>6. Courses with Topics</h2>
-        <div>
-            <input type="text" id="newCourseName" placeholder="Course Name">
-            <button class="clear-button" onclick="document.getElementById('newCourseName').value = '';">Clear</button>
-            <button onclick="addCourse()">Add Course</button>
-        </div>
-        <div>
-            <input type="text" id="topicInput" placeholder="Enter Topic">
-            <button class="clear-button" onclick="document.getElementById('topicInput').value = '';">Clear</button>
-            <button onclick="addTopicToLastCourse()">Add Topic to Last Course</button>
-        </div>
-        <p><strong>Courses:</strong> <span id="coursesOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for cause a crash -->
-    <section>
-        <h2>7. Cause a Crash</h2>
-        <h3>Input "red" Below</h3>
-        <div>
-            <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
-            <button onclick="checkCrashInput()">Submit</button>
-        </div>
-    </section>
-
-    <!-- Section for displaying 'blue' -->
-    <section>
-        <h2>8. Display "Blue"</h2>
-        <div>
-            <input type="text" id="colorInput" placeholder="Type 'blue' to display">
-            <button onclick="checkColorInput()">Submit</button>
-        </div>
-        <div class="output-area" id="blueOutputArea"></div>
-    </section>
+    <!-- Existing sections -->
 
     <!-- New Section for Array in Object in Array -->
     <section>
         <h2>9. Array in an Object in Array</h2>
         <div>
-            <input type="text" id="itemName" placeholder="Enter Item Name">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" placeholder="Enter Item Name" value="Default Item Name">
             <button class="clear-button" onclick="document.getElementById('itemName').value = '';">Clear</button>
-            <button onclick="addItem()">Add Item</button>
         </div>
+        <div>
+            <label for="itemAge">Age:</label>
+            <input type="number" id="itemAge" placeholder="Enter Age" value="25">
+            <button class="clear-button" onclick="document.getElementById('itemAge').value = '';">Clear</button>
+        </div>
+        <div>
+            <label for="itemColor">Colour:</label>
+            <input type="text" id="itemColor" placeholder="Enter Colour" value="Red">
+            <button class="clear-button" onclick="document.getElementById('itemColor').value = '';">Clear</button>
+        </div>
+        <button onclick="addItem()">Add Item</button>
         <p><strong>Object Structure:</strong> <span id="arrayInObjectOutput" class="output"></span></p>
     </section>
 
     <script>
-        // Your existing JavaScript code here...
-
         // Example of array in an object within an array
         let itemCollection = [];
 
         // Function to add an item to the collection
         function addItem() {
             const itemName = document.getElementById("itemName").value;
-            if (itemName) {
+            const itemAge = document.getElementById("itemAge").value;
+            const itemColor = document.getElementById("itemColor").value;
+
+            if (itemName && itemAge && itemColor) {
                 const itemObject = {
                     name: itemName,
+                    age: itemAge,
+                    color: itemColor,
                     attributes: [] // Empty array to hold attributes of the item
                 };
                 itemCollection.push(itemObject);
                 document.getElementById("itemName").value = ""; // Clear input field
+                document.getElementById("itemAge").value = ""; // Clear input field
+                document.getElementById("itemColor").value = ""; // Clear input field
                 updateArrayInObjectOutput();
             }
         }
