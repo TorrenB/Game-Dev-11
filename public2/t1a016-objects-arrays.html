@@ -266,266 +266,45 @@
         <div class="output-area" id="blueOutputArea"></div>
     </section>
 
+    <!-- New Section for Array in Object in Array -->
+    <section>
+        <h2>9. Array in an Object in Array</h2>
+        <div>
+            <input type="text" id="itemName" placeholder="Enter Item Name">
+            <button class="clear-button" onclick="document.getElementById('itemName').value = '';">Clear</button>
+            <button onclick="addItem()">Add Item</button>
+        </div>
+        <p><strong>Object Structure:</strong> <span id="arrayInObjectOutput" class="output"></span></p>
+    </section>
+
     <script>
-        // Two examples of standalone objects with default values
-        let myObject = {
-            person: {
-                firstName: "John",
-                lastName: "Doe",
-                greet: function () {
-                    return `Hello, my name is ${this.firstName} ${this.lastName}.`;
-                }
-            },
-            car: {
-                brand: "Toyota",
-                model: "Camry",
-                start: function () {
-                    return "The car has started.";
-                }
-            }
-        };
+        // Your existing JavaScript code here...
 
-        // Function to update and display the person object
-        function updatePerson() {
-            myObject.person.firstName = document.getElementById("firstName").value;
-            myObject.person.lastName = document.getElementById("lastName").value;
-            document.getElementById("personOutput").innerText = myObject.person.greet();
-        }
+        // Example of array in an object within an array
+        let itemCollection = [];
 
-        // Function to display the greeting sentence backwards
-        function unupdatePerson() {
-            const greeting = myObject.person.greet();
-            const reversedGreeting = greeting.split('').reverse().join('');
-            document.getElementById("personOutput").innerText = reversedGreeting;
-        }
-
-        // Function to update and display the car object
-        function updateCar() {
-            myObject.car.brand = document.getElementById("carBrand").value;
-            myObject.car.model = document.getElementById("carModel").value;
-            document.getElementById("carOutput").innerText = `Your car of choice is ${myObject.car.brand} ${myObject.car.model}.`;
-        }
-
-        // Example arrays
-        let myArray = {
-            fruits: ["Apple", "Banana", "Cherry"],
-            numbers: [1, 2, 3, 4, 5]
-        };
-
-        // Function to add a new fruit
-        function addFruit() {
-            const fruit = document.getElementById("newFruit").value;
-            if (fruit) {
-                myArray.fruits.push(fruit);
-                document.getElementById("newFruit").value = ""; // Clear input field
-                updateFruitsOutput();
+        // Function to add an item to the collection
+        function addItem() {
+            const itemName = document.getElementById("itemName").value;
+            if (itemName) {
+                const itemObject = {
+                    name: itemName,
+                    attributes: [] // Empty array to hold attributes of the item
+                };
+                itemCollection.push(itemObject);
+                document.getElementById("itemName").value = ""; // Clear input field
+                updateArrayInObjectOutput();
             }
         }
 
-        // Function to add a new number
-        function addNumber() {
-            const number = parseInt(document.getElementById("newNumber").value);
-            if (!isNaN(number)) {
-                myArray.numbers.push(number);
-                document.getElementById("newNumber").value = ""; // Clear input field
-                updateNumbersOutput();
-            }
+        // Function to update the output display for the array in an object within an array
+        function updateArrayInObjectOutput() {
+            document.getElementById("arrayInObjectOutput").innerText = JSON.stringify(itemCollection, null, 2);
         }
 
-        // Function to shuffle the arrays
-        function shuffleArrays() {
-            myArray.fruits.sort(() => 0.5 - Math.random());
-            myArray.numbers.sort(() => 0.5 - Math.random());
-            updateFruitsOutput();
-            updateNumbersOutput();
-        }
-
-        // Functions to update the output display for fruits and numbers
-        function updateFruitsOutput() {
-            document.getElementById("fruitsOutput").innerText = myArray.fruits.join(', ');
-        }
-
-        function updateNumbersOutput() {
-            document.getElementById("numbersOutput").innerText = myArray.numbers.join(', ');
-        }
-
-        // Function to clear the fruits array
-        function clearFruits() {
-            myArray.fruits = [];
-            updateFruitsOutput();
-        }
-
-        // Function to clear the numbers array
-        function clearNumbers() {
-            myArray.numbers = [];
-            updateNumbersOutput();
-        }
-
-        // Two examples of objects in arrays
-        let students = [];
-        let products = [];
-
-        // Function to add a new student
-        function addStudent() {
-            const name = document.getElementById("studentName").value;
-            const age = parseInt(document.getElementById("studentAge").value);
-            const hairColor = document.getElementById("studentHairColor").value;
-            if (name && !isNaN(age)) {
-                students.push({ name, age, hairColor });
-                document.getElementById("studentName").value = ""; // Clear input field
-                document.getElementById("studentAge").value = ""; // Clear input field
-                document.getElementById("studentHairColor").value = ""; // Clear hair color input
-                updateStudentsOutput();
-            }
-        }
-
-        // Function to update the output display for students
-        function updateStudentsOutput() {
-            document.getElementById("studentsOutput").innerText = JSON.stringify(students, null, 2);
-        }
-
-        // Function to add a new product
-        function addProduct() {
-            const name = document.getElementById("productName").value;
-            const price = parseFloat(document.getElementById("productPrice").value);
-            const origin = document.getElementById("productOrigin").value;
-            if (name && !isNaN(price)) {
-                products.push({ name, price, origin });
-                document.getElementById("productName").value = ""; // Clear input field
-                document.getElementById("productPrice").value = ""; // Clear input field
-                document.getElementById("productOrigin").value = ""; // Clear product origin input
-                updateProductsOutput();
-            }
-        }
-
-        // Function to update the output display for products
-        function updateProductsOutput() {
-            document.getElementById("productsOutput").innerText = JSON.stringify(products, null, 2);
-        }
-
-        // Example object containing arrays for the library
-        let library = {
-            authors: [],
-            books: []
-        };
-
-        // Function to add a new author
-        function addAuthor() {
-            const authorName = document.getElementById("authorName").value;
-            if (authorName) {
-                library.authors.push(authorName);
-                document.getElementById("authorName").value = ""; // Clear input field
-                updateLibraryOutputs();
-            }
-        }
-
-        // Function to add a new book
-        function addBook() {
-            const bookTitle = document.getElementById("bookTitle").value;
-            if (bookTitle) {
-                library.books.push(bookTitle);
-                document.getElementById("bookTitle").value = ""; // Clear input field
-                updateLibraryOutputs();
-            }
-        }
-
-        // Function to update the output display for library authors and books
-        function updateLibraryOutputs() {
-            document.getElementById("libraryAuthorsOutput").innerText = library.authors.join(', ');
-            document.getElementById("libraryBooksOutput").innerText = library.books.join(', ');
-        }
-
-        // New section for school subjects
-        let subjects = [];
-
-        // Function to add a new subject
-        function addSubject() {
-            const subject = document.getElementById("subjectName").value;
-            if (subject) {
-                subjects.push(subject);
-                document.getElementById("subjectName").value = ""; // Clear input field
-                updateSubjectsOutput();
-            }
-        }
-
-        // Function to update the output display for subjects
-        function updateSubjectsOutput() {
-            document.getElementById("subjectsOutput").innerText = subjects.join(', ');
-        }
-
-        // New section for courses and topics
-        let courses = [];
-
-        // Function to add a course
-        function addCourse() {
-            const courseName = document.getElementById("newCourseName").value;
-            if (courseName) {
-                courses.push({ name: courseName, topics: [] });
-                document.getElementById("newCourseName").value = ""; // Clear input field
-                updateCoursesOutput();
-            }
-        }
-
-        // Function to update the output display for courses
-        function updateCoursesOutput() {
-            document.getElementById("coursesOutput").innerText = JSON.stringify(courses, null, 2);
-        }
-
-        // Adding topics to the last course (if any) when the add topic button is pressed
-        function addTopicToLastCourse() {
-            const topic = document.getElementById("topicInput").value;
-            if (topic && courses.length > 0) {
-                courses[courses.length - 1].topics.push(topic); // Add topic to the most recently added course
-                document.getElementById("topicInput").value = ""; // Clear input field
-                updateCoursesOutput();
-            }
-        }
-
-        // Function to check input for "red" and potentially start a high-frequency loop
-        function checkCrashInput() {
-            const crashInput = document.getElementById("crashInput").value.trim();
-            if (crashInput.toLowerCase() === "red") {
-                // Start a loop executing 1000 times per second
-                setInterval(() => {
-                    // Code to execute
-                    console.log("Running loop..."); // You can put other logic here
-                }, 1);  // Executes every 1 millisecond (1000 times per second)
-            } else {
-                alert("Input accepted: " + crashInput);
-            }
-            document.getElementById("crashInput").value = ""; // Clear input field
-        }
-
-        // New function for displaying "blue"
-        let displayInterval;
-
-        function checkColorInput() {
-            const colorInput = document.getElementById("colorInput").value.trim();
-            const outputArea = document.getElementById("blueOutputArea");
-
-            // If "blue", start displaying it 300 times per second
-            if (colorInput.toLowerCase() === "blue") {
-                clearInterval(displayInterval); // Clear any existing interval
-
-                displayInterval = setInterval(() => {
-                    outputArea.innerHTML += "blue<br>"; // Append "blue" to the output area
-                }, 1000 / 300); // 1000 ms per second divided by frequency (300)
-            } else {
-                outputArea.innerHTML = ""; // Clear output for other input
-            }
-
-            // Clear input field
-            document.getElementById("colorInput").value = "";
-        }
-
-        // Initial display of fruits and numbers
-        updateFruitsOutput();
-        updateNumbersOutput();
-        updateStudentsOutput();
-        updateProductsOutput();
-        updateLibraryOutputs();
-        updateSubjectsOutput();
-        updateCoursesOutput();
+        // Rest of your existing JavaScript code...
+        
+        // You can place the rest of your previous JavaScript functions here
     </script>
 </body>
 </html>
