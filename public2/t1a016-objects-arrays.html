@@ -102,9 +102,64 @@
 <body>
     <h1>JavaScript Objects and Arrays Example</h1>
 
-    <!-- Section for Standalone Objects -->
+    <!-- Section for Array in Object in Array -->
     <section>
-        <h2>1. Standalone Objects</h2>
+        <h2>1. Array in an Object in Array</h2>
+        <div>
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" placeholder="Enter Item Name" value="Default Item Name">
+            <button class="clear-button" onclick="document.getElementById('itemName').value = '';">Clear</button>
+        </div>
+        <div>
+            <label for="itemAge">Age:</label>
+            <input type="number" id="itemAge" placeholder="Enter Age" value="25">
+            <button class="clear-button" onclick="document.getElementById('itemAge').value = '';">Clear</button>
+        </div>
+        <div>
+            <label for="itemColor">Colour:</label>
+            <input type="text" id="itemColor" placeholder="Enter Colour" value="Red">
+            <button class="clear-button" onclick="document.getElementById('itemColor').value = '';">Clear</button>
+        </div>
+        <button onclick="addItem()">Add Item</button>
+        <p><strong>Object Structure:</strong> <span id="arrayInObjectOutput" class="output"></span></p>
+    </section>
+
+    <script>
+        // Example of an array in an object within an array
+        let itemCollection = [];
+
+        // Function to add an item to the collection
+        function addItem() {
+            const itemName = document.getElementById("itemName").value;
+            const itemAge = document.getElementById("itemAge").value;
+            const itemColor = document.getElementById("itemColor").value;
+
+            if (itemName && itemAge && itemColor) {
+                const itemObject = {
+                    name: itemName,
+                    age: itemAge,
+                    color: itemColor,
+                    attributes: [] // Empty array to hold attributes of the item
+                };
+                itemCollection.push(itemObject);
+                document.getElementById("itemName").value = ""; // Clear input field
+                document.getElementById("itemAge").value = ""; // Clear input field
+                document.getElementById("itemColor").value = ""; // Clear input field
+                updateArrayInObjectOutput();
+            }
+        }
+
+        // Function to update the output display for the array in an object within an array
+        function updateArrayInObjectOutput() {
+            document.getElementById("arrayInObjectOutput").innerText = JSON.stringify(itemCollection, null, 2);
+        }
+    </script>
+
+    <!-- Additional sections can go here -->
+    
+    <!-- Example additional section for standalone objects -->
+    <section>
+        <h2>2. Standalone Objects</h2>
         <h3>Person</h3>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" value="John">
@@ -131,114 +186,8 @@
         <p id="carOutput" class="output"></p>
     </section>
 
-    <!-- Section for Arrays -->
-    <section>
-        <h2>2. Arrays</h2>
-        <h3>Fruits</h3>
-        <div id="fruitsInputs" class="array-inputs">
-            <input type="text" id="newFruit" placeholder="Enter new fruit">
-            <button onclick="addFruit()">Add</button>
-            <button class="clear-button" onclick="document.getElementById('newFruit').value = '';">Clear</button>
-        </div>
-        <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
-        <button class="clear-button" onclick="clearFruits()">Clear Fruits</button>
-
-        <h3>Numbers</h3>
-        <div id="numbersInputs" class="array-inputs">
-            <input type="number" id="newNumber" placeholder="Enter new number">
-            <button onclick="addNumber()">Add</button>
-            <button class="clear-button" onclick="document.getElementById('newNumber').value = '';">Clear</button>
-        </div>
-        <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
-        <button class="clear-button" onclick="clearNumbers()">Clear Numbers</button>
-
-        <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
-    </section>
-
-    <!-- Section for Objects in Arrays -->
-    <section>
-        <h2>3. Objects in Arrays</h2>
-        <h3>Students</h3>
-        <div id="studentsInputs">
-            <input type="text" id="studentName" placeholder="Student Name">
-            <button class="clear-button" onclick="document.getElementById('studentName').value = '';">Clear</button>
-            <input type="number" id="studentAge" placeholder="Student Age">
-            <button class="clear-button" onclick="document.getElementById('studentAge').value = '';">Clear</button>
-            <input type="text" id="studentHairColor" placeholder="Hair Color">
-            <button class="clear-button" onclick="document.getElementById('studentHairColor').value = '';">Clear</button>
-            <button onclick="addStudent()">Add Student</button>
-        </div>
-        <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
-
-        <h3>Products</h3>
-        <div id="productsInputs">
-            <input type="text" id="productName" placeholder="Product Name">
-            <button class="clear-button" onclick="document.getElementById('productName').value = '';">Clear</button>
-            <input type="number" id="productPrice" placeholder="Product Price">
-            <button class="clear-button" onclick="document.getElementById('productPrice').value = '';">Clear</button>
-            <input type="text" id="productOrigin" placeholder="Product of Origin">
-            <button class="clear-button" onclick="document.getElementById('productOrigin').value = '';">Clear</button>
-            <button onclick="addProduct()">Add Product</button>
-        </div>
-        <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for Arrays in Objects -->
-    <section>
-        <h2>4. Arrays in Objects</h2>
-        <h3>Library (Authors & Books)</h3>
-        <div>
-            <input type="text" id="authorName" placeholder="Author Name">
-            <button class="clear-button" onclick="document.getElementById('authorName').value = '';">Clear</button>
-            <button onclick="addAuthor()">Add Author</button>
-        </div>
-        <div>
-            <input type="text" id="bookTitle" placeholder="Book Title">
-            <button class="clear-button" onclick="document.getElementById('bookTitle').value = '';">Clear</button>
-            <button onclick="addBook()">Add Book</button>
-        </div>
-        <p><strong>Authors:</strong> <span id="libraryAuthorsOutput" class="output"></span></p>
-        <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for School Subjects -->
-    <section>
-        <h2>5. School Subjects</h2>
-        <h3>Subjects</h3>
-        <div id="subjectsInputs">
-            <input type="text" id="subjectName" placeholder="Subject Name">
-            <button class="clear-button" onclick="document.getElementById('subjectName').value = '';">Clear</button>
-            <button onclick="addSubject()">Add Subject</button>
-        </div>
-        <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section for Array in an Object Example -->
-    <section>
-        <h2>6. Array in an Object Example</h2>
-        <h3>Course with Topics</h3>
-        <div>
-            <input type="text" id="courseName" placeholder="Course Name">
-            <button class="clear-button" onclick="document.getElementById('courseName').value = '';">Clear</button>
-            <input type="text" id="topicInput" placeholder="Enter Topic">
-            <button class="clear-button" onclick="document.getElementById('topicInput').value = '';">Clear</button>
-            <button onclick="addTopic()">Add Topic</button>
-        </div>
-        <p><strong>Course Object:</strong> <span id="courseOutput" class="output"></span></p>
-    </section>
-
-    <!-- Section to Cause a Crash -->
-    <section>
-        <h2>7. Cause a Crash</h2>
-        <h3>Input "red" Below</h3>
-        <div>
-            <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
-            <button onclick="checkCrashInput()">Submit</button>
-        </div>
-    </section>
-
     <script>
-        // Two examples of standalone objects with default values
+        // Example of standalone objects with default values
         let myObject = {
             person: {
                 firstName: "John",
@@ -276,7 +225,33 @@
             myObject.car.model = document.getElementById("carModel").value;
             document.getElementById("carOutput").innerText = `Your car of choice is ${myObject.car.brand} ${myObject.car.model}.`;
         }
+    </script>
 
+    <!-- Section for Arrays -->
+    <section>
+        <h2>3. Arrays</h2>
+        <h3>Fruits</h3>
+        <div id="fruitsInputs" class="array-inputs">
+            <input type="text" id="newFruit" placeholder="Enter new fruit">
+            <button onclick="addFruit()">Add</button>
+            <button class="clear-button" onclick="document.getElementById('newFruit').value = '';">Clear</button>
+        </div>
+        <p><strong>Current Fruits:</strong> <span id="fruitsOutput" class="output"></span></p>
+        <button class="clear-button" onclick="clearFruits()">Clear Fruits</button>
+
+        <h3>Numbers</h3>
+        <div id="numbersInputs" class="array-inputs">
+            <input type="number" id="newNumber" placeholder="Enter new number">
+            <button onclick="addNumber()">Add</button>
+            <button class="clear-button" onclick="document.getElementById('newNumber').value = '';">Clear</button>
+        </div>
+        <p><strong>Current Numbers:</strong> <span id="numbersOutput" class="output"></span></p>
+        <button class="clear-button" onclick="clearNumbers()">Clear Numbers</button>
+
+        <button onclick="shuffleArrays()" aria-label="Shuffle Arrays">Shuffle Arrays</button>
+    </section>
+
+    <script>
         // Example arrays
         let myArray = {
             fruits: ["Apple", "Banana", "Cherry"],
@@ -331,7 +306,37 @@
             myArray.numbers = [];
             updateNumbersOutput();
         }
+    </script>
 
+    <!-- Section for Objects in Arrays -->
+    <section>
+        <h2>4. Objects in Arrays</h2>
+        <h3>Students</h3>
+        <div id="studentsInputs">
+            <input type="text" id="studentName" placeholder="Student Name">
+            <button class="clear-button" onclick="document.getElementById('studentName').value = '';">Clear</button>
+            <input type="number" id="studentAge" placeholder="Student Age">
+            <button class="clear-button" onclick="document.getElementById('studentAge').value = '';">Clear</button>
+            <input type="text" id="studentHairColor" placeholder="Hair Color">
+            <button class="clear-button" onclick="document.getElementById('studentHairColor').value = '';">Clear</button>
+            <button onclick="addStudent()">Add Student</button>
+        </div>
+        <p><strong>Students:</strong> <span id="studentsOutput" class="output"></span></p>
+
+        <h3>Products</h3>
+        <div id="productsInputs">
+            <input type="text" id="productName" placeholder="Product Name">
+            <button class="clear-button" onclick="document.getElementById('productName').value = '';">Clear</button>
+            <input type="number" id="productPrice" placeholder="Product Price">
+            <button class="clear-button" onclick="document.getElementById('productPrice').value = '';">Clear</button>
+            <input type="text" id="productOrigin" placeholder="Product of Origin">
+            <button class="clear-button" onclick="document.getElementById('productOrigin').value = '';">Clear</button>
+            <button onclick="addProduct()">Add Product</button>
+        </div>
+        <p><strong>Products:</strong> <span id="productsOutput" class="output"></span></p>
+    </section>
+
+    <script>
         // Two examples of objects in arrays
         let students = [];
         let products = [];
@@ -373,7 +378,27 @@
         function updateProductsOutput() {
             document.getElementById("productsOutput").innerText = JSON.stringify(products, null, 2);
         }
+    </script>
 
+    <!-- Section for Arrays in Objects -->
+    <section>
+        <h2>5. Arrays in Objects</h2>
+        <h3>Library (Authors & Books)</h3>
+        <div>
+            <input type="text" id="authorName" placeholder="Author Name">
+            <button class="clear-button" onclick="document.getElementById('authorName').value = '';">Clear</button>
+            <button onclick="addAuthor()">Add Author</button>
+        </div>
+        <div>
+            <input type="text" id="bookTitle" placeholder="Book Title">
+            <button class="clear-button" onclick="document.getElementById('bookTitle').value = '';">Clear</button>
+            <button onclick="addBook()">Add Book</button>
+        </div>
+        <p><strong>Authors:</strong> <span id="libraryAuthorsOutput" class="output"></span></p>
+        <p><strong>Books:</strong> <span id="libraryBooksOutput" class="output"></span></p>
+    </section>
+
+    <script>
         // Example object containing arrays for the library
         let library = {
             authors: [],
@@ -405,9 +430,22 @@
             document.getElementById("libraryAuthorsOutput").innerText = library.authors.join(', ');
             document.getElementById("libraryBooksOutput").innerText = library.books.join(', ');
         }
+    </script>
 
-        // New section for school subjects
-        let subjects = [];
+    <!-- Section for School Subjects -->
+    <section>
+        <h2>6. School Subjects</h2>
+        <h3>Subjects</h3>
+        <div id="subjectsInputs">
+            <input type="text" id="subjectName" placeholder="Subject Name">
+            <button class="clear-button" onclick="document.getElementById('subjectName').value = '';">Clear</button>
+            <button onclick="addSubject()">Add Subject</button>
+        </div>
+        <p><strong>Subjects:</strong> <span id="subjectsOutput" class="output"></span></p>
+    </section>
+
+    <script>
+        let subjects = []; // Array to hold subjects
 
         // Function to add a new subject
         function addSubject() {
@@ -423,9 +461,24 @@
         function updateSubjectsOutput() {
             document.getElementById("subjectsOutput").innerText = subjects.join(', ');
         }
+    </script>
 
-        // New section for array in an object example
-        let courseOverview = {};
+    <!-- Section for Array in Object Example -->
+    <section>
+        <h2>7. Array in an Object Example</h2>
+        <h3>Course with Topics</h3>
+        <div>
+            <input type="text" id="courseName" placeholder="Course Name">
+            <button class="clear-button" onclick="document.getElementById('courseName').value = '';">Clear</button>
+            <input type="text" id="topicInput" placeholder="Enter Topic">
+            <button class="clear-button" onclick="document.getElementById('topicInput').value = '';">Clear</button>
+            <button onclick="addTopic()">Add Topic</button>
+        </div>
+        <p><strong>Course Object:</strong> <span id="courseOutput" class="output"></span></p>
+    </section>
+
+    <script>
+        let courseOverview = {}; // Object to hold course topics
 
         // Function to add a topic to a course
         function addTopic() {
@@ -446,7 +499,19 @@
         function updateCourseOutput() {
             document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
         }
+    </script>
 
+    <!-- Section to Cause a Crash -->
+    <section>
+        <h2>8. Cause a Crash</h2>
+        <h3>Input "red" Below</h3>
+        <div>
+            <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
+            <button onclick="checkCrashInput()">Submit</button>
+        </div>
+    </section>
+
+    <script>
         // Function to check input for "red"
         function checkCrashInput() {
             const crashInput = document.getElementById("crashInput").value.trim();
@@ -458,15 +523,6 @@
             }
             document.getElementById("crashInput").value = ""; // Clear input field
         }
-
-        // Initial display of fruits and numbers
-        updateFruitsOutput();
-        updateNumbersOutput();
-        updateStudentsOutput();
-        updateProductsOutput();
-        updateLibraryOutputs();
-        updateSubjectsOutput();
-        updateCourseOutput();
     </script>
 </body>
 
