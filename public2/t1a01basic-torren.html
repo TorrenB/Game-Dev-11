@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Selector</title>
+    <title>Language Selector with Dark Mode</title>
     <style>
+        body {
+            background-color: #09f822;
+            transition: background-color 0.3s, color 0.3s;
+            color: black;
+        }
+        body.dark-mode {
+            background-color: #333;
+            color: white;
+        }
         .dotted-border {
             border: 8px dotted black;
             padding: 10px;
@@ -24,7 +33,7 @@
                 transform: scale(1.5);
             }
         }
-        #button {
+        #randomButton, #timeButton, #dropdownButton, #darkModeButton {
             width: 150px;
             height: 50px;
             border-radius: 5px;
@@ -44,13 +53,22 @@
         select {
             width: 160px;
             height: 40px;
-            margin: 10px auto;
+            margin: 10px;
             display: block;
             font-size: 16px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        #languageLabel {
+            position: absolute;
+            top: 15px;
+            right: 180px;
+            font-size: 18px;
         }
     </style>
 </head>
-<body style="background-color: #09f822;">
+<body>
     <h1 align="center"><div class="dotted-border"><i id="helloWorld">Hello World</i></div></h1><br>
     <h2 align="center"><a id="githubLink" href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file"><b>My Github</b></a></h2><br>
     <img class="zoom" src="https://th.bing.com/th/id/OIP.YjJSBQVO5Cy9RBxwNqfj7AHaJ5?rs=1&pid=ImgDetMain" alt="Zooming Image">
@@ -61,7 +79,12 @@
     <button id="timeButton">Get Time</button>
     <div id="timeResult"></div>
     
-    <label for="languageDropdown" style="text-align: center; display: block; font-size: 18px;">Select Language:</label>
+    <button id="dropdownButton">Translate!</button>
+    <div id="dropdownResult"></div>
+    
+    <button id="darkModeButton">Toggle Dark Mode</button>
+    
+    <label id="languageLabel" for="languageDropdown">Select Language:</label>
     <select id="languageDropdown">
         <option value="en">English</option>
         <option value="es">Spanish</option>
@@ -72,9 +95,6 @@
         <option value="zh">Chinese</option>
         <option value="ru">Russian</option>
     </select>
-    
-    <button id="dropdownButton">Translate!</button>
-    <div id="dropdownResult"></div>
     
     <script>
         const translations = {
@@ -167,14 +187,16 @@
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownResult = document.getElementById('dropdownResult');
         const languageDropdown = document.getElementById('languageDropdown');
+        const darkModeButton = document.getElementById('darkModeButton');
+        const body = document.body;
 
         function updateLanguage(language) {
             document.getElementById('helloWorld').textContent = translations[language].helloWorld;
             document.getElementById('githubLink').textContent = translations[language].githubLink;
             randomButton.textContent = translations[language].clickMe;
             timeButton.textContent = translations[language].getTime;
-            document.querySelector('label[for="languageDropdown"]').textContent = translations[language].selectLanguageText;
             dropdownButton.textContent = translations[language].translate;
+            document.getElementById('languageLabel').textContent = translations[language].selectLanguageText;
         }
 
         randomButton.addEventListener('click', () => {
@@ -202,6 +224,11 @@
             result.textContent = ''; // Clear result
             timeResult.textContent = ''; // Clear time result
             dropdownResult.textContent = ''; // Clear dropdown result
+        });
+
+        darkModeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            darkModeButton.textContent = body.classList.contains('dark-mode') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
         });
 
         // Set the initial language to English
