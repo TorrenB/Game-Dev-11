@@ -1,315 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fetch and Display JSON</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #e9f5e9; /* Light green background */
-        color: #333; /* Dark text color for better readability */
-        margin: 0;
-        padding: 20px;
-    }
-    h2 {
-        color: #2f7a2d; /* Darker green for headings */
-    }
-    label {
-        color: #2f7a2d; /* Darker green for labels */
-    }
-    #jsonImage {
-        max-width: 300px;
-        max-height: 300px;
-        display: block;
-        margin-top: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow for image */
-    }
-    #myDiv1 {
-        white-space: pre-wrap;
-        background-color: #f4fff4; /* Slightly off-white for contrast */
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #c1e1c1; /* Light green border */
-        margin-top: 10px;
-    }
-    #countriesInfo,
-    #pokemonInfo,
-    #launchInfo,
-    #jokeInfo,
-    #triviaInfo {
-        background-color: #f4fff4; /* Slightly off-white for contrast */
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #c1e1c1; /* Light green border */
-        margin-top: 20px;
-    }
-    select {
-        margin-bottom: 20px;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid #2f7a2d; /* Darker green border */
-        background-color: #ffffff; /* White background for select */
-    }
-    button {
-        background-color: #2f7a2d; /* Darker green for buttons */
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    button:hover {
-        background-color: #4caf50; /* Lighter green on hover */
-    }
-    /* Styles for the scrollable box */
-    #infoBox {
-        max-height: 200px;
-        overflow-y: auto;
-        border: 1px solid #c1e1c1; /* Light green border */
-        padding: 10px;
-        background-color: #f4fff4; /* Slightly off-white for contrast */
-        margin-top: 20px;
-        border-radius: 5px;
-        white-space: pre-wrap; /* Ensures that whitespace is preserved */
-    }
-    #funCatFact {
-        margin-top: 20px;
-        background-color: #f0fff0; /* Light green for fun fact box */
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #c1e1c1; /* Light green border */
-    }
-</style>
-<script>
-let currentImageUrl = '';
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Display JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9f5e9; /* Light green background */
+            color: #333; /* Dark text color for better readability */
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #2f7a2d; /* Darker green for headings */
+        }
+        label {
+            color: #2f7a2d; /* Darker green for labels */
+        }
+        select {
+            margin-bottom: 20px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #2f7a2d; /* Darker green border */
+            background-color: #ffffff; /* White background for select */
+        }
+        button {
+            background-color: #2f7a2d; /* Darker green for buttons */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #4caf50; /* Lighter green on hover */
+        }
+        #exchangeRateInfo {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #c1e1c1; /* Light green border */
+            border-radius: 5px;
+            background-color: #f4fff4; /* Slightly off-white for contrast */
+        }
+        #jsonImage {
+            max-width: 300px;
+            max-height: 300px;
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow for image */
+        }
+        #myDiv1 {
+            white-space: pre-wrap;
+            background-color: #f4fff4; /* Slightly off-white for contrast */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #c1e1c1; /* Light green border */
+            margin-top: 10px;
+        }
+        #countriesInfo,
+        #pokemonInfo,
+        #launchInfo,
+        #jokeInfo,
+        #triviaInfo {
+            background-color: #f4fff4; /* Slightly off-white for contrast */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #c1e1c1; /* Light green border */
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        let currentImageUrl = '';
 
-async function fetchJSON(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Network response was not ok');
-      
-        const data = await response.json();
-        
-        // Display relevant JSON data or image
-        if (url === 'https://catfact.ninja/fact') {
-            document.getElementById('funCatFact').innerText = data.fact;
-        } else {
-            formatAndDisplayJSON(data); // Show relevant JSON data
+        async function fetchJSON(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+              
+                const data = await response.json();
+                
+                // Display relevant JSON data or image
+                if (url === 'https://catfact.ninja/fact') {
+                    document.getElementById('funCatFact').innerText = data.fact;
+                } else {
+                    formatAndDisplayJSON(data); // Show relevant JSON data
+                }
+
+                // Handle images
+                if (data.image) {
+                    currentImageUrl = data.image;
+                } else if (data.message) {
+                    currentImageUrl = data.message;
+                } else if (data[0] && data[0].url) {
+                    currentImageUrl = data[0].url;
+                } else if (data.url) {
+                    currentImageUrl = data.url;
+                } else {
+                    currentImageUrl = '';
+                }
+
+                showImage(); // Show the image after fetching
+            } catch (error) {
+                document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
+                currentImageUrl = '';
+                showImage();
+            }
         }
 
-        // Handle images
-        if (data.image) {
-            currentImageUrl = data.image;
-        } else if (data.message) {
-            currentImageUrl = data.message;
-        } else if (data[0] && data[0].url) {
-            currentImageUrl = data[0].url;
-        } else if (data.url) {
-            currentImageUrl = data.url;
-        } else {
-            currentImageUrl = '';
+        function formatAndDisplayJSON(data) {
+            const formattedJSON = JSON.stringify(data, null, 2);
+            document.getElementById("myDiv1").innerText = formattedJSON; // Show entire JSON
         }
 
-        showImage(); // Show the image after fetching
-    } catch (error) {
-        document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
-        currentImageUrl = '';
-        showImage();
-    }
-}
-
-function formatAndDisplayJSON(data) {
-    const formattedJSON = JSON.stringify(data, null, 2);
-    document.getElementById("myDiv1").innerText = formattedJSON; // Show entire JSON
-}
-
-function showImage() {
-    const imgElement = document.getElementById("jsonImage");
-    imgElement.src = currentImageUrl || '';
-    imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available";
-}
-
-async function fetchLatestLaunch() {
-    try {
-        const url = 'https://api.spacexdata.com/v4/launches/latest';
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data) {
-            showLaunchDetails(data); // Show only specific launch details
-            showImage(); // Handle image if applicable
-        } else {
-            document.getElementById('launchMessage').textContent = 'No launch data found!';
+        function showImage() {
+            const imgElement = document.getElementById("jsonImage");
+            imgElement.src = currentImageUrl || '';
+            imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available";
         }
-    } catch (error) {
-        document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
-    }
-}
 
-function showLaunchDetails(data) {
-    // Display only specific launch details
-    document.getElementById('launchInfo').innerHTML = `
-        <h3>Mission Name: ${data.name}</h3>
-        <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
-        <p>Rocket: ${data.rocket}</p>
-        <p>Details: ${data.details || 'No details available.'}</p>
-    `;
-}
+        async function fetchLatestLaunch() {
+            try {
+                const url = 'https://api.spacexdata.com/v4/launches/latest';
+                const response = await fetch(url);
+                const data = await response.json();
 
-async function fetchRandomJoke() {
-    try {
-        const response = await fetch('https://api.chucknorris.io/jokes/random');
-        const data = await response.json();
-        document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
-        document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
-    } catch (error) {
-        document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
-    }
-}
-
-async function fetchCountries() {
-    try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
-        const data = await response.json();
-
-        const countriesList = data.map(country => `${country.name.common} - Capital: ${country.capital ? country.capital[0] : 'N/A'}`).join('<br>');
-        document.getElementById('countriesInfo').innerHTML = `<h3>Countries and Capitals</h3>${countriesList}`;
-    } catch (error) {
-        document.getElementById('countriesInfo').innerText = 'Error fetching countries data!';
-    }
-}
-
-async function fetchRandomPokemon() {
-    try {
-        const randomId = Math.floor(Math.random() * 898) + 1; // Random ID from 1 to 898
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
-        const data = await response.json();
-        showPokemonDetails(data); // Show only specific Pokémon details
-    } catch (error) {
-        document.getElementById('pokemonInfo').innerText = 'Error fetching Pokémon data!';
-    }
-}
-
-function showPokemonDetails(data) {
-    // Display only specific Pokémon details
-    const pokemonInfo = `
-        <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.id})</h3>
-        <p>Height: ${data.height}</p>
-        <p>Weight: ${data.weight}</p>
-        <p>Base Experience: ${data.base_experience}</p>
-        <p>Abilities: ${data.abilities.map(ability => ability.ability.name).join(', ')}</p>
-        <img src="${data.sprites.front_default}" alt="${data.name}" style="max-width: 100px; max-height: 100px;">
-    `;
-    document.getElementById('pokemonInfo').innerHTML = pokemonInfo;
-}
-
-async function fetchTriviaQuestions() {
-    try {
-        const response = await fetch('https://opentdb.com/api.php?amount=10');
-        const data = await response.json();
-
-        if (data.results && data.results.length > 0) {
-            displayTriviaQuestions(data.results);
-        } else {
-            document.getElementById('triviaInfo').innerText = 'No trivia questions found!';
+                if (data) {
+                    showLaunchDetails(data); // Show only specific launch details
+                    showImage(); // Handle image if applicable
+                } else {
+                    document.getElementById('launchMessage').textContent = 'No launch data found!';
+                }
+            } catch (error) {
+                document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+            }
         }
-    } catch (error) {
-        document.getElementById('triviaInfo').innerText = 'Error fetching trivia questions!';
-    }
-}
 
-function displayTriviaQuestions(questions) {
-    const triviaContainer = document.getElementById('triviaInfo');
-    triviaContainer.innerHTML = '<h3>Trivia Questions</h3>';
-    
-    questions.forEach(question => {
-        const questionElement = document.createElement('div');
-        questionElement.innerHTML = `
-            <p><strong>Category:</strong> ${question.category}</p>
-            <p><strong>Question:</strong> ${decodeURIComponent(question.question)}</p>
-            <button onclick="alert('Answer: ${decodeURIComponent(question.correct_answer)}')">Reveal Answer</button>
-            <hr>
-        `;
-        triviaContainer.appendChild(questionElement);
-    });
-}
+        function showLaunchDetails(data) {
+            // Display only specific launch details
+            document.getElementById('launchInfo').innerHTML = `
+                <h3>Mission Name: ${data.name}</h3>
+                <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+                <p>Rocket: ${data.rocket}</p>
+                <p>Details: ${data.details || 'No details available.'}</p>
+            `;
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
-    document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
-    document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
-    document.getElementById('fetchPokemonButton').addEventListener('click', fetchRandomPokemon);
-    document.getElementById('fetchTriviaButton').addEventListener('click', fetchTriviaQuestions);
-});
-</script>
+        async function fetchRandomJoke() {
+            try {
+                const response = await fetch('https://api.chucknorris.io/jokes/random');
+                const data = await response.json();
+                document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
+                document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+            } catch (error) {
+                document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+            }
+        }
+
+        async function fetchCountries() {
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+
+                const countriesList = data.map(country => `${country.name.common} - Capital: ${country.capital ? country.capital[0] : 'N/A'}`).join('<br>');
+                document.getElementById('countriesInfo').innerHTML = `<h3>Countries and Capitals</h3>${countriesList}`;
+            } catch (error) {
+                document.getElementById('countriesInfo').innerText = 'Error fetching countries data!';
+            }
+        }
+
+        async function fetchRandomPokemon() {
+            try {
+                const randomId = Math.floor(Math.random() * 898) + 1; // Random ID from 1 to 898
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+                const data = await response.json();
+                showPokemonDetails(data); // Show only specific Pokémon details
+            } catch (error) {
+                document.getElementById('pokemonInfo').innerText = 'Error fetching Pokémon data!';
+            }
+        }
+
+        function showPokemonDetails(data) {
+            // Display only specific Pokémon details
+            const pokemonInfo = `
+                <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.id})</h3>
+                <p>Height: ${data.height}</p>
+                <p>Weight: ${data.weight}</p>
+                <p>Base Experience: ${data.base_experience}</p>
+                <p>Abilities: ${data.abilities.map(ability => ability.ability.name).join(', ')}</p>
+                <img src="${data.sprites.front_default}" alt="${data.name}" style="max-width: 100px; max-height: 100px;">
+            `;
+            document.getElementById('pokemonInfo').innerHTML = pokemonInfo;
+        }
+
+        async function fetchTriviaQuestions() {
+            try {
+                const response = await fetch('https://opentdb.com/api.php?amount=10');
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    displayTriviaQuestions(data.results);
+                } else {
+                    document.getElementById('triviaInfo').innerText = 'No trivia questions found!';
+                }
+            } catch (error) {
+                document.getElementById('triviaInfo').innerText = 'Error fetching trivia questions!';
+            }
+        }
+
+        function displayTriviaQuestions(questions) {
+            const triviaContainer = document.getElementById('triviaInfo');
+            triviaContainer.innerHTML = '<h3>Trivia Questions</h3>';
+            
+            questions.forEach(question => {
+                const questionElement = document.createElement('div');
+                questionElement.innerHTML = `
+                    <p><strong>Category:</strong> ${question.category}</p>
+                    <p><strong>Question:</strong> ${decodeURIComponent(question.question)}</p>
+                    <button onclick="alert('Answer: ${decodeURIComponent(question.correct_answer)}')">Reveal Answer</button>
+                    <hr>
+                `;
+                triviaContainer.appendChild(questionElement);
+            });
+        }
+
+        async function fetchExchangeRate() {
+            const fromCurrency = document.getElementById('fromCurrency').value.toUpperCase();
+            const toCurrency = document.getElementById('toCurrency').value.toUpperCase();
+
+            try {
+                const response = await fetch(`https://api.coincap.io/v2/assets`);
+                const data = await response.json();
+
+                const fromAsset = data.data.find(asset => asset.symbol === fromCurrency);
+                const toAsset = data.data.find(asset => asset.symbol === toCurrency);
+
+                if (fromAsset && toAsset) {
+                    const exchangeRate = (toAsset.priceUsd / fromAsset.priceUsd).toFixed(4);
+                    document.getElementById('exchangeRateInfo').innerText = `1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`;
+                } else {
+                    document.getElementById('exchangeRateInfo').innerText = 'Invalid currency input!';
+                }
+            } catch (error) {
+                document.getElementById('exchangeRateInfo').innerText = 'Error fetching exchange rate: ' + error.message;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
+            document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
+            document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
+            document.getElementById('fetchPokemonButton').addEventListener('click', fetchRandomPokemon);
+            document.getElementById('fetchTriviaButton').addEventListener('click', fetchTriviaQuestions);
+        });
+    </script>
 </head>
 <body>
-<h2>Fetch and Display JSON</h2>
-<label for="myText">Enter a JSON returning URL:</label>
-<input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)" style="margin-top: 10px;">
-<br><br>
-
-<select size="1" onchange="fetchJSON(this.value)">
-    <option value="https://randomfox.ca/floof/">Random Fox</option>
-    <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
-    <option value="https://aws.random.cat/meow">Random Cat</option>
-    <option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
-    <option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
-    <option value="https://jsonplaceholder.typicode.com/users">Placeholder Users</option>
-    <option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
-    <option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
-    <option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
-    <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info (Bulbasaur)</option>
-    <option value="https://catfact.ninja/fact">Fun Cat Fact</option>
-</select><br><br>
-
-<img id="jsonImage" src="" alt="Fetched Image"><br>
-<div id="myDiv1"></div>
-
-<h2>Fun Cat Fact</h2>
-<div id="funCatFact" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
-
-<h2>Fetch Latest SpaceX Launch</h2>
-<button id="fetchLaunchButton">Fetch Latest Launch</button>
-<div id="launchInfo"></div>
-<div id="launchMessage"></div>
-
-<h2>Fetch Random Joke</h2>
-<button id="fetchJokeButton">Fetch Random Joke</button>
-<div id="jokeInfo"></div>
-<div id="jokeMessage"></div>
-
-<h2>Fetch All Countries</h2>
-<button id="fetchCountriesButton">Fetch Countries</button>
-<div id="countriesInfo"></div>
-
-<h2>Fetch Random Pokémon</h2>
-<button id="fetchPokemonButton">Fetch Random Pokémon</button>
-<div id="pokemonInfo"></div>
-
-<h2>Fetch Trivia Questions</h2>
-<button id="fetchTriviaButton">Fetch Trivia Questions</button>
-<div id="triviaInfo"></div>
-
-<div id="infoBox">
-    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
+    <h2>Fetch and Display JSON</h2>
+    <label for="myText">Enter a JSON returning URL:</label>
+    <input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)" style="margin-top: 10px;">
     <br><br>
-    <strong>Here’s the Deal:</strong>
-    <ol>
-        <li><strong>Format</strong>:<br>
-        JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
-        <li><strong>Structure</strong>:<br>
-        JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
-        <li><strong>Execution</strong>:<br>
-        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
-        <li><strong>File Extension</strong>:<br>
-        JSON files usually end in .json, while JavaScript files end in .js.</li>
-    </ol>
-    So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
-</div>
+
+    <!-- Currency Conversion Section -->
+    <h2>Currency Exchange Rate</h2>
+    <label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
+    <input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+    
+    <label for="toCurrency">To Currency (e.g., USD, EUR):</label>
+    <input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+    
+    <button onclick="fetchExchangeRate()">Get Exchange Rate</button>
+    <div id="exchangeRateInfo"></div>
+
+    <h2>Fun Cat Fact</h2>
+    <div id="funCatFact" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
+
+    <h2>Fetch Latest SpaceX Launch</h2>
+    <button id="fetchLaunchButton">Fetch Latest Launch</button>
+    <div id="launchInfo"></div>
+    <div id="launchMessage"></div>
+
+    <h2>Fetch Random Joke</h2>
+    <button id="fetchJokeButton">Fetch Random Joke</button>
+    <div id="jokeInfo"></div>
+    <div id="jokeMessage"></div>
+
+    <h2>Fetch All Countries</h2>
+    <button id="fetchCountriesButton">Fetch Countries</button>
+    <div id="countriesInfo"></div>
+
+    <h2>Fetch Random Pokémon</h2>
+    <button id="fetchPokemonButton">Fetch Random Pokémon</button>
+    <div id="pokemonInfo"></div>
+
+    <h2>Fetch Trivia Questions</h2>
+    <button id="fetchTriviaButton">Fetch Trivia Questions</button>
+    <div id="triviaInfo"></div>
+
+    <div id="infoBox">
+        <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
+        <br><br>
+        <strong>Here’s the Deal:</strong>
+        <ol>
+            <li><strong>Format</strong>:<br>
+            JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
+            <li><strong>Structure</strong>:<br>
+            JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
+            <li><strong>Execution</strong>:<br>
+            JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
+            <li><strong>File Extension</strong>:<br>
+            JSON files usually end in .json, while JavaScript files end in .js.</li>
+        </ol>
+        So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
+    </div>
+    <img id="jsonImage" src="" alt="Fetched Image"><br>
+    <div id="myDiv1"></div>
 </body>
 </html>
