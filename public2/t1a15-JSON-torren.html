@@ -1,136 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch and Display JSON</title>
-    <style>
-        #jsonImage { max-width: 300px; max-height: 300px; display: block; margin-top: 10px; }
-        #funCatFact { white-space: pre-wrap; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px; padding: 10px; }
-        #countriesInfo, #pokemonInfo { margin-top: 20px; }
-        select { margin-bottom: 20px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fetch and Display JSON</title>
+<style>
+#jsonImage { max-width: 300px; max-height: 300px; display: block; margin-top: 10px; }
+#myDiv1 { white-space: pre-wrap; background-color: #f4f4f4; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; }
+#countriesInfo, #pokemonInfo { margin-top: 20px; }
+select { margin-bottom: 20px; }
 
-        /* Styles for the scrollable box */
-        #infoBox {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background-color: #f9f9f9;
-            margin-top: 20px;
-            border-radius: 5px;
-            white-space: pre-wrap; /* Ensures that whitespace is preserved */
-        }
-    </style>
-    <script>
-        let currentImageUrl = '';
+/* Styles for the scrollable box */
+#infoBox {
+max-height: 200px;
+overflow-y: auto;
+border: 1px solid #ccc;
+padding: 10px;
+background-color: #f9f9f9;
+margin-top: 20px;
+border-radius: 5px;
+white-space: pre-wrap; /* Ensures that whitespace is preserved */
+}
 
-        async function fetchJSON(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
+        #funCatFact { margin-top: 20px; background-color: #e0f7fa; padding: 10px; border-radius: 5px; }
+</style>
+<script>
+let currentImageUrl = '';
 
-                const data = await response.json();
+async function fetchJSON(url) {
+try {
+const response = await fetch(url);
+if (!response.ok) throw new Error('Network response was not ok');
                 
-                // Display the JSON response in the funCatFact box
-                formatAndDisplayJSON(data);  
 
-                // Handle images based on the data received
-                if (data.image) {
-                    currentImageUrl = data.image; // For Random Fox
-                } else if (data.message) {
-                    currentImageUrl = data.message; // For Random Dog and similar APIs
-                } else if (data[0] && data[0].url) {
-                    currentImageUrl = data[0].url; // For Cat API (array response)
-                } else if (data.url) {
-                    currentImageUrl = data.url; // If there is a direct image URL
-                } else {
-                    currentImageUrl = ''; // Reset image if no image URL found
+const data = await response.json();
+formatAndDisplayJSON(data);  // Display formatted JSON
+                
+                if (url === 'https://catfact.ninja/fact') {
+                    // Specifically handle the fun cat fact
+                    document.getElementById('funCatFact').innerText = data.fact; // Show the cat fact
+                    return; // Exit after handling fun cat fact
                 }
 
-                showImage(); // Show the image after fetching
+                // Determine what to show based on the fetched data
+                // Handle images based on the data received
+if (data.image) {
+currentImageUrl = data.image; // For Random Fox
+} else if (data.message) {
+currentImageUrl = data.message; // For Random Dog and similar APIs
+} else if (data[0] && data[0].url) {
+currentImageUrl = data[0].url; // For Cat API (array response)
+} else if (data.url) {
+currentImageUrl = data.url; // If there is a direct image URL
+} else {
+currentImageUrl = ''; // Reset image if no image URL found
+}
+
+showImage(); // Show the image after fetching
+} catch (error) {
+document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
+currentImageUrl = ''; // Reset image if an error occurs
+showImage();
+}
+}
+
+function formatAndDisplayJSON(data) {
+const formattedJSON = JSON.stringify(data, null, 2); // Pretty print JSON
+document.getElementById("myDiv1").innerText = formattedJSON;
+}
+
+function showImage() {
+const imgElement = document.getElementById("jsonImage");
+imgElement.src = currentImageUrl || ''; // Set image source
+imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available"; // Set alt attribute
+}
+
+        async function fetchLatestLaunch() {
+            try {
+                const url = 'https://api.spacexdata.com/v4/launches/latest';
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data) {
+                    formatAndDisplayJSON(data); // Display the JSON for the latest launch
+                    showImage(); // Make sure to handle image from the response if applicable
+                    
+                    document.getElementById('launchInfo').innerHTML = `
+                        <h3>Mission Name: ${data.name}</h3>
+                        <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+                        <p>Rocket: ${data.rocket}</p>
+                        <p>Details: ${data.details || 'No details available.'}</p>
+                    `;
+                    document.getElementById('launchMessage').textContent = 'Launch details fetched successfully!';
+                } else {
+                    document.getElementById('launchMessage').textContent = 'No launch data found!';
+                }
             } catch (error) {
-                document.getElementById("funCatFact").innerText = 'Error fetching data: ' + error.message;
-                currentImageUrl = ''; // Reset image if an error occurs
-                showImage();
+                document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
             }
         }
 
-        function formatAndDisplayJSON(data) {
-            const formattedJSON = JSON.stringify(data, null, 2); // Pretty print JSON
-            document.getElementById("funCatFact").innerText = formattedJSON; // Display the formatted JSON
+        async function fetchRandomJoke() {
+            try {
+                const response = await fetch('https://api.chucknorris.io/jokes/random');
+                const data = await response.json();
+                formatAndDisplayJSON(data); // Display the joke JSON
+                document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
+                document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+            } catch (error) {
+                document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+            }
         }
 
-        function showImage() {
-            const imgElement = document.getElementById("jsonImage");
-            imgElement.src = currentImageUrl || ''; // Set image source
-            imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available"; // Set alt attribute
+        async function fetchCountries() {
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+                formatAndDisplayJSON(data); // Display the countries JSON
+
+                const countriesList = data.map(country => `${country.name.common} - Capital: ${country.capital ? country.capital[0] : 'N/A'}`).join('<br>');
+                document.getElementById('countriesInfo').innerHTML = `<h3>Countries and Capitals</h3>${countriesList}`;
+            } catch (error) {
+                document.getElementById('countriesInfo').innerText = 'Error fetching countries data!';
+            }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
-            document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
-            document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
-            document.getElementById('fetchPokemonButton').addEventListener('click', fetchPokemon);
-        });
-    </script>
+        async function fetchPokemon() {
+            try {
+                const response = await fetch('https://pokeapi.co/api/v2/pokemon/1');
+                const data = await response.json();
+                formatAndDisplayJSON(data); // Display the Pokémon JSON
+                
+                const pokemonInfo = `
+                    <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.id})</h3>
+                    <p>Height: ${data.height}</p>
+                    <p>Weight: ${data.weight}</p>
+                    <p>Base Experience: ${data.base_experience}</p>
+                    <p>Abilities: ${data.abilities.map(ability => ability.ability.name).join(', ')}</p>
+                    <img src="${data.sprites.front_default}" alt="${data.name}" style="max-width: 100px; max-height: 100px;">
+                `;
+                document.getElementById('pokemonInfo').innerHTML = pokemonInfo;
+            } catch (error) {
+                document.getElementById('pokemonInfo').innerText = 'Error fetching Pokémon data!';
+            }
+        }
+
+document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
+document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
+document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
+document.getElementById('fetchPokemonButton').addEventListener('click', fetchPokemon);
+});
+</script>
 </head>
 <body>
-    <h2>Fetch and Display JSON</h2>
-    <label for="myText">Enter a JSON returning URL:</label>
-    <input type="text" id="myText" value="https://randomfox.ca/floof/">
-    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
-    
-    <select size="1" onchange="fetchJSON(this.value)">
-        <option value="https://randomfox.ca/floof/">Random Fox</option>
-        <option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
-        <option value="https://aws.random.cat/meow">Random Cat</option>
-        <option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
-        <option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
-        <option value="https://jsonplaceholder.typicode.com/users">Placeholder Users</option>
-        <option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
-        <option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
-        <option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
-        <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info</option>
+<h2>Fetch and Display JSON</h2>
+<label for="myText">Enter a JSON returning URL:</label>
+<input type="text" id="myText" value="https://randomfox.ca/floof/">
+<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)"><br><br>
+
+<select size="1" onchange="fetchJSON(this.value)">
+<option value="https://randomfox.ca/floof/">Random Fox</option>
+<option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+<option value="https://aws.random.cat/meow">Random Cat</option>
+<option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
+<option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
+<option value="https://jsonplaceholder.typicode.com/users">Placeholder Users</option>
+<option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
+<option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
+<option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
+<option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info</option>
         <option value="https://catfact.ninja/fact">Fun Cat Fact</option>
-    </select><br><br>
+</select><br><br>
 
-    <img id="jsonImage" src="" alt="Fetched Image"><br>
-    <div id="funCatFact"></div> <!-- Modernized to show all JSON outputs -->
-    
-    <h2>Fetch Latest SpaceX Launch</h2>
-    <button id="fetchLaunchButton">Fetch Latest Launch</button>
-    <div id="launchInfo"></div>
-    <div id="launchMessage"></div>
+<img id="jsonImage" src="" alt="Fetched Image"><br>
+<div id="myDiv1"></div>
 
-    <h2>Fetch Random Joke</h2>
-    <button id="fetchJokeButton">Fetch Random Joke</button>
-    <div id="jokeInfo"></div>
-    <div id="jokeMessage"></div>
+    <h2>Fun Cat Fact</h2>
+    <div id="funCatFact" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0;"></div>
 
-    <h2>Fetch All Countries</h2>
-    <button id="fetchCountriesButton">Fetch Countries</button>
-    <div id="countriesInfo"></div>
+<h2>Fetch Latest SpaceX Launch</h2>
+<button id="fetchLaunchButton">Fetch Latest Launch</button>
+<div id="launchInfo"></div>
+<div id="launchMessage"></div>
 
-    <h2>Fetch Pokémon Info</h2>
-    <button id="fetchPokemonButton">Fetch Pokémon</button>
-    <div id="pokemonInfo"></div>
+<h2>Fetch Random Joke</h2>
+<button id="fetchJokeButton">Fetch Random Joke</button>
+<div id="jokeInfo"></div>
+<div id="jokeMessage"></div>
 
-    <div id="infoBox">
-        <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
-        <br><br>
-        <strong>Here’s the Deal:</strong>
-        <ol>
-            <li><strong>Format</strong>:<br>
-                JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
-            <li><strong>Structure</strong>:<br>
-                JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
-            <li><strong>Execution</strong>:<br>
-                JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
-            <li><strong>File Extension</strong>:<br>
-                JSON files usually end in .json, while JavaScript files end in .js.</li>
-        </ol>
-        So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
-    </div>
+<h2>Fetch All Countries</h2>
+<button id="fetchCountriesButton">Fetch Countries</button>
+<div id="countriesInfo"></div>
+
+<h2>Fetch Pokémon Info</h2>
+<button id="fetchPokemonButton">Fetch Pokémon</button>
+<div id="pokemonInfo"></div>
+
+    <!-- Scrollable Info Box -->
+<div id="infoBox">
+<strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
+<br><br>
+<strong>Here’s the Deal:</strong>
+<ol>
+<li><strong>Format</strong>:<br>
+JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
+<li><strong>Structure</strong>:<br>
+JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
+<li><strong>Execution</strong>:<br>
+JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
+<li><strong>File Extension</strong>:<br>
+JSON files usually end in .json, while JavaScript files end in .js.</li>
+</ol>
+So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
+</div>
 </body>
 </html>
