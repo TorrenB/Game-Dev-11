@@ -83,7 +83,6 @@
     }
 </style>
 <script>
-// [JavaScript code from previous version remains the same]
 let currentImageUrl = '';
 
 async function fetchJSON(url) {
@@ -122,7 +121,6 @@ async function fetchJSON(url) {
 }
 
 function formatAndDisplayJSON(data) {
-    // For dropdown options, show the formatted JSON
     const formattedJSON = JSON.stringify(data, null, 2);
     document.getElementById("myDiv1").innerText = formattedJSON; // Show entire JSON
 }
@@ -183,9 +181,10 @@ async function fetchCountries() {
     }
 }
 
-async function fetchPokemon() {
+async function fetchRandomPokemon() {
     try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon/1');
+        const randomId = Math.floor(Math.random() * 898) + 1; // Random ID from 1 to 898
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
         const data = await response.json();
         showPokemonDetails(data); // Show only specific Pokémon details
     } catch (error) {
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
     document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
     document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
-    document.getElementById('fetchPokemonButton').addEventListener('click', fetchPokemon);
+    document.getElementById('fetchPokemonButton').addEventListener('click', fetchRandomPokemon);
 });
 </script>
 </head>
@@ -231,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
     <option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
     <option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
-    <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info</option>
+    <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info (Bulbasaur)</option>
     <option value="https://catfact.ninja/fact">Fun Cat Fact</option>
 </select><br><br>
 
@@ -255,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <button id="fetchCountriesButton">Fetch Countries</button>
 <div id="countriesInfo"></div>
 
-<h2>Fetch Pokémon Info</h2>
-<button id="fetchPokemonButton">Fetch Pokémon</button>
+<h2>Fetch Random Pokémon</h2>
+<button id="fetchPokemonButton">Fetch Random Pokémon</button>
 <div id="pokemonInfo"></div>
 
 <div id="infoBox">
