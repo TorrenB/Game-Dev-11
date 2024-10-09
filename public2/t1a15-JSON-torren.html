@@ -18,12 +18,12 @@
         label {
             color: #2f7a2d; /* Darker green for labels */
         }
-        select {
+        input, select {
             margin-bottom: 20px;
             padding: 5px;
             border-radius: 5px;
             border: 1px solid #2f7a2d; /* Darker green border */
-            background-color: #ffffff; /* White background for select */
+            background-color: #ffffff; /* White background for input/select */
         }
         button {
             background-color: #2f7a2d; /* Darker green for buttons */
@@ -36,13 +36,6 @@
         }
         button:hover {
             background-color: #4caf50; /* Lighter green on hover */
-        }
-        #exchangeRateInfo {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            border-radius: 5px;
-            background-color: #f4fff4; /* Slightly off-white for contrast */
         }
         #jsonImage {
             max-width: 300px;
@@ -60,16 +53,12 @@
             border: 1px solid #c1e1c1; /* Light green border */
             margin-top: 10px;
         }
-        #countriesInfo,
-        #pokemonInfo,
-        #launchInfo,
-        #jokeInfo,
-        #triviaInfo {
-            background-color: #f4fff4; /* Slightly off-white for contrast */
+        #userInfo {
+            margin-top: 10px;
             padding: 10px;
+            border: 1px solid #c1e1c1;
             border-radius: 5px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            margin-top: 20px;
+            background-color: #f4fff4; /* Slightly off-white for contrast */
         }
     </style>
     <script>
@@ -79,46 +68,35 @@
             try {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
-              
                 const data = await response.json();
-                
-                // Display relevant JSON data or image
-                if (url === 'https://catfact.ninja/fact') {
-                    document.getElementById('funCatFact').innerText = data.fact;
-                } else {
-                    formatAndDisplayJSON(data); // Show relevant JSON data
-                }
-
-                // Handle images
-                if (data.image) {
-                    currentImageUrl = data.image;
-                } else if (data.message) {
-                    currentImageUrl = data.message;
-                } else if (data[0] && data[0].url) {
-                    currentImageUrl = data[0].url;
-                } else if (data.url) {
-                    currentImageUrl = data.url;
-                } else {
-                    currentImageUrl = '';
-                }
-
-                showImage(); // Show the image after fetching
+                formatAndDisplayJSON(data); // Show relevant JSON data
             } catch (error) {
                 document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
                 currentImageUrl = '';
-                showImage();
             }
         }
 
         function formatAndDisplayJSON(data) {
             const formattedJSON = JSON.stringify(data, null, 2);
             document.getElementById("myDiv1").innerText = formattedJSON; // Show entire JSON
+
+            // Example to extract user info if coming from Random User API
+            if (data && data.name) {
+                const { first, last } = data.name;
+                const email = data.email;
+                
+                // Display user-friendly info
+                document.getElementById("userInfo").innerHTML = `
+                    <h3>User Info</h3>
+                    <p>Name: ${first} ${last}</p>
+                    <p>Email: ${email}</p>
+                `;
+            }
         }
 
-        function showImage() {
-            const imgElement = document.getElementById("jsonImage");
-            imgElement.src = currentImageUrl || '';
-            imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available";
+        async function fetchRandomUser() {
+            const url = 'https://random-data-api.com/api/users/random_user';
+            await fetchJSON(url);
         }
 
         async function fetchLatestLaunch() {
@@ -126,15 +104,9 @@
                 const url = 'https://api.spacexdata.com/v4/launches/latest';
                 const response = await fetch(url);
                 const data = await response.json();
-
-                if (data) {
-                    showLaunchDetails(data); // Show only specific launch details
-                    showImage(); // Handle image if applicable
-                } else {
-                    document.getElementById('launchMessage').textContent = 'No launch data found!';
-                }
+                showLaunchDetails(data); // Show only specific launch details
             } catch (error) {
-                document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+                document.getElementById('launchInfo').textContent = 'Error fetching launch data!';
             }
         }
 
@@ -249,6 +221,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('fetchUserButton').addEventListener('click', fetchRandomUser);
             document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
             document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
             document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
@@ -258,20 +231,20 @@
     </script>
 </head>
 <body>
-    <h2>Fetch and Display JSON</h2>
-    <label for="myText">Enter a JSON returning URL:</label>
-    <input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-    <input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)" style="margin-top: 10px;">
-    <br><br>
+    <h2>Fetch Random User Data</h2>
+    <button id="fetchUserButton">Fetch Random User</button>
+    <div id="userInfo"></div> <!-- To display user-friendly data -->
 
-    <!-- Currency Conversion Section -->
-    <h2>Currency Exchange Rate (only online currency as I could not find one for flat currency's)</h2>
+    <div id="myDiv1"></div> <!-- Display raw JSON here -->
+    <img id="jsonImage" src="" alt="Fetched Image"><br>
+
+    <h2>Currency Exchange Rate</h2>
     <label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
-    <input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-    
+    <input type="text" id="fromCurrency" placeholder="Enter currency symbol">
+
     <label for="toCurrency">To Currency (e.g., BTC, ETH):</label>
-    <input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-    
+    <input type="text" id="toCurrency" placeholder="Enter currency symbol">
+
     <button onclick="fetchExchangeRate()">Get Exchange Rate</button>
     <div id="exchangeRateInfo"></div>
 
@@ -316,7 +289,5 @@
         </ol>
         So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
     </div>
-    <img id="jsonImage" src="" alt="Fetched Image"><br>
-    <div id="myDiv1"></div>
 </body>
 </html>
