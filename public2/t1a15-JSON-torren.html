@@ -6,7 +6,7 @@
     <title>Fetch and Display JSON</title>
     <style>
         #jsonImage { max-width: 300px; max-height: 300px; display: block; margin-top: 10px; }
-        #myDiv1 { white-space: pre-wrap; background-color: #f4f4f4; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 10px; }
+        #funCatFact { white-space: pre-wrap; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px; padding: 10px; }
         #countriesInfo, #pokemonInfo { margin-top: 20px; }
         select { margin-bottom: 20px; }
 
@@ -21,8 +21,6 @@
             border-radius: 5px;
             white-space: pre-wrap; /* Ensures that whitespace is preserved */
         }
-
-        #funCatFact { margin-top: 20px; background-color: #e0f7fa; padding: 10px; border-radius: 5px; }
     </style>
     <script>
         let currentImageUrl = '';
@@ -33,13 +31,9 @@
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const data = await response.json();
-                formatAndDisplayJSON(data);  // Display formatted JSON
                 
-                if (url === 'https://catfact.ninja/fact') {
-                    // Specifically handle the fun cat fact
-                    document.getElementById('funCatFact').innerText = data.fact; // Show the cat fact
-                    return; // Exit after handling fun cat fact
-                }
+                // Display the JSON response in the funCatFact box
+                formatAndDisplayJSON(data);  
 
                 // Handle images based on the data received
                 if (data.image) {
@@ -56,7 +50,7 @@
 
                 showImage(); // Show the image after fetching
             } catch (error) {
-                document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
+                document.getElementById("funCatFact").innerText = 'Error fetching data: ' + error.message;
                 currentImageUrl = ''; // Reset image if an error occurs
                 showImage();
             }
@@ -64,7 +58,7 @@
 
         function formatAndDisplayJSON(data) {
             const formattedJSON = JSON.stringify(data, null, 2); // Pretty print JSON
-            document.getElementById("myDiv1").innerText = formattedJSON;
+            document.getElementById("funCatFact").innerText = formattedJSON; // Display the formatted JSON
         }
 
         function showImage() {
@@ -102,11 +96,8 @@
     </select><br><br>
 
     <img id="jsonImage" src="" alt="Fetched Image"><br>
-    <div id="myDiv1"></div>
+    <div id="funCatFact"></div> <!-- Modernized to show all JSON outputs -->
     
-    <h2>Fun Cat Fact</h2>
-    <div id="funCatFact" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f0f0f0;"></div>
-
     <h2>Fetch Latest SpaceX Launch</h2>
     <button id="fetchLaunchButton">Fetch Latest Launch</button>
     <div id="launchInfo"></div>
