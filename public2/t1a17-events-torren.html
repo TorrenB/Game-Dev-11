@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Events Demo</title>
     <style>
+        /* Add existing CSS styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4; /* Light gray background */
@@ -98,6 +99,12 @@
             margin-top: 20px;
             font-weight: bold;
             color: #343A40; /* Black text for mouse position */
+        }
+
+        /* CPS Test Styles */
+        .cps-test-box {
+            width: 300px;
+            text-align: center;
         }
 
         /* Responsive Styles */
@@ -205,10 +212,40 @@
         <p class="result" id="keyUpResult"></p>
         <p class="result" id="keyPressResult"></p> <!-- Show the last key pressed -->
     </div>
+
+    <!-- CPS Test Section -->
+    <div class="cps-test-box event-box">
+        <h3 class="color-shade-blue" style="font-style: italic;">CPS Test</h3>
+        <button id="startCpsTestButton" onclick="startCpsTest()">Start Test</button>
+        <p class="result" id="cpsResult"></p>
+    </div>
+
 </div>
 
 <script>
     let hasInput = false;
+    let clickCount = 0;
+    let testInterval;
+
+    // Start CPS Test
+    function startCpsTest() {
+        clickCount = 0; // Reset click count
+        const resultElement = document.getElementById('cpsResult');
+        resultElement.textContent = 'You have 10 seconds. Start clicking!';
+        clearTimeout(testInterval); // Clear previous interval if one exists
+
+        // Add click event listener
+        const button = document.getElementById('startCpsTestButton');
+        button.onclick = () => {
+            clickCount++;
+        };
+
+        setTimeout(() => {
+            button.onclick = null; // Disable clicking after test ends
+            const cps = clickCount / 10; // Calculate CPS
+            resultElement.textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
+        }, 10000); // Test runs for 10 seconds
+    }
 
     // Function to clear blur effect
     function clearBlur() {
