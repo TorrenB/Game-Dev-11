@@ -109,6 +109,25 @@
             text-align: center;
         }
 
+        /* Countdown Timer Styles */
+        .countdown {
+            font-size: 1.5em;
+            color: #FFC107; /* Light yellow color for countdown */
+            margin: 10px 0; /* Vertical margin for spacing */
+        }
+
+        /* Current CPS Tracker */
+        .current-cps {
+            font-size: 1.2em;
+            color: #28A745; /* Green color for current CPS */
+        }
+
+        /* Best CPS Tracker */
+        .best-cps {
+            font-size: 1.2em;
+            color: #DC3545; /* Red color for best CPS */
+        }
+
         /* Responsive Styles */
         @media (max-width: 600px) {
             .event-box {
@@ -219,22 +238,35 @@
     <div class="cps-test-box event-box">
         <h3 class="color-shade-blue" style="font-style: italic;">CPS Test</h3>
         <button id="startCpsTestButton" onclick="startCpsTest()">Start Test</button>
-        <p class="result" id="cpsResult"></p>
+        <div class="countdown" id="cpsCountdown">10</div>
+        <div class="current-cps" id="currentCpsDisplay">Current CPS: 0</div>
+        <div class="best-cps" id="bestCpsDisplay">Best CPS: 0</div>
     </div>
 
 </div>
 
 <script>
-    let hasInput = false;
     let clickCount = 0;
     let testInterval;
+    let countdownInterval;
+    let bestCps = 0;
+    let cpsTracking = 0;
 
     // Start CPS Test
     function startCpsTest() {
         clickCount = 0; // Reset click count
-        const resultElement = document.getElementById('cpsResult');
-        resultElement.textContent = 'You have 10 seconds. Start clicking!';
+        cpsTracking = 0; // Reset cps tracking
+        const resultElement = document.getElementById('currentCpsDisplay');
+        const countdownElement = document.getElementById('cpsCountdown');
+        const bestCpsElement = document.getElementById('bestCpsDisplay');
+        
         clearTimeout(testInterval); // Clear previous interval if one exists
+        clearInterval(countdownInterval); // Clear previous countdown if one exists
+
+        // Reset UI before starting the test
+        resultElement.textContent = 'Current CPS: 0';
+        countdownElement.textContent = '10'; // Set for 10 seconds countdown
+        bestCpsElement.textContent = `Best CPS: ${bestCps}`; // Display best CPS
 
         // Add click event listener
         const button = document.getElementById('startCpsTestButton');
@@ -242,35 +274,40 @@
             clickCount++;
         };
 
-        setTimeout(() => {
-            button.onclick = null; // Disable clicking after test ends
-            const cps = clickCount / 10; // Calculate CPS
-            resultElement.textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
-        }, 10000); // Test runs for 10 seconds
-    }
+        // Start countdown
+        let timeLeft = 10; // 10 seconds countdown
+        countdownElement.textContent = timeLeft;
 
-    // Function to clear blur effect
-    function clearBlur() {
-        const inputField = document.getElementById('blurInput');
-        inputField.style.filter = 'none';  // Clear the blur effect
-        hasInput = false; // Reset the input modified state
-    }
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdownElement.textContent = timeLeft;
 
-    // Function to mark input as modified
-    function inputModified() {
-        hasInput = true; // Mark that the input has been modified
-    }
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                button.onclick = null; // Disable clicking after test ends
+                clearTimeout(testInterval);
+                
+                const cps = clickCount / 10; // Calculate CPS
+                if (cps > bestCps) {
+                    bestCps = cps; // Update best CPS
+                }
+                resultElement.textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
 
-    // Function to apply blur effect if input has been modified
-    function applyBlur() {
-        if (hasInput) {
-            const inputField = document.getElementById('blurInput');
-            inputField.style.filter = 'blur(4px)'; // Apply a blur effect
-            hasInput = false; // Reset input modified state
-        }
-    }
+                // Update best CPS tracker
+                bestCpsElement.textContent = `Best CPS: ${bestCps.toFixed(2)}`;
 
-    const eventCounts = {};
+                // Reset the button for another attempt
+                button.innerHTML = 'Start Test Again';
+                button.onclick = startCpsTest; // Re-enable clicking for another test
+            }
+        }, 1000); // Update countdown every second
+
+        // Update current CPS display
+        testInterval = setInterval(() => {
+            const currentCps = clickCount / (10 - timeLeft); // Calculate current CPS
+            resultElement.textContent = `Current CPS: ${currentCps.toFixed(2)}`;
+        }, 100); // Update every 100 milliseconds
+    }
 
     // Function to change button color when clicked
     function changeButtonColor(button) {
@@ -294,6 +331,8 @@
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         button.style.backgroundColor = randomColor;
     }
+
+    const eventCounts = {};
 
     function incrementEventCount(event) {
         if (!eventCounts[event]) {
