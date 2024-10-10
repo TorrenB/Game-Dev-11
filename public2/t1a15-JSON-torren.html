@@ -3,62 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch and Display JSON</title>
-    <title>Christmas Themed JSON Fetcher</title>
+<title>Fetch and Display JSON</title>
 <style>
 body {
-            font-family: Arial, sans-serif;
-            background-color: #e9f5e9; /* Light green background */
-            color: #333; /* Dark text color for better readability */
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9; /* Light background for a clean look */
-            color: #4a4a4a; /* Dark text for better readability */
+font-family: Arial, sans-serif;
+background-color: #e9f5e9; /* Light green background */
+color: #333; /* Dark text color for better readability */
 margin: 0;
 padding: 20px;
 }
 h2 {
-            color: #2f7a2d; /* Darker green for headings */
-            color: #d32f2f; /* Festive red for headings */
-            text-shadow: 1px 1px 2px #fff; /* Light shadow for a festive look */
+color: #2f7a2d; /* Darker green for headings */
 }
 label {
-            color: #2f7a2d; /* Darker green for labels */
-            color: #2e7d32; /* Dark green for labels */
-}
-select {
-margin-bottom: 20px;
-padding: 5px;
-border-radius: 5px;
-            border: 1px solid #2f7a2d; /* Darker green border */
-            background-color: #ffffff; /* White background for select */
-            border: 2px solid #d32f2f; /* Festive red border */
-            background-color: #fff; /* White background for select */
-}
-button {
-            background-color: #2f7a2d; /* Darker green for buttons */
-            background-color: #d32f2f; /* Festive red for buttons */
-color: white;
-border: none;
-padding: 10px 15px;
-border-radius: 5px;
-cursor: pointer;
-margin-top: 10px;
-            transition: background-color 0.3s; /* Smooth hover effect */
-}
-button:hover {
-            background-color: #4caf50; /* Lighter green on hover */
-            background-color: #b71c1c; /* Darker red on hover */
-}
-        #exchangeRateInfo {
-        #exchangeRateInfo, #catFactInfo, #myDiv1 {
-margin-top: 20px;
-padding: 10px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            border: 2px solid #d1c4e9; /* Light gold border */
-border-radius: 5px;
-            background-color: #f4fff4; /* Slightly off-white for contrast */
-            background-color: #fff; /* White background for contrast */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+color: #2f7a2d; /* Darker green for labels */
 }
 #jsonImage {
 max-width: 300px;
@@ -68,34 +26,64 @@ margin-top: 10px;
 border-radius: 8px;
 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow for image */
 }
-        #myDiv1 {
-            white-space: pre-wrap;
-            background-color: #f4fff4; /* Slightly off-white for contrast */
-            padding: 10px;
-        #infoBox {
-            padding: 15px;
-            border: 2px solid #d32f2f; /* Festive red border */
-            background-color: #ffebee; /* Light pink background */
-            color: #d32f2f; /* Dark red text */
-            margin-top: 30px;
+#myDiv1 {
+white-space: pre-wrap;
+background-color: #f4fff4; /* Slightly off-white for contrast */
+padding: 10px;
 border-radius: 5px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            margin-top: 10px;
-        }
-        #countriesInfo,
-        #pokemonInfo,
-        #launchInfo,
-        #jokeInfo,
-        #triviaInfo {
-            background-color: #f4fff4; /* Slightly off-white for contrast */
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            margin-top: 20px;
+border: 1px solid #c1e1c1; /* Light green border */
+margin-top: 10px;
+}
+#countriesInfo,
+#pokemonInfo,
+#launchInfo,
+#jokeInfo {
+background-color: #f4fff4; /* Slightly off-white for contrast */
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #c1e1c1; /* Light green border */
+margin-top: 20px;
+}
+select {
+margin-bottom: 20px;
+padding: 5px;
+border-radius: 5px;
+border: 1px solid #2f7a2d; /* Darker green border */
+background-color: #ffffff; /* White background for select */
+}
+button {
+background-color: #2f7a2d; /* Darker green for buttons */
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+}
+button:hover {
+background-color: #4caf50; /* Lighter green on hover */
+}
+/* Styles for the scrollable box */
+#infoBox {
+max-height: 200px;
+overflow-y: auto;
+border: 1px solid #c1e1c1; /* Light green border */
+padding: 10px;
+background-color: #f4fff4; /* Slightly off-white for contrast */
+margin-top: 20px;
+border-radius: 5px;
+white-space: pre-wrap; /* Ensures that whitespace is preserved */
+}
+#funCatFact {
+margin-top: 20px;
+background-color: #f0fff0; /* Light green for fun fact box */
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #c1e1c1; /* Light green border */
 }
 </style>
 <script>
-let jsonData = []; // Store fetched JSON data globally
+// [JavaScript code from previous version remains the same]
 let currentImageUrl = '';
 
 async function fetchJSON(url) {
@@ -104,12 +92,27 @@ const response = await fetch(url);
 if (!response.ok) throw new Error('Network response was not ok');
 
 const data = await response.json();
-jsonData.push(data); // Store fetched data in array
-formatAndDisplayJSON(data); // Show current JSON data
-updateJsonDropdown(); // Update dropdown options
+
+// Display relevant JSON data or image
+if (url === 'https://catfact.ninja/fact') {
+document.getElementById('funCatFact').innerText = data.fact;
+} else {
+formatAndDisplayJSON(data); // Show relevant JSON data
+}
 
 // Handle images
-currentImageUrl = data.image || data.message || (data[0] && data[0].url) || data.url || '';
+if (data.image) {
+currentImageUrl = data.image;
+} else if (data.message) {
+currentImageUrl = data.message;
+} else if (data[0] && data[0].url) {
+currentImageUrl = data[0].url;
+} else if (data.url) {
+currentImageUrl = data.url;
+} else {
+currentImageUrl = '';
+}
+
 showImage(); // Show the image after fetching
 } catch (error) {
 document.getElementById("myDiv1").innerText = 'Error fetching data: ' + error.message;
@@ -119,6 +122,7 @@ showImage();
 }
 
 function formatAndDisplayJSON(data) {
+    // For dropdown options, show the formatted JSON
 const formattedJSON = JSON.stringify(data, null, 2);
 document.getElementById("myDiv1").innerText = formattedJSON; // Show entire JSON
 }
@@ -129,88 +133,115 @@ imgElement.src = currentImageUrl || '';
 imgElement.alt = currentImageUrl ? "Fetched Image" : "No image available";
 }
 
-function updateJsonDropdown() {
-const selectElement = document.getElementById('jsonDropdown');
-selectElement.innerHTML = ''; // Clear existing options
-
-jsonData.forEach((data, index) => {
-const option = document.createElement('option');
-option.value = index; // Store index as value
-option.textContent = `JSON ${index + 1}`; // Label for each option
-selectElement.appendChild(option);
-});
-}
-
-function displaySelectedJson() {
-const selectedIndex = document.getElementById('jsonDropdown').value;
-const selectedJson = jsonData[selectedIndex];
-formatAndDisplayJSON(selectedJson); // Display selected JSON
-}
-
-async function fetchRandomCatFact() {
+async function fetchLatestLaunch() {
 try {
-const response = await fetch('https://alexwohlbruck.github.io/cat-facts/api/facts');
-const factsData = await response.json();
-const randomIndex = Math.floor(Math.random() * factsData.all.length);
-const randomFact = factsData.all[randomIndex].text; // Get a random fact
-document.getElementById('catFactInfo').innerText = randomFact; // Display the random fact
-} catch (error) {
-document.getElementById('catFactInfo').innerText = 'Error fetching cat fact!';
+const url = 'https://api.spacexdata.com/v4/launches/latest';
+const response = await fetch(url);
+const data = await response.json();
+
+if (data) {
+showLaunchDetails(data); // Show only specific launch details
+showImage(); // Handle image if applicable
+} else {
+document.getElementById('launchMessage').textContent = 'No launch data found!';
 }
+} catch (error) {
+document.getElementById('launchMessage').textContent = 'Error fetching launch data!';
+}
+}
+
+function showLaunchDetails(data) {
+// Display only specific launch details
+document.getElementById('launchInfo').innerHTML = `
+       <h3>Mission Name: ${data.name}</h3>
+       <p>Launch Date: ${new Date(data.date_utc).toLocaleString()}</p>
+       <p>Rocket: ${data.rocket}</p>
+       <p>Details: ${data.details || 'No details available.'}</p>
+   `;
+}
+
+async function fetchRandomJoke() {
+try {
+const response = await fetch('https://api.chucknorris.io/jokes/random');
+const data = await response.json();
+document.getElementById('jokeInfo').innerHTML = `<p>${data.value}</p>`;
+document.getElementById('jokeMessage').textContent = 'Joke fetched successfully!';
+} catch (error) {
+document.getElementById('jokeMessage').textContent = 'Error fetching joke!';
+}
+}
+
+async function fetchCountries() {
+try {
+const response = await fetch('https://restcountries.com/v3.1/all');
+const data = await response.json();
+
+const countriesList = data.map(country => `${country.name.common} - Capital: ${country.capital ? country.capital[0] : 'N/A'}`).join('<br>');
+document.getElementById('countriesInfo').innerHTML = `<h3>Countries and Capitals</h3>${countriesList}`;
+} catch (error) {
+document.getElementById('countriesInfo').innerText = 'Error fetching countries data!';
+}
+}
+
+async function fetchPokemon() {
+async function fetchRandomPokemon() {
+try {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon/1');
+        const randomId = Math.floor(Math.random() * 898) + 1; // Random ID from 1 to 898
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+const data = await response.json();
+showPokemonDetails(data); // Show only specific Pokémon details
+} catch (error) {
+document.getElementById('pokemonInfo').innerText = 'Error fetching Pokémon data!';
+}
+}
+
+function showPokemonDetails(data) {
+// Display only specific Pokémon details
+const pokemonInfo = `
+       <h3>${data.name.charAt(0).toUpperCase() + data.name.slice(1)} (ID: ${data.id})</h3>
+       <p>Height: ${data.height}</p>
+       <p>Weight: ${data.weight}</p>
+       <p>Base Experience: ${data.base_experience}</p>
+       <p>Abilities: ${data.abilities.map(ability => ability.ability.name).join(', ')}</p>
+       <img src="${data.sprites.front_default}" alt="${data.name}" style="max-width: 100px; max-height: 100px;">
+   `;
+document.getElementById('pokemonInfo').innerHTML = pokemonInfo;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-document.getElementById('fetchJsonButton').addEventListener('click', () => {
-const url = document.getElementById('myText').value;
-fetchJSON(url);
-});
-document.getElementById('jsonDropdown').addEventListener('change', displaySelectedJson);
-
-// Added event listener for the cat fact fetching button
-document.getElementById('fetchCatFactButton').addEventListener('click', fetchRandomCatFact);
+document.getElementById('fetchLaunchButton').addEventListener('click', fetchLatestLaunch);
+document.getElementById('fetchJokeButton').addEventListener('click', fetchRandomJoke);
+document.getElementById('fetchCountriesButton').addEventListener('click', fetchCountries);
+    document.getElementById('fetchPokemonButton').addEventListener('click', fetchPokemon);
+    document.getElementById('fetchPokemonButton').addEventListener('click', fetchRandomPokemon);
 });
 </script>
 </head>
 <body>
 <h2>Fetch and Display JSON</h2>
-<h2>Festive JSON Fetcher</h2>
 <label for="myText">Enter a JSON returning URL:</label>
 <input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<input type="button" id="fetchJsonButton" value="Show JSON" style="margin-top: 10px;">
-<input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<input type="button" id="fetchJsonButton" value="Show JSON" style="margin-top: 10px; color: white;">
-
+<input type="button" value="Show JSON" onclick="fetchJSON(document.getElementById('myText').value)" style="margin-top: 10px;">
 <br><br>
 
-<!-- Dropdown to select fetched JSON -->
-<label for="jsonDropdown">Select JSON:</label>
-<select id="jsonDropdown" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<select id="jsonDropdown" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<option value="">-- Select JSON --</option>
-</select>
+<select size="1" onchange="fetchJSON(this.value)">
+<option value="https://randomfox.ca/floof/">Random Fox</option>
+<option value="https://dog.ceo/api/breeds/image/random">Random Dog</option>
+<option value="https://aws.random.cat/meow">Random Cat</option>
+<option value="https://api.thecatapi.com/v1/images/search">Random Cat Image</option>
+<option value="https://api.thedogapi.com/v1/images/search">Random Dog Image</option>
+<option value="https://jsonplaceholder.typicode.com/users">Placeholder Users</option>
+<option value="https://api.spacexdata.com/v4/launches/latest">Latest SpaceX Launch</option>
+<option value="https://api.chucknorris.io/jokes/random">Random Joke</option>
+<option value="https://restcountries.com/v3.1/all">Fetch All Countries</option>
+    <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info</option>
+    <option value="https://pokeapi.co/api/v2/pokemon/1">Fetch Pokémon Info (Bulbasaur)</option>
+<option value="https://catfact.ninja/fact">Fun Cat Fact</option>
+</select><br><br>
 
-<!-- This will contain the JSON displayed -->
-<div id="myDiv1"></div>
-<!-- This will show the image fetched -->
 <img id="jsonImage" src="" alt="Fetched Image"><br>
-
-<!-- New Section for Cat Facts -->
-<h2>Fetch Random Cat Fact</h2>
-<h2>Get a Random Cat Fact</h2>
-<button id="fetchCatFactButton">Get Random Cat Fact</button>
-<div id="catFactInfo" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
-<div id="catFactInfo" style="padding: 10px; border: 2px solid #d1c4e9; border-radius: 5px; background-color: #fff;"></div>
-
-<!-- Currency Conversion Section -->
-<h2>Currency Exchange Rate</h2>
-<label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
-<input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<label for="toCurrency">To Currency (e.g., USD, EUR):</label>
-<input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<button onclick="fetchExchangeRate()">Get Exchange Rate</button>
-<div id="exchangeRateInfo"></div>
+<div id="myDiv1"></div>
 
 <h2>Fun Cat Fact</h2>
 <div id="funCatFact" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
@@ -229,28 +260,23 @@ document.getElementById('fetchCatFactButton').addEventListener('click', fetchRan
 <button id="fetchCountriesButton">Fetch Countries</button>
 <div id="countriesInfo"></div>
 
+<h2>Fetch Pokémon Info</h2>
+<button id="fetchPokemonButton">Fetch Pokémon</button>
 <h2>Fetch Random Pokémon</h2>
 <button id="fetchPokemonButton">Fetch Random Pokémon</button>
 <div id="pokemonInfo"></div>
 
-<h2>Fetch Trivia Questions</h2>
-<button id="fetchTriviaButton">Fetch Trivia Questions</button>
-<div id="triviaInfo"></div>
-
 <div id="infoBox">
-    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
-    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. It’s just text, and it works with all sorts of programming languages, such as C, C++, C#, Java, JavaScript, Perl, and even Python.
+<strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
 <br><br>
 <strong>Here’s the Deal:</strong>
 <ol>
 <li><strong>Format</strong>:<br>
 JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
 <li><strong>Structure</strong>:<br>
-        JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
-        JSON organizes stuff in key-value pairs, which is just like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do more than that, like run functions and control what happens in the code.</li>
+JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
 <li><strong>Execution</strong>:<br>
-        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
-        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do a lot of cool stuff.</li>
+JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
 <li><strong>File Extension</strong>:<br>
 JSON files usually end in .json, while JavaScript files end in .js.</li>
 </ol>
