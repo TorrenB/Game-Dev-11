@@ -105,8 +105,8 @@
     <!-- Focus and Blur Events -->
     <div class="event-box">
         <h3>Focus and Blur Events</h3>
-        <input type="text" id="blurInput" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Type and blur" />
-        <p class="explanation">Focus changes the border color on click; blur resets it.</p>
+        <input type="text" id="blurInput" onfocus="clearBlur()" oninput="inputModified()" onblur="applyBlur()" placeholder="Type and then click away" />
+        <p class="explanation">Text will only blur after typing and clicking out.</p>
     </div>
 
     <!-- Scroll Event -->
@@ -158,6 +158,29 @@
 </div>
 
 <script>
+    let hasInput = false;
+
+    // Function to clear blur effect
+    function clearBlur() {
+        const inputField = document.getElementById('blurInput');
+        inputField.style.filter = 'none';  // Clear the blur effect
+        hasInput = false; // Reset the input modified state
+    }
+
+    // Function to mark input as modified
+    function inputModified() {
+        hasInput = true; // Mark that the input has been modified
+    }
+
+    // Function to apply blur effect if input has been modified
+    function applyBlur() {
+        if (hasInput) {
+            const inputField = document.getElementById('blurInput');
+            inputField.style.filter = 'blur(4px)'; // Apply a blur effect
+            hasInput = false; // Reset input modified state
+        }
+    }
+
     const eventCounts = {};
 
     // Function to change button color when clicked
