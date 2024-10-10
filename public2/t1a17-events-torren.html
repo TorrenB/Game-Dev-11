@@ -60,8 +60,9 @@
 <div class="container">
     <div class="event-box">
         <h3>Click Event</h3>
-        <button onclick="showResult('Button Clicked!')">Click Me</button>
+        <button onclick="changeButtonColor(this)">Click Me</button>
         <p class="explanation">This event triggers when the button is clicked.</p>
+        <p class="result"></p>
     </div>
     <div class="event-box">
         <h3>DblClick Event</h3>
@@ -80,8 +81,9 @@
     </div>
     <div class="event-box">
         <h3>Blur Event</h3>
-        <input type="text" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Blur on me" />
-        <p class="explanation">Occurs when the input field loses focus.</p>
+        <input type="text" id="blurInput" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Type and blur" 
+        oninput="this.blur();" />
+        <p class="explanation">Occurs when you type, causing the input field to lose focus immediately.</p>
     </div>
     <div class="event-box">
         <h3>Change Event</h3>
@@ -119,6 +121,7 @@
         <script>
             window.onresize = function() {
                 document.getElementById('resizeButton').innerText = 'Resize Event Triggered';
+                showResult('Resize Event Triggered');
             }
         </script>
     </div>
@@ -130,7 +133,7 @@
         <script>
             const scrollableDiv = document.querySelector('div[style*="scroll"]');
             scrollableDiv.onscroll = function() {
-                showResult('Scrolled: ' + this.scrollTop);
+                showResult('Scrolled with Mouse Wheel!');
             }
         </script>
         <p class="explanation">This event triggers when an element is scrolled.</p>
@@ -173,14 +176,32 @@
 </div>
 
 <script>
+    const eventCounts = {};
+
     function changeColor(button, color) {
         button.style.backgroundColor = color;
     }
 
+    function changeButtonColor(button) {
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#3498DB', '#2ECC71'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        button.style.backgroundColor = randomColor;
+        incrementEventCount('Button color changed');
+    }
+
+    function incrementEventCount(event) {
+        if (!eventCounts[event]) {
+            eventCounts[event] = 0;
+        }
+        eventCounts[event]++;
+        return eventCounts[event];
+    }
+
     function showResult(message) {
+        const count = incrementEventCount(message);
         const resultsContainer = document.getElementById('results');
         const resultElement = document.createElement('p');
-        resultElement.textContent = message;
+        resultElement.textContent = `${message} (${count})`;
         resultElement.className = 'result';
         resultsContainer.prepend(resultElement);
     }
