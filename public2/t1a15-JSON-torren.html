@@ -19,33 +19,32 @@
         label {
             color: #2e7d32; /* Dark green for labels */
         }
-        select {
+        select, input[type="text"], button {
             margin-bottom: 20px;
-            padding: 5px;
+            padding: 10px;
             border-radius: 5px;
             border: 2px solid #d32f2f; /* Festive red border */
-            background-color: #fff; /* White background for select */
+            background-color: #fff; /* White background for inputs/select */
+            width: 100%; /* Full width */
         }
         button {
             background-color: #d32f2f; /* Festive red for buttons */
             color: white;
             border: none;
             padding: 10px 15px;
-            border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
             transition: background-color 0.3s; /* Smooth hover effect */
         }
         button:hover {
             background-color: #b71c1c; /* Darker red on hover */
         }
-        #exchangeRateInfo, #catFactInfo, #myDiv1 {
+        #exchangeRateInfo, #myDiv1 {
             margin-top: 20px;
             padding: 10px;
-            border: 2px solid #d1c4e9; /* Light gold border */
+            border: 2px solid #d1c4e9; /* Light colors for borders */
             border-radius: 5px;
-            background-color: #fff; /* White background for contrast */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            background-color: #e3f2fd; /* Light blue background for contrast */
+            color: #0d47a1; /* Dark blue text */
         }
         #jsonImage {
             max-width: 300px;
@@ -117,100 +116,58 @@
             formatAndDisplayJSON(selectedJson); // Display selected JSON
         }
 
-        async function fetchRandomCatFact() {
-            try {
-                const response = await fetch('https://alexwohlbruck.github.io/cat-facts/api/facts');
-                const factsData = await response.json();
-                const randomIndex = Math.floor(Math.random() * factsData.all.length);
-                const randomFact = factsData.all[randomIndex].text; // Get a random fact
-                document.getElementById('catFactInfo').innerText = randomFact; // Display the random fact
-            } catch (error) {
-                document.getElementById('catFactInfo').innerText = 'Error fetching cat fact!';
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('fetchJsonButton').addEventListener('click', () => {
                 const url = document.getElementById('myText').value;
                 fetchJSON(url);
             });
             document.getElementById('jsonDropdown').addEventListener('change', displaySelectedJson);
-            
-            // Added event listener for the cat fact fetching button
-            document.getElementById('fetchCatFactButton').addEventListener('click', fetchRandomCatFact);
         });
     </script>
 </head>
 <body>
-<h2>JSON Fetcher</h2>
-<label for="myText">Enter a JSON returning URL:</label>
-<input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<input type="button" id="fetchJsonButton" value="Show JSON" style="margin-top: 10px; color: white;">
+    <h2>JSON Fetcher</h2>
+    <label for="myText">Enter a JSON returning URL:</label>
+    <input type="text" id="myText" value="https://randomfox.ca/floof/">
+    <input type="button" id="fetchJsonButton" value="Show JSON">
 
-<br><br>
-
-<!-- Dropdown to select fetched JSON -->
-<label for="jsonDropdown">Select JSON:</label>
-<select id="jsonDropdown" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-    <option value="">-- Select JSON --</option>
-</select>
-
-<!-- This will contain the JSON displayed -->
-<div id="myDiv1"></div>
-<!-- This will show the image fetched -->
-<img id="jsonImage" src="" alt="Fetched Image"><br>
-
-<!-- New Section for Cat Facts -->
-<h2>Get a Random Cat Fact</h2>
-<button id="fetchCatFactButton">Get Random Cat Fact</button>
-<div id="catFactInfo" style="padding: 10px; border: 2px solid #d1c4e9; border-radius: 5px; background-color: #fff;"></div>
-
-<!-- Currency Conversion Section -->
-<h2>ONlINE CURRENCY ECHANGE RATE</h2>
-<label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
-<input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<label for="toCurrency">To Currency (e.g., BTC, ETH):</label>
-<input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
-<button onclick="fetchExchangeRate()">Get Exchange Rate</button>
-<div id="exchangeRateInfo"></div>
-
-<h2>Fetch Latest SpaceX Launch</h2>
-<button id="fetchLaunchButton">Fetch Latest Launch</button>
-<div id="launchInfo"></div>
-<div id="launchMessage"></div>
-
-<h2>Fetch Random Joke</h2>
-<button id="fetchJokeButton">Fetch Random Joke</button>
-<div id="jokeInfo"></div>
-<div id="jokeMessage"></div>
-
-<h2>Fetch All Countries</h2>
-<button id="fetchCountriesButton">Fetch Countries</button>
-<div id="countriesInfo"></div>
-
-<h2>Fetch Random Pokémon</h2>
-<button id="fetchPokemonButton">Fetch Random Pokémon</button>
-<div id="pokemonInfo"></div>
-
-<h2>Fetch Trivia Questions</h2>
-<button id="fetchTriviaButton">Fetch Trivia Questions</button>
-<div id="triviaInfo"></div>
-
-<div id="infoBox">
-    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. It’s just text, and it works with all sorts of programming languages, such as C, C++, C#, Java, JavaScript, Perl, and even Python.
     <br><br>
-    <strong>Here’s the Deal:</strong>
-    <ol>
-        <li><strong>Format</strong>:<br>
-        JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
-        <li><strong>Structure</strong>:<br>
-        JSON organizes stuff in key-value pairs, which is just like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do more than that, like run functions and control what happens in the code.</li>
-        <li><strong>Execution</strong>:<br>
-        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do a lot of cool stuff.</li>
-        <li><strong>File Extension</strong>:<br>
-        JSON files usually end in .json, while JavaScript files end in .js.</li>
-    </ol>
-    So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
-</div>
+
+    <!-- Dropdown to select fetched JSON -->
+    <label for="jsonDropdown">Select JSON:</label>
+    <select id="jsonDropdown">
+        <option value="">-- Select JSON --</option>
+    </select>
+
+    <!-- This will contain the JSON displayed -->
+    <div id="myDiv1"></div>
+    <!-- This will show the image fetched -->
+    <img id="jsonImage" src="" alt="Fetched Image"><br>
+
+    <!-- Currency Conversion Section -->
+    <h2>ONLINE CURRENCY EXCHANGE RATE</h2>
+    <label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
+    <input type="text" id="fromCurrency" placeholder="Enter currency symbol">
+    <label for="toCurrency">To Currency (e.g., BTC, ETH):</label>
+    <input type="text" id="toCurrency" placeholder="Enter currency symbol">
+    <button onclick="fetchExchangeRate()">Get Exchange Rate</button>
+    <div id="exchangeRateInfo"></div>
+
+    <div id="infoBox">
+        <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. It’s just text, and it works with all sorts of programming languages, such as C, C++, C#, Java, JavaScript, Perl, and even Python.
+        <br><br>
+        <strong>Here’s the Deal:</strong>
+        <ol>
+            <li><strong>Format</strong>:<br>
+            JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
+            <li><strong>Structure</strong>:<br>
+            JSON organizes stuff in key-value pairs, which is just like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do more than that, like run functions and control what happens in the code.</li>
+            <li><strong>Execution</strong>:<br>
+            JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do a lot of cool stuff.</li>
+            <li><strong>File Extension</strong>:<br>
+            JSON files usually end in .json, while JavaScript files end in .js.</li>
+        </ol>
+        So basically, JSON is for sending and getting data, and JavaScript files are for making websites do things. Pretty cool, right?
+    </div>
 </body>
 </html>
