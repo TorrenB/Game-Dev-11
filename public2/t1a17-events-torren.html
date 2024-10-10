@@ -7,86 +7,104 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Light gray background */
             color: #333;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
-            font-style: italic; /* Italic text for the main heading */
-            border: 2px dotted #333; /* Dotted border around the main title */
-            padding: 5px; /* Reduced padding for snug fit */
+            font-style: italic;
+            border: 2px dotted #343A40; /* Black border */
+            background-color: #007BFF; /* Blue background */
+            color: white; /* White text */
+            padding: 5px; /* Reduced padding for a snug fit */
+            margin: 0; /* Remove default margin to fit snugly with the body */
         }
+
         h3 {
             margin: 0; /* Remove default margin */
-            padding: 5px; /* Adjust padding for snug fit */
+            padding: 10px; /* Adjust padding for snug fit */
             text-align: center; /* Center align for consistency */
+            background-color: #FFC107; /* Yellow background */
+            color: #343A40; /* Black text */
+            border-radius: 5px; /* Rounded edges */
         }
+
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
         }
+
         .event-box {
-            border: 2px solid #4CAF50;
+            border: 2px solid #6C757D; /* Gray border */
             padding: 20px;
             border-radius: 5px;
-            background-color: #fff;
+            background-color: #fff; /* White background for boxes */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             width: 200px;
             text-align: center;
         }
+
         .event-box:hover {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9; /* Light gray on hover */
         }
+
         button, input[type="text"], input[type="range"] {
             margin-top: 10px;
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #4CAF50;
-            color: #4CAF50;
+            border: 1px solid #6C757D; /* Gray border */
+            color: #343A40; /* Black text */
             cursor: pointer;
-            transition: box-shadow 0.2s ease; /* Smooth transition for effect */
+            transition: box-shadow 0.2s ease;
         }
+
+        button {
+            background-color: #007BFF; /* Blue buttons */
+            color: white; /* White text on buttons */
+        }
+
         button:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 3D effect on hover */
+            background-color: #FFC107; /* Yellow on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+
         button:active {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Simulating being pressed */
-            transform: translateY(2px); /* Slight move down when clicked */
+            background-color: #343A40; /* Black when clicked */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
+
         input[type="text"] {
             width: 80%;
+            border-radius: 5px;
         }
+
         p.result {
             margin-top: 10px;
             font-weight: bold;
+            color: #007BFF; /* Blue text for results */
         }
+
         .explanation {
             font-size: 0.9em;
             margin-top: 5px;
-            color: #555;
+            color: #6C757D; /* Gray explanation text */
         }
+
         #mydiv01 {
             margin-top: 20px;
             font-weight: bold;
+            color: #343A40; /* Black text for mouse position */
         }
-        /* New Color Scheme */
-        .color-box {
-            background-color: transparent; /* Check for styles */
-        }
-        .color-shade-blue {
-            border: 1px solid #007BFF; /* Dark blue */
-        }
-        .color-shade-yellow {
-            border: 1px solid #FFC107; /* Yellow */
-        }
-        .color-shade-gray {
-            border: 1px solid #6C757D; /* Gray */
-        }
-        .color-shade-black {
-            border: 1px solid #343A40; /* Black */
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .event-box {
+                width: 90%; /* Make boxes full width on small screens */
+            }
         }
     </style>
 </head>
@@ -144,7 +162,7 @@
     <!-- Scroll Event -->
     <div class="event-box" style="width: 300px;">
         <h3 class="color-shade-blue" style="font-style: italic;">Scroll Event</h3>
-        <div style="height: 200px; overflow-y: scroll; border: 1px solid #4CAF50;">
+        <div style="height: 200px; overflow-y: scroll; border: 1px solid #6C757D;"> <!-- Gray border -->
             <div style="height: 500px; background: linear-gradient(to bottom, #fff, #ddd);"></div>
         </div>
         <script>
