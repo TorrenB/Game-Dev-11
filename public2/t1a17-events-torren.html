@@ -66,7 +66,7 @@
     </div>
     <div class="event-box">
         <h3>DblClick Event</h3>
-        <button ondblclick="showResult('Button Double Clicked!', 'dblClickResult')">Double Click Me</button>
+        <button ondblclick="changeColorOnDoubleClick(this); showResult('Button Double Clicked!', 'dblClickResult')">Double Click Me</button>
         <p class="explanation">Triggered when the button is double-clicked quickly.</p>
         <p class="result" id="dblClickResult"></p>
     </div>
@@ -76,39 +76,10 @@
         <p class="explanation">This event occurs when the mouse pointer moves over the button.</p>
     </div>
     <div class="event-box">
-        <h3>Focus Event</h3>
-        <input type="text" onfocus="this.style.borderColor='#0000FF'" placeholder="Focus on me" />
-        <p class="explanation">Triggers when the input field gains focus.</p>
-    </div>
-    <div class="event-box">
         <h3>Blur Event</h3>
         <input type="text" id="blurInput" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Type and blur" 
         oninput="this.blur();" />
         <p class="explanation">Occurs when you type, causing the input field to lose focus immediately.</p>
-    </div>
-    <div class="event-box">
-        <h3>Change Event</h3>
-        <input type="text" oninput="document.getElementById('changeOutput').innerText = this.value" placeholder="Type something" />
-        <p id="changeOutput" class="result"></p>
-        <p class="explanation">This event triggers when the value of the input changes.</p>
-    </div>
-    <div class="event-box">
-        <h3>Key Up Event</h3>
-        <input type="text" onkeyup="showResult('Key Released', 'keyUpResult')" placeholder="Type and release a key" />
-        <p class="explanation">Triggers when a key is released while focused on the input field.</p>
-        <p class="result" id="keyUpResult"></p>
-    </div>
-    <div class="event-box">
-        <h3>Key Down Event</h3>
-        <input type="text" onkeydown="showResult('Key Pressed', 'keyDownResult')" placeholder="Press a key" />
-        <p class="explanation">Occurs when a key is pressed down while focused on the input field.</p>
-        <p class="result" id="keyDownResult"></p>
-    </div>
-    <div class="event-box">
-        <h3>Input Event</h3>
-        <input type="text" oninput="showResult('Input Changed', 'inputResult')" placeholder="Type something" />
-        <p class="explanation">Triggered whenever the value of an input changes.</p>
-        <p class="result" id="inputResult"></p>
     </div>
     <div class="event-box">
         <h3>Scroll Event</h3>
@@ -124,6 +95,12 @@
         <p class="explanation">This event triggers when an element is scrolled.</p>
         <p class="result" id="scrollResult"></p>
     </div>
+    <div class="event-box">
+        <h3>Contextmenu Event</h3>
+        <button oncontextmenu="changeColorOnRightClick(this); showResult('Right Click Event Triggered!', 'rightClickResult'); return false;">Right Click Me</button>
+        <p class="explanation">Occurs when the right mouse button is clicked on the button.</p>
+        <p class="result" id="rightClickResult"></p>
+    </div>
 </div>
 
 <script>
@@ -132,12 +109,17 @@
     function changeColor(button, color) {
         button.style.backgroundColor = color;
     }
-
-    function changeButtonColor(button) {
+    
+    function changeColorOnDoubleClick(button) {
         const colors = ['#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#3498DB', '#2ECC71'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         button.style.backgroundColor = randomColor;
-        showResult('Button color changed', 'clickResult');
+    }
+
+    function changeColorOnRightClick(button) {
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#3498DB', '#2ECC71'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        button.style.backgroundColor = randomColor;
     }
 
     function incrementEventCount(event) {
