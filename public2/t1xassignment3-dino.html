@@ -53,9 +53,6 @@
         }
 
         function updateObstacles() {
-            obstacles.forEach(obstacle => {
-                obstacle.x -= 5; // Move obstacles to the left
-            });
             if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 300) {
                 obstacles.push({
                     x: canvas.width,
@@ -64,6 +61,11 @@
                     height: 20
                 });
             }
+
+            obstacles.forEach(obstacle => {
+                obstacle.x -= 5; // Move obstacles to the left
+            });
+
             obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
         }
 
@@ -80,6 +82,7 @@
             drawObstacles();
             updateObstacles();
 
+            // Update dino position
             dino.y += dino.dy;
             dino.dy += dino.gravity;
 
@@ -91,12 +94,10 @@
 
             // Check for collision
             obstacles.forEach(obstacle => {
-                if (
-                    dino.x < obstacle.x + obstacle.width &&
+                if (dino.x < obstacle.x + obstacle.width &&
                     dino.x + dino.width > obstacle.x &&
                     dino.y < obstacle.y + obstacle.height &&
-                    dino.y + dino.height > obstacle.y
-                ) {
+                    dino.y + dino.height > obstacle.y) {
                     gameOver();
                 }
             });
@@ -109,7 +110,7 @@
             clearInterval(gameInterval);
             clearInterval(obstacleInterval);
             alert('Game Over! Your score: ' + score);
-            document.location.reload();
+            document.location.reload(); // Reload the page to restart the game
         }
 
         document.addEventListener('keydown', (event) => {
