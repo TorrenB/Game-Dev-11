@@ -3,46 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch and Display JSON</title>
+    <title>Christmas Themed JSON Fetcher</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #e9f5e9; /* Light green background */
-            color: #333; /* Dark text color for better readability */
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9; /* Light background for a clean look */
+            color: #4a4a4a; /* Dark text for better readability */
             margin: 0;
             padding: 20px;
         }
         h2 {
-            color: #2f7a2d; /* Darker green for headings */
+            color: #d32f2f; /* Festive red for headings */
+            text-shadow: 1px 1px 2px #fff; /* Light shadow for a festive look */
         }
         label {
-            color: #2f7a2d; /* Darker green for labels */
+            color: #2e7d32; /* Dark green for labels */
         }
         select {
             margin-bottom: 20px;
             padding: 5px;
             border-radius: 5px;
-            border: 1px solid #2f7a2d; /* Darker green border */
-            background-color: #ffffff; /* White background for select */
+            border: 2px solid #d32f2f; /* Festive red border */
+            background-color: #fff; /* White background for select */
         }
         button {
-            background-color: #2f7a2d; /* Darker green for buttons */
+            background-color: #d32f2f; /* Festive red for buttons */
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.3s; /* Smooth hover effect */
         }
         button:hover {
-            background-color: #4caf50; /* Lighter green on hover */
+            background-color: #b71c1c; /* Darker red on hover */
         }
-        #exchangeRateInfo {
+        #exchangeRateInfo, #catFactInfo, #myDiv1 {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #c1e1c1; /* Light green border */
+            border: 2px solid #d1c4e9; /* Light gold border */
             border-radius: 5px;
-            background-color: #f4fff4; /* Slightly off-white for contrast */
+            background-color: #fff; /* White background for contrast */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
         }
         #jsonImage {
             max-width: 300px;
@@ -52,24 +55,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow for image */
         }
-        #myDiv1 {
-            white-space: pre-wrap;
-            background-color: #f4fff4; /* Slightly off-white for contrast */
-            padding: 10px;
+        #infoBox {
+            padding: 15px;
+            border: 2px solid #d32f2f; /* Festive red border */
+            background-color: #ffebee; /* Light pink background */
+            color: #d32f2f; /* Dark red text */
+            margin-top: 30px;
             border-radius: 5px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            margin-top: 10px;
-        }
-        #countriesInfo,
-        #pokemonInfo,
-        #launchInfo,
-        #jokeInfo,
-        #triviaInfo {
-            background-color: #f4fff4; /* Slightly off-white for contrast */
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #c1e1c1; /* Light green border */
-            margin-top: 20px;
         }
     </style>
     <script>
@@ -150,16 +142,16 @@
     </script>
 </head>
 <body>
-<h2>Fetch and Display JSON</h2>
+<h2>Festive JSON Fetcher</h2>
 <label for="myText">Enter a JSON returning URL:</label>
-<input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
-<input type="button" id="fetchJsonButton" value="Show JSON" style="margin-top: 10px;">
+<input type="text" id="myText" value="https://randomfox.ca/floof/" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
+<input type="button" id="fetchJsonButton" value="Show JSON" style="margin-top: 10px; color: white;">
 
 <br><br>
 
 <!-- Dropdown to select fetched JSON -->
 <label for="jsonDropdown">Select JSON:</label>
-<select id="jsonDropdown" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+<select id="jsonDropdown" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
     <option value="">-- Select JSON --</option>
 </select>
 
@@ -169,21 +161,18 @@
 <img id="jsonImage" src="" alt="Fetched Image"><br>
 
 <!-- New Section for Cat Facts -->
-<h2>Fetch Random Cat Fact</h2>
+<h2>Get a Random Cat Fact</h2>
 <button id="fetchCatFactButton">Get Random Cat Fact</button>
-<div id="catFactInfo" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
+<div id="catFactInfo" style="padding: 10px; border: 2px solid #d1c4e9; border-radius: 5px; background-color: #fff;"></div>
 
 <!-- Currency Conversion Section -->
 <h2>Currency Exchange Rate</h2>
 <label for="fromCurrency">From Currency (e.g., BTC, ETH):</label>
-<input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+<input type="text" id="fromCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
 <label for="toCurrency">To Currency (e.g., USD, EUR):</label>
-<input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #2f7a2d;">
+<input type="text" id="toCurrency" placeholder="Enter currency symbol" style="width: 100%; padding: 10px; border-radius: 5px; border: 2px solid #d32f2f;">
 <button onclick="fetchExchangeRate()">Get Exchange Rate</button>
 <div id="exchangeRateInfo"></div>
-
-<h2>Fun Cat Fact</h2>
-<div id="funCatFact" style="padding: 10px; border: 1px solid #c1e1c1; border-radius: 5px; background-color: #f0fff0;"></div>
 
 <h2>Fetch Latest SpaceX Launch</h2>
 <button id="fetchLaunchButton">Fetch Latest Launch</button>
@@ -208,16 +197,16 @@
 <div id="triviaInfo"></div>
 
 <div id="infoBox">
-    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s kind of like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. Basically, it’s just text, and it works with all sorts of programming languages, like C, C++, C#, Java, JavaScript, Perl, and even Python.
+    <strong>JSON (JavaScript Object Notation)</strong> is a simple way to format data that’s really easy to read and write. It’s like how people and computers share info without getting mixed up. You often see JSON when a server sends data to a website. It’s just text, and it works with all sorts of programming languages, such as C, C++, C#, Java, JavaScript, Perl, and even Python.
     <br><br>
     <strong>Here’s the Deal:</strong>
     <ol>
         <li><strong>Format</strong>:<br>
         JSON is just data. JavaScript files are where the actual coding happens to make things work.</li>
         <li><strong>Structure</strong>:<br>
-        JSON organizes stuff in key-value pairs, which is kind of like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do way more than just that, like run functions and control what happens in the code.</li>
+        JSON organizes stuff in key-value pairs, which is just like a list of things. It can handle simple stuff like objects, arrays, strings, and numbers. JavaScript files can do more than that, like run functions and control what happens in the code.</li>
         <li><strong>Execution</strong>:<br>
-        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do all the cool logic stuff.</li>
+        JSON can’t have functions or comments—it's just data, so you can’t run it as code. But JavaScript files are meant to be run, so they can control the webpage, respond to clicks, and do a lot of cool stuff.</li>
         <li><strong>File Extension</strong>:<br>
         JSON files usually end in .json, while JavaScript files end in .js.</li>
     </ol>
