@@ -58,29 +58,96 @@
 
 <h1>JavaScript Events Example</h1>
 <div class="container">
+    <!-- Enter Your Name Section -->
     <div class="event-box">
         <h3>Enter Your Name</h3>
         <input type="text" id="nameInput" placeholder="Enter your name" />
         <button onclick="submitName()">Submit</button>
         <p class="result" id="nameResult"></p>
     </div>
+
+    <!-- Click Event -->
     <div class="event-box">
         <h3>Click Event</h3>
         <button onclick="changeButtonColor(this)">Click Me</button>
         <p class="explanation">This event triggers when the button is clicked.</p>
         <p class="result" id="clickResult"></p>
     </div>
+
+    <!-- Double Click Event -->
     <div class="event-box">
         <h3>DblClick Event</h3>
         <button ondblclick="changeColorOnDoubleClick(this); showResult('Button Double Clicked!', 'dblClickResult')">Double Click Me</button>
         <p class="explanation">Triggered when the button is double-clicked quickly.</p>
         <p class="result" id="dblClickResult"></p>
     </div>
+
+    <!-- Mouse Over Event -->
     <div class="event-box">
-        <h3>Contextmenu Event</h3>
+        <h3>Mouse Over Event</h3>
+        <button onmouseover="changeColor(this, '#FFD700')" onmouseout="changeColor(this, '')">Hover Over Me</button>
+        <p class="explanation">This event occurs when the mouse pointer moves over the button.</p>
+    </div>
+
+    <!-- Context Menu Event -->
+    <div class="event-box">
+        <h3>Context Menu Event</h3>
         <button oncontextmenu="changeColorOnRightClick(this); showResult('Right Click Event Triggered!', 'rightClickResult'); return false;">Right Click Me</button>
         <p class="explanation">Occurs when the right mouse button is clicked on the button.</p>
         <p class="result" id="rightClickResult"></p>
+    </div>
+
+    <!-- Focus and Blur Events -->
+    <div class="event-box">
+        <h3>Focus and Blur Events</h3>
+        <input type="text" id="blurInput" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Type and blur" />
+        <p class="explanation">Focus changes the border color on click; blur resets it.</p>
+    </div>
+
+    <!-- Scroll Event -->
+    <div class="event-box" style="width: 300px;">
+        <h3>Scroll Event</h3>
+        <div style="height: 200px; overflow-y: scroll; border: 1px solid #4CAF50;">
+            <div style="height: 500px; background: linear-gradient(to bottom, #fff, #ddd);"></div>
+        </div>
+        <script>
+            const scrollableDiv = document.querySelector('div[style*="scroll"]');
+            scrollableDiv.onscroll = function() {
+                showResult('Scrolled with Mouse Wheel', 'scrollResult');
+            }
+        </script>
+        <p class="explanation">This event triggers when an element is scrolled.</p>
+        <p class="result" id="scrollResult"></p>
+    </div>
+
+    <!-- Input Event -->
+    <div class="event-box">
+        <h3>Input Event</h3>
+        <input type="text" id="inputChange" oninput="showResult(`Input changed to: ${this.value}`, 'inputResult')" placeholder="Type here..." />
+        <p class="explanation">Triggers when the input value changes.</p>
+        <p class="result" id="inputResult"></p>
+    </div>
+
+    <!-- Change Event -->
+    <div class="event-box">
+        <h3>Change Event</h3>
+        <select onchange="showResult(`Selected: ${this.value}`, 'changeResult')">
+            <option value="">Select an option</option>
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+            <option value="Option 3">Option 3</option>
+        </select>
+        <p class="explanation">This event triggers when the option is changed.</p>
+        <p class="result" id="changeResult"></p>
+    </div>
+
+    <!-- Key Events -->
+    <div class="event-box">
+        <h3>Key Events</h3>
+        <input type="text" onkeydown="showResult('Key Down Event', 'keyDownResult')" onkeyup="showResult('Key Up Event', 'keyUpResult')" placeholder="Press a key..." />
+        <p class="explanation">Triggered on key down and key up events.</p>
+        <p class="result" id="keyDownResult"></p>
+        <p class="result" id="keyUpResult"></p>
     </div>
 </div>
 
