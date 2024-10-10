@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Event Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        h1 {
+            color: green;
+        }
+        .soccer-ball {
+            width: 100px;
+            height: 100px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/b7/Football.svg');
+            background-size: cover;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+        .input-box {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body onload="initialize()">
+
+    <h1>Soccer Event Demo</h1>
+    
+    <div class="soccer-ball" id="soccerBall" onMouseOver="ballHover()" onMouseOut="ballNormal()"></div>
+    
+    <div class="input-box">
+        <input type="text" id="nameInput" onFocus="inputFocus()" onBlur="inputBlur()" placeholder="Enter your name" />
+        <p id="focusMessage" style="visibility: hidden;">Input is focused!</p>
+    </div>
+    
+    <div class="input-box">
+        <select id="teamSelect" onChange="teamChange()">
+            <option value="">Select your favorite team</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Real Madrid">Real Madrid</option>
+            <option value="Manchester United">Manchester United</option>
+        </select>
+        <p id="teamMessage"></p>
+    </div>
+    
+    <div class="input-box">
+        <textarea id="commentInput" onSelect="textSelected()" rows="4" placeholder="Comment on the game..."></textarea>
+    </div>
+
+    <script>
+        function initialize() {
+            alert("Welcome to the Soccer Event Demo!");
+        }
+
+        function ballHover() {
+            document.getElementById('soccerBall').style.transform = 'scale(1.1)';
+        }
+
+        function ballNormal() {
+            document.getElementById('soccerBall').style.transform = 'scale(1)';
+        }
+
+        function inputFocus() {
+            document.getElementById('focusMessage').style.visibility = 'visible';
+        }
+
+        function inputBlur() {
+            document.getElementById('focusMessage').style.visibility = 'hidden';
+        }
+
+        function teamChange() {
+            const selectElement = document.getElementById('teamSelect');
+            const teamMessage = document.getElementById('teamMessage');
+            teamMessage.innerText = "You selected: " + selectElement.value;
+        }
+
+        function textSelected() {
+            alert("Text selected in comment box!");
+        }
+
+        window.onscroll = function() {
+            alert("You scrolled the page!");
+        };
+
+        document.body.onload = function() {
+            alert("Page loaded successfully!");
+        };
+    </script>
+</body>
+</html>
