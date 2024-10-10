@@ -500,30 +500,6 @@
             document.getElementById("courseOutput").innerText = JSON.stringify(courseOverview, null, 2);
         }
     </script>
-
-    <!-- Section to Cause a Crash -->
-    <section>
-        <h2>8. Cause a Crash</h2>
-        <h3>Input "red" Below</h3>
-        <div>
-            <input type="text" id="crashInput" placeholder="Enter 'red' to crash">
-            <button onclick="checkCrashInput()">Submit</button>
-        </div>
-    </section>
-
-    <script>
-        // Function to check input for "red"
-        function checkCrashInput() {
-            const crashInput = document.getElementById("crashInput").value.trim();
-            if (crashInput.toLowerCase() === "red") {
-                // Intentionally cause an error
-                throw new Error("You have entered 'red', causing a crash!");
-            } else {
-                alert("Input accepted: " + crashInput);
-            }
-            document.getElementById("crashInput").value = ""; // Clear input field
-        }
-    </script>
 </body>
 
 </html>
