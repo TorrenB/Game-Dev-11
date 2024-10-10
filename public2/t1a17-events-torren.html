@@ -52,11 +52,16 @@
             margin-top: 5px;
             color: #555;
         }
+        #mydiv01 {
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body>
+<body onmousemove="document.getElementById('mydiv01').innerHTML = 'x: ' + event.clientX + ', y: ' + event.clientY;">
 
 <h1>JavaScript Events Example</h1>
+<div id="mydiv01">Move your mouse around!</div>
 <div class="container">
     <!-- Enter Your Name Section -->
     <div class="event-box">
