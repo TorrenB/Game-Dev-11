@@ -74,7 +74,7 @@
     <!-- Click Event -->
     <div class="event-box">
         <h3>Click Event</h3>
-        <button onclick="changeButtonColor(this)">Click Me</button>
+        <button id="colorButton" onclick="changeButtonColor(this)">Click Me</button>
         <p class="explanation">This event triggers when the button is clicked.</p>
         <p class="result" id="clickResult"></p>
     </div>
@@ -149,15 +149,23 @@
     <!-- Key Events -->
     <div class="event-box">
         <h3>Key Events</h3>
-        <input type="text" onkeydown="showResult('Key Down Event', 'keyDownResult')" onkeyup="showResult('Key Up Event', 'keyUpResult')" placeholder="Press a key..." />
-        <p class="explanation">Triggered on key down and key up events.</p>
+        <input type="text" id="keyInput" onkeydown="showKeyPress(event, 'keyDownResult')" onkeyup="showKeyPress(event, 'keyUpResult')" placeholder="Press a key..." />
+        <p class="explanation">Type in the box to see key events.</p>
         <p class="result" id="keyDownResult"></p>
         <p class="result" id="keyUpResult"></p>
+        <p class="result" id="keyPressResult"></p> <!-- Show the last key pressed -->
     </div>
 </div>
 
 <script>
     const eventCounts = {};
+
+    // Function to change button color when clicked
+    function changeButtonColor(button) {
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#3498DB', '#2ECC71'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        button.style.backgroundColor = randomColor;
+    }
 
     function changeColor(button, color) {
         button.style.backgroundColor = color;
@@ -189,11 +197,21 @@
         resultElement.textContent = `${message} (${count})`;
     }
 
+    function showKeyPress(event, resultId) {
+        const key = event.key; // Get the pressed key
+        const resultElement = document.getElementById(resultId);
+        const message = `Key ${event.type === 'keydown' ? 'Pressed' : 'Released'}: ${key}`;
+        resultElement.textContent = message + ` (Count: ${incrementEventCount(message)})`;
+
+        // Display the last key pressed
+        const keyPressResult = document.getElementById('keyPressResult');
+        keyPressResult.textContent = `Last Key Pressed: ${key}`;
+    }
+
     function submitName() {
         const nameInput = document.getElementById('nameInput').value;
         const resultElement = document.getElementById('nameResult');
         
-        // Create the message
         if (nameInput.trim() !== "") {
             resultElement.textContent = `Your amazing Skibidi Ohio Rizzler name is ${nameInput}!`;
         } else {
