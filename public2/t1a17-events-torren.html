@@ -32,7 +32,7 @@
         .event-box:hover {
             background-color: #f9f9f9;
         }
-        button, input[type="text"] {
+        button, input[type="text"], input[type="range"] {
             margin-top: 10px;
             padding: 10px;
             border-radius: 5px;
@@ -43,6 +43,15 @@
         input[type="text"] {
             width: 80%;
         }
+        p.result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .explanation {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -51,51 +60,62 @@
 <div class="container">
     <div class="event-box">
         <h3>Click Event</h3>
-        <button onclick="alert('Button Clicked!')">Click Me</button>
+        <button onclick="showResult('Button Clicked!')">Click Me</button>
+        <p class="explanation">This event triggers when the button is clicked.</p>
     </div>
     <div class="event-box">
         <h3>DblClick Event</h3>
-        <button ondblclick="alert('Button Double Clicked!')">Double Click Me</button>
+        <button ondblclick="showResult('Button Double Clicked!')">Double Click Me</button>
+        <p class="explanation">Triggered when the button is double-clicked quickly.</p>
     </div>
     <div class="event-box">
         <h3>Mouse Over Event</h3>
         <button onmouseover="changeColor(this, '#FFD700')" onmouseout="changeColor(this, '')">Hover Over Me</button>
+        <p class="explanation">This event occurs when the mouse pointer moves over the button.</p>
     </div>
     <div class="event-box">
         <h3>Focus Event</h3>
         <input type="text" onfocus="this.style.borderColor='#0000FF'" placeholder="Focus on me" />
+        <p class="explanation">Triggers when the input field gains focus.</p>
     </div>
     <div class="event-box">
         <h3>Blur Event</h3>
         <input type="text" onfocus="this.style.borderColor='#0000FF'" onblur="this.style.borderColor=''" placeholder="Blur on me" />
+        <p class="explanation">Occurs when the input field loses focus.</p>
     </div>
     <div class="event-box">
         <h3>Change Event</h3>
         <input type="text" oninput="document.getElementById('changeOutput').innerText = this.value" placeholder="Type something" />
-        <p id="changeOutput"></p>
+        <p id="changeOutput" class="result"></p>
+        <p class="explanation">This event triggers when the value of the input changes.</p>
     </div>
     <div class="event-box">
         <h3>Key Up Event</h3>
-        <input type="text" onkeyup="console.log('Key Released:', this.value)" placeholder="Type and release a key" />
+        <input type="text" onkeyup="showResult('Key Released: ' + this.value)" placeholder="Type and release a key" />
+        <p class="explanation">Triggers when a key is released while focused on the input field.</p>
     </div>
     <div class="event-box">
         <h3>Key Down Event</h3>
-        <input type="text" onkeydown="console.log('Key Pressed:', this.value)" placeholder="Press a key" />
+        <input type="text" onkeydown="showResult('Key Pressed: ' + this.value)" placeholder="Press a key" />
+        <p class="explanation">Occurs when a key is pressed down while focused on the input field.</p>
     </div>
     <div class="event-box">
         <h3>Submit Event</h3>
-        <form onsubmit="event.preventDefault(); alert('Form Submitted!');">
+        <form onsubmit="event.preventDefault(); showResult('Form Submitted!');">
             <input type="text" placeholder="Your name" required />
             <button type="submit">Submit</button>
         </form>
+        <p class="explanation">Triggers when the form is submitted.</p>
     </div>
     <div class="event-box">
         <h3>Load Event</h3>
-        <button onclick="window.addEventListener('load', () => alert('Page Loaded!'))">Trigger Load Event</button>
+        <button onclick="window.addEventListener('load', () => showResult('Page Loaded!'))">Trigger Load Event</button>
+        <p class="explanation">Occurs when the webpage fully loads.</p>
     </div>
     <div class="event-box">
         <h3>Resize Event</h3>
         <button id="resizeButton">Resize the Window</button>
+        <p class="explanation">Triggered when the browser window is resized.</p>
         <script>
             window.onresize = function() {
                 document.getElementById('resizeButton').innerText = 'Resize Event Triggered';
@@ -108,39 +128,47 @@
             <div style="height: 500px; background: linear-gradient(to bottom, #fff, #ddd);"></div>
         </div>
         <script>
-            document.querySelector('div[style*="scroll"]').onscroll = function() {
-                console.log('Scrolled:', this.scrollTop);
+            const scrollableDiv = document.querySelector('div[style*="scroll"]');
+            scrollableDiv.onscroll = function() {
+                showResult('Scrolled: ' + this.scrollTop);
             }
         </script>
+        <p class="explanation">This event triggers when an element is scrolled.</p>
     </div>
     <div class="event-box">
         <h3>Input Event</h3>
-        <input type="text" oninput="console.log('Input Changed:', this.value)" placeholder="Type something" />
+        <input type="text" oninput="showResult('Input Changed: ' + this.value)" placeholder="Type something" />
+        <p class="explanation">Triggered whenever the value of an input changes.</p>
     </div>
     <div class="event-box">
         <h3>Contextmenu Event</h3>
-        <button oncontextmenu="alert('Right Click Event Triggered!'); return false;">Right Click Me</button>
+        <button oncontextmenu="showResult('Right Click Event Triggered!'); return false;">Right Click Me</button>
+        <p class="explanation">Occurs when the right mouse button is clicked on the button.</p>
     </div>
     <div class="event-box">
         <h3>Wheel Event</h3>
-        <div style="height: 100px; border: 1px solid #4CAF50; overflow: auto;" onwheel="alert('Scrolled with Mouse Wheel!')">
+        <div style="height: 100px; border: 1px solid #4CAF50; overflow: auto;" onwheel="showResult('Scrolled with Mouse Wheel!')">
             <div style="height: 300px; background: linear-gradient(to bottom, #fff, #ccc);"></div>
         </div>
+        <p class="explanation">Triggered when the mouse wheel is used.</p>
     </div>
     <div class="event-box">
         <h3>Drag Event</h3>
         <div draggable="true" ondragstart="event.dataTransfer.setData('text/plain', 'Dragging!');" style="width: 80px; height: 80px; background-color: #4CAF50;" 
              ondragover="event.preventDefault();" 
-             ondrop="alert('Dropped!');">Drag Me</div>
+             ondrop="showResult('Dropped!');">Drag Me</div>
+        <p class="explanation">Occurs when an element is dragged over another element.</p>
     </div>
     <div class="event-box">
         <h3>Input Change Event</h3>
         <input type="range" oninput="document.getElementById('rangeValue').innerText = this.value" min="0" max="100" />
         <p>Value: <span id="rangeValue">50</span></p>
+        <p class="explanation">Triggered when the slider value changes.</p>
     </div>
     <div class="event-box">
         <h3>Unload Event</h3>
-        <button onclick="window.onbeforeunload = function() { return 'Are you sure you want to leave?'; }">Set Unload Event</button>
+        <button onclick="window.onbeforeunload = function() { showResult('Are you sure you want to leave?'); }">Set Unload Event</button>
+        <p class="explanation">Occurs when a user attempts to leave the page.</p>
     </div>
 </div>
 
@@ -148,7 +176,17 @@
     function changeColor(button, color) {
         button.style.backgroundColor = color;
     }
+
+    function showResult(message) {
+        const resultsContainer = document.getElementById('results');
+        const resultElement = document.createElement('p');
+        resultElement.textContent = message;
+        resultElement.className = 'result';
+        resultsContainer.prepend(resultElement);
+    }
 </script>
+
+<div id="results" style="margin-top: 20px;"></div>
 
 </body>
 </html>
