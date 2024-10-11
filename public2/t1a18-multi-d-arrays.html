@@ -69,6 +69,8 @@
         <textarea id="numbersInput" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
         
         <button type="submit" class="button">Submit</button>
+        <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
+        <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
     </form>
 
     <h2>Viewing Slice:</h2>
@@ -109,6 +111,36 @@
                 // Handle any JSON parsing errors or validation issues
                 document.getElementById('output').textContent = "Error: " + error.message;
             }
+        });
+
+        document.getElementById('loadPreset').addEventListener('click', function() {
+            // Load a predefined multi-dimensional array
+            const predefinedArray = [
+                [[1, 2, 3], [4, 5, 6]],
+                [[7, 8, 9], [10, 11, 12]],
+                [[13, 14, 15], [16, 17, 18]]
+            ];
+            document.getElementById('arrayInput').value = JSON.stringify(predefinedArray);
+        });
+
+        document.getElementById('generateRandom').addEventListener('click', function() {
+            // Generate a random 3D array of given dimensions
+            const depth = 2, rows = 3, cols = 4; // Dimensions for the 3D array
+            const min = 1, max = 20; // Range for random values
+            
+            multiDimArray = Array.from({ length: depth }, () =>
+                Array.from({ length: rows }, () =>
+                    Array.from({ length: cols }, () =>
+                        Math.floor(Math.random() * (max - min + 1)) + min
+                    )
+                )
+            );
+
+            // Display the generated array in the textarea
+            document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
+            // Reset layer index and display the first layer
+            layerIndex = 0;
+            displayLayer();
         });
 
         document.getElementById('previousLayer').addEventListener('click', function() {
