@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Dimensional Array Input</title>
+    <title>3D Array Viewer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,24 +11,31 @@
         }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 80px;
+        }
+        .button {
+            margin: 5px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Multi-Dimensional Array Input</h1>
+    <h1>3D Array Viewer</h1>
     <form id="arrayForm">
-        <label for="arrayInput">Enter a multi-dimensional array (e.g., [[1, 2], [3, 4]]):</label><br>
-        <!-- Default value set in the textarea -->
-        <textarea id="arrayInput">[[1, 2], [3, 4]]</textarea><br><br>
+        <label for="arrayInput">Enter a 3D array (e.g., [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]):</label><br>
+        <textarea id="arrayInput">[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]</textarea><br><br>
         <button type="submit">Submit</button>
     </form>
 
-    <h2>Output:</h2>
+    <h2>Viewing Slice:</h2>
+    <button id="previousLayer" class="button">Previous Layer</button>
+    <button id="nextLayer" class="button">Next Layer</button>
     <pre id="output"></pre>
 
     <script>
+        let multiDimArray;
+        let layerIndex = 0;
+
         document.getElementById('arrayForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
 
@@ -36,20 +43,42 @@
 
             try {
                 // Parse the input to a multi-dimensional array
-                const multiDimArray = JSON.parse(arrayInput);
+                multiDimArray = JSON.parse(arrayInput);
                 
-                // Validate whether the parsed input is an array
-                if (!Array.isArray(multiDimArray)) {
-                    throw new Error("Input must be an array");
+                // Validate whether the parsed input is a 3D array
+                if (!Array.isArray(multiDimArray) ||
+                    !multiDimArray.every(arr => Array.isArray(arr) && arr.every(inner => Array.isArray(inner)))) {
+                    throw new Error("Input must be a 3D array");
                 }
                 
-                // Display the array output
-                document.getElementById('output').textContent = JSON.stringify(multiDimArray, null, 2);
+                // Reset layer index and display the first layer
+                layerIndex = 0;
+                displayLayer();
+                
             } catch (error) {
                 // Handle any JSON parsing errors or validation issues
                 document.getElementById('output').textContent = "Error: " + error.message;
             }
         });
+
+        document.getElementById('previousLayer').addEventListener('click', function() {
+            if (multiDimArray && layerIndex > 0) {
+                layerIndex--;
+                displayLayer();
+            }
+        });
+
+        document.getElementById('nextLayer').addEventListener('click', function() {
+            if (multiDimArray && layerIndex < multiDimArray.length - 1) {
+                layerIndex++;
+                displayLayer();
+            }
+        });
+
+        function displayLayer() {
+            const currentLayer = multiDimArray[layerIndex];
+            document.getElementById('output').textContent = `Layer ${layerIndex}:\n` + JSON.stringify(currentLayer, null, 2);
+        }
     </script>
 
 </body>
