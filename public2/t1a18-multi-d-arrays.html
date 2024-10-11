@@ -7,7 +7,7 @@
     <style>
         body {
             background-color: #1a1a1a; /* Dark background */
-            color: #f5f5f5; /* Light text color */
+            color: #f5f5f5;  /* Light text color */
             font-family: Arial, sans-serif;
             margin: 20px;
             overflow: hidden;
@@ -65,13 +65,13 @@
 
     <form id="arrayForm">
         <label for="arrayInput">Enter a 3D array (e.g., [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]):</label><br>
-        <textarea id="arrayInput">[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]</textarea><br><br>
+        <textarea id="arrayInput" rows="4" placeholder="[[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]"></textarea><br><br>
 
         <label for="selector">Select an element with x[w,y,z] notation:</label><br>
         <input type="text" id="selector" placeholder="Enter w,y,z (e.g., 0,1,1)"><br><br>
 
         <label for="numbersInput">Enter numbers (up to 60, separated by commas):</label><br>
-        <textarea id="numbersInput" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
+        <textarea id="numbersInput" rows="4" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
 
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
@@ -93,14 +93,14 @@
     <script>
         let multiDimArray;
         let layerIndex = 0;
-        let scene, camera, renderer, cube;
+        let scene, camera, renderer;
         
         // Initialize Three.js
         function initThree() {
             const canvasContainer = document.getElementById('canvas-container');
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / 2 / 400, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer();
+            renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth / 2, 400);
             canvasContainer.appendChild(renderer.domElement);
             camera.position.z = 5;
@@ -110,31 +110,36 @@
         // Animate the spinning cube
         function animate() {
             requestAnimationFrame(animate);
-            if (cube) {
-                cube.rotation.x += 0.01;
-                cube.rotation.y += 0.01;
+            if (scene.children.length > 0) {
+                scene.children.forEach(cube => {
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+                });
             }
             renderer.render(scene, camera);
         }
 
-        function createCube(data) {
+        function createCubes(data) {
             // Clear old cubes
             while (scene.children.length > 0) { 
                 scene.remove(scene.children[0]); 
             }
-            const size = 1.5; // Size of each cube
+
+            const size = 1; // Size of each cube
             const geometry = new THREE.BoxGeometry(size, size, size);
-            
-            const colorMaterials = data.flat(2).map(value => {
-                const color = (value !== undefined) ? value * 12 : 0; // Map values to color
-                return new THREE.MeshBasicMaterial({ color: new THREE.Color(`hsl(${color % 360}, 100%, 50%)`) });
-            });
-            
+
+            // Iterate over the 3D array and create cubes
             for (let w = 0; w < data.length; w++) {
                 for (let y = 0; y < data[w].length; y++) {
                     for (let z = 0; z < data[w][y].length; z++) {
-                        const cube = new THREE.Mesh(geometry, colorMaterials[w * data[w].length * data[w][y].length + y * data[w][y].length + z]);
-                        cube.position.set(w - data.length / 2, y - data[w].length / 2, z - data[w][y].length / 2);
+                        const value = data[w][y][z] !== undefined ? data[w][y][z] : 0;
+                        const color = new THREE.Color(`hsl(${(value % 360)}, 100%, 50%)`);
+                        
+                        const material = new THREE.MeshBasicMaterial({ color: color });
+                        const cube = new THREE.Mesh(geometry, material);
+
+                        // Position the cube in 3D space
+                        cube.position.set(w - (data.length - 1) / 2, y - (data[w].length - 1) / 2, z - (data[w][y].length - 1) / 2);
                         scene.add(cube);
                     }
                 }
@@ -145,7 +150,7 @@
             event.preventDefault(); // Prevent the form from submitting
 
             const arrayInput = document.getElementById('arrayInput').value;
-
+            
             try {
                 // Parse the input to a multi-dimensional array
                 multiDimArray = JSON.parse(arrayInput);
@@ -159,10 +164,7 @@
                 // Reset layer index and display the first layer
                 layerIndex = 0;
                 displayLayer();
-                createCube(multiDimArray);
-
-                // Clear previous results
-                document.getElementById('result').textContent = '';
+                createCubes(multiDimArray);
 
             } catch (error) {
                 // Handle any JSON parsing errors or validation issues
@@ -195,10 +197,11 @@
 
             // Display the generated array in the textarea
             document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
+            
             // Reset layer index and display the first layer
             layerIndex = 0;
             displayLayer();
-            createCube(multiDimArray);
+            createCubes(multiDimArray);
         });
 
         document.getElementById('previousLayer').addEventListener('click', function() {
