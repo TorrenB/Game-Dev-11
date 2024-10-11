@@ -6,64 +6,64 @@
     <title>3D Array and Number Selection</title>
     <style>
         body {
-            background-color: #1a1a1a; /* Dark background */
-            color: #f5f5f5; /* Light text color */
+            background-color: #1a1a1a; 
+            color: #f5f5f5; 
             font-family: Arial, sans-serif;
             margin: 20px;
-            overflow: auto; /* Allow scrolling */
-            max-height: 100vh; /* Limit height to viewport */
+            overflow: auto; 
+            max-height: 100vh; 
         }
         h1, h2 {
-            color: #ffd700; /* Yellow color for headings */
+            color: #ffd700;
         }
         textarea, input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #555; /* Light gray border */
+            border: 1px solid #555; 
             border-radius: 5px;
-            background-color: #2b2b2b; /* Darker background for inputs */
-            color: #f5f5f5; /* Light text */
+            background-color: #2b2b2b; /
+            color: #f5f5f5;
         }
         textarea:focus, input:focus {
             outline: none;
-            border-color: #ffd700; /* Yellow border on focus */
+            border-color: #ffd700; 
         }
         .button {
             margin: 5px;
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
-            background-color: #007acc; /* Dark blue for buttons */
-            color: #f5f5f5; /* Light text on buttons */
+            background-color: #007acc; 
+            color: #f5f5f5; 
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Drop shadow effect */
-            transition: transform 0.1s, box-shadow 0.1s; /* Animations */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: transform 0.1s, box-shadow 0.1s; 
         }
         .button:hover {
-             background-color: #005f99; /* Darker blue on hover */
+             background-color: #005f99; 
         }
         .button:active {
-            transform: translateY(2px); /* Push down effect */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Adjust shadow on click */
+            transform: translateY(2px); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3); 
         }
         pre {
-            background-color: #333; /* Darker preformatted text background */
+            background-color: #333; 
             padding: 10px;
             border-radius: 5px;
-            color: #f5f5f5; /* Light text */
-            overflow: auto; /* Allow scrolling */
+            color: #f5f5f5; 
+            overflow: auto; 
         }
         #result {
             margin-top: 20px;
-            background-color: #333; /* Darker background for results */
+            background-color: #333; 
             padding: 10px;
             border-radius: 5px;
-            color: #ffd700; /* Yellow color for results */
+            color: #ffd700;
         }
         #canvas-container {
             width: 100%;
             height: 400px;
-            margin-top: 20px; /* Space above the canvas */
+            margin-top: 20px; 
         }
     </style>
 </head>
@@ -86,7 +86,7 @@
 
         <label for="layerCount">Number of layers to view:</label><br>
         <input type="number" id="layerCount" value="6" min="1"><br>
-        <button type="button" class="button" onclick="clearInput('layerCount')">Clear Input</button><br><br> <!-- Number of layers input -->
+        <button type="button" class="button" onclick="clearInput('layerCount')">Clear Input</button><br><br> 
 
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
@@ -109,7 +109,7 @@
 
     <h2>Results:</h2>
     <div id="result"></div>
-    <div id="sumOutput"></div> <!-- Separate container for sum output -->
+    <div id="sumOutput"></div> 
 
     <h2>3D Visual Representation:</h2>
     <div id="canvas-container"></div>
@@ -117,9 +117,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let multiDimArray;
-        let layerIndex = 0; // Track the current layer index
-        let maxLayersToShow = 6; // Default number of layers to show
-        let currentLayers = []; // Store current layers to display
+        let layerIndex = 0; 
+        let maxLayersToShow = 6; 
+        let currentLayers = []; 
         let scene, camera, renderer;
 
         // Initialize Three.js
@@ -152,7 +152,7 @@
                 scene.remove(scene.children[0]); 
             }
 
-            const size = 1; // Size of each cube
+            const size = 1;
             const geometry = new THREE.BoxGeometry(size, size, size);
 
             // Iterate over the 3D array and create cubes
