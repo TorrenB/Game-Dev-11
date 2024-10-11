@@ -91,12 +91,20 @@
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
         <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
-        <button type="button" class="button" id="hideLayers">Hide Layers</button> <!-- Hide Layers button -->
-        <button type="button" class="button" id="resetLayers">Reset Layers</button> <!-- Reset Layers button -->
+        <button type="button" class="button" id="hideLayers">Hide Layers</button>
+        <button type="button" class="button" id="resetLayers">Reset Layers</button>
     </form>
 
+    <h2>Show Digits of Pi:</h2>
+    <label for="piInput">Enter the number of digits:</label><br>
+    <input type="number" id="piInput" value="10" min="1" max="100"><br>
+    <button type="button" class="button" id="showPiButton">Show Pi</button>
+    
+    <h2>Pi Result:</h2>
+    <div id="piResult" style="background-color: #333; padding: 10px; border-radius: 5px; color: #ffd700;"></div>
+
     <h2>Viewing Layers:</h2>
-    <button id="viewLayers" class="button">Show Next Layers</button> <!-- Updated button label -->
+    <button id="viewLayers" class="button">Show Next Layers</button>
     <pre id="output"></pre>
 
     <h2>Results:</h2>
@@ -312,6 +320,17 @@
         function clearInput(inputId) {
             document.getElementById(inputId).value = '';
         }
+
+        // Handle the display of Pi digits
+        document.getElementById('showPiButton').addEventListener('click', function() {
+            const digits = parseInt(document.getElementById('piInput').value);
+            if (digits >= 1 && digits <= 100) {
+                const pi = Math.PI.toFixed(digits); // Get PI to the specified number of digits
+                document.getElementById('piResult').textContent = `Pi: ${pi}`;
+            } else {
+                document.getElementById('piResult').textContent = "Please enter a number between 1 and 100.";
+            }
+        });
 
         // Initialize the 3D scene
         initThree();
