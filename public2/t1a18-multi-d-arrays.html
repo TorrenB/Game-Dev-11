@@ -3,34 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Array Viewer</title>
+    <title>3D Array and Selection</title>
     <style>
         body {
+            background-color: #1a1a1a;  /* Dark background */
+            color: #f5f5f5;             /* Light text color */
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        textarea {
+        h1, h2 {
+            color: #ffd700;             /* Yellow color for headings */
+        }
+        textarea, input {
             width: 100%;
-            height: 80px;
+            padding: 10px;
+            border: 1px solid #555;     /* Light gray border */
+            border-radius: 5px;
+            background-color: #2b2b2b;  /* Darker background for inputs */
+            color: #f5f5f5;             /* Light text */
+        }
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ffd700;      /* Yellow border on focus */
         }
         .button {
             margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007acc;   /* Dark blue for buttons */
+            color: #f5f5f5;               /* Light text on buttons */
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #005f99;   /* Darker blue on hover */
+        }
+        pre {
+            background-color: #333;       /* Darker preformatted text background */
+            padding: 10px;
+            border-radius: 5px;
+            color: #f5f5f5;               /* Light text */
+            overflow: auto;               /* Allow scrolling */
+        }
+        #result {
+            margin-top: 20px;
+            background-color: #333;       /* Darker background for results */
+            padding: 10px;
+            border-radius: 5px;
+            color: #ffd700;               /* Yellow color for results */
         }
     </style>
 </head>
 <body>
 
-    <h1>3D Array Viewer</h1>
+    <h1>3D Array and Number Selection</h1>
+    
     <form id="arrayForm">
         <label for="arrayInput">Enter a 3D array (e.g., [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]):</label><br>
         <textarea id="arrayInput">[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]</textarea><br><br>
-        <button type="submit">Submit</button>
+        
+        <label for="selector">Select an element with x[w,y,z] notation:</label><br>
+        <input type="text" id="selector" placeholder="Enter w,y,z (e.g., 0,1,1)"><br><br>
+
+        <label for="numbersInput">Enter numbers (up to 60, separated by commas):</label><br>
+        <textarea id="numbersInput" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
+        
+        <button type="submit" class="button">Submit</button>
     </form>
 
     <h2>Viewing Slice:</h2>
     <button id="previousLayer" class="button">Previous Layer</button>
     <button id="nextLayer" class="button">Next Layer</button>
     <pre id="output"></pre>
+
+    <h2>Results:</h2>
+    <div id="result"></div>
 
     <script>
         let multiDimArray;
@@ -46,14 +93,17 @@
                 multiDimArray = JSON.parse(arrayInput);
                 
                 // Validate whether the parsed input is a 3D array
-                if (!Array.isArray(multiDimArray) ||
+                if (!Array.isArray(multiDimArray) || 
                     !multiDimArray.every(arr => Array.isArray(arr) && arr.every(inner => Array.isArray(inner)))) {
                     throw new Error("Input must be a 3D array");
                 }
-                
+
                 // Reset layer index and display the first layer
                 layerIndex = 0;
                 displayLayer();
+
+                // Clear previous results
+                document.getElementById('result').textContent = '';
                 
             } catch (error) {
                 // Handle any JSON parsing errors or validation issues
@@ -79,6 +129,36 @@
             const currentLayer = multiDimArray[layerIndex];
             document.getElementById('output').textContent = `Layer ${layerIndex}:\n` + JSON.stringify(currentLayer, null, 2);
         }
+
+        document.getElementById('selector').addEventListener('input', function() {
+            const input = this.value;
+            const indices = input.split(',').map(Number);
+            if (indices.length === 3) {
+                const [w, y, z] = indices;
+                if (multiDimArray && multiDimArray[w] && multiDimArray[w][y] && multiDimArray[w][y][z] !== undefined) {
+                    const selectedValue = multiDimArray[w][y][z];
+                    document.getElementById('result').textContent = `Selected Value (x[${w},${y},${z}]): ${selectedValue}`;
+                } else {
+                    document.getElementById('result').textContent = "Invalid indices. Please enter valid w,y,z.";
+                }
+            } else {
+                document.getElementById('result').textContent = "";
+            }
+        });
+
+        document.getElementById('numbersInput').addEventListener('input', function() {
+            const numbersInput = this.value;
+            const numbersArray = numbersInput.split(',')
+                .map(num => parseFloat(num.trim()))
+                .filter(num => !isNaN(num));
+
+            if (numbersArray.length > 60) {
+                document.getElementById('result').textContent = "You can only enter up to 60 numbers.";
+            } else {
+                const sum = numbersArray.reduce((acc, val) => acc + val, 0);
+                document.getElementById('result').textContent += `\nSum of entered numbers: ${sum}`;
+            }
+        });
     </script>
 
 </body>
