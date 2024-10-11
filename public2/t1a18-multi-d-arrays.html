@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Array and Spinning Cube</title>
+    <title>3D Array and Number Selection</title>
     <style>
         body {
             background-color: #1a1a1a; /* Dark background */
@@ -63,7 +63,7 @@
         #canvas-container {
             width: 100%;
             height: 400px;
-            margin-top: 20px; /* Create space before the canvas */
+            margin-top: 20px; /* Space above the canvas */
         }
     </style>
 </head>
@@ -81,13 +81,16 @@
         <label for="numbersInput">Enter numbers (up to 60, separated by commas):</label><br>
         <textarea id="numbersInput" rows="4" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
 
+        <label for="layerCount">Number of layers to view:</label><br>
+        <input type="number" id="layerCount" value="6" min="1"><br><br> <!-- Number of layers input -->
+
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
         <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
     </form>
 
     <h2>Viewing Layers:</h2>
-    <button id="viewLayers" class="button">Show Next 6 Layers</button>
+    <button id="viewLayers" class="button">Show Next Layers</button> <!-- Updated button label -->
     <pre id="output"></pre>
 
     <h2>Results:</h2>
@@ -99,8 +102,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let multiDimArray;
-        let layerIndex = 0;
-        let maxLayersToShow = 6; // Maximum number of layers to show at once
+        let layerIndex = 0; // Track the current layer index
+        let maxLayersToShow = 6; // Default number of layers to show
         let currentLayers = []; // Store current layers to display
         let scene, camera, renderer;
 
@@ -159,7 +162,8 @@
             event.preventDefault(); // Prevent the form from submitting
 
             const arrayInput = document.getElementById('arrayInput').value;
-            
+            const layerCountInput = document.getElementById('layerCount').value; // Get the layer count input
+
             try {
                 // Parse the input to a multi-dimensional array
                 multiDimArray = JSON.parse(arrayInput);
@@ -170,8 +174,9 @@
                     throw new Error("Input must be a 3D array");
                 }
 
-                // Reset layer index and display the first 6 layers
+                // Reset layer index and max layers to show
                 layerIndex = 0;
+                maxLayersToShow = Math.max(1, parseInt(layerCountInput)); // Ensure at least 1 layer
                 currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
                 displayLayers();
                 createCubes(multiDimArray);
@@ -211,7 +216,7 @@
             // Display the generated array in the textarea
             document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
             
-            // Reset layer index and display the first 6 layers
+            // Reset layer index and display the first x layers
             layerIndex = 0;
             currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
             displayLayers();
