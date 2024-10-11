@@ -3,71 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Array and Selection</title>
+    <title>3D Array and Spinning Cube</title>
     <style>
         body {
-            background-color: #1a1a1a;  /* Dark background */
-            color: #f5f5f5;             /* Light text color */
+            background-color: #1a1a1a; /* Dark background */
+            color: #f5f5f5; /* Light text color */
             font-family: Arial, sans-serif;
             margin: 20px;
+            overflow: hidden;
         }
         h1, h2 {
-            color: #ffd700;             /* Yellow color for headings */
+            color: #ffd700; /* Yellow color for headings */
         }
         textarea, input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #555;     /* Light gray border */
+            border: 1px solid #555; /* Light gray border */
             border-radius: 5px;
-            background-color: #2b2b2b;  /* Darker background for inputs */
-            color: #f5f5f5;             /* Light text */
+            background-color: #2b2b2b; /* Darker background for inputs */
+            color: #f5f5f5; /* Light text */
         }
         textarea:focus, input:focus {
             outline: none;
-            border-color: #ffd700;      /* Yellow border on focus */
+            border-color: #ffd700; /* Yellow border on focus */
         }
         .button {
             margin: 5px;
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
-            background-color: #007acc;   /* Dark blue for buttons */
-            color: #f5f5f5;               /* Light text on buttons */
+            background-color: #007acc; /* Dark blue for buttons */
+            color: #f5f5f5; /* Light text on buttons */
             cursor: pointer;
         }
         .button:hover {
-            background-color: #005f99;   /* Darker blue on hover */
+            background-color: #005f99; /* Darker blue on hover */
         }
         pre {
-            background-color: #333;       /* Darker preformatted text background */
+            background-color: #333; /* Darker preformatted text background */
             padding: 10px;
             border-radius: 5px;
-            color: #f5f5f5;               /* Light text */
-            overflow: auto;               /* Allow scrolling */
+            color: #f5f5f5; /* Light text */
+            overflow: auto; /* Allow scrolling */
         }
         #result {
             margin-top: 20px;
-            background-color: #333;       /* Darker background for results */
+            background-color: #333; /* Darker background for results */
             padding: 10px;
             border-radius: 5px;
-            color: #ffd700;               /* Yellow color for results */
+            color: #ffd700; /* Yellow color for results */
+        }
+        #canvas-container {
+            width: 100%;
+            height: 400px;
         }
     </style>
 </head>
 <body>
 
     <h1>3D Array and Number Selection</h1>
-    
+
     <form id="arrayForm">
         <label for="arrayInput">Enter a 3D array (e.g., [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]):</label><br>
         <textarea id="arrayInput">[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]</textarea><br><br>
-        
+
         <label for="selector">Select an element with x[w,y,z] notation:</label><br>
         <input type="text" id="selector" placeholder="Enter w,y,z (e.g., 0,1,1)"><br><br>
 
         <label for="numbersInput">Enter numbers (up to 60, separated by commas):</label><br>
         <textarea id="numbersInput" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
-        
+
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
         <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
@@ -81,9 +86,60 @@
     <h2>Results:</h2>
     <div id="result"></div>
 
+    <h2>3D Visual Representation:</h2>
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let multiDimArray;
         let layerIndex = 0;
+        let scene, camera, renderer, cube;
+        
+        // Initialize Three.js
+        function initThree() {
+            const canvasContainer = document.getElementById('canvas-container');
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / 2 / 400, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth / 2, 400);
+            canvasContainer.appendChild(renderer.domElement);
+            camera.position.z = 5;
+            animate();
+        }
+
+        // Animate the spinning cube
+        function animate() {
+            requestAnimationFrame(animate);
+            if (cube) {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+            }
+            renderer.render(scene, camera);
+        }
+
+        function createCube(data) {
+            // Clear old cubes
+            while (scene.children.length > 0) { 
+                scene.remove(scene.children[0]); 
+            }
+            const size = 1.5; // Size of each cube
+            const geometry = new THREE.BoxGeometry(size, size, size);
+            
+            const colorMaterials = data.flat(2).map(value => {
+                const color = (value !== undefined) ? value * 12 : 0; // Map values to color
+                return new THREE.MeshBasicMaterial({ color: new THREE.Color(`hsl(${color % 360}, 100%, 50%)`) });
+            });
+            
+            for (let w = 0; w < data.length; w++) {
+                for (let y = 0; y < data[w].length; y++) {
+                    for (let z = 0; z < data[w][y].length; z++) {
+                        const cube = new THREE.Mesh(geometry, colorMaterials[w * data[w].length * data[w][y].length + y * data[w][y].length + z]);
+                        cube.position.set(w - data.length / 2, y - data[w].length / 2, z - data[w][y].length / 2);
+                        scene.add(cube);
+                    }
+                }
+            }
+        }
 
         document.getElementById('arrayForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
@@ -103,10 +159,11 @@
                 // Reset layer index and display the first layer
                 layerIndex = 0;
                 displayLayer();
+                createCube(multiDimArray);
 
                 // Clear previous results
                 document.getElementById('result').textContent = '';
-                
+
             } catch (error) {
                 // Handle any JSON parsing errors or validation issues
                 document.getElementById('output').textContent = "Error: " + error.message;
@@ -141,6 +198,7 @@
             // Reset layer index and display the first layer
             layerIndex = 0;
             displayLayer();
+            createCube(multiDimArray);
         });
 
         document.getElementById('previousLayer').addEventListener('click', function() {
@@ -191,7 +249,9 @@
                 document.getElementById('result').textContent += `\nSum of entered numbers: ${sum}`;
             }
         });
-    </script>
 
+        // Initialize the 3D scene
+        initThree();
+    </script>
 </body>
 </html>
