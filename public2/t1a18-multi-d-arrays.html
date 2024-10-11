@@ -40,7 +40,7 @@
             transition: transform 0.1s, box-shadow 0.1s; /* Animations */
         }
         .button:hover {
-            background-color: #005f99; /* Darker blue on hover */
+             background-color: #005f99; /* Darker blue on hover */
         }
         .button:active {
             transform: translateY(2px); /* Push down effect */
@@ -73,20 +73,26 @@
 
     <form id="arrayForm">
         <label for="arrayInput">Enter a 3D array (e.g., [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]):</label><br>
-        <textarea id="arrayInput" rows="4" placeholder="[[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]"></textarea><br><br>
+        <textarea id="arrayInput" rows="4" placeholder="[[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]"></textarea><br>
+        <button type="button" class="button" onclick="clearInput('arrayInput')">Clear Input</button><br><br>
 
         <label for="selector">Select an element with x[w,y,z] notation:</label><br>
-        <input type="text" id="selector" placeholder="Enter w,y,z (e.g., 0,1,1)"><br><br>
+        <input type="text" id="selector" placeholder="Enter w,y,z (e.g., 0,1,1)"><br>
+        <button type="button" class="button" onclick="clearInput('selector')">Clear Input</button><br><br>
 
         <label for="numbersInput">Enter numbers (up to 60, separated by commas):</label><br>
-        <textarea id="numbersInput" rows="4" placeholder="E.g., 5, 10, 15, ..."></textarea><br><br>
+        <textarea id="numbersInput" rows="4" placeholder="E.g., 5, 10, 15, ..."></textarea><br>
+        <button type="button" class="button" onclick="clearInput('numbersInput')">Clear Input</button><br><br>
 
         <label for="layerCount">Number of layers to view:</label><br>
-        <input type="number" id="layerCount" value="6" min="1"><br><br> <!-- Number of layers input -->
+        <input type="number" id="layerCount" value="6" min="1"><br>
+        <button type="button" class="button" onclick="clearInput('layerCount')">Clear Input</button><br><br> <!-- Number of layers input -->
 
         <button type="submit" class="button">Submit</button>
         <button type="button" class="button" id="loadPreset">Load Predefined Array</button>
         <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
+        <button type="button" class="button" id="hideLayers">Hide Layers</button> <!-- Hide Layers button -->
+        <button type="button" class="button" id="resetLayers">Reset Layers</button> <!-- Reset Layers button -->
     </form>
 
     <h2>Viewing Layers:</h2>
@@ -95,6 +101,7 @@
 
     <h2>Results:</h2>
     <div id="result"></div>
+    <div id="sumOutput"></div> <!-- Separate container for sum output -->
 
     <h2>3D Visual Representation:</h2>
     <div id="canvas-container"></div>
@@ -158,6 +165,26 @@
             }
         }
 
+        function generateUniquePredefinedArray() {
+            const predefinedArrays = [
+                [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                [[[9, 10], [11, 12]], [[13, 14], [15, 16]]],
+                [[[17, 18], [19, 20]], [[21, 22], [23, 24]]],
+                [[[25, 26], [27, 28]], [[29, 30], [31, 32]]],
+                [[[33, 34], [35, 36]], [[37, 38], [39, 40]]],
+                [[[41, 42], [43, 44]], [[45, 46], [47, 48]]],
+                // Add more predefined arrays here
+            ];
+            // Pick a random array from the predefined list
+            const randomIndex = Math.floor(Math.random() * predefinedArrays.length);
+            return predefinedArrays[randomIndex];
+        }
+
+        function updateSumOutput() {
+            const sum = multiDimArray.flat(2).reduce((acc, val) => acc + val, 0);
+            document.getElementById('sumOutput').textContent = `Sum of Array Elements: ${sum}`;
+        }
+
         document.getElementById('arrayForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
 
@@ -180,6 +207,7 @@
                 currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
                 displayLayers();
                 createCubes(multiDimArray);
+                updateSumOutput(); // Update the sum display
 
             } catch (error) {
                 // Handle any JSON parsing errors or validation issues
@@ -188,16 +216,16 @@
         });
 
         document.getElementById('loadPreset').addEventListener('click', function() {
-            // Load a predefined multi-dimensional array
-            const predefinedArray = [
-                [[1, 2, 3], [4, 5, 6]],
-                [[7, 8, 9], [10, 11, 12]],
-                [[13, 14, 15], [16, 17, 18]],
-                [[19, 20, 21], [22, 23, 24]],
-                [[25, 26, 27], [28, 29, 30]],
-                [[31, 32, 33], [34, 35, 36]]
-            ];
-            document.getElementById('arrayInput').value = JSON.stringify(predefinedArray);
+            // Load a random predefined multi-dimensional array
+            multiDimArray = generateUniquePredefinedArray();
+            document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
+
+            // Reset layer index and display the first x layers
+            layerIndex = 0;
+            currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+            displayLayers();
+            createCubes(multiDimArray);
+            updateSumOutput(); // Update the sum display
         });
 
         document.getElementById('generateRandom').addEventListener('click', function() {
@@ -221,6 +249,26 @@
             currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
             displayLayers();
             createCubes(multiDimArray);
+            updateSumOutput(); // Update the sum display
+        });
+
+        document.getElementById('hideLayers').addEventListener('click', function() {
+            // Hide all layers by clearing displayed layers and the canvas
+            currentLayers = [];
+            document.getElementById('output').textContent = "Layers hidden.";
+            while (scene.children.length > 0) { 
+                scene.remove(scene.children[0]); 
+            }
+        });
+
+        document.getElementById('resetLayers').addEventListener('click', function() {
+            // Reset to show the first set of layers
+            layerIndex = 0;
+            if (multiDimArray) {
+                currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+                displayLayers();
+                createCubes(multiDimArray);
+            }
         });
 
         document.getElementById('viewLayers').addEventListener('click', function() {
@@ -235,6 +283,7 @@
                     displayLayers();
                 }
                 createCubes(multiDimArray); // Update cubes with the current array
+                updateSumOutput(); // Update the sum display
             }
         });
 
@@ -259,19 +308,10 @@
             }
         });
 
-        document.getElementById('numbersInput').addEventListener('input', function() {
-            const numbersInput = this.value;
-            const numbersArray = numbersInput.split(',')
-                .map(num => parseFloat(num.trim()))
-                .filter(num => !isNaN(num));
-
-            if (numbersArray.length > 60) {
-                document.getElementById('result').textContent = "You can only enter up to 60 numbers.";
-            } else {
-                const sum = numbersArray.reduce((acc, val) => acc + val, 0);
-                document.getElementById('result').textContent += `\nSum of entered numbers: ${sum}`;
-            }
-        });
+        // Function to clear input boxes
+        function clearInput(inputId) {
+            document.getElementById(inputId).value = '';
+        }
 
         // Initialize the 3D scene
         initThree();
