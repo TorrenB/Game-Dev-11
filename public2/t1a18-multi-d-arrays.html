@@ -10,14 +10,15 @@
             color: #f5f5f5; 
             font-family: Arial, sans-serif;
             margin: 20px;
-            overflow: auto; 
+            overflow-y: auto;  /* allow scrolling down */
+            overflow-x: hidden; /* prevent horizontal scrolling */
             max-height: 100vh; 
         }
         h1, h2 {
             color: #ffd700;
         }
         textarea, input {
-            width: 100%;
+            width: calc(100% - 22px); /* Allow for padding and border */
             padding: 10px;
             border: 1px solid #555; 
             border-radius: 5px;
@@ -29,7 +30,7 @@
             border-color: #ffd700; 
         }
         .button {
-            margin: 5px;
+            margin-top: 10px; /* Add some space above buttons */
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
@@ -38,9 +39,10 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             transition: transform 0.1s, box-shadow 0.1s; 
+            width: calc(100% - 22px); /* Match width with inputs */
         }
         .button:hover {
-             background-color: #005f99; 
+            background-color: #005f99; 
         }
         .button:active {
             transform: translateY(2px); 
@@ -52,6 +54,7 @@
             border-radius: 5px;
             color: #f5f5f5; 
             overflow: auto; 
+            white-space: pre-wrap; /* Allow wrapping within pre tags */
         }
         #result {
             margin-top: 20px;
@@ -97,7 +100,7 @@
 
     <h2>Show Digits of Pi:</h2>
     <label for="piInput">Enter the number of digits:</label><br>
-    <input type="number" id="piInput" value="10" min="1" max="10000"><br>
+    <input type="number" id="piInput" value="10" min="1" max="1000"><br>
     <button type="button" class="button" id="showPiButton">Show Pi</button>
     
     <h2>Pi Result:</h2>
@@ -181,9 +184,7 @@
                 [[[25, 26], [27, 28]], [[29, 30], [31, 32]]],
                 [[[33, 34], [35, 36]], [[37, 38], [39, 40]]],
                 [[[41, 42], [43, 44]], [[45, 46], [47, 48]]],
-                // Add more predefined arrays here
             ];
-            // Pick a random array from the predefined list
             const randomIndex = Math.floor(Math.random() * predefinedArrays.length);
             return predefinedArrays[randomIndex];
         }
@@ -200,35 +201,28 @@
             const layerCountInput = document.getElementById('layerCount').value; // Get the layer count input
 
             try {
-                // Parse the input to a multi-dimensional array
                 multiDimArray = JSON.parse(arrayInput);
-                
-                // Validate whether the parsed input is a 3D array
                 if (!Array.isArray(multiDimArray) || 
                     !multiDimArray.every(arr => Array.isArray(arr) && arr.every(inner => Array.isArray(inner)))) {
                     throw new Error("Input must be a 3D array");
                 }
 
-                // Reset layer index and max layers to show
                 layerIndex = 0;
-                maxLayersToShow = Math.max(1, parseInt(layerCountInput)); // Ensure at least 1 layer
+                maxLayersToShow = Math.max(1, parseInt(layerCountInput)); 
                 currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
                 displayLayers();
                 createCubes(multiDimArray);
                 updateSumOutput(); // Update the sum display
 
             } catch (error) {
-                // Handle any JSON parsing errors or validation issues
                 document.getElementById('output').textContent = "Error: " + error.message;
             }
         });
 
         document.getElementById('loadPreset').addEventListener('click', function() {
-            // Load a random predefined multi-dimensional array
             multiDimArray = generateUniquePredefinedArray();
             document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
 
-            // Reset layer index and display the first x layers
             layerIndex = 0;
             currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
             displayLayers();
@@ -237,9 +231,8 @@
         });
 
         document.getElementById('generateRandom').addEventListener('click', function() {
-            // Generate a random 3D array of given dimensions
-            const depth = 6, rows = 3, cols = 4; // Dimensions for the 3D array
-            const min = 1, max = 20; // Range for random values
+            const depth = 6, rows = 3, cols = 4; 
+            const min = 1, max = 20; 
             
             multiDimArray = Array.from({ length: depth }, () =>
                 Array.from({ length: rows }, () =>
@@ -249,10 +242,7 @@
                 )
             );
 
-            // Display the generated array in the textarea
             document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
-            
-            // Reset layer index and display the first x layers
             layerIndex = 0;
             currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
             displayLayers();
@@ -261,7 +251,6 @@
         });
 
         document.getElementById('hideLayers').addEventListener('click', function() {
-            // Hide all layers by clearing displayed layers and the canvas
             currentLayers = [];
             document.getElementById('output').textContent = "Layers hidden.";
             while (scene.children.length > 0) { 
@@ -270,7 +259,6 @@
         });
 
         document.getElementById('resetLayers').addEventListener('click', function() {
-            // Reset to show the first set of layers
             layerIndex = 0;
             if (multiDimArray) {
                 currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
@@ -286,12 +274,12 @@
                     currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
                     displayLayers();
                 } else {
-                    layerIndex = 0; // Loop back to the start
+                    layerIndex = 0; 
                     currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
                     displayLayers();
                 }
-                createCubes(multiDimArray); // Update cubes with the current array
-                updateSumOutput(); // Update the sum display
+                createCubes(multiDimArray); 
+                updateSumOutput(); 
             }
         });
 
@@ -322,35 +310,38 @@
         }
 
         // Handle the display of Pi digits
+        const PI_DIGITS = "3." + 
+           "1415926535" + "8979323846" + "2643383279" + "5028841971" + "6939937510" +
+"5820974944" + "5923078164" + "0628620899" + "8628034825" + "3421170679" +
+"8214808651" + "3282306647" + "0938446095" + "5058223172" + "5359408128" +
+"4811174502" + "8410270193" + "8521105559" + "6446229489" + "5493038196" +
+"4428810975" + "6659334461" + "2847564823" + "3786783165" + "2712019091" +
+"4564856692" + "3460348610" + "4543266482" + "1339360726" + "0249141273" +
+"7245870066" + "0631558817" + "4881520920" + "9628292540" + "9171536436" +
+"7892590360" + "0113305305" + "4882046652" + "1384146951" + "9415116094" +
+"3305727036" + "5759591953" + "0921861173" + "8193261179" + "3105118548" +
+"0744623799" + "6274956735" + "1885752724" + "8912279381" + "8301194912" +
+"9833673362" + "4406566430" + "8602139494" + "6395224737" + "1907021798" +
+"6094370277" + "0539217176" + "2931767523" + "8467481846" + "7669405132" +
+"0005681271" + "4526356082" + "7785771342" + "7577896091" + "7363717872" +
+"1468440901" + "2249534301" + "4654958537" + "1050792279" + "6892589235" +
+"4201995611" + "2129021960" + "8640344181" + "5981362977" + "4771309960" +
+"5187072113" + "4999999837" + "2978049951" + "0597317328" + "1609631859" +
+"5024459455" + "3469083026" + "4252230825" + "3344685035" + "2619311881" +
+"7933207624" + "1349708253" + "5921861173" + "8193261179" + "3105118548" +
+"0744623799" + "6274956735" + "1885752724" + "8912279381" + "8301194912" +
+"9833673362" + "4406566430" + "8602139494" + "6395224737" + "1907021798" +
+"6094370277" + "0539217176" + "2931767523" + "8467481846" + "7669405132" +
+"0005681271" + "4526356082" + "7785771342" + "7577896091" + "7363717872"
         document.getElementById('showPiButton').addEventListener('click', async function() {
             const digits = parseInt(document.getElementById('piInput').value);
             if (digits >= 1 && digits <= 10000) {
-                const piString = await calculatePi(digits); // Get PI to the specified number of digits
+                const piString = PI_DIGITS.slice(0, digits + 2); // +2 for "3."
                 document.getElementById('piResult').textContent = `Pi: ${piString}`;
             } else {
                 document.getElementById('piResult').textContent = "Please enter a number between 1 and 10,000.";
             }
         });
-
-        // Function to calculate Pi to a specified number of digits using a simple algorithm
-        async function calculatePi(digits) {
-            const pi = [];
-            let k = 0;
-            let a = 1;
-            let b = 1;
-            let s = 0;
-
-            while (pi.length < digits + 1) {
-                a = Math.floor(10000 * a / (4 * b * (2 * k + 1)));
-                s += a;
-                pi.push(s % 10000);
-                a = (a % 10000) * 10;
-                k++;
-            }
-
-            // Convert the array of digits to a string
-            return pi.join('').replace(/^(.{1})(.*)$/, '$1.$2'); // Ensure to place the decimal
-        }
 
         // Initialize the 3D scene
         initThree();
