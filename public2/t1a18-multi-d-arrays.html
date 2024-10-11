@@ -7,10 +7,11 @@
     <style>
         body {
             background-color: #1a1a1a; /* Dark background */
-            color: #f5f5f5;  /* Light text color */
+            color: #f5f5f5; /* Light text color */
             font-family: Arial, sans-serif;
             margin: 20px;
-            overflow: hidden;
+            overflow: auto; /* Allow scrolling */
+            max-height: 100vh; /* Limit height to viewport */
         }
         h1, h2 {
             color: #ffd700; /* Yellow color for headings */
@@ -35,9 +36,15 @@
             background-color: #007acc; /* Dark blue for buttons */
             color: #f5f5f5; /* Light text on buttons */
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Drop shadow effect */
+            transition: transform 0.1s, box-shadow 0.1s; /* Animations */
         }
         .button:hover {
             background-color: #005f99; /* Darker blue on hover */
+        }
+        .button:active {
+            transform: translateY(2px); /* Push down effect */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Adjust shadow on click */
         }
         pre {
             background-color: #333; /* Darker preformatted text background */
@@ -56,6 +63,7 @@
         #canvas-container {
             width: 100%;
             height: 400px;
+            margin-top: 20px; /* Create space before the canvas */
         }
     </style>
 </head>
@@ -78,9 +86,8 @@
         <button type="button" class="button" id="generateRandom">Generate Random 3D Array</button>
     </form>
 
-    <h2>Viewing Slice:</h2>
-    <button id="previousLayer" class="button">Previous Layer</button>
-    <button id="nextLayer" class="button">Next Layer</button>
+    <h2>Viewing Layers:</h2>
+    <button id="viewLayers" class="button">Show Next 6 Layers</button>
     <pre id="output"></pre>
 
     <h2>Results:</h2>
@@ -93,8 +100,10 @@
     <script>
         let multiDimArray;
         let layerIndex = 0;
+        let maxLayersToShow = 6; // Maximum number of layers to show at once
+        let currentLayers = []; // Store current layers to display
         let scene, camera, renderer;
-        
+
         // Initialize Three.js
         function initThree() {
             const canvasContainer = document.getElementById('canvas-container');
@@ -107,7 +116,7 @@
             animate();
         }
 
-        // Animate the spinning cube
+        // Animate the spinning cubes
         function animate() {
             requestAnimationFrame(animate);
             if (scene.children.length > 0) {
@@ -161,9 +170,10 @@
                     throw new Error("Input must be a 3D array");
                 }
 
-                // Reset layer index and display the first layer
+                // Reset layer index and display the first 6 layers
                 layerIndex = 0;
-                displayLayer();
+                currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+                displayLayers();
                 createCubes(multiDimArray);
 
             } catch (error) {
@@ -177,14 +187,17 @@
             const predefinedArray = [
                 [[1, 2, 3], [4, 5, 6]],
                 [[7, 8, 9], [10, 11, 12]],
-                [[13, 14, 15], [16, 17, 18]]
+                [[13, 14, 15], [16, 17, 18]],
+                [[19, 20, 21], [22, 23, 24]],
+                [[25, 26, 27], [28, 29, 30]],
+                [[31, 32, 33], [34, 35, 36]]
             ];
             document.getElementById('arrayInput').value = JSON.stringify(predefinedArray);
         });
 
         document.getElementById('generateRandom').addEventListener('click', function() {
             // Generate a random 3D array of given dimensions
-            const depth = 2, rows = 3, cols = 4; // Dimensions for the 3D array
+            const depth = 6, rows = 3, cols = 4; // Dimensions for the 3D array
             const min = 1, max = 20; // Range for random values
             
             multiDimArray = Array.from({ length: depth }, () =>
@@ -198,29 +211,31 @@
             // Display the generated array in the textarea
             document.getElementById('arrayInput').value = JSON.stringify(multiDimArray);
             
-            // Reset layer index and display the first layer
+            // Reset layer index and display the first 6 layers
             layerIndex = 0;
-            displayLayer();
+            currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+            displayLayers();
             createCubes(multiDimArray);
         });
 
-        document.getElementById('previousLayer').addEventListener('click', function() {
-            if (multiDimArray && layerIndex > 0) {
-                layerIndex--;
-                displayLayer();
+        document.getElementById('viewLayers').addEventListener('click', function() {
+            if (multiDimArray) {
+                layerIndex += maxLayersToShow;
+                if (layerIndex < multiDimArray.length) {
+                    currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+                    displayLayers();
+                } else {
+                    layerIndex = 0; // Loop back to the start
+                    currentLayers = multiDimArray.slice(layerIndex, layerIndex + maxLayersToShow);
+                    displayLayers();
+                }
+                createCubes(multiDimArray); // Update cubes with the current array
             }
         });
 
-        document.getElementById('nextLayer').addEventListener('click', function() {
-            if (multiDimArray && layerIndex < multiDimArray.length - 1) {
-                layerIndex++;
-                displayLayer();
-            }
-        });
-
-        function displayLayer() {
-            const currentLayer = multiDimArray[layerIndex];
-            document.getElementById('output').textContent = `Layer ${layerIndex}:\n` + JSON.stringify(currentLayer, null, 2);
+        function displayLayers() {
+            const displayedLayers = currentLayers.map((layer, index) => `Layer ${layerIndex + index}:\n` + JSON.stringify(layer, null, 2)).join("\n\n");
+            document.getElementById('output').textContent = displayedLayers;
         }
 
         document.getElementById('selector').addEventListener('input', function() {
