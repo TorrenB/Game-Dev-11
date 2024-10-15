@@ -232,6 +232,26 @@
                 <option value="eur">EUR (Euro)</option>
                 <option value="gbp">GBP (British Pound)</option>
                 <option value="jpy">JPY (Japanese Yen)</option>
+                <option value="aud">AUD (Australian Dollar)</option>
+                <option value="cad">CAD (Canadian Dollar)</option>
+                <option value="chf">CHF (Swiss Franc)</option>
+                <option value="cny">CNY (Chinese Yuan)</option>
+                <option value="nzd">NZD (New Zealand Dollar)</option>
+                <option value="sek">SEK (Swedish Krona)</option>
+                <option value="nok">NOK (Norwegian Krone)</option>
+                <option value="dkk">DKK (Danish Krona)</option>
+                <option value="sgd">SGD (Singapore Dollar)</option>
+                <option value="hkd">HKD (Hong Kong Dollar)</option>
+                <option value="pln">PLN (Polish Zloty)</option>
+                <option value="mxn">MXN (Mexican Peso)</option>
+                <option value="zar">ZAR (South African Rand)</option>
+                <option value="inr">INR (Indian Rupee)</option>
+                <option value="rub">RUB (Russian Ruble)</option>
+                <option value="try">TRY (Turkish Lira)</option>
+                <option value="aed">AED (United Arab Emirates Dirham)</option>
+                <option value="brl">BRL (Brazilian Real)</option>
+                <option value="thb">THB (Thai Baht)</option>
+                <option value="idr">IDR (Indonesian Rupiah)</option>
             </select>
         </div>
         <select id="target-currency" class="converter-input" aria-label="Currency to convert to">
@@ -239,6 +259,26 @@
             <option value="gbp">GBP (British Pound)</option>
             <option value="usd">USD (United States Dollar)</option>
             <option value="jpy">JPY (Japanese Yen)</option>
+            <option value="aud">AUD (Australian Dollar)</option>
+            <option value="cad">CAD (Canadian Dollar)</option>
+            <option value="chf">CHF (Swiss Franc)</option>
+            <option value="cny">CNY (Chinese Yuan)</option>
+            <option value="nzd">NZD (New Zealand Dollar)</option>
+            <option value="sek">SEK (Swedish Krona)</option>
+            <option value="nok">NOK (Norwegian Krone)</option>
+            <option value="dkk">DKK (Danish Krona)</option>
+            <option value="sgd">SGD (Singapore Dollar)</option>
+            <option value="hkd">HKD (Hong Kong Dollar)</option>
+            <option value="pln">PLN (Polish Zloty)</option>
+            <option value="mxn">MXN (Mexican Peso)</option>
+            <option value="zar">ZAR (South African Rand)</option>
+            <option value="inr">INR (Indian Rupee)</option>
+            <option value="rub">RUB (Russian Ruble)</option>
+            <option value="try">TRY (Turkish Lira)</option>
+            <option value="aed">AED (United Arab Emirates Dirham)</option>
+            <option value="brl">BRL (Brazilian Real)</option>
+            <option value="thb">THB (Thai Baht)</option>
+            <option value="idr">IDR (Indonesian Rupiah)</option>
         </select>
         <button class="button" onclick="convertCurrency()">Convert</button>
         <div id="currency-output" style="margin-top: 10px;"></div>
@@ -372,15 +412,15 @@
 
             // Define some static conversion rates for demonstration purposes
             const rates = {
-                usd: { eur: 0.85, gbp: 0.74, jpy: 110.53 },
-                eur: { usd: 1.18, gbp: 0.87, jpy: 130.07 },
-                gbp: { usd: 1.36, eur: 1.15, jpy: 149.20 },
-                jpy: { usd: 0.0091, eur: 0.0077, gbp: 0.0067 },
+                usd: { eur: 0.85, gbp: 0.74, jpy: 110.53, aud: 1.35, cad: 1.25, chf: 0.93, cny: 6.47, nzd: 1.43, sek: 8.67, nok: 8.53, dkk: 6.11, sgd: 1.36, hkd: 7.85, pln: 3.74, mxn: 20.00, zar: 15.00, inr: 73.55, rub: 73.40, try: 8.45, aed: 3.67, brl: 5.38, thb: 32.56, idr: 14000 },
+                eur: { usd: 1.18, gbp: 0.87, jpy: 130.07, aud: 1.59, cad: 1.47, chf: 1.10, cny: 7.63, nzd: 1.68, sek: 10.19, nok: 9.97, dkk: 7.16, sgd: 1.60, hkd: 9.23, pln: 4.40, mxn: 23.53, zar: 17.64, inr: 86.76, rub: 86.10, try: 9.73, aed: 4.32, brl: 6.32, thb: 38.25, idr: 16700 },
+                gbp: { usd: 1.36, eur: 1.15, jpy: 149.20, aud: 1.83, cad: 1.67, chf: 1.26, cny: 8.72, nzd: 1.93, sek: 11.73, nok: 11.25, dkk: 8.17, sgd: 1.74, hkd: 10.57, pln: 5.20, mxn: 27.87, zar: 20.48, inr: 98.21, rub: 97.59, try: 11.18, aed: 4.85, brl: 7.12, thb: 43.61, idr: 19188 },
+                jpy: { usd: 0.0091, eur: 0.0077, gbp: 0.0067, aud: 0.0074, cad: 0.0069, chf: 0.0090, cny: 0.057, nzd: 0.0077, sek: 0.061, nok: 0.059, dkk: 0.046, sgd: 0.0078, hkd: 0.0128, pln: 0.027, mxn: 0.049, zar: 0.034, inr: 0.061, rub: 0.0067, try: 0.042, aed: 0.055, brl: 0.0020, thb: 0.020, idr: 140.00 },
+                // Add additional rates for each currency as necessary
             };
 
-            // Find the conversion rate based on selected currencies
             if (rates[currencyUnit] && targetCurrency) {
-                conversionRate = rates[currencyUnit][targetCurrency];
+                conversionRate = rates[currencyUnit][targetCurrency] || 1; // Use provided rate or 1 if not found
             }
 
             const result = currencyInput * conversionRate;
