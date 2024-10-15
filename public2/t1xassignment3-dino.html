@@ -99,7 +99,8 @@
     </div>
 
     <h2>Graph Function</h2>
-    <input type="text" id="function" placeholder="Enter function (e.g. x^2 - 4)" oninput="plotGraph()">
+    <input type="text" id="function" placeholder="Enter function (e.g. x^2 - 4)">
+    <button class="button" onclick="plotGraph()">Submit</button>
     <div id="graph">
         <canvas id="myChart"></canvas>
     </div>
@@ -129,6 +130,8 @@
 
     function plotGraph() {
         const func = document.getElementById('function').value;
+        // Normalize the input function for JavaScript
+        const normalizedFunc = func.replace(/\^/g, '**'); // Replace `^` with `**` for exponentiation
         const ctx = document.getElementById('myChart').getContext('2d');
 
         const xValues = [];
@@ -137,7 +140,7 @@
         for (let x = -10; x <= 10; x += 0.1) {
             xValues.push(x);
             try {
-                const y = math.evaluate(func, { x });
+                const y = math.evaluate(normalizedFunc, { x });
                 yValues.push(y);
             } catch (error) {
                 console.error(`Error evaluating function at x=${x}: ${error.message}`);
@@ -154,7 +157,7 @@
             data: {
                 labels: xValues,
                 datasets: [{
-                    label: `f(x) = ${func}`,
+                    label: `f(x) = ${normalizedFunc}`,
                     data: yValues,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
