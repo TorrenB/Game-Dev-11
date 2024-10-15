@@ -11,13 +11,13 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
-            justify-content: center; /* Center the calculator */
+            justify-content: center;
             align-items: flex-start;
             padding: 20px;
             height: 100vh; /* 100% Height */
             margin: 0;
-            background-color: #2c3e50; /* Dark background */
-            color: #ecf0f1; /* Light text */
+            background-color: #2c3e50;
+            color: #ecf0f1;
         }
 
         #calculator {
@@ -25,7 +25,7 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            width: 100%; /* Stretch to full width */
+            width: 100%;
             max-width: 1200px; /* Max width */
             box-sizing: border-box; /* Ensure padding does not affect width */
         }
@@ -67,7 +67,7 @@
         .button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
-
+        
         /* Adjust dropdown and input styling */
         #store-name,
         #store-value,
@@ -81,13 +81,14 @@
             font-size: 18px;
             padding: 5px;
             box-sizing: border-box;
-            background-color: #ecf0f1; /* Light input background */
-            color: #2c3e50; /* Dark input text */
+            background-color: #ecf0f1;
+            color: #2c3e50;
         }
 
         #stored-values,
         #metric-converter,
-        #imperial-converter {
+        #imperial-converter,
+        #currency-converter {
             margin-top: 20px;
             padding: 10px;
             border-top: 1px solid #7f8c8d;
@@ -105,15 +106,15 @@
         /* Responsive adjustments */
         @media (max-width: 600px) {
             .button {
-                width: 60px; /* Adjusted for smaller screens */
+                width: 60px;
                 height: 60px;
-                font-size: 16px; /* Adjusted for smaller screens */
+                font-size: 16px;
             }
 
             #input-display,
             #output-display {
-                height: 40px; /* Smaller display for smaller screens */
-                font-size: 20px; /* Adjusted font size */
+                height: 40px;
+                font-size: 20px;
             }
         }
     </style>
@@ -209,6 +210,25 @@
         </div>
         <button class="button" onclick="convertImperial()">Convert</button>
         <div id="imperial-output" style="margin-top: 10px;"></div>
+
+        <h2>Currency Conversion</h2>
+        <div id="currency-converter" class="converter-container">
+            <input type="number" id="currency-input" class="converter-input" placeholder="Amount" aria-label="Amount in chosen currency">
+            <select id="currency-unit" class="converter-input" aria-label="Currency to convert from">
+                <option value="usd">USD (United States Dollar)</option>
+                <option value="eur">EUR (Euro)</option>
+                <option value="gbp">GBP (British Pound)</option>
+                <option value="jpy">JPY (Japanese Yen)</option>
+            </select>
+        </div>
+        <select id="target-currency" class="converter-input" aria-label="Currency to convert to">
+            <option value="eur">EUR (Euro)</option>
+            <option value="gbp">GBP (British Pound)</option>
+            <option value="usd">USD (United States Dollar)</option>
+            <option value="jpy">JPY (Japanese Yen)</option>
+        </select>
+        <button class="button" onclick="convertCurrency()">Convert</button>
+        <div id="currency-output" style="margin-top: 10px;"></div>
     </div>
 
     <script>
@@ -328,6 +348,30 @@
             }
 
             document.getElementById('imperial-output').innerText = `Converted Value: ${result} ${imperialUnit}`;
+        }
+
+        // Currency Conversion
+        function convertCurrency() {
+            const currencyInput = document.getElementById('currency-input').value;
+            const currencyUnit = document.getElementById('currency-unit').value;
+            const targetCurrency = document.getElementById('target-currency').value;
+            let conversionRate = 1; // Default conversion rate
+
+            // Define some static conversion rates for demonstration purposes
+            const rates = {
+                usd: { eur: 0.85, gbp: 0.74, jpy: 110.53 },
+                eur: { usd: 1.18, gbp: 0.87, jpy: 130.07 },
+                gbp: { usd: 1.36, eur: 1.15, jpy: 149.20 },
+                jpy: { usd: 0.0091, eur: 0.0077, gbp: 0.0067 },
+            };
+
+            // Find the conversion rate based on selected currencies
+            if (rates[currencyUnit] && targetCurrency) {
+                conversionRate = rates[currencyUnit][targetCurrency];
+            }
+
+            const result = currencyInput * conversionRate;
+            document.getElementById('currency-output').innerText = `Converted Value: ${result.toFixed(2)} ${targetCurrency.toUpperCase()}`;
         }
     </script>
 
