@@ -11,10 +11,9 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center; /* Center the calculator */
             align-items: flex-start;
-            padding-left: 20px;
-            padding-top: 20px;
+            padding: 20px;
             height: auto;
             min-height: 100vh;
             background-color: #2c3e50; /* Dark background */
@@ -27,7 +26,9 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            width: 400px;
+            width: 100%; /* Stretch to full width */
+            max-width: 600px; /* Maximum width for larger screens */
+            box-sizing: border-box; /* Ensure padding does not affect width */
         }
 
         h2 {
@@ -38,7 +39,7 @@
 
         #input-display,
         #output-display {
-            width: calc(100% - 20px);
+            width: 100%; /* Full width */
             height: 60px;
             font-size: 28px;
             text-align: right;
@@ -52,9 +53,9 @@
         }
 
         .button {
-            width: 70px; /* Increased width */
-            height: 70px; /* Increased height */
-            font-size: 20px; /* Reduced font size for better fit */
+            width: 70px; /* Fixed width */
+            height: 70px; /* Fixed height */
+            font-size: 20px; /* Font size */
             margin: 5px;
             cursor: pointer;
             border: none;
@@ -68,11 +69,12 @@
             background-color: #0056b3; /* Darker blue on hover */
         }
 
+        /* Adjust dropdown and input styling */
         #store-name,
         #store-value,
         #stored-values-dropdown,
         select {
-            width: calc(100% - 20px);
+            width: 100%; /* Full width */
             height: 45px;
             margin-top: 10px;
             border: 1px solid #7f8c8d;
@@ -92,30 +94,18 @@
             border-top: 1px solid #7f8c8d;
         }
 
-        .stored-value {
-            margin: 5px 0;
-        }
-
-        /* Dropdown Styling */
-        select {
-            appearance: none;
-            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"%3E%3Cpolygon points="0,0 5,5 10,0" fill="%23000" /%3E%3C/svg%3E');
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 10px 5px;
-            padding-right: 30px; /* Adjusting padding for dropdown arrow */
-        }
-
+        /* Responsive adjustments */
         @media (max-width: 600px) {
             .button {
                 width: 60px; /* Adjusted for smaller screens */
                 height: 60px;
                 font-size: 16px; /* Adjusted for smaller screens */
             }
+
             #input-display,
             #output-display {
-                height: 40px;
-                font-size: 20px;
+                height: 40px; /* Smaller display for smaller screens */
+                font-size: 20px; /* Adjusted font size */
             }
         }
     </style>
@@ -123,215 +113,215 @@
 
 <body>
 
-<div id="calculator" role="calculator">
-    <h2>Calculator</h2>
-    <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
-    <input type="text" id="output-display" placeholder="Result" readonly aria-label="Output display for calculator">
+    <div id="calculator" role="calculator">
+        <h2>Calculator</h2>
+        <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
+        <input type="text" id="output-display" placeholder="Result" readonly aria-label="Output display for calculator">
 
-    <h2>Math Functions</h2>
-    <div>
-        <button class="button" onclick="appendToDisplay('(')">(</button>
-        <button class="button" onclick="appendToDisplay(')')">)</button>
-        <button class="button" onclick="appendToDisplay('sin(')">sin</button>
-        <button class="button" onclick="appendToDisplay('cos(')">cos</button>
-        <button class="button" onclick="appendToDisplay('tan(')">tan</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('asin(')">asin</button>
-        <button class="button" onclick="appendToDisplay('acos(')">acos</button>
-        <button class="button" onclick="appendToDisplay('atan(')">atan</button>
-        <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('^')">^</button>
-        <button class="button" onclick="appendToDisplay('!')">!</button>
-        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
-        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
-    </div>
+        <h2>Math Functions</h2>
+        <div>
+            <button class="button" onclick="appendToDisplay('(')">(</button>
+            <button class="button" onclick="appendToDisplay(')')">)</button>
+            <button class="button" onclick="appendToDisplay('sin(')">sin</button>
+            <button class="button" onclick="appendToDisplay('cos(')">cos</button>
+            <button class="button" onclick="appendToDisplay('tan(')">tan</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('asin(')">asin</button>
+            <button class="button" onclick="appendToDisplay('acos(')">acos</button>
+            <button class="button" onclick="appendToDisplay('atan(')">atan</button>
+            <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('^')">^</button>
+            <button class="button" onclick="appendToDisplay('!')">!</button>
+            <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
+            <button class="button" onclick="appendToDisplay(Math.E)">e</button>
+        </div>
 
-    <h2>Number Functions</h2>
-    <div>
-        <button class="button" onclick="appendToDisplay('7')">7</button>
-        <button class="button" onclick="appendToDisplay('8')">8</button>
-        <button class="button" onclick="appendToDisplay('9')">9</button>
-        <button class="button" onclick="appendToDisplay('/')">/</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('4')">4</button>
-        <button class="button" onclick="appendToDisplay('5')">5</button>
-        <button class="button" onclick="appendToDisplay('6')">6</button>
-        <button class="button" onclick="appendToDisplay('*')">*</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('1')">1</button>
-        <button class="button" onclick="appendToDisplay('2')">2</button>
-        <button class="button" onclick="appendToDisplay('3')">3</button>
-        <button class="button" onclick="appendToDisplay('-')">-</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('0')">0</button>
-        <button class="button" onclick="clearBothDisplays()">C</button>
-        <button class="button" onclick="calculateResult()">=</button>
-        <button class="button" onclick="appendToDisplay('+')">+</button>
-    </div>
+        <h2>Number Functions</h2>
+        <div>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button" onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button" onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="clearBothDisplays()">C</button>
+            <button class="button" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendToDisplay('+')">+</button>
+        </div>
 
-    <h2>Recall Value</h2>
-    <select id="stored-values-dropdown" onchange="recallValue()" aria-label="Stored values dropdown">
-        <option value="">Select stored value</option>
-    </select>
-    
-    <h2>Store Values</h2>
-    <input type="text" id="store-name" placeholder="Enter name" aria-label="Name for stored value">
-    <input type="text" id="store-value" placeholder="Enter value" aria-label="Value to store">
-    <button class="button" onclick="storeValue()">Store</button>
-    
-    <h2>Stored Values</h2>
-    <div id="stored-values"></div>
-
-    <h2>Metric Conversion</h2>
-    <div id="metric-converter">
-        <input type="number" id="metric-input" placeholder="Value in meters" aria-label="Length value in meters">
-        <select id="metric-unit" aria-label="Metric unit to convert to">
-            <option value="cm">Centimeters</option>
-            <option value="mm">Millimeters</option>
-            <option value="km">Kilometers</option>
+        <h2>Recall Value</h2>
+        <select id="stored-values-dropdown" onchange="recallValue()" aria-label="Stored values dropdown">
+            <option value="">Select stored value</option>
         </select>
-        <button class="button" onclick="convertMetric()">Convert</button>
-        <div id="metric-output" style="margin-top: 10px;"></div>
+        
+        <h2>Store Values</h2>
+        <input type="text" id="store-name" placeholder="Enter name" aria-label="Name for stored value">
+        <input type="text" id="store-value" placeholder="Enter value" aria-label="Value to store">
+        <button class="button" onclick="storeValue()">Store</button>
+        
+        <h2>Stored Values</h2>
+        <div id="stored-values"></div>
+
+        <h2>Metric Conversion</h2>
+        <div id="metric-converter">
+            <input type="number" id="metric-input" placeholder="Value in meters" aria-label="Length value in meters">
+            <select id="metric-unit" aria-label="Metric unit to convert to">
+                <option value="cm">Centimeters</option>
+                <option value="mm">Millimeters</option>
+                <option value="km">Kilometers</option>
+            </select>
+            <button class="button" onclick="convertMetric()">Convert</button>
+            <div id="metric-output" style="margin-top: 10px;"></div>
+        </div>
+
+        <h2>Imperial Conversion</h2>
+        <div id="imperial-converter">
+            <input type="number" id="imperial-input" placeholder="Value in feet" aria-label="Length value in feet">
+            <select id="imperial-unit" aria-label="Imperial unit to convert to">
+                <option value="in">Inches</option>
+                <option value="yd">Yards</option>
+                <option value="mi">Miles</option>
+            </select>
+            <button class="button" onclick="convertImperial()">Convert</button>
+            <div id="imperial-output" style="margin-top: 10px;"></div>
+        </div>
     </div>
 
-    <h2>Imperial Conversion</h2>
-    <div id="imperial-converter">
-        <input type="number" id="imperial-input" placeholder="Value in feet" aria-label="Length value in feet">
-        <select id="imperial-unit" aria-label="Imperial unit to convert to">
-            <option value="in">Inches</option>
-            <option value="yd">Yards</option>
-            <option value="mi">Miles</option>
-        </select>
-        <button class="button" onclick="convertImperial()">Convert</button>
-        <div id="imperial-output" style="margin-top: 10px;"></div>
-    </div>
-</div>
+    <script>
+        const storedValues = {}; // Object to hold stored values
 
-<script>
-    const storedValues = {}; // Object to hold stored values
-
-    function appendToDisplay(value) {
-        const display = document.getElementById('input-display');
-        display.value += value;
-        updateOutput(); // Update output display in real time
-    }
-
-    function clearBothDisplays() {
-        clearDisplay();
-        clearOutputDisplay();
-    }
-
-    function clearDisplay() {
-        const display = document.getElementById('input-display');
-        display.value = '';
-    }
-
-    function clearOutputDisplay() {
-        const outputDisplay = document.getElementById('output-display');
-        outputDisplay.value = '';
-    }
-
-    function updateOutput() {
-        const display = document.getElementById('input-display');
-        const outputDisplay = document.getElementById('output-display');
-        outputDisplay.value = display.value; // Show current input in output display
-    }
-
-    function calculateResult() {
-        const display = document.getElementById('input-display');
-        const outputDisplay = document.getElementById('output-display');
-        try {
-            const result = math.evaluate(display.value);
-            outputDisplay.value = result; // Show result in the output display
-        } catch (error) {
-            outputDisplay.value = 'Error';
-            setTimeout(clearOutputDisplay, 1500); // Clear after 1.5 seconds
-        }
-    }
-
-    function storeValue() {
-        const name = document.getElementById('store-name').value.trim();
-        const value = document.getElementById('store-value').value.trim();
-        if (name !== '' && value !== '') {
-            storedValues[name] = value; // Store value in the object
-            displayStoredValues(); // Update displayed stored values
-            updateStoredValuesDropdown(); // Update dropdown of stored values
-            clearStoreInputs(); // Clear input fields
-        } else {
-            alert("Both name and value are required!");
-        }
-    }
-
-    function displayStoredValues() {
-        const storedValuesDiv = document.getElementById('stored-values');
-        storedValuesDiv.innerHTML = ''; // Clear existing displayed values
-        for (const [key, value] of Object.entries(storedValues)) {
-            storedValuesDiv.innerHTML += `<div class="stored-value">${key}: ${value}</div>`;
-        }
-    }
-
-    function updateStoredValuesDropdown() {
-        const dropdown = document.getElementById('stored-values-dropdown');
-        dropdown.innerHTML = '<option value="">Select stored value</option>'; // Reset dropdown
-        for (const name in storedValues) {
-            dropdown.innerHTML += `<option value="${name}">${name}: ${storedValues[name]}</option>`;
-        }
-    }
-
-    function recallValue() {
-        const dropdown = document.getElementById('stored-values-dropdown');
-        const selectedValue = dropdown.value;
-        if (selectedValue) {
-            document.getElementById('input-display').value = storedValues[selectedValue]; // Replace input with stored value
-            updateOutput(); // Update output display
-        }
-    }
-
-    function clearStoreInputs() {
-        document.getElementById('store-name').value = '';
-        document.getElementById('store-value').value = '';
-    }
-
-    // Metric Conversion
-    function convertMetric() {
-        const metricInput = document.getElementById('metric-input').value;
-        const metricUnit = document.getElementById('metric-unit').value;
-        let result;
-
-        if (metricUnit === "cm") {
-            result = metricInput * 100; // Convert meters to centimeters
-        } else if (metricUnit === "mm") {
-            result = metricInput * 1000; // Convert meters to millimeters
-        } else if (metricUnit === "km") {
-            result = metricInput / 1000; // Convert meters to kilometers
+        function appendToDisplay(value) {
+            const display = document.getElementById('input-display');
+            display.value += value;
+            updateOutput(); // Update output display in real time
         }
 
-        document.getElementById('metric-output').innerText = `Converted Value: ${result} ${metricUnit}`;
-    }
-
-    // Imperial Conversion
-    function convertImperial() {
-        const imperialInput = document.getElementById('imperial-input').value;
-        const imperialUnit = document.getElementById('imperial-unit').value;
-        let result;
-
-        if (imperialUnit === "in") {
-            result = imperialInput * 12; // Convert feet to inches
-        } else if (imperialUnit === "yd") {
-            result = imperialInput / 3; // Convert feet to yards
-        } else if (imperialUnit === "mi") {
-            result = imperialInput / 5280; // Convert feet to miles
+        function clearBothDisplays() {
+            clearDisplay();
+            clearOutputDisplay();
         }
 
-        document.getElementById('imperial-output').innerText = `Converted Value: ${result} ${imperialUnit}`;
-    }
-</script>
+        function clearDisplay() {
+            const display = document.getElementById('input-display');
+            display.value = '';
+        }
+
+        function clearOutputDisplay() {
+            const outputDisplay = document.getElementById('output-display');
+            outputDisplay.value = '';
+        }
+
+        function updateOutput() {
+            const display = document.getElementById('input-display');
+            const outputDisplay = document.getElementById('output-display');
+            outputDisplay.value = display.value; // Show current input in output display
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('input-display');
+            const outputDisplay = document.getElementById('output-display');
+            try {
+                const result = math.evaluate(display.value);
+                outputDisplay.value = result; // Show result in the output display
+            } catch (error) {
+                outputDisplay.value = 'Error';
+                setTimeout(clearOutputDisplay, 1500); // Clear after 1.5 seconds
+            }
+        }
+
+        function storeValue() {
+            const name = document.getElementById('store-name').value.trim();
+            const value = document.getElementById('store-value').value.trim();
+            if (name !== '' && value !== '') {
+                storedValues[name] = value; // Store value in the object
+                displayStoredValues(); // Update displayed stored values
+                updateStoredValuesDropdown(); // Update dropdown of stored values
+                clearStoreInputs(); // Clear input fields
+            } else {
+                alert("Both name and value are required!");
+            }
+        }
+
+        function displayStoredValues() {
+            const storedValuesDiv = document.getElementById('stored-values');
+            storedValuesDiv.innerHTML = ''; // Clear existing displayed values
+            for (const [key, value] of Object.entries(storedValues)) {
+                storedValuesDiv.innerHTML += `<div class="stored-value">${key}: ${value}</div>`;
+            }
+        }
+
+        function updateStoredValuesDropdown() {
+            const dropdown = document.getElementById('stored-values-dropdown');
+            dropdown.innerHTML = '<option value="">Select stored value</option>'; // Reset dropdown
+            for (const name in storedValues) {
+                dropdown.innerHTML += `<option value="${name}">${name}: ${storedValues[name]}</option>`;
+            }
+        }
+
+        function recallValue() {
+            const dropdown = document.getElementById('stored-values-dropdown');
+            const selectedValue = dropdown.value;
+            if (selectedValue) {
+                document.getElementById('input-display').value = storedValues[selectedValue]; // Replace input with stored value
+                updateOutput(); // Update output display
+            }
+        }
+
+        function clearStoreInputs() {
+            document.getElementById('store-name').value = '';
+            document.getElementById('store-value').value = '';
+        }
+
+        // Metric Conversion
+        function convertMetric() {
+            const metricInput = document.getElementById('metric-input').value;
+            const metricUnit = document.getElementById('metric-unit').value;
+            let result;
+
+            if (metricUnit === "cm") {
+                result = metricInput * 100; // Convert meters to centimeters
+            } else if (metricUnit === "mm") {
+                result = metricInput * 1000; // Convert meters to millimeters
+            } else if (metricUnit === "km") {
+                result = metricInput / 1000; // Convert meters to kilometers
+            }
+
+            document.getElementById('metric-output').innerText = `Converted Value: ${result} ${metricUnit}`;
+        }
+
+        // Imperial Conversion
+        function convertImperial() {
+            const imperialInput = document.getElementById('imperial-input').value;
+            const imperialUnit = document.getElementById('imperial-unit').value;
+            let result;
+
+            if (imperialUnit === "in") {
+                result = imperialInput * 12; // Convert feet to inches
+            } else if (imperialUnit === "yd") {
+                result = imperialInput / 3; // Convert feet to yards
+            } else if (imperialUnit === "mi") {
+                result = imperialInput / 5280; // Convert feet to miles
+            }
+
+            document.getElementById('imperial-output').innerText = `Converted Value: ${result} ${imperialUnit}`;
+        }
+    </script>
 
 </body>
 
