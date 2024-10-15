@@ -4,40 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator and Algebra Solver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
+            margin: 0;
         }
 
         #calculator {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 400px;
+            max-width: 90%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
         }
 
         #input-display {
             width: calc(100% - 20px);
-            height: 40px;
-            font-size: 24px;
+            height: 50px;
+            font-size: 28px;
             text-align: right;
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 5px;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .button {
             width: 60px;
             height: 60px;
-            font-size: 20px;
+            font-size: 24px;
             margin: 5px;
             cursor: pointer;
             border: none;
@@ -51,33 +61,54 @@
             background-color: #0056b3;
         }
 
-        #store-name, #store-value {
+        #store-name, #store-value, #stored-values-dropdown {
             width: calc(100% - 20px);
-            height: 40px;
-            padding: 5px;
+            height: 45px;
             margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 18px;
+            padding: 5px;
+            box-sizing: border-box;
         }
 
-        #stored-values-dropdown {
-            width: calc(100% - 20px);
-            height: 40px;
-            margin-bottom: 20px;
+        select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"%3E%3Cpolygon points="0,0 5,5 10,0" fill="%23000" /%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px 5px;
         }
 
-        h2 {
-            text-align: center;
-            color: #333;
+        #stored-values {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .stored-value {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .button {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            #input-display {
+                height: 40px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div id="calculator">
+<div id="calculator" role="calculator">
     <h2>Calculator</h2>
-    <input type="text" id="input-display" placeholder="Enter expression" readonly>
+    <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
     
     <div>
         <button class="button" onclick="appendToDisplay('7')">7</button>
@@ -105,13 +136,13 @@
     </div>
 
     <h2>Recall Value</h2>
-    <select id="stored-values-dropdown" onchange="recallValue()">
+    <select id="stored-values-dropdown" onchange="recallValue()" aria-label="Stored values dropdown">
         <option value="">Select stored value</option>
     </select>
 
     <h2>Store Values</h2>
-    <input type="text" id="store-name" placeholder="Enter name">
-    <input type="text" id="store-value" placeholder="Enter value">
+    <input type="text" id="store-name" placeholder="Enter name" aria-label="Name for stored value">
+    <input type="text" id="store-value" placeholder="Enter value" aria-label="Value to store">
     <button class="button" onclick="storeValue()">Store</button>
 
     <h2>Stored Values</h2>
@@ -147,9 +178,9 @@
         const value = document.getElementById('store-value').value.trim();
         if (name !== '' && value !== '') {
             storedValues[name] = value; // Store value in the object
-            displayStoredValues(); // Update the displayed list of stored values
-            updateStoredValuesDropdown(); // Update the dropdown of stored values
-            clearStoreInputs(); // Clear the input fields after storing
+            displayStoredValues(); // Update displayed stored values
+            updateStoredValuesDropdown(); // Update dropdown of stored values
+            clearStoreInputs(); // Clear input fields
         } else {
             alert("Both name and value are required!");
         }
@@ -159,7 +190,7 @@
         const storedValuesDiv = document.getElementById('stored-values');
         storedValuesDiv.innerHTML = ''; // Clear existing displayed values
         for (const [key, value] of Object.entries(storedValues)) {
-            storedValuesDiv.innerHTML += `<p>${key}: ${value}</p>`;
+            storedValuesDiv.innerHTML += `<div class="stored-value">${key}: ${value}</div>`;
         }
     }
 
