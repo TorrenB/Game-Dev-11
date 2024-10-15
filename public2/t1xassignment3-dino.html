@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,33 +15,42 @@
             align-items: flex-start;
             padding-left: 20px;
             padding-top: 20px;
-            height: 100vh; 
-            background-color: #f4f4f4;
+            height: auto;
+            min-height: 100vh;
+            background-color: #2c3e50; /* Dark background */
             margin: 0;
+            color: #ecf0f1; /* Light text */
         }
+
         #calculator {
-            background-color: #fff;
+            background-color: #34495e; /* Darker card */
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             width: 400px;
         }
+
         h2 {
             text-align: center;
-            color: #333;
+            color: #ecf0f1;
             margin: 20px 0 10px;
         }
-        #input-display, #output-display {
+
+        #input-display,
+        #output-display {
             width: calc(100% - 20px);
-            height: 60px; 
+            height: 60px;
             font-size: 28px;
             text-align: right;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #7f8c8d; /* Soft border */
             border-radius: 5px;
             padding: 10px;
             box-sizing: border-box;
+            background-color: #ecf0f1; /* Light input background */
+            color: #2c3e50; /* Dark input text */
         }
+
         .button {
             width: 60px;
             height: 60px;
@@ -49,56 +59,69 @@
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #007bff; /* Blue buttons */
             color: white;
             transition: background-color 0.3s;
         }
+
         .button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker blue on hover */
         }
-        #store-name, #store-value, #stored-values-dropdown {
+
+        #store-name,
+        #store-value,
+        #stored-values-dropdown,
+        select {
             width: calc(100% - 20px);
             height: 45px;
             margin-top: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #7f8c8d;
             border-radius: 5px;
             font-size: 18px;
             padding: 5px;
             box-sizing: border-box;
+            background-color: #ecf0f1; /* Light input background */
+            color: #2c3e50; /* Dark input text */
         }
+
+        #stored-values,
+        #metric-converter,
+        #imperial-converter {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #7f8c8d;
+        }
+
+        .stored-value {
+            margin: 5px 0;
+        }
+
+        /* Dropdown Styling */
         select {
             appearance: none;
             background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"%3E%3Cpolygon points="0,0 5,5 10,0" fill="%23000" /%3E%3C/svg%3E');
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 10px 5px;
+            padding-right: 30px; /* Adjusting padding for dropdown arrow */
         }
-        #stored-values, #length-converter {
-            margin-top: 20px;
-            padding: 10px;
-            border-top: 1px solid #ccc;
-        }
-        #length-converter {
-            margin-top: 20px;
-            padding: 10px;
-            border-top: 1px solid #ccc;
-        }
-        .stored-value {
-            margin: 5px 0;
-        }
+
         @media (max-width: 600px) {
             .button {
                 width: 45px;
                 height: 45px;
                 font-size: 18px;
             }
-            #input-display, #output-display {
+
+            #input-display,
+            #output-display {
                 height: 40px;
                 font-size: 20px;
             }
         }
     </style>
 </head>
+
 <body>
 
 <div id="calculator" role="calculator">
@@ -165,18 +188,30 @@
     
     <h2>Stored Values</h2>
     <div id="stored-values"></div>
-    
-    <h2>Length Converter</h2>
-    <input type="number" id="length-input" placeholder="Value in meters" aria-label="Length value in meters">
-    <select id="length-unit" aria-label="Length unit to convert to">
-        <option value="cm">Centimeters</option>
-        <option value="mm">Millimeters</option>
-        <option value="km">Kilometers</option>
-        <option value="ft">Feet</option>
-        <option value="in">Inches</option>
-    </select>
-    <button class="button" onclick="convertLength()">Convert</button>
-    <div id="length-output" style="margin-top: 10px;"></div>
+
+    <h2>Metric Conversion</h2>
+    <div id="metric-converter">
+        <input type="number" id="metric-input" placeholder="Value in meters" aria-label="Length value in meters">
+        <select id="metric-unit" aria-label="Metric unit to convert to">
+            <option value="cm">Centimeters</option>
+            <option value="mm">Millimeters</option>
+            <option value="km">Kilometers</option>
+        </select>
+        <button class="button" onclick="convertMetric()">Convert</button>
+        <div id="metric-output" style="margin-top: 10px;"></div>
+    </div>
+
+    <h2>Imperial Conversion</h2>
+    <div id="imperial-converter">
+        <input type="number" id="imperial-input" placeholder="Value in feet" aria-label="Length value in feet">
+        <select id="imperial-unit" aria-label="Imperial unit to convert to">
+            <option value="in">Inches</option>
+            <option value="yd">Yards</option>
+            <option value="mi">Miles</option>
+        </select>
+        <button class="button" onclick="convertImperial()">Convert</button>
+        <div id="imperial-output" style="margin-top: 10px;"></div>
+    </div>
 </div>
 
 <script>
@@ -264,26 +299,41 @@
         document.getElementById('store-value').value = '';
     }
 
-    function convertLength() {
-        const lengthInput = document.getElementById('length-input').value;
-        const lengthUnit = document.getElementById('length-unit').value;
+    // Metric Conversion
+    function convertMetric() {
+        const metricInput = document.getElementById('metric-input').value;
+        const metricUnit = document.getElementById('metric-unit').value;
         let result;
 
-        if (lengthUnit === "cm") {
-            result = lengthInput * 100; // Convert meters to centimeters
-        } else if (lengthUnit === "mm") {
-            result = lengthInput * 1000; // Convert meters to millimeters
-        } else if (lengthUnit === "km") {
-            result = lengthInput / 1000; // Convert meters to kilometers
-        } else if (lengthUnit === "ft") {
-            result = lengthInput * 3.28084; // Convert meters to feet
-        } else if (lengthUnit === "in") {
-            result = lengthInput * 39.3701; // Convert meters to inches
+        if (metricUnit === "cm") {
+            result = metricInput * 100; // Convert meters to centimeters
+        } else if (metricUnit === "mm") {
+            result = metricInput * 1000; // Convert meters to millimeters
+        } else if (metricUnit === "km") {
+            result = metricInput / 1000; // Convert meters to kilometers
         }
 
-        document.getElementById('length-output').innerText = `Converted Value: ${result} ${lengthUnit}`;
+        document.getElementById('metric-output').innerText = `Converted Value: ${result} ${metricUnit}`;
+    }
+
+    // Imperial Conversion
+    function convertImperial() {
+        const imperialInput = document.getElementById('imperial-input').value;
+        const imperialUnit = document.getElementById('imperial-unit').value;
+        let result;
+
+        if (imperialUnit === "in") {
+            result = imperialInput * 12; // Convert feet to inches
+        } else if (imperialUnit === "yd") {
+            result = imperialInput / 3; // Convert feet to yards
+        } else if (imperialUnit === "mi") {
+            result = imperialInput / 5280; // Convert feet to miles
+        }
+
+        document.getElementById('imperial-output').innerText = `Converted Value: ${result} ${imperialUnit}`;
     }
 </script>
 
 </body>
+
 </html>
