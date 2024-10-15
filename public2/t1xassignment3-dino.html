@@ -31,7 +31,7 @@
         }
         #input-display, #output-display {
             width: calc(100% - 20px);
-            height: 50px;
+            height: 60px; /* Increased height for better visibility */
             font-size: 28px;
             text-align: right;
             margin-bottom: 20px;
@@ -39,6 +39,8 @@
             border-radius: 5px;
             padding: 10px;
             box-sizing: border-box;
+            display: block; /* Make sure box is displayed properly */
+            margin-top: 20px; /* Added space above the input box */
         }
         .button {
             width: 60px;
@@ -120,22 +122,30 @@
     </div>
     <div>
         <button class="button" onclick="appendToDisplay('0')">0</button>
-        <button class="button" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="clearBothDisplays()">C</button>
         <button class="button" onclick="calculateResult()">=</button>
         <button class="button" onclick="appendToDisplay('+')">+</button>
     </div>
-
-    <h2>Mathematical Constants</h2>
+    
+    <h2>Math Functions</h2>
     <div>
-        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
-        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
-    </div>
-
-    <h2>Trigonometric Functions</h2>
-    <div>
+        <button class="button" onclick="appendToDisplay('(')">(</button>
+        <button class="button" onclick="appendToDisplay(')')">)</button>
         <button class="button" onclick="appendToDisplay('sin(')">sin</button>
         <button class="button" onclick="appendToDisplay('cos(')">cos</button>
         <button class="button" onclick="appendToDisplay('tan(')">tan</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('asin(')">asin</button>
+        <button class="button" onclick="appendToDisplay('acos(')">acos</button>
+        <button class="button" onclick="appendToDisplay('atan(')">atan</button>
+        <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('^')">^</button>
+        <button class="button" onclick="appendToDisplay('!')">!</button>
+        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
+        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
     </div>
 
     <h2>Recall Value</h2>
@@ -161,10 +171,19 @@
         updateOutput(); // Update output display in real time
     }
 
+    function clearBothDisplays() {
+        clearDisplay();
+        clearOutputDisplay();
+    }
+
     function clearDisplay() {
         const display = document.getElementById('input-display');
         display.value = '';
-        clearOutputDisplay();
+    }
+
+    function clearOutputDisplay() {
+        const outputDisplay = document.getElementById('output-display');
+        outputDisplay.value = '';
     }
 
     function updateOutput() {
@@ -218,7 +237,8 @@
         const dropdown = document.getElementById('stored-values-dropdown');
         const selectedValue = dropdown.value;
         if (selectedValue) {
-            appendToDisplay(storedValues[selectedValue]);
+            document.getElementById('input-display').value = storedValues[selectedValue]; // Replace input with stored value
+            updateOutput(); // Update output display
         }
     }
 
