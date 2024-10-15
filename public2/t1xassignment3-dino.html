@@ -14,10 +14,9 @@
             justify-content: center; /* Center the calculator */
             align-items: flex-start;
             padding: 20px;
-            height: auto;
-            min-height: 100vh;
-            background-color: #2c3e50; /* Dark background */
+            height: 100vh; /* 100% Height */
             margin: 0;
+            background-color: #2c3e50; /* Dark background */
             color: #ecf0f1; /* Light text */
         }
 
@@ -27,7 +26,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             width: 100%; /* Stretch to full width */
-            max-width: 600px; /* Maximum width for larger screens */
+            max-width: 1200px; /* Max width */
             box-sizing: border-box; /* Ensure padding does not affect width */
         }
 
@@ -92,6 +91,15 @@
             margin-top: 20px;
             padding: 10px;
             border-top: 1px solid #7f8c8d;
+        }
+
+        .converter-container {
+            display: flex; /* Flex display for conversion inputs */
+            justify-content: space-between; /* Space between inputs */
+        }
+
+        .converter-input {
+            width: 48%; /* Take almost half width of converter space */
         }
 
         /* Responsive adjustments */
@@ -179,28 +187,28 @@
         <div id="stored-values"></div>
 
         <h2>Metric Conversion</h2>
-        <div id="metric-converter">
-            <input type="number" id="metric-input" placeholder="Value in meters" aria-label="Length value in meters">
-            <select id="metric-unit" aria-label="Metric unit to convert to">
+        <div id="metric-converter" class="converter-container">
+            <input type="number" id="metric-input" class="converter-input" placeholder="Value in meters" aria-label="Length value in meters">
+            <select id="metric-unit" class="converter-input" aria-label="Metric unit to convert to">
                 <option value="cm">Centimeters</option>
                 <option value="mm">Millimeters</option>
                 <option value="km">Kilometers</option>
             </select>
-            <button class="button" onclick="convertMetric()">Convert</button>
-            <div id="metric-output" style="margin-top: 10px;"></div>
         </div>
+        <button class="button" onclick="convertMetric()">Convert</button>
+        <div id="metric-output" style="margin-top: 10px;"></div>
 
         <h2>Imperial Conversion</h2>
-        <div id="imperial-converter">
-            <input type="number" id="imperial-input" placeholder="Value in feet" aria-label="Length value in feet">
-            <select id="imperial-unit" aria-label="Imperial unit to convert to">
+        <div id="imperial-converter" class="converter-container">
+            <input type="number" id="imperial-input" class="converter-input" placeholder="Value in feet" aria-label="Length value in feet">
+            <select id="imperial-unit" class="converter-input" aria-label="Imperial unit to convert to">
                 <option value="in">Inches</option>
                 <option value="yd">Yards</option>
                 <option value="mi">Miles</option>
             </select>
-            <button class="button" onclick="convertImperial()">Convert</button>
-            <div id="imperial-output" style="margin-top: 10px;"></div>
         </div>
+        <button class="button" onclick="convertImperial()">Convert</button>
+        <div id="imperial-output" style="margin-top: 10px;"></div>
     </div>
 
     <script>
