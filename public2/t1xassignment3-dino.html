@@ -29,7 +29,7 @@
             color: #333;
             margin-bottom: 20px;
         }
-        #input-display {
+        #input-display, #output-display {
             width: calc(100% - 20px);
             height: 50px;
             font-size: 28px;
@@ -86,7 +86,7 @@
                 height: 45px;
                 font-size: 18px;
             }
-            #input-display {
+            #input-display, #output-display {
                 height: 40px;
                 font-size: 20px;
             }
@@ -98,6 +98,7 @@
 <div id="calculator" role="calculator">
     <h2>Calculator</h2>
     <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
+    <input type="text" id="output-display" placeholder="Result" readonly aria-label="Output display for calculator" style="background-color: #e9ecef;">
     
     <div>
         <button class="button" onclick="appendToDisplay('7')">7</button>
@@ -162,16 +163,23 @@
     function clearDisplay() {
         const display = document.getElementById('input-display');
         display.value = '';
+        clearOutputDisplay();
+    }
+
+    function clearOutputDisplay() {
+        const outputDisplay = document.getElementById('output-display');
+        outputDisplay.value = '';
     }
 
     function calculateResult() {
         const display = document.getElementById('input-display');
+        const outputDisplay = document.getElementById('output-display');
         try {
             const result = math.evaluate(display.value);
-            display.value = result;
+            outputDisplay.value = result;
         } catch (error) {
-            display.value = 'Error';
-            setTimeout(clearDisplay, 1500); // Clear after 1.5 seconds
+            outputDisplay.value = 'Error';
+            setTimeout(clearOutputDisplay, 1500); // Clear after 1.5 seconds
         }
     }
 
