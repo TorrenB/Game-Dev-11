@@ -10,12 +10,13 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
-            justify-content: flex-start; /* Aligns items to the left */
-            align-items: center;
-            height: 100vh;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-left: 20px;
+            padding-top: 20px;
+            height: 100vh; 
             background-color: #f4f4f4;
             margin: 0;
-            padding-left: 20px; /* Adding some left padding */
         }
         #calculator {
             background-color: #fff;
@@ -27,11 +28,11 @@
         h2 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
+            margin: 20px 0 10px;
         }
         #input-display, #output-display {
             width: calc(100% - 20px);
-            height: 60px; /* Increased height for better visibility */
+            height: 60px; 
             font-size: 28px;
             text-align: right;
             margin-bottom: 20px;
@@ -39,8 +40,6 @@
             border-radius: 5px;
             padding: 10px;
             box-sizing: border-box;
-            display: block; /* Ensure boxes are displayed properly */
-            margin-top: 20px; /* Added space above the input box */
         }
         .button {
             width: 60px;
@@ -74,7 +73,12 @@
             background-position: right 10px center;
             background-size: 10px 5px;
         }
-        #stored-values {
+        #stored-values, #length-converter {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        #length-converter {
             margin-top: 20px;
             padding: 10px;
             border-top: 1px solid #ccc;
@@ -99,9 +103,31 @@
 
 <div id="calculator" role="calculator">
     <h2>Calculator</h2>
+    <input type="text" id="output-display" placeholder="Result" readonly aria-label="Output display for calculator" style="background-color: #e9ecef;">
     <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
-    <input type="text" id="output-display" placeholder="Current Input" readonly aria-label="Output display for calculator" style="background-color: #e9ecef;">
-    
+
+    <h2>Math Functions</h2>
+    <div>
+        <button class="button" onclick="appendToDisplay('(')">(</button>
+        <button class="button" onclick="appendToDisplay(')')">)</button>
+        <button class="button" onclick="appendToDisplay('sin(')">sin</button>
+        <button class="button" onclick="appendToDisplay('cos(')">cos</button>
+        <button class="button" onclick="appendToDisplay('tan(')">tan</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('asin(')">asin</button>
+        <button class="button" onclick="appendToDisplay('acos(')">acos</button>
+        <button class="button" onclick="appendToDisplay('atan(')">atan</button>
+        <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('^')">^</button>
+        <button class="button" onclick="appendToDisplay('!')">!</button>
+        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
+        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
+    </div>
+
+    <h2>Number Functions</h2>
     <div>
         <button class="button" onclick="appendToDisplay('7')">7</button>
         <button class="button" onclick="appendToDisplay('8')">8</button>
@@ -126,40 +152,31 @@
         <button class="button" onclick="calculateResult()">=</button>
         <button class="button" onclick="appendToDisplay('+')">+</button>
     </div>
-    
-    <h2>Math Functions</h2>
-    <div>
-        <button class="button" onclick="appendToDisplay('(')">(</button>
-        <button class="button" onclick="appendToDisplay(')')">)</button>
-        <button class="button" onclick="appendToDisplay('sin(')">sin</button>
-        <button class="button" onclick="appendToDisplay('cos(')">cos</button>
-        <button class="button" onclick="appendToDisplay('tan(')">tan</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('asin(')">asin</button>
-        <button class="button" onclick="appendToDisplay('acos(')">acos</button>
-        <button class="button" onclick="appendToDisplay('atan(')">atan</button>
-        <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
-    </div>
-    <div>
-        <button class="button" onclick="appendToDisplay('^')">^</button>
-        <button class="button" onclick="appendToDisplay('!')">!</button>
-        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
-        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
-    </div>
 
     <h2>Recall Value</h2>
     <select id="stored-values-dropdown" onchange="recallValue()" aria-label="Stored values dropdown">
         <option value="">Select stored value</option>
     </select>
-
+    
     <h2>Store Values</h2>
     <input type="text" id="store-name" placeholder="Enter name" aria-label="Name for stored value">
     <input type="text" id="store-value" placeholder="Enter value" aria-label="Value to store">
     <button class="button" onclick="storeValue()">Store</button>
-
+    
     <h2>Stored Values</h2>
     <div id="stored-values"></div>
+    
+    <h2>Length Converter</h2>
+    <input type="number" id="length-input" placeholder="Value in meters" aria-label="Length value in meters">
+    <select id="length-unit" aria-label="Length unit to convert to">
+        <option value="cm">Centimeters</option>
+        <option value="mm">Millimeters</option>
+        <option value="km">Kilometers</option>
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+    </select>
+    <button class="button" onclick="convertLength()">Convert</button>
+    <div id="length-output" style="margin-top: 10px;"></div>
 </div>
 
 <script>
@@ -245,6 +262,26 @@
     function clearStoreInputs() {
         document.getElementById('store-name').value = '';
         document.getElementById('store-value').value = '';
+    }
+
+    function convertLength() {
+        const lengthInput = document.getElementById('length-input').value;
+        const lengthUnit = document.getElementById('length-unit').value;
+        let result;
+
+        if (lengthUnit === "cm") {
+            result = lengthInput * 100; // Convert meters to centimeters
+        } else if (lengthUnit === "mm") {
+            result = lengthInput * 1000; // Convert meters to millimeters
+        } else if (lengthUnit === "km") {
+            result = lengthInput / 1000; // Convert meters to kilometers
+        } else if (lengthUnit === "ft") {
+            result = lengthInput * 3.28084; // Convert meters to feet
+        } else if (lengthUnit === "in") {
+            result = lengthInput * 39.3701; // Convert meters to inches
+        }
+
+        document.getElementById('length-output').innerText = `Converted Value: ${result} ${lengthUnit}`;
     }
 </script>
 
