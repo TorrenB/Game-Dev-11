@@ -20,9 +20,10 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
         }
         #input-display {
-            width: 100%;
+            width: calc(100% - 20px);
             height: 40px;
             font-size: 24px;
             text-align: right;
@@ -31,7 +32,7 @@
             border-radius: 5px;
             padding: 5px;
         }
-        button {
+        .button {
             width: 60px;
             height: 60px;
             font-size: 20px;
@@ -43,13 +44,26 @@
             color: white;
             transition: background-color 0.3s;
         }
-        button:hover {
+        .button:hover {
             background-color: #0056b3;
         }
         #graph {
-            width: 600px;
+            width: 100%;
             height: 400px;
-            margin: auto;
+            margin-top: 20px;
+        }
+        #function {
+            width: calc(100% - 20px);
+            height: 40px;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
         }
     </style>
 </head>
@@ -60,37 +74,35 @@
     <input type="text" id="input-display" placeholder="Enter expression" readonly>
     
     <div>
-        <button onclick="appendToDisplay('7')">7</button>
-        <button onclick="appendToDisplay('8')">8</button>
-        <button onclick="appendToDisplay('9')">9</button>
-        <button onclick="appendToDisplay('/')">/</button>
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button" onclick="appendToDisplay('/')">/</button>
     </div>
     <div>
-        <button onclick="appendToDisplay('4')">4</button>
-        <button onclick="appendToDisplay('5')">5</button>
-        <button onclick="appendToDisplay('6')">6</button>
-        <button onclick="appendToDisplay('*')">*</button>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button" onclick="appendToDisplay('*')">*</button>
     </div>
     <div>
-        <button onclick="appendToDisplay('1')">1</button>
-        <button onclick="appendToDisplay('2')">2</button>
-        <button onclick="appendToDisplay('3')">3</button>
-        <button onclick="appendToDisplay('-')">-</button>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="appendToDisplay('-')">-</button>
     </div>
     <div>
-        <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="calculateResult()">=</button>
-        <button onclick="appendToDisplay('+')">+</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="calculateResult()">=</button>
+        <button class="button" onclick="appendToDisplay('+')">+</button>
     </div>
 
     <h2>Graph Function</h2>
-    <input type="text" id="function" placeholder="Enter function (e.g. x^2 - 4)">
-    <button onclick="plotGraph()">Graph</button>
-</div>
-
-<div id="graph">
-    <canvas id="myChart"></canvas>
+    <input type="text" id="function" placeholder="Enter function (e.g. x^2 - 4)" oninput="plotGraph()">
+    <div id="graph">
+        <canvas id="myChart"></canvas>
+    </div>
 </div>
 
 <script>
@@ -145,11 +157,12 @@
                     label: `f(x) = ${func}`,
                     data: yValues,
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
+                    borderWidth: 2,
                     fill: false
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     x: {
                         title: {
@@ -161,7 +174,13 @@
                         title: {
                             display: true,
                             text: 'f(x)'
-                        }
+                        },
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
                     }
                 }
             }
