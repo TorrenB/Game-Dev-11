@@ -14,6 +14,7 @@
             height: 100vh;
             background-color: #f4f4f4;
         }
+
         #calculator {
             background-color: #fff;
             padding: 20px;
@@ -21,6 +22,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
         }
+
         #input-display {
             width: calc(100% - 20px);
             height: 40px;
@@ -31,6 +33,7 @@
             border-radius: 5px;
             padding: 5px;
         }
+
         .button {
             width: 60px;
             height: 60px;
@@ -43,9 +46,11 @@
             color: white;
             transition: background-color 0.3s;
         }
+
         .button:hover {
             background-color: #0056b3;
         }
+
         #store-name, #store-value {
             width: calc(100% - 20px);
             height: 40px;
@@ -55,6 +60,13 @@
             border-radius: 5px;
             font-size: 18px;
         }
+
+        #stored-values-dropdown {
+            width: calc(100% - 20px);
+            height: 40px;
+            margin-bottom: 20px;
+        }
+
         h2 {
             text-align: center;
             color: #333;
@@ -91,6 +103,11 @@
         <button class="button" onclick="calculateResult()">=</button>
         <button class="button" onclick="appendToDisplay('+')">+</button>
     </div>
+
+    <h2>Recall Value</h2>
+    <select id="stored-values-dropdown" onchange="recallValue()">
+        <option value="">Select stored value</option>
+    </select>
 
     <h2>Store Values</h2>
     <input type="text" id="store-name" placeholder="Enter name">
@@ -131,6 +148,7 @@
         if (name !== '' && value !== '') {
             storedValues[name] = value; // Store value in the object
             displayStoredValues(); // Update the displayed list of stored values
+            updateStoredValuesDropdown(); // Update the dropdown of stored values
             clearStoreInputs(); // Clear the input fields after storing
         } else {
             alert("Both name and value are required!");
@@ -142,6 +160,22 @@
         storedValuesDiv.innerHTML = ''; // Clear existing displayed values
         for (const [key, value] of Object.entries(storedValues)) {
             storedValuesDiv.innerHTML += `<p>${key}: ${value}</p>`;
+        }
+    }
+
+    function updateStoredValuesDropdown() {
+        const dropdown = document.getElementById('stored-values-dropdown');
+        dropdown.innerHTML = '<option value="">Select stored value</option>'; // Reset dropdown
+        for (const name in storedValues) {
+            dropdown.innerHTML += `<option value="${name}">${name}: ${storedValues[name]}</option>`;
+        }
+    }
+
+    function recallValue() {
+        const dropdown = document.getElementById('stored-values-dropdown');
+        const selectedValue = dropdown.value;
+        if (selectedValue) {
+            appendToDisplay(storedValues[selectedValue]);
         }
     }
 
