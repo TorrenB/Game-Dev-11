@@ -135,6 +135,19 @@
         <button class="button" onclick="appendToDisplay('+')">+</button>
     </div>
 
+    <h2>Mathematical Constants</h2>
+    <div>
+        <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
+        <button class="button" onclick="appendToDisplay(Math.E)">e</button>
+    </div>
+
+    <h2>Trigonometric Functions</h2>
+    <div>
+        <button class="button" onclick="appendToDisplay('sin(')">sin</button>
+        <button class="button" onclick="appendToDisplay('cos(')">cos</button>
+        <button class="button" onclick="appendToDisplay('tan(')">tan</button>
+    </div>
+
     <h2>Recall Value</h2>
     <select id="stored-values-dropdown" onchange="recallValue()" aria-label="Stored values dropdown">
         <option value="">Select stored value</option>
