@@ -98,7 +98,7 @@
 <div id="calculator" role="calculator">
     <h2>Calculator</h2>
     <input type="text" id="input-display" placeholder="Enter expression" readonly aria-label="Input display for calculator">
-    <input type="text" id="output-display" placeholder="Result" readonly aria-label="Output display for calculator" style="background-color: #e9ecef;">
+    <input type="text" id="output-display" placeholder="Current Input" readonly aria-label="Output display for calculator" style="background-color: #e9ecef;">
     
     <div>
         <button class="button" onclick="appendToDisplay('7')">7</button>
@@ -158,6 +158,7 @@
     function appendToDisplay(value) {
         const display = document.getElementById('input-display');
         display.value += value;
+        updateOutput(); // Update output display in real time
     }
 
     function clearDisplay() {
@@ -166,9 +167,10 @@
         clearOutputDisplay();
     }
 
-    function clearOutputDisplay() {
+    function updateOutput() {
+        const display = document.getElementById('input-display');
         const outputDisplay = document.getElementById('output-display');
-        outputDisplay.value = '';
+        outputDisplay.value = display.value; // Show current input in output display
     }
 
     function calculateResult() {
@@ -176,7 +178,7 @@
         const outputDisplay = document.getElementById('output-display');
         try {
             const result = math.evaluate(display.value);
-            outputDisplay.value = result;
+            outputDisplay.value = result; // Show result in the output display
         } catch (error) {
             outputDisplay.value = 'Error';
             setTimeout(clearOutputDisplay, 1500); // Clear after 1.5 seconds
