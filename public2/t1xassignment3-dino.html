@@ -3,128 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinosaur Game</title>
+    <title>Graphing Calculator and Algebra Solver</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
         }
-
-        canvas {
-            background: #fff;
-            border: 1px solid #000;
+        #calculator {
+            margin: 20px;
         }
-
-        .score {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 20px;
+        #graph {
+            width: 600px;
+            height: 400px;
+            margin: auto;
         }
     </style>
 </head>
 <body>
-    <div class="score">Score: 0</div>
-    <canvas id="gameCanvas" width="600" height="200"></canvas>
 
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+<div id="calculator">
+    <h2>Algebra Solver</h2>
+    <input type="text" id="expression" placeholder="Enter expression (e.g. 2+3*4)">
+    <button onclick="solveExpression()">Solve</button>
+    <p id="solution"></p>
+    
+    <h2>Graphing Function</h2>
+    <input type="text" id="function" placeholder="Enter function (e.g. x^2 - 4)">
+    <button onclick="plotGraph()">Graph</button>
+</div>
 
-        let dino = { x: 50, y: 150, width: 20, height: 20, dy: 0, jumpPower: -10, gravity: 0.5, jumping: false };
-        let obstacles = [];
-        let score = 0;
-        let gameInterval, obstacleInterval;
+<div id="graph">
+    <canvas id="myChart"></canvas>
+</div>
 
-        function drawDino() {
-            ctx.fillStyle = 'green';
-            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+<script>
+    function solveExpression() {
+        const expression = document.getElementById('expression').value;
+        try {
+            const result = math.evaluate(expression);
+            document.getElementById('solution').textContent = `Solution: ${result}`;
+        } catch (error) {
+            document.getElementById('solution').textContent = `Error: ${error.message}`;
         }
+    }
 
-        function drawObstacles() {
-            ctx.fillStyle = 'red';
-            obstacles.forEach(obstacle => {
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
-        }
+    function plotGraph() {
+        const func = document.getElementById('function').value;
+        const ctx = document.getElementById('myChart').getContext('2d');
 
-        function updateObstacles() {
-            if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 300) {
-                obstacles.push({
-                    x: canvas.width,
-                    y: 160,
-                    width: 20,
-                    height: 20
-                });
-            }
-
-            obstacles.forEach(obstacle => {
-                obstacle.x -= 5; // Move obstacles to the left
-            });
-
-            obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
-        }
-
-        function jump() {
-            if (!dino.jumping) {
-                dino.dy = dino.jumpPower;
-                dino.jumping = true;
+        const xValues = [];
+        const yValues = [];
+        
+        for (let x = -10; x <= 10; x += 0.1) {
+            xValues.push(x);
+            try {
+                const y = math.evaluate(func, { x });
+                yValues.push(y);
+            } catch (error) {
+                console.error(`Error evaluating function at x=${x}: ${error.message}`);
+                yValues.push(null); // push null in case of evaluation error
             }
         }
 
-        function updateGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawDino();
-            drawObstacles();
-            updateObstacles();
-
-            // Update dino position
-            dino.y += dino.dy;
-            dino.dy += dino.gravity;
-
-            if (dino.y > 150) {
-                dino.y = 150;
-                dino.jumping = false;
-                dino.dy = 0;
-            }
-
-            // Check for collision
-            obstacles.forEach(obstacle => {
-                if (dino.x < obstacle.x + obstacle.width &&
-                    dino.x + dino.width > obstacle.x &&
-                    dino.y < obstacle.y + obstacle.height &&
-                    dino.y + dino.height > obstacle.y) {
-                    gameOver();
+        if (window.myChart) {
+            window.myChart.destroy(); // destroy existing chart instance
+        }
+        
+        window.myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: `f(x) = ${func}`,
+                    data: yValues,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'x'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'f(x)'
+                        }
+                    }
                 }
-            });
-
-            score++;
-            document.querySelector('.score').innerText = 'Score: ' + score;
-        }
-
-        function gameOver() {
-            clearInterval(gameInterval);
-            clearInterval(obstacleInterval);
-            alert('Game Over! Your score: ' + score);
-            document.location.reload(); // Reload the page to restart the game
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space') {
-                jump();
             }
         });
+    }
+</script>
 
-        function startGame() {
-            gameInterval = setInterval(updateGame, 20);
-            obstacleInterval = setInterval(updateObstacles, 1000);
-        }
-
-        startGame();
-    </script>
 </body>
 </html>
