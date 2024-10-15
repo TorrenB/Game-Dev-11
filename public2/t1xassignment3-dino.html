@@ -10,11 +10,12 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Aligns items to the left */
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
             margin: 0;
+            padding-left: 20px; /* Adding some left padding */
         }
         #calculator {
             background-color: #fff;
@@ -22,7 +23,6 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 400px;
-            max-width: 90%;
         }
         h2 {
             text-align: center;
@@ -39,7 +39,7 @@
             border-radius: 5px;
             padding: 10px;
             box-sizing: border-box;
-            display: block; /* Make sure box is displayed properly */
+            display: block; /* Ensure boxes are displayed properly */
             margin-top: 20px; /* Added space above the input box */
         }
         .button {
