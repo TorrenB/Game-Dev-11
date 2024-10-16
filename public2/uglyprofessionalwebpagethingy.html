@@ -99,6 +99,15 @@
             background: #8B008B; /* Dark Magenta */
             color: #FFFFFF; /* White */
         }
+
+        /* Flashing section */
+        .flashing-section {
+            min-height: 200px;
+            text-align: center;
+            line-height: 200px; /* Vertically center text */
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +121,7 @@
                 <li><a href="#section3">Section 3</a></li>
                 <li><a href="#section4">Section 4</a></li>
                 <li><a href="#section5">Section 5</a></li>
+                <li><a href="#section6">Flashing Section</a></li>
                 <li><a href="#footer">Contact</a></li>
             </ul>
         </nav>
@@ -148,6 +158,12 @@
             <p>This section should test your resolve!</p>
             <button onclick="showAlert()">Flee!</button>
         </section>
+
+        <section id="section6" class="flashing-section">
+            <h2>Flashing Colors Section</h2>
+            <button onclick="startFlashing()">Start Flashing Colors</button>
+            <button onclick="stopFlashing()">Stop Flashing Colors</button>
+        </section>
     </main>
 
     <footer id="footer">
@@ -158,6 +174,8 @@
     </footer>
 
     <script>
+        let flashingInterval;
+
         function outputText(inputId, outputId) {
             const inputElement = document.getElementById(inputId);
             const outputElement = document.getElementById(outputId);
@@ -179,6 +197,25 @@
 
         function randomAction() {
             alert("This is a totally random action!");
+        }
+
+        function startFlashing() {
+            const flashingSection = document.getElementById('section6');
+            let colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+            let index = 0;
+
+            flashingInterval = setInterval(() => {
+                flashingSection.style.backgroundColor = colors[index];
+                flashingSection.style.color = colors[(index + 3) % colors.length]; // Ensuring text color contrasts
+                index = (index + 1) % colors.length; // Loop through colors
+            }, 300); // Change every 300 milliseconds
+        }
+
+        function stopFlashing() {
+            clearInterval(flashingInterval);
+            const flashingSection = document.getElementById('section6');
+            flashingSection.style.backgroundColor = ""; // Reset background once stopped
+            flashingSection.style.color = ""; // Reset text color once stopped
         }
 
         function submitContact() {
