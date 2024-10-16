@@ -1,1 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intense Professional Website</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Using Comic Sans for a less professional look */
+            margin: 0;
+            padding: 0;
+            background-color: #FF00FF; /* Bright Magenta */
+            color: #FFFF00; /* Bright Yellow */
+        }
 
+        header {
+            background: #00FF00; /* Bright Green */
+            color: #FF0000; /* Bright Red */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: square; /* Change list style */
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #0000FF; /* Bright Blue links */
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background: #FFFF00; /* Bright Yellow Background */
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 1); /* Heavy shadow for a chaotic feel */
+        }
+
+        footer {
+            background: #0000FF; /* Bright Blue */
+            color: #FF00FF; /* Bright Magenta */
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 22px);
+            background: #FFA500; /* Bright Orange */
+            color: #FF0000; /* Bright Red text */
+        }
+
+        button {
+            padding: 10px;
+            background: #FF00FF; /* Bright Magenta */
+            color: #00FF00; /* Bright Green */
+            border: 5px dotted #FFFF00; /* Dotted border */
+            border-radius: 20px; /* Rounder buttons */
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0000FF; /* Change to Bright Blue when hover */
+            color: #FFFF00; /* Change to Bright Yellow on hover */
+            transform: scale(1.1); /* Scale button on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Professional Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="section1">
+            <h2>Section 1</h2>
+            <input type="text" id="input1" placeholder="Type something...">
+            <button onclick="outputText('input1', 'output1')">Submit</button>
+            <p id="output1"></p>
+        </section>
+
+        <section id="section2">
+            <h2>Section 2</h2>
+            <button onclick="showAlert()">Click Me!</button>
+        </section>
+
+        <section id="section3">
+            <h2>Section 3</h2>
+            <input type="number" id="input2" placeholder="Enter a number...">
+            <button onclick="doubleNumber()">Double It</button>
+            <p id="output2"></p>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <h2>Contact Us</h2>
+        <input type="text" id="contactName" placeholder="Your Name">
+        <input type="email" id="contactEmail" placeholder="Your Email">
+        <button onclick="submitContact()">Submit</button>
+    </footer>
+
+    <script>
+        function outputText(inputId, outputId) {
+            const inputElement = document.getElementById(inputId);
+            const outputElement = document.getElementById(outputId);
+            outputElement.textContent = `You typed: ${inputElement.value}`;
+            inputElement.value = ''; // Clear input after submission
+        }
+
+        function showAlert() {
+            alert('Button clicked!');
+        }
+
+        function doubleNumber() {
+            const inputElement = document.getElementById('input2');
+            const outputElement = document.getElementById('output2');
+            const value = Number(inputElement.value);
+            outputElement.textContent = `Doubled value: ${value * 2}`;
+            inputElement.value = ''; // Clear input after submission
+        }
+
+        function submitContact() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            
+            alert(`Thank you, ${name}. We will contact you at ${email}.`);
+            
+            // Clear inputs after submission
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+        }
+    </script>
+</body>
+</html>
