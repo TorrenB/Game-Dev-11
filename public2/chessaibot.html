@@ -44,6 +44,11 @@
         .highlight {
             background-color: rgba(255, 255, 0, 0.5); /* Yellow with transparency */
         }
+
+        .disabled {
+            pointer-events: none; /* Disable pointer events for squares */
+            opacity: 0.5; /* Show disabled state visually */
+        }
     </style>
 </head>
 
@@ -83,10 +88,13 @@
                     boardElement.appendChild(square);
                 }
             }
+            updateSquareState();
         }
 
         // Handle square click event
         function handleSquareClick(square) {
+            if (!isPlayerTurn(square)) return; // If not player's turn, return
+
             const position = square.dataset.position.split(',').map(Number);
             
             if (selectedSquare) {
@@ -98,7 +106,9 @@
                 if (isValidMove(selectedPiece, originalPosition, position)) {
                     square.innerHTML = selectedPiece; // Move piece
                     selectedSquare.innerHTML = ''; // Clear original square
-                    currentTurn = currentTurn === 'white' ? 'black' : 'white'; // Change turn
+                    // Change turn
+                    currentTurn = currentTurn === 'white' ? 'black' : 'white';
+                    updateSquareState(); // Update turn state
                 }
                 selectedSquare.classList.remove('highlight');
                 selectedSquare = null; // Deselect
@@ -110,6 +120,12 @@
                     showValidMoves(square.innerHTML, position);
                 }
             }
+        }
+
+        // Check if the clicked square is valid for the player's turn
+        function isPlayerTurn(square) {
+            return (currentTurn === 'white' && square.innerHTML.toUpperCase() === square.innerHTML) || 
+                   (currentTurn === 'black' && square.innerHTML.toLowerCase() === square.innerHTML);
         }
 
         // Check if it is the correct turn
@@ -139,11 +155,25 @@
             const originalSquare = selectedSquare;
             targetSquare.innerHTML = piece; // Move piece
             originalSquare.innerHTML = ''; // Clear original square
-            currentTurn = currentTurn === 'white' ? 'black' : 'white'; // Change turn
-            
+            // Change turn
+            currentTurn = currentTurn === 'white' ? 'black' : 'white';
+            updateSquareState(); // Update turn state
+
             originalSquare.classList.remove('highlight'); // Clear selection
             selectedSquare = null; // Deselect
             clearHighlights(); // Clear move highlights
+        }
+
+        // Update the state of the squares based on the current turn
+        function updateSquareState() {
+            const squares = document.querySelectorAll('.square');
+            squares.forEach(square => {
+                if (!isPlayerTurn(square)) {
+                    square.classList.add('disabled');
+                } else {
+                    square.classList.remove('disabled');
+                }
+            });
         }
 
         // Clear highlighted squares
