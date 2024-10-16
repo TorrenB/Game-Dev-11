@@ -14,20 +14,20 @@
             justify-content: center;
             align-items: flex-start;
             padding: 20px;
-            height: 100vh; /* 100% Height */
+            height: 100vh;
             margin: 0;
-            background-color: #2c3e50; /* Background color */
-            color: #ecf0f1; /* Font color */
+            background-color: #2c3e50;
+            color: #ecf0f1;
         }
 
         #calculator {
-            background-color: #34495e; /* Card background color */
+            background-color: #34495e;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            width: 100%; /* Full width */
-            max-width: 1200px; /* Max width */
-            box-sizing: border-box; /* Box sizing */
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
         }
 
         h2 {
@@ -38,91 +38,88 @@
 
         #input-display,
         #output-display {
-            width: 100%; /* Full width */
+            width: 100%;
             height: 60px;
             font-size: 28px;
             text-align: right;
-            margin-bottom: 10px; /* Reduced margin to align better */
-            border: 1px solid #7f8c8d; /* Border */
+            margin-bottom: 10px;
+            border: 1px solid #7f8c8d;
             border-radius: 5px;
             padding: 10px;
-            box-sizing: border-box; /* Box sizing */
-            background-color: #ecf0f1; /* Input background */
-            color: #2c3e50; /* Input text color */
+            box-sizing: border-box;
+            background-color: #ecf0f1;
+            color: #2c3e50;
         }
 
         .button {
-            width: 70px; /* Width of buttons */
-            height: 70px; /* Height of buttons */
-            font-size: 20px; /* Font size */
+            width: 70px;
+            height: 70px;
+            font-size: 20px;
             margin: 5px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #007bff; /* Button color */
-            color: white; /* Button text color */
-            transition: background-color 0.3s; /* Button hover transition */
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
         }
 
         .button:hover {
-            background-color: #0056b3; /* Hover color */
+            background-color: #0056b3;
         }
 
-        /* Adjust dropdown and input styling */
         #store-name,
         #store-value,
         #stored-values-dropdown,
         select {
-            width: 100%; /* Full width */
-            height: 45px; /* Height */
-            margin-top: 10px; /* Margin on top */
-            border: 1px solid #7f8c8d; /* Border */
-            border-radius: 5px; /* Rounded borders */
-            font-size: 18px; /* Font size */
-            padding: 5px; /* Padding */
-            box-sizing: border-box; /* Box sizing */
-            background-color: #ecf0f1; /* Input background */
-            color: #2c3e50; /* Input text color */
+            width: 100%;
+            height: 45px;
+            margin-top: 10px;
+            border: 1px solid #7f8c8d;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 5px;
+            box-sizing: border-box;
+            background-color: #ecf0f1;
+            color: #2c3e50;
         }
 
         #stored-values,
         #metric-converter,
         #imperial-converter,
         #currency-converter {
-            margin-top: 20px; /* Space above */
-            padding: 10px; /* Padding */
-            border-top: 1px solid #7f8c8d; /* Border */
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #7f8c8d;
         }
 
         .converter-container {
-            display: flex; /* Flex for conversion inputs */
-            justify-content: space-between; /* Space between inputs */
+            display: flex;
+            justify-content: space-between;
         }
 
         .converter-input {
-            width: 48%; /* Almost half width */
+            width: 48%;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 600px) {
             .button {
-                width: 60px; /* Adjusted for small screens */
-                height: 60px; /* Adjusted for small screens */
-                font-size: 16px; /* Font size for small screens */
+                width: 60px;
+                height: 60px;
+                font-size: 16px;
             }
 
             #input-display,
             #output-display {
-                height: 40px; /* Height adjustment */
-                font-size: 20px; /* Font size adjustment */
+                height: 40px;
+                font-size: 20px;
             }
         }
 
-        /* Equals button area */
         #equals-button-container {
-            display: flex; /* Flex display */
-            justify-content: flex-end; /* Align to the right */
-            margin-top: 10px; /* Space above */
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -150,12 +147,14 @@
             <button class="button" onclick="appendToDisplay('acos(')">acos</button>
             <button class="button" onclick="appendToDisplay('atan(')">atan</button>
             <button class="button" onclick="appendToDisplay('sqrt(')">√</button>
+            <button class="button" onclick="appendToDisplay('root(')">∛</button>
         </div>
         <div>
             <button class="button" onclick="appendToDisplay('^')">^</button>
             <button class="button" onclick="appendToDisplay('!')">!</button>
             <button class="button" onclick="appendToDisplay(Math.PI)">π</button>
             <button class="button" onclick="appendToDisplay(Math.E)">e</button>
+            <button class="button" onclick="generateRandom()">Rand</button>
         </div>
 
         <h2>Number Functions</h2>
@@ -182,7 +181,6 @@
             <button class="button" onclick="clearBothDisplays()">C</button>
         </div>
 
-        <!-- Equals button positioned below output boxes and aligned to the right -->
         <div id="equals-button-container">
             <button class="button" onclick="calculateResult()">=</button>
         </div>
@@ -369,6 +367,14 @@
             document.getElementById('store-value').value = '';
         }
 
+        // Random Number Generation
+        function generateRandom() {
+            const min = prompt('Enter minimum value:');
+            const max = prompt('Enter maximum value:');
+            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + parseInt(min);
+            appendToDisplay(randomNumber);
+        }
+
         // Metric Conversion
         function convertMetric() {
             const metricInput = document.getElementById('metric-input').value;
@@ -376,11 +382,11 @@
             let result;
 
             if (metricUnit === "cm") {
-                result = metricInput * 100; // Convert meters to centimeters
+                result = metricInput * 100;
             } else if (metricUnit === "mm") {
-                result = metricInput * 1000; // Convert meters to millimeters
+                result = metricInput * 1000;
             } else if (metricUnit === "km") {
-                result = metricInput / 1000; // Convert meters to kilometers
+                result = metricInput / 1000;
             }
 
             document.getElementById('metric-output').innerText = `Converted Value: ${result} ${metricUnit}`;
@@ -416,11 +422,10 @@
                 eur: { usd: 1.18, gbp: 0.87, jpy: 130.07, aud: 1.59, cad: 1.47, chf: 1.10, cny: 7.63, nzd: 1.68, sek: 10.19, nok: 9.97, dkk: 7.16, sgd: 1.60, hkd: 9.23, pln: 4.40, mxn: 23.53, zar: 17.64, inr: 86.76, rub: 86.10, try: 9.73, aed: 4.32, brl: 6.32, thb: 38.25, idr: 16700 },
                 gbp: { usd: 1.36, eur: 1.15, jpy: 149.20, aud: 1.83, cad: 1.67, chf: 1.26, cny: 8.72, nzd: 1.93, sek: 11.73, nok: 11.25, dkk: 8.17, sgd: 1.74, hkd: 10.57, pln: 5.20, mxn: 27.87, zar: 20.48, inr: 98.21, rub: 97.59, try: 11.18, aed: 4.85, brl: 7.12, thb: 43.61, idr: 19188 },
                 jpy: { usd: 0.0091, eur: 0.0077, gbp: 0.0067, aud: 0.0074, cad: 0.0069, chf: 0.0090, cny: 0.057, nzd: 0.0077, sek: 0.061, nok: 0.059, dkk: 0.046, sgd: 0.0078, hkd: 0.0128, pln: 0.027, mxn: 0.049, zar: 0.034, inr: 0.061, rub: 0.0067, try: 0.042, aed: 0.055, brl: 0.0020, thb: 0.020, idr: 140.00 },
-                // Add additional rates for each currency as necessary
             };
 
             if (rates[currencyUnit] && targetCurrency) {
-                conversionRate = rates[currencyUnit][targetCurrency] || 1; // Use provided rate or 1 if not found
+                conversionRate = rates[currencyUnit][targetCurrency] || 1; 
             }
 
             const result = currencyInput * conversionRate;
