@@ -38,6 +38,11 @@
         .green {
             background-color: #2e8b8b;
         }
+
+        .highlight {
+            background-color: yellow; /* Highlight possible moves */
+        }
+        
     </style>
 </head>
 
@@ -58,6 +63,7 @@
         ];
 
         let selectedSquare = null;
+        let currentTurn = 'white'; // Track the current turn
 
         // Create the chessboard
         function createChessboard() {
@@ -80,33 +86,115 @@
 
         // Handle square click event
         function handleSquareClick(square) {
-            const position = square.dataset.position;
+            const position = square.dataset.position.split(',').map(Number);
             
             if (selectedSquare) {
                 // Moving the piece
                 const selectedPiece = selectedSquare.innerHTML;
                 const originalPosition = selectedSquare.dataset.position.split(',').map(Number);
-                const targetPosition = position.split(',').map(Number);
 
-                // Check if the move is valid (basic implementation)
-                if (isValidMove(originalPosition, targetPosition)) {
+                // Check if the move is valid
+                if (isValidMove(selectedPiece, originalPosition, position)) {
                     square.innerHTML = selectedPiece; // Move piece
                     selectedSquare.innerHTML = ''; // Clear original square
+                    currentTurn = currentTurn === 'white' ? 'black' : 'white'; // Change turn
                 }
+                selectedSquare.classList.remove('highlight');
                 selectedSquare = null; // Deselect
+                clearHighlights(); // Clear move highlights
             } else {
                 // Select the piece
-                if (square.innerHTML) {
+                if (square.innerHTML && isCorrectTurn(square.innerHTML)) {
                     selectedSquare = square;
+                    showValidMoves(square.innerHTML, position);
                 }
             }
         }
 
-        // Basic move validation (very basic, just for demonstration)
-        function isValidMove(originalPosition, targetPosition) {
-            // Here you can implement actual chess rules for piece movement
-            // This is a rudimentary implementation; always allow moves for this example
-            return true; // In a more comprehensive implementation, you would replace this
+        // Check if it is the correct turn
+        function isCorrectTurn(piece) {
+            return (currentTurn === 'white' && piece === piece.toUpperCase()) || 
+                   (currentTurn === 'black' && piece === piece.toLowerCase());
+        }
+
+        // Show valid moves for the selected piece
+        function showValidMoves(piece, position) {
+            const row = position[0];
+            const col = position[1];
+            const moves = getMoves(piece, position);
+
+            for (const move of moves) {
+                const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
+                if (square) {
+                    square.classList.add('highlight');
+                }
+            }
+        }
+
+        // Clear highlighted squares
+        function clearHighlights() {
+            const highlighted = document.querySelectorAll('.highlight');
+            highlighted.forEach(square => square.classList.remove('highlight'));
+        }
+
+        // Get possible moves for a given piece type
+        function getMoves(piece, position) {
+            const moves = [];
+            const row = position[0];
+            const col = position[1];
+
+            switch (piece.toLowerCase()) {
+                case '♙': // White Pawn
+                    if (row > 0) {
+                        moves.push([row - 1, col]); // Move forward
+                        if (row === 6) moves.push([row - 2, col]); // First move can move two squares
+                    }
+                    break;
+                case '♟': // Black Pawn
+                    if (row < 7) {
+                        moves.push([row + 1, col]); // Move forward
+                        if (row === 1) moves.push([row + 2, col]); // First move can move two squares
+                    }
+                    break;
+                case '♖': // Rook
+                case '♜':
+                    for (let i = 1; i < 8; i++) {
+                        moves.push([row + i, col], [row - i, col], [row, col + i], [row, col - i]);
+                    }
+                    break;
+                case '♘': // Knight
+                case '♞':
+                    moves.push([row + 2, col + 1], [row + 2, col - 1], [row - 2, col + 1], [row - 2, col - 1],
+                                [row + 1, col + 2], [row + 1, col - 2], [row - 1, col + 2], [row - 1, col - 2]);
+                    break;
+                case '♗': // Bishop
+                case '♝':
+                    for (let i = 1; i < 8; i++) {
+                        moves.push([row + i, col + i], [row + i, col - i], [row - i, col + i], [row - i, col - i]);
+                    }
+                    break;
+                case '♕': // Queen
+                case '♛':
+                    for (let i = 1; i < 8; i++) {
+                        moves.push([row + i, col + i], [row + i, col - i], 
+                                    [row - i, col + i], [row - i, col - i]);
+                        moves.push([row + i, col], [row - i, col], 
+                                    [row, col + i], [row, col - i]);
+                    }
+                    break;
+                case '♔': // King
+                case '♚':
+                    moves.push([row + 1, col], [row - 1, col], [row, col + 1], 
+                                [row, col - 1], [row + 1, col + 1], [row + 1, col - 1], 
+                                [row - 1, col + 1], [row - 1, col - 1]);
+                    break;
+            }
+            return moves.filter(move => isWithinBounds(move)); // Filter valid moves
+        }
+
+        // Check if the move is within the board
+        function isWithinBounds(move) {
+            return move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8;
         }
 
         // Initialize the chessboard
