@@ -177,39 +177,76 @@
                 case '♖': // Rook
                 case '♜':
                     for (let i = 1; i < 8; i++) {
-                        moves.push([row + i, col], [row - i, col], [row, col + i], [row, col - i]);
+                        if (addValidMoves(moves, row + i, col) || 
+                            addValidMoves(moves, row - i, col) ||
+                            addValidMoves(moves, row, col + i) ||
+                            addValidMoves(moves, row, col - i)) {
+                            break;  // Stop when another piece is found
+                        }
                     }
                     break;
                 case '♘': // Knight
                 case '♞':
-                    moves.push([row + 2, col + 1], [row + 2, col - 1], [row - 2, col + 1], [row - 2, col - 1],
-                                [row + 1, col + 2], [row + 1, col - 2], [row - 1, col + 2], [row - 1, col - 2]);
+                    moves.push(
+                        [row + 2, col + 1], [row + 2, col - 1], 
+                        [row - 2, col + 1], [row - 2, col - 1],
+                        [row + 1, col + 2], [row + 1, col - 2], 
+                        [row - 1, col + 2], [row - 1, col - 2]
+                    );
                     break;
                 case '♗': // Bishop
                 case '♝':
                     for (let i = 1; i < 8; i++) {
-                        moves.push([row + i, col + i], [row + i, col - i], [row - i, col + i], [row - i, col - i]);
+                        if (addValidMoves(moves, row + i, col + i) || 
+                            addValidMoves(moves, row + i, col - i) ||
+                            addValidMoves(moves, row - i, col + i) ||
+                            addValidMoves(moves, row - i, col - i)) {
+                            break;  // Stop when another piece is found
+                        }
                     }
                     break;
                 case '♕': // Queen
                 case '♛':
                     for (let i = 1; i < 8; i++) {
-                        moves.push([row + i, col + i], [row + i, col - i], 
-                                    [row - i, col + i], [row - i, col - i]);
-                        moves.push([row + i, col], [row - i, col], 
-                                    [row, col + i], [row, col - i]);
+                        if (addValidMoves(moves, row + i, col + i) || 
+                            addValidMoves(moves, row + i, col - i) ||
+                            addValidMoves(moves, row - i, col + i) ||
+                            addValidMoves(moves, row - i, col - i) ||
+                            addValidMoves(moves, row + i, col) ||
+                            addValidMoves(moves, row - i, col) ||
+                            addValidMoves(moves, row, col + i) ||
+                            addValidMoves(moves, row, col - i)) {
+                            break;  // Stop when another piece is found
+                        }
                     }
                     break;
                 case '♔': // King
                 case '♚':
-                    moves.push([row + 1, col], [row - 1, col], [row, col + 1], 
-                                [row, col - 1], [row + 1, col + 1], [row + 1, col - 1], 
-                                [row - 1, col + 1], [row - 1, col - 1]);
+                    moves.push(
+                        [row + 1, col], [row - 1, col], 
+                        [row, col + 1], [row, col - 1], 
+                        [row + 1, col + 1], [row + 1, col - 1], 
+                        [row - 1, col + 1], [row - 1, col - 1]
+                    );
                     break;
             }
 
             // Filter moves to ensure they don't land on own pieces
             return moves.filter(move => isWithinBounds(move) && !isOwnPiece(move));
+        }
+
+        function addValidMoves(moves, row, col) {
+            const square = document.querySelector(`[data-position="${row},${col}"]`);
+            if (!isWithinBounds([row, col])) return false; // Out of bounds
+            if (square && square.innerHTML) {
+                // If there's an own piece, stop checking further in this direction
+                if (isOwnPiece(square.dataset.position.split(',').map(Number))) {
+                    return true;
+                }
+                return false; // Stop if there's an opponent's piece
+            }
+            moves.push([row, col]);
+            return false; // Continue moving
         }
 
         // Check if there is a piece of the current player at the target square
