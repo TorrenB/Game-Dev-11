@@ -6,11 +6,12 @@
     <title>Intense Professional Website</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif; /* Using Comic Sans for a less professional look */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #FF00FF; /* Bright Magenta */
             color: #FFFF00; /* Bright Yellow */
+            overflow: hidden; /* Disable scrolling */
         }
 
         header {
@@ -21,7 +22,7 @@
         }
 
         nav ul {
-            list-style-type: square; /* Change list style */
+            list-style-type: square;
             padding: 0;
         }
 
@@ -43,7 +44,7 @@
             margin: 20px 0;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 1); /* Heavy shadow for a chaotic feel */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 1);
         }
 
         footer {
@@ -56,58 +57,30 @@
             width: 100%;
         }
 
-        input {
-            padding: 10px;
-            margin: 5px 0;
-            width: calc(100% - 22px);
-            background: #FFA500; /* Bright Orange */
-            color: #FF0000; /* Bright Red text */
-        }
-
-        button {
-            padding: 10px;
-            background: #FF00FF; /* Bright Magenta */
-            color: #00FF00; /* Bright Green */
-            border: 5px dotted #FFFF00; /* Dotted border */
-            border-radius: 20px; /* Rounder buttons */
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0000FF; /* Change to Bright Blue when hover */
-            color: #FFFF00; /* Change to Bright Yellow on hover */
-            transform: scale(1.1); /* Scale button on hover */
-        }
-
-        /* New terrible color schemes for additional sections */
-        .section-terrible1 {
-            background: #FF1493; /* Deep Pink */
-            color: #FFFF33; /* Neon Yellow */
-        }
-
-        .section-terrible2 {
-            background: #32CD32; /* Lime Green */
-            color: #8A2BE2; /* BlueViolet */
-        }
-
-        .section-terrible3 {
-            background: #FFD700; /* Gold */
-            color: #8B0000; /* Dark Red */
-        }
-
-        .section-terrible4 {
-            background: #8B008B; /* Dark Magenta */
-            color: #FFFFFF; /* White */
-        }
-
-        /* Flashing section */
-        .flashing-section {
-            min-height: 200px;
+        .angry-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FF0000; /* Bright Red */
             text-align: center;
-            line-height: 200px; /* Vertically center text */
-            font-size: 24px;
+            margin-top: 100px; /* Center vertically */
+        }
+
+        .flashing-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FFF; /* White flashing screen */
+            color: #000; /* Black text */
+            display: none; /* Initially not displayed */
+            z-index: 9999; /* Bring to front */
+            text-align: center;
+            line-height: 100vh; /* Center vertically */
+            font-size: 48px;
             font-weight: bold;
         }
+
     </style>
 </head>
 <body>
@@ -128,105 +101,51 @@
     </header>
 
     <main>
-        <section id="section1" class="section-terrible1">
+        <section id="section1">
             <h2>Section 1</h2>
-            <input type="text" id="input1" placeholder="Type something...">
-            <button onclick="outputText('input1', 'output1')">Submit</button>
-            <p id="output1"></p>
         </section>
 
-        <section id="section2" class="section-terrible2">
+        <section id="section2">
             <h2>Section 2</h2>
-            <button onclick="showAlert()">Click Me!</button>
         </section>
 
-        <section id="section3" class="section-terrible3">
+        <section id="section3">
             <h2>Section 3</h2>
-            <input type="number" id="input2" placeholder="Enter a number...">
-            <button onclick="doubleNumber()">Double It</button>
-            <p id="output2"></p>
         </section>
 
-        <section id="section4" class="section-terrible4">
+        <section id="section4">
             <h2>Section 4</h2>
-            <p>This section is quite awful!</p>
-            <button onclick="randomAction()">Do Something Random</button>
         </section>
 
-        <section id="section5" class="section-terrible1">
+        <section id="section5">
             <h2>Section 5</h2>
-            <p>This section should test your resolve!</p>
-            <button onclick="showAlert()">Flee!</button>
         </section>
 
-        <section id="section6" class="flashing-section">
+        <section id="section6">
             <h2>Flashing Colors Section</h2>
-            <button onclick="startFlashing()">Start Flashing Colors</button>
-            <button onclick="stopFlashing()">Stop Flashing Colors</button>
+            <button onclick="startFlashing()">Start Flashing Full Screen</button>
+            <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
+
+        <div id="flashing" class="flashing-screen">GET OUT!</div>
     </main>
 
     <footer id="footer">
         <h2>Contact Us</h2>
-        <input type="text" id="contactName" placeholder="Your Name">
-        <input type="email" id="contactEmail" placeholder="Your Email">
-        <button onclick="submitContact()">Submit</button>
     </footer>
 
     <script>
-        let flashingInterval;
-
-        function outputText(inputId, outputId) {
-            const inputElement = document.getElementById(inputId);
-            const outputElement = document.getElementById(outputId);
-            outputElement.textContent = `You typed: ${inputElement.value}`;
-            inputElement.value = ''; // Clear input after submission
-        }
-
-        function showAlert() {
-            alert('Button clicked!');
-        }
-
-        function doubleNumber() {
-            const inputElement = document.getElementById('input2');
-            const outputElement = document.getElementById('output2');
-            const value = Number(inputElement.value);
-            outputElement.textContent = `Doubled value: ${value * 2}`;
-            inputElement.value = ''; // Clear input after submission
-        }
-
-        function randomAction() {
-            alert("This is a totally random action!");
-        }
-
         function startFlashing() {
-            const flashingSection = document.getElementById('section6');
-            let colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
-            let index = 0;
-
-            flashingInterval = setInterval(() => {
-                flashingSection.style.backgroundColor = colors[index];
-                flashingSection.style.color = colors[(index + 3) % colors.length]; // Ensuring text color contrasts
-                index = (index + 1) % colors.length; // Loop through colors
-            }, 300); // Change every 300 milliseconds
-        }
-
-        function stopFlashing() {
-            clearInterval(flashingInterval);
-            const flashingSection = document.getElementById('section6');
-            flashingSection.style.backgroundColor = ""; // Reset background once stopped
-            flashingSection.style.color = ""; // Reset text color once stopped
-        }
-
-        function submitContact() {
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
+            const flashingDiv = document.getElementById('flashing');
+            flashingDiv.style.display = 'block'; // Show the flashing screen
             
-            alert(`Thank you, ${name}. We will contact you at ${email}.`);
+            let isWhite = true; // To track current color
             
-            // Clear inputs after submission
-            document.getElementById('contactName').value = '';
-            document.getElementById('contactEmail').value = '';
+            setInterval(() => {
+                document.body.style.backgroundColor = isWhite ? '#FFFFFF' : '#000000'; // Flash between white and black
+                flashingDiv.style.backgroundColor = isWhite ? '#FFFFFF' : '#000000'; // Same for flashing div
+                isWhite = !isWhite; // Toggle the color
+            }, 100); // Change color every 100 milliseconds
         }
     </script>
 </body>
