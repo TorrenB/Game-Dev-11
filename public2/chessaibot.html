@@ -1,108 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Bot</title>
-    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <title>Chess Game</title>
     <style>
-        #board {
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .chessboard {
             width: 400px;
-            margin: 20px auto; /* Center the board */
+            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            border: 2px solid #333;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em; /* Adjust size of chess pieces */
+        }
+
+        .white {
+            background-color: #ffffff;
+        }
+
+        .green {
+            background-color: #2e8b8b;
         }
     </style>
 </head>
+
 <body>
+    <div class="chessboard" id="chessboard"></div>
+    <script>
+        const boardElement = document.getElementById('chessboard');
 
-<div id="board"></div>
-<div style="text-align: center;">
-    <button id="startBtn">Start Position</button>
-    <button id="clearBtn">Clear Board</button>
-</div>
-<p id="status" style="text-align: center;"></p>
+        const initialBoard = [
+            ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+            ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+            ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'],
+        ];
 
-<script src="https://unpkg.com/chess.js"></script>
-<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-<script>
-const board = ChessBoard('board', {
-    draggable: true,
-    position: 'start',
-    onDragStart: onDragStart,
-    onDrop: onDrop,
-    onSnapEnd: onSnapEnd
-});
+        let selectedSquare = null;
 
-const game = new Chess();
+        // Create the chessboard
+        function createChessboard() {
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+                    square.classList.add(((row + col) % 2 === 0) ? 'white' : 'green');
 
-function onDragStart(source, piece) {
-    // Prevent dragging of black pieces
-    if (game.in_checkmate() === true || game.in_draw() === true ||
-        piece.search(/^b/) !== -1) return false;
-}
+                    // Add chess piece if there is one
+                    square.dataset.position = `${row},${col}`;
+                    square.innerHTML = initialBoard[row][col];
 
-function onDrop(source, target) {
-    const move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q' // always promote to a queen for simplicity
-    });
-    
-    removeGreySquares();
-    
-    if (move === null) return 'snapback'; // illegal move
+                    // Add click event listener for selecting/moving pieces
+                    square.addEventListener('click', () => handleSquareClick(square));
+                    boardElement.appendChild(square);
+                }
+            }
+        }
 
-    renderMoveHistory(game.history());
+        // Handle square click event
+        function handleSquareClick(square) {
+            const position = square.dataset.position;
+            
+            if (selectedSquare) {
+                // Moving the piece
+                const selectedPiece = selectedSquare.innerHTML;
+                const originalPosition = selectedSquare.dataset.position.split(',').map(Number);
+                const targetPosition = position.split(',').map(Number);
 
-    if (game.game_over()) {
-        alert('Game over! You win!');
-    } else {
-        // Play the bot's move
-        playBotMove();
-    }
-}
+                // Check if the move is valid (basic implementation)
+                if (isValidMove(originalPosition, targetPosition)) {
+                    square.innerHTML = selectedPiece; // Move piece
+                    selectedSquare.innerHTML = ''; // Clear original square
+                }
+                selectedSquare = null; // Deselect
+            } else {
+                // Select the piece
+                if (square.innerHTML) {
+                    selectedSquare = square;
+                }
+            }
+        }
 
-function playBotMove() {
-    const possibleMoves = game.ugly_moves();
-    if (possibleMoves.length === 0) return;
+        // Basic move validation (very basic, just for demonstration)
+        function isValidMove(originalPosition, targetPosition) {
+            // Here you can implement actual chess rules for piece movement
+            // This is a rudimentary implementation; always allow moves for this example
+            return true; // In a more comprehensive implementation, you would replace this
+        }
 
-    // Select a random move from the list of possible moves
-    const randomIdx = Math.floor(Math.random() * possibleMoves.length);
-    game.move(possibleMoves[randomIdx]);
-    
-    renderMoveHistory(game.history());
-    board.position(game.fen());
-
-    if (game.game_over()) {
-        alert('Game over! Bot wins!');
-    }
-}
-
-function onSnapEnd() {
-    board.position(game.fen());
-}
-
-function renderMoveHistory(moves) {
-    let movesElement = '';
-    for (let i = 0; i < moves.length; i = i + 2) {
-        movesElement += (i + 1) / 2 + '. ' + moves[i] + ' ' + (moves[i + 1] ? moves[i + 1] : ' ') + '<br>';
-    }
-    document.getElementById('status').innerHTML = movesElement;
-}
-
-function removeGreySquares() {
-    $('.square-55d63').css('background', '');
-}
-
-document.getElementById('startBtn').addEventListener('click', () => {
-    game.reset(); // Reset the game state
-    board.position('start'); // Reset the board position
-    document.getElementById('status').innerHTML = ''; // Clear move history
-});
-document.getElementById('clearBtn').addEventListener('click', () => {
-    game.clear(); // Clear the game state
-    board.clear(); // Clear the board
-    document.getElementById('status').innerHTML = ''; // Clear move history
-});
-</script>
+        // Initialize the chessboard
+        createChessboard();
+    </script>
 </body>
+
 </html>
