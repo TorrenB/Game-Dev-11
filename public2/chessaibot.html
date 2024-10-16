@@ -1,330 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Game</title>
+    <title>Chess Board</title>
     <style>
         body {
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f8f8;
+            background-color: #f0f0f0;
         }
-
         .chessboard {
             display: grid;
-            grid-template-columns: repeat(8, 1fr);
+            grid-template-columns: repeat(8, 60px);
+            grid-template-rows: repeat(8, 60px);
             border: 2px solid #333;
-            width: 600px;  
-            height: 600px; 
         }
-
-        .square {
+        .chessboard div {
+            width: 60px;
+            height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 5em; 
-            transition: background-color 0.2s;
-            width: 75px;  
-            height: 75px; 
+            font-size: 2em;
+            cursor: pointer;
         }
-
-        .white {
-            background-color: #ffffff;
+        .chessboard div:nth-child(odd) {
+            background-color: #eee;
         }
-
-        .green {
-            background-color: #2e8b8b;
+        .chessboard div:nth-child(even) {
+            background-color: #ddd;
         }
-
-        .highlight {
-            background-color: rgba(255, 255, 0, 0.5);
+        .chessboard div:nth-child(8n+1),
+        .chessboard div:nth-child(8n+2),
+        .chessboard div:nth-child(8n+3),
+        .chessboard div:nth-child(8n+4),
+        .chessboard div:nth-child(8n+5),
+        .chessboard div:nth-child(8n+6),
+        .chessboard div:nth-child(8n+7),
+        .chessboard div:nth-child(8n+8) {
+            background-color: #ddd;
         }
-
-        .disabled {
-            pointer-events: none;
-            opacity: 0.5; 
+        .chessboard div:nth-child(8n+1):nth-child(odd),
+        .chessboard div:nth-child(8n+2):nth-child(even),
+        .chessboard div:nth-child(8n+3):nth-child(odd),
+        .chessboard div:nth-child(8n+4):nth-child(even),
+        .chessboard div:nth-child(8n+5):nth-child(odd),
+        .chessboard div:nth-child(8n+6):nth-child(even),
+        .chessboard div:nth-child(8n+7):nth-child(odd),
+        .chessboard div:nth-child(8n+8):nth-child(even) {
+            background-color: #eee;
         }
     </style>
 </head>
-
 <body>
     <div class="chessboard" id="chessboard"></div>
+
     <script>
-        const boardElement = document.getElementById('chessboard');
+        const board = document.getElementById('chessboard');
+        const pieces = {
+            'r': '♖', 'n': '♘', 'b': '♗', 'q': '♕', 'k': '♔', 'p': '♙',
+            'R': '♜', 'N': '♞', 'B': '♟', 'Q': '♛', 'K': '♚', 'P': '♟'
+        };
 
         const initialBoard = [
-            ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-            ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-            ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'],
+            'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
+            'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
+            'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
         ];
 
+        function renderBoard() {
+            board.innerHTML = '';
+            initialBoard.forEach((piece, index) => {
+                const square = document.createElement('div');
+                square.dataset.index = index;
+                square.textContent = pieces[piece] || '';
+                square.addEventListener('click', () => selectPiece(square));
+                board.appendChild(square);
+            });
+        }
+
         let selectedSquare = null;
-        let currentTurn = 'white'; 
 
-        function createChessboard() {
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const square = document.createElement('div');
-                    square.classList.add('square');
-                    square.classList.add(((row + col) % 2 === 0) ? 'white' : 'green');
-
-                    square.dataset.position = `${row},${col}`;
-                    square.innerHTML = initialBoard[row][col];
-
-                    square.addEventListener('click', () => handleSquareClick(square));
-                    boardElement.appendChild(square);
-                }
-            }
-            updateSquareState();
-        }
-
-        function handleSquareClick(square) {
-            // Allow deselecting a square if it is the one currently selected
-            if (selectedSquare === square) {
-                selectedSquare.classList.remove('highlight');
-                selectedSquare = null;
-                clearHighlights();
-                return; // Deselect
-            }
-
-            if (!isPlayerTurn(square)) return; // If not the player's turn, return
-
-            const position = square.dataset.position.split(',').map(Number);
-            
+        function selectPiece(square) {
             if (selectedSquare) {
-                const selectedPiece = selectedSquare.innerHTML;
-                const originalPosition = selectedSquare.dataset.position.split(',').map(Number);
+                // Move piece
+                const fromIndex = selectedSquare.dataset.index;
+                const toIndex = square.dataset.index;
 
-                if (isValidMove(selectedPiece, originalPosition, position)) {
-                    square.innerHTML = selectedPiece; 
-                    selectedSquare.innerHTML = ''; 
-                    
-                    if ((selectedPiece === '♙' && position[0] === 0) || (selectedPiece === '♟' && position[0] === 7)) {
-                        promotePawn(square); 
-                    }
-
-                    currentTurn = currentTurn === 'white' ? 'black' : 'white';
-                    updateSquareState(); 
+                if (fromIndex !== toIndex) {
+                    initialBoard[toIndex] = initialBoard[fromIndex];
+                    initialBoard[fromIndex] = '';
+                    selectedSquare.classList.remove('selected');
+                    selectedSquare = null;
+                    renderBoard();
                 }
-                
-                selectedSquare.classList.remove('highlight');
-                selectedSquare = null; 
-                clearHighlights();
             } else {
-                if (square.innerHTML && isCorrectTurn(square.innerHTML)) {
-                    selectedSquare = square;
-                    showValidMoves(square.innerHTML, position);
-                }
+                // Select piece
+                selectedSquare = square;
+                selectedSquare.classList.add('selected');
             }
         }
 
-        function promotePawn(square) {
-            const promotionPrompt = prompt("Promote pawn to (Q, R, B, N):");
-            let promotionPiece = '';
-            if (promotionPrompt) {
-                switch (promotionPrompt.toUpperCase()) {
-                    case 'Q':
-                        promotionPiece = currentTurn === 'white' ? '♕' : '♛';
-                        break;
-                    case 'R':
-                        promotionPiece = currentTurn === 'white' ? '♖' : '♜';
-                        break;
-                    case 'B':
-                        promotionPiece = currentTurn === 'white' ? '♗' : '♝';
-                        break;
-                    case 'N':
-                        promotionPiece = currentTurn === 'white' ? '♘' : '♞';
-                        break;
-                    default:
-                        alert("Invalid piece selection. Defaulting to Queen.");
-                        promotionPiece = currentTurn === 'white' ? '♕' : '♛';
-                }
-            }
-            square.innerHTML = promotionPiece; 
-        }
-
-        function isPlayerTurn(square) {
-            return (currentTurn === 'white' && square.innerHTML.toUpperCase() === square.innerHTML) || 
-                   (currentTurn === 'black' && square.innerHTML.toLowerCase() === square.innerHTML);
-        }
-
-        function isCorrectTurn(piece) {
-            return (currentTurn === 'white' && piece === piece.toUpperCase()) || 
-                   (currentTurn === 'black' && piece === piece.toLowerCase());
-        }
-
-        function showValidMoves(piece, position) {
-            const row = position[0];
-            const col = position[1];
-            const moves = getMoves(piece, position);
-
-            for (const move of moves) {
-                const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
-                if (square) {
-                    square.classList.add('highlight');
-                    square.removeEventListener('click', handleSquareClick);
-                    square.addEventListener('click', () => handleMove(square, piece)); 
-                }
-            }
-        }
-
-        function handleMove(targetSquare, piece) {
-            const originalSquare = selectedSquare;
-            targetSquare.innerHTML = piece; 
-            originalSquare.innerHTML = ''; 
-
-            if ((piece === '♙' && targetSquare.dataset.position.split(',')[0] == 0) || 
-                (piece === '♟' && targetSquare.dataset.position.split(',')[0] == 7)) {
-                promotePawn(targetSquare); 
-            }
-
-            currentTurn = currentTurn === 'white' ? 'black' : 'white';
-            updateSquareState(); 
-
-            originalSquare.classList.remove('highlight'); 
-            selectedSquare = null; 
-            clearHighlights(); 
-        }
-
-        function updateSquareState() {
-            const squares = document.querySelectorAll('.square');
-            squares.forEach(square => {
-                if (!isPlayerTurn(square)) {
-                    square.classList.add('disabled');
-                } else {
-                    square.classList.remove('disabled');
-                }
-            });
-        }
-
-        function clearHighlights() {
-            const highlighted = document.querySelectorAll('.highlight');
-            highlighted.forEach(square => {
-                square.classList.remove('highlight');
-                square.removeEventListener('click', handleMove);
-            });
-        }
-
-        function getMoves(piece, position) {
-            const moves = [];
-            const row = position[0];
-            const col = position[1];
-
-            switch (piece.toLowerCase()) {
-                case '♙': // White Pawn
-                    if (row > 0) {
-                        moves.push([row - 1, col]); // Move forward
-                        if (row === 6) moves.push([row - 2, col]); 
-                    }
-                    break;
-                case '♟': // Black Pawn
-                    if (row < 7) {
-                        moves.push([row + 1, col]); 
-                        if (row === 1) moves.push([row + 2, col]); 
-                    }
-                    break;
-                case '♖': // Rook
-                case '♜':
-                    for (let i = 1; i < 8; i++) {
-                        if (addValidMoves(moves, row + i, col) || 
-                            addValidMoves(moves, row - i, col) ||
-                            addValidMoves(moves, row, col + i) ||
-                            addValidMoves(moves, row, col - i)) {
-                            break; 
-                        }
-                    }
-                    break;
-                case '♘': // Knight
-                case '♞':
-                    moves.push(
-                        [row + 2, col + 1], [row + 2, col - 1], 
-                        [row - 2, col + 1], [row - 2, col - 1],
-                        [row + 1, col + 2], [row + 1, col - 2], 
-                        [row - 1, col + 2], [row - 1, col - 2]
-                    );
-                    break;
-                case '♗': // Bishop
-                case '♝':
-                    for (let i = 1; i < 8; i++) {
-                        if (addValidMoves(moves, row + i, col + i) || 
-                            addValidMoves(moves, row + i, col - i) ||
-                            addValidMoves(moves, row - i, col + i) ||
-                            addValidMoves(moves, row - i, col - i)) {
-                            break; 
-                        }
-                    }
-                    break;
-                case '♕': // Queen
-                case '♛':
-                    for (let i = 1; i < 8; i++) {
-                        if (addValidMoves(moves, row + i, col + i) || 
-                            addValidMoves(moves, row + i, col - i) ||
-                            addValidMoves(moves, row - i, col + i) ||
-                            addValidMoves(moves, row - i, col - i) ||
-                            addValidMoves(moves, row + i, col) ||
-                            addValidMoves(moves, row - i, col) ||
-                            addValidMoves(moves, row, col + i) ||
-                            addValidMoves(moves, row, col - i)) {
-                            break; 
-                        }
-                    }
-                    break;
-                case '♔': // King
-                case '♚':
-                    moves.push(
-                        [row + 1, col], [row - 1, col], 
-                        [row, col + 1], [row, col - 1], 
-                        [row + 1, col + 1], [row + 1, col - 1], 
-                        [row - 1, col + 1], [row - 1, col - 1]
-                    );
-                    break;
-            }
-
-            return moves.filter(move => isWithinBounds(move) && !isOwnPiece(move));
-        }
-
-        function addValidMoves(moves, row, col) {
-            const square = document.querySelector(`[data-position="${row},${col}"]`);
-            if (!isWithinBounds([row, col])) return false; 
-            if (square && square.innerHTML) {
-                if (isOwnPiece(square.dataset.position.split(',').map(Number))) {
-                    return true; 
-                }
-                return false; 
-            }
-            moves.push([row, col]);
-            return false; 
-        }
-
-        function isOwnPiece(move) {
-            const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
-            const piece = square.innerHTML;
-
-            if (piece) {
-                if ((currentTurn === 'white' && piece === piece.toUpperCase()) || 
-                    (currentTurn === 'black' && piece === piece.toLowerCase())) {
-                    return true; 
-                }
-            }
-            return false; 
-        }
-
-        function isWithinBounds(move) {
-            return move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8;
-        }
-
-        createChessboard();
+        renderBoard();
     </script>
 </body>
-
 </html>
