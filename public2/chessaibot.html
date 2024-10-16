@@ -7,6 +7,7 @@
     <title>Chess Game</title>
     <style>
         body {
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,20 +16,19 @@
         }
 
         .chessboard {
-            width: 400px;
-            height: 400px;
+            width: 90vmin;  /* Use a responsive size */
+            height: 90vmin;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             border: 2px solid #333;
         }
 
         .square {
-            width: 50px;
-            height: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2em; /* Adjust size of chess pieces */
+            font-size: 5em; /* Adjust size of chess pieces */
+            transition: background-color 0.2s;
         }
 
         .white {
@@ -40,9 +40,8 @@
         }
 
         .highlight {
-            background-color: yellow; /* Highlight possible moves */
+            background-color: rgba(255, 255, 0, 0.5); /* Yellow with transparency */
         }
-        
     </style>
 </head>
 
@@ -127,14 +126,31 @@
                 const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
                 if (square) {
                     square.classList.add('highlight');
+                    square.removeEventListener('click', handleSquareClick); // Block normal clicks
+                    square.addEventListener('click', () => handleMove(square, piece)); // Allow moving to highlighted
                 }
             }
+        }
+
+        // Handle moving to highlighted square
+        function handleMove(targetSquare, piece) {
+            const originalSquare = selectedSquare;
+            targetSquare.innerHTML = piece; // Move piece
+            originalSquare.innerHTML = ''; // Clear original square
+            currentTurn = currentTurn === 'white' ? 'black' : 'white'; // Change turn
+            
+            originalSquare.classList.remove('highlight'); // Clear selection
+            selectedSquare = null; // Deselect
+            clearHighlights(); // Clear move highlights
         }
 
         // Clear highlighted squares
         function clearHighlights() {
             const highlighted = document.querySelectorAll('.highlight');
-            highlighted.forEach(square => square.classList.remove('highlight'));
+            highlighted.forEach(square => {
+                square.classList.remove('highlight');
+                square.removeEventListener('click', handleMove);
+            });
         }
 
         // Get possible moves for a given piece type
