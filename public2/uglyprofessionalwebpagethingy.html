@@ -40,7 +40,6 @@
         }
 
         section {
-            background: #FFFF00; /* Bright Yellow Background */
             margin: 20px 0;
             padding: 20px;
             border-radius: 10px;
@@ -79,6 +78,27 @@
             color: #FFFF00; /* Change to Bright Yellow on hover */
             transform: scale(1.1); /* Scale button on hover */
         }
+
+        /* New terrible color schemes for additional sections */
+        .section-terrible1 {
+            background: #FF1493; /* Deep Pink */
+            color: #FFFF33; /* Neon Yellow */
+        }
+
+        .section-terrible2 {
+            background: #32CD32; /* Lime Green */
+            color: #8A2BE2; /* BlueViolet */
+        }
+
+        .section-terrible3 {
+            background: #FFD700; /* Gold */
+            color: #8B0000; /* Dark Red */
+        }
+
+        .section-terrible4 {
+            background: #8B008B; /* Dark Magenta */
+            color: #FFFFFF; /* White */
+        }
     </style>
 </head>
 <body>
@@ -90,29 +110,43 @@
                 <li><a href="#section1">Section 1</a></li>
                 <li><a href="#section2">Section 2</a></li>
                 <li><a href="#section3">Section 3</a></li>
+                <li><a href="#section4">Section 4</a></li>
+                <li><a href="#section5">Section 5</a></li>
                 <li><a href="#footer">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="section1">
+        <section id="section1" class="section-terrible1">
             <h2>Section 1</h2>
             <input type="text" id="input1" placeholder="Type something...">
             <button onclick="outputText('input1', 'output1')">Submit</button>
             <p id="output1"></p>
         </section>
 
-        <section id="section2">
+        <section id="section2" class="section-terrible2">
             <h2>Section 2</h2>
             <button onclick="showAlert()">Click Me!</button>
         </section>
 
-        <section id="section3">
+        <section id="section3" class="section-terrible3">
             <h2>Section 3</h2>
             <input type="number" id="input2" placeholder="Enter a number...">
             <button onclick="doubleNumber()">Double It</button>
             <p id="output2"></p>
+        </section>
+
+        <section id="section4" class="section-terrible4">
+            <h2>Section 4</h2>
+            <p>This section is quite awful!</p>
+            <button onclick="randomAction()">Do Something Random</button>
+        </section>
+
+        <section id="section5" class="section-terrible1">
+            <h2>Section 5</h2>
+            <p>This section should test your resolve!</p>
+            <button onclick="showAlert()">Flee!</button>
         </section>
     </main>
 
@@ -141,6 +175,10 @@
             const value = Number(inputElement.value);
             outputElement.textContent = `Doubled value: ${value * 2}`;
             inputElement.value = ''; // Clear input after submission
+        }
+
+        function randomAction() {
+            alert("This is a totally random action!");
         }
 
         function submitContact() {
