@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Bot</title>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <style>
+        #board {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
 
+<div id="board" style="width: 400px"></div>
+<button id="startBtn">Start Position</button>
+<button id="clearBtn">Clear Board</button>
+<p id="status"></p>
+
+<script src="https://unpkg.com/chess.js"></script>
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+<script>
+const board = ChessBoard('board', {
+    draggable: true,
+    position: 'start',
+    onDragStart: onDragStart,
+    onDrop: onDrop
+});
+
+const game = new Chess();
+
+function onDragStart(source, piece) {
+    // Prevent dragging of black pieces
+    if (game.in_checkmate() === true || game.in_draw() === true ||
+        piece.search(/^b/) !== -1) return false;
+}
+
+function onDrop(source, target) {
+    const move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q' // always promote to a queen for simplicity
+    });
+    
+    removeGreySquares();
+    
+    if (move === null) return 'snapback'; // illegal move
+
+    renderMoveHistory(game.history());
+
+    if (game.game_over()) {
+        alert('Game over!');
+    } else {
+        // Play the bot's move
+        playBotMove();
+    }
+}
+
+function playBotMove() {
+    const possibleMoves = game.ugly_moves();
+    if (possibleMoves.length === 0) return;
+
+    // Select a random move from the list of possible moves
+    const randomIdx = Math.floor(Math.random() * possibleMoves.length);
+    game.move(possibleMoves[randomIdx]);
+    
+    renderMoveHistory(game.history());
+    board.position(game.fen());
+
+    if (game.game_over()) {
+        alert('Game over!');
+    }
+}
+
+function renderMoveHistory(moves) {
+    let movesElement = '';
+    for (let i = 0; i < moves.length; i = i + 2) {
+        movesElement += (i + 1) / 2 + '. ' + moves[i] + ' ' + (moves[i + 1] ? moves[i + 1] : ' ') + '<br>';
+    }
+    document.getElementById('status').innerHTML = movesElement;
+}
+
+function removeGreySquares() {
+    $('.square-55d63').css('background', '');
+}
+
+document.getElementById('startBtn').addEventListener('click', board.start);
+document.getElementById('clearBtn').addEventListener('click', board.clear);
+</script>
+</body>
+</html>
