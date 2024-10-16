@@ -8,15 +8,18 @@
     <style>
         #board {
             width: 400px;
+            margin: 20px auto; /* Center the board */
         }
     </style>
 </head>
 <body>
 
-<div id="board" style="width: 400px"></div>
-<button id="startBtn">Start Position</button>
-<button id="clearBtn">Clear Board</button>
-<p id="status"></p>
+<div id="board"></div>
+<div style="text-align: center;">
+    <button id="startBtn">Start Position</button>
+    <button id="clearBtn">Clear Board</button>
+</div>
+<p id="status" style="text-align: center;"></p>
 
 <script src="https://unpkg.com/chess.js"></script>
 <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
@@ -25,7 +28,8 @@ const board = ChessBoard('board', {
     draggable: true,
     position: 'start',
     onDragStart: onDragStart,
-    onDrop: onDrop
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd
 });
 
 const game = new Chess();
@@ -71,6 +75,10 @@ function playBotMove() {
     if (game.game_over()) {
         alert('Game over! Bot wins!');
     }
+}
+
+function onSnapEnd() {
+    board.position(game.fen());
 }
 
 function renderMoveHistory(moves) {
