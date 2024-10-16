@@ -19,18 +19,18 @@
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             border: 2px solid #333;
-            width: 600px;  /* Fixed width */
-            height: 600px; /* Fixed height */
+            width: 600px;  
+            height: 600px; 
         }
 
         .square {
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 5em; /* Adjust size of chess pieces */
+            font-size: 5em; 
             transition: background-color 0.2s;
-            width: 75px;  /* Fixed width for each square */
-            height: 75px; /* Fixed height for each square */
+            width: 75px;  
+            height: 75px; 
         }
 
         .white {
@@ -42,12 +42,12 @@
         }
 
         .highlight {
-            background-color: rgba(255, 255, 0, 0.5); /* Yellow with transparency */
+            background-color: rgba(255, 255, 0, 0.5);
         }
 
         .disabled {
-            pointer-events: none; /* Disable pointer events for squares */
-            opacity: 0.5; /* Show disabled state visually */
+            pointer-events: none;
+            opacity: 0.5; 
         }
     </style>
 </head>
@@ -69,9 +69,8 @@
         ];
 
         let selectedSquare = null;
-        let currentTurn = 'white'; // Track the current turn
+        let currentTurn = 'white'; 
 
-        // Create the chessboard
         function createChessboard() {
             for (let row = 0; row < 8; row++) {
                 for (let col = 0; col < 8; col++) {
@@ -79,11 +78,9 @@
                     square.classList.add('square');
                     square.classList.add(((row + col) % 2 === 0) ? 'white' : 'green');
 
-                    // Add chess piece if there is one
                     square.dataset.position = `${row},${col}`;
                     square.innerHTML = initialBoard[row][col];
 
-                    // Add click event listener for selecting/moving pieces
                     square.addEventListener('click', () => handleSquareClick(square));
                     boardElement.appendChild(square);
                 }
@@ -91,30 +88,39 @@
             updateSquareState();
         }
 
-        // Handle square click event
         function handleSquareClick(square) {
-            if (!isPlayerTurn(square)) return; // If not player's turn, return
+            // Allow deselecting a square if it is the one currently selected
+            if (selectedSquare === square) {
+                selectedSquare.classList.remove('highlight');
+                selectedSquare = null;
+                clearHighlights();
+                return; // Deselect
+            }
+
+            if (!isPlayerTurn(square)) return; // If not the player's turn, return
 
             const position = square.dataset.position.split(',').map(Number);
             
             if (selectedSquare) {
-                // Moving the piece
                 const selectedPiece = selectedSquare.innerHTML;
                 const originalPosition = selectedSquare.dataset.position.split(',').map(Number);
 
-                // Check if the move is valid
                 if (isValidMove(selectedPiece, originalPosition, position)) {
-                    square.innerHTML = selectedPiece; // Move piece
-                    selectedSquare.innerHTML = ''; // Clear original square
-                    // Change turn
+                    square.innerHTML = selectedPiece; 
+                    selectedSquare.innerHTML = ''; 
+                    
+                    if ((selectedPiece === '♙' && position[0] === 0) || (selectedPiece === '♟' && position[0] === 7)) {
+                        promotePawn(square); 
+                    }
+
                     currentTurn = currentTurn === 'white' ? 'black' : 'white';
-                    updateSquareState(); // Update turn state
+                    updateSquareState(); 
                 }
+                
                 selectedSquare.classList.remove('highlight');
-                selectedSquare = null; // Deselect
-                clearHighlights(); // Clear move highlights
+                selectedSquare = null; 
+                clearHighlights();
             } else {
-                // Select the piece
                 if (square.innerHTML && isCorrectTurn(square.innerHTML)) {
                     selectedSquare = square;
                     showValidMoves(square.innerHTML, position);
@@ -122,19 +128,41 @@
             }
         }
 
-        // Check if the clicked square is valid for the player's turn
+        function promotePawn(square) {
+            const promotionPrompt = prompt("Promote pawn to (Q, R, B, N):");
+            let promotionPiece = '';
+            if (promotionPrompt) {
+                switch (promotionPrompt.toUpperCase()) {
+                    case 'Q':
+                        promotionPiece = currentTurn === 'white' ? '♕' : '♛';
+                        break;
+                    case 'R':
+                        promotionPiece = currentTurn === 'white' ? '♖' : '♜';
+                        break;
+                    case 'B':
+                        promotionPiece = currentTurn === 'white' ? '♗' : '♝';
+                        break;
+                    case 'N':
+                        promotionPiece = currentTurn === 'white' ? '♘' : '♞';
+                        break;
+                    default:
+                        alert("Invalid piece selection. Defaulting to Queen.");
+                        promotionPiece = currentTurn === 'white' ? '♕' : '♛';
+                }
+            }
+            square.innerHTML = promotionPiece; 
+        }
+
         function isPlayerTurn(square) {
             return (currentTurn === 'white' && square.innerHTML.toUpperCase() === square.innerHTML) || 
                    (currentTurn === 'black' && square.innerHTML.toLowerCase() === square.innerHTML);
         }
 
-        // Check if it is the correct turn
         function isCorrectTurn(piece) {
             return (currentTurn === 'white' && piece === piece.toUpperCase()) || 
                    (currentTurn === 'black' && piece === piece.toLowerCase());
         }
 
-        // Show valid moves for the selected piece
         function showValidMoves(piece, position) {
             const row = position[0];
             const col = position[1];
@@ -144,27 +172,30 @@
                 const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
                 if (square) {
                     square.classList.add('highlight');
-                    square.removeEventListener('click', handleSquareClick); // Block normal clicks
-                    square.addEventListener('click', () => handleMove(square, piece)); // Allow moving to highlighted
+                    square.removeEventListener('click', handleSquareClick);
+                    square.addEventListener('click', () => handleMove(square, piece)); 
                 }
             }
         }
 
-        // Handle moving to highlighted square
         function handleMove(targetSquare, piece) {
             const originalSquare = selectedSquare;
-            targetSquare.innerHTML = piece; // Move piece
-            originalSquare.innerHTML = ''; // Clear original square
-            // Change turn
-            currentTurn = currentTurn === 'white' ? 'black' : 'white';
-            updateSquareState(); // Update turn state
+            targetSquare.innerHTML = piece; 
+            originalSquare.innerHTML = ''; 
 
-            originalSquare.classList.remove('highlight'); // Clear selection
-            selectedSquare = null; // Deselect
-            clearHighlights(); // Clear move highlights
+            if ((piece === '♙' && targetSquare.dataset.position.split(',')[0] == 0) || 
+                (piece === '♟' && targetSquare.dataset.position.split(',')[0] == 7)) {
+                promotePawn(targetSquare); 
+            }
+
+            currentTurn = currentTurn === 'white' ? 'black' : 'white';
+            updateSquareState(); 
+
+            originalSquare.classList.remove('highlight'); 
+            selectedSquare = null; 
+            clearHighlights(); 
         }
 
-        // Update the state of the squares based on the current turn
         function updateSquareState() {
             const squares = document.querySelectorAll('.square');
             squares.forEach(square => {
@@ -176,7 +207,6 @@
             });
         }
 
-        // Clear highlighted squares
         function clearHighlights() {
             const highlighted = document.querySelectorAll('.highlight');
             highlighted.forEach(square => {
@@ -185,7 +215,6 @@
             });
         }
 
-        // Get possible moves for a given piece type
         function getMoves(piece, position) {
             const moves = [];
             const row = position[0];
@@ -195,13 +224,13 @@
                 case '♙': // White Pawn
                     if (row > 0) {
                         moves.push([row - 1, col]); // Move forward
-                        if (row === 6) moves.push([row - 2, col]); // First move can move two squares
+                        if (row === 6) moves.push([row - 2, col]); 
                     }
                     break;
                 case '♟': // Black Pawn
                     if (row < 7) {
-                        moves.push([row + 1, col]); // Move forward
-                        if (row === 1) moves.push([row + 2, col]); // First move can move two squares
+                        moves.push([row + 1, col]); 
+                        if (row === 1) moves.push([row + 2, col]); 
                     }
                     break;
                 case '♖': // Rook
@@ -211,7 +240,7 @@
                             addValidMoves(moves, row - i, col) ||
                             addValidMoves(moves, row, col + i) ||
                             addValidMoves(moves, row, col - i)) {
-                            break;  // Stop when another piece is found
+                            break; 
                         }
                     }
                     break;
@@ -231,7 +260,7 @@
                             addValidMoves(moves, row + i, col - i) ||
                             addValidMoves(moves, row - i, col + i) ||
                             addValidMoves(moves, row - i, col - i)) {
-                            break;  // Stop when another piece is found
+                            break; 
                         }
                     }
                     break;
@@ -246,7 +275,7 @@
                             addValidMoves(moves, row - i, col) ||
                             addValidMoves(moves, row, col + i) ||
                             addValidMoves(moves, row, col - i)) {
-                            break;  // Stop when another piece is found
+                            break; 
                         }
                     }
                     break;
@@ -261,45 +290,39 @@
                     break;
             }
 
-            // Filter moves to ensure they don't land on own pieces
             return moves.filter(move => isWithinBounds(move) && !isOwnPiece(move));
         }
 
         function addValidMoves(moves, row, col) {
             const square = document.querySelector(`[data-position="${row},${col}"]`);
-            if (!isWithinBounds([row, col])) return false; // Out of bounds
+            if (!isWithinBounds([row, col])) return false; 
             if (square && square.innerHTML) {
-                // If there's an own piece, stop checking further in this direction
                 if (isOwnPiece(square.dataset.position.split(',').map(Number))) {
-                    return true;
+                    return true; 
                 }
-                return false; // Stop if there's an opponent's piece
+                return false; 
             }
             moves.push([row, col]);
-            return false; // Continue moving
+            return false; 
         }
 
-        // Check if there is a piece of the current player at the target square
         function isOwnPiece(move) {
             const square = document.querySelector(`[data-position="${move[0]},${move[1]}"]`);
             const piece = square.innerHTML;
 
-            // Check if the square contains a piece and determine if it's the same color
             if (piece) {
                 if ((currentTurn === 'white' && piece === piece.toUpperCase()) || 
                     (currentTurn === 'black' && piece === piece.toLowerCase())) {
-                    return true; // Own piece found
+                    return true; 
                 }
             }
-            return false; // No own piece
+            return false; 
         }
 
-        // Check if the move is within the board
         function isWithinBounds(move) {
             return move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8;
         }
 
-        // Initialize the chessboard
         createChessboard();
     </script>
 </body>
