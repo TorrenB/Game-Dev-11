@@ -50,7 +50,7 @@ function onDrop(source, target) {
     renderMoveHistory(game.history());
 
     if (game.game_over()) {
-        alert('Game over!');
+        alert('Game over! You win!');
     } else {
         // Play the bot's move
         playBotMove();
@@ -69,7 +69,7 @@ function playBotMove() {
     board.position(game.fen());
 
     if (game.game_over()) {
-        alert('Game over!');
+        alert('Game over! Bot wins!');
     }
 }
 
@@ -85,8 +85,16 @@ function removeGreySquares() {
     $('.square-55d63').css('background', '');
 }
 
-document.getElementById('startBtn').addEventListener('click', board.start);
-document.getElementById('clearBtn').addEventListener('click', board.clear);
+document.getElementById('startBtn').addEventListener('click', () => {
+    game.reset(); // Reset the game state
+    board.position('start'); // Reset the board position
+    document.getElementById('status').innerHTML = ''; // Clear move history
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+    game.clear(); // Clear the game state
+    board.clear(); // Clear the board
+    document.getElementById('status').innerHTML = ''; // Clear move history
+});
 </script>
 </body>
 </html>
