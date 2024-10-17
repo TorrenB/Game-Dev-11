@@ -12,6 +12,7 @@
             margin: 0;
             padding: 20px;
             position: relative;
+            height: 100vh; /* Set body height to 100% of viewport height */
         }
 
         /* Arrow button styling */
@@ -39,15 +40,52 @@
             left: 0px;
             transition: top 0.1s, left 0.1s; /* Smooth transition */
         }
+
+        /* Coordinates display */
+        #coordinates {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 1; /* Ensure it's on top of other elements */
+        }
+
+        /* Button container positioning */
+        .button-container {
+            position: absolute;
+            bottom: 20px; /* Distance from the bottom */
+            left: 50%;
+            transform: translateX(-50%); /* Center align horizontally */
+            display: flex;
+            flex-direction: column; /* Arrange buttons vertically */
+            align-items: center; /* Center align items */
+        }
+
+        .horizontal-buttons {
+            display: flex; /* Create a row for left and right buttons */
+        }
     </style>
 </head>
 <body>
 
 <h1 align="center">Move Image with Arrow Keys</h1>
 
+<div id="coordinates">X: 0, Y: 0</div>
+
 <script>
     // Global variable to hold the interval
     let myClock02;
+
+    function updateCoordinates(image) {
+        const coordinatesDisplay = document.getElementById('coordinates');
+        const x = parseInt(image.style.left);
+        const y = parseInt(image.style.top);
+        coordinatesDisplay.innerText = `X: ${x}, Y: ${y}`;
+    }
 
     function moveImage(direction) {
         const image = document.getElementById('myImage01');
@@ -66,6 +104,7 @@
                 image.style.top = (parseInt(image.style.top) - step) + 'px';
                 break;
         }
+        updateCoordinates(image); // Update coordinates display
     }
 
     function autoMove(direction) {
@@ -112,14 +151,14 @@
     });
 </script>
 
-<!-- Arrow buttons for movement -->
-<div style="position: absolute; top: 20px; left: 20px;">
-    <button class="arrow-button" onclick="autoMove('up')">⬆︎</button><br>
-    <div>
+<!-- Button container at the bottom center -->
+<div class="button-container">
+    <button class="arrow-button" onclick="autoMove('up')">⬆︎</button>
+    <div class="horizontal-buttons">
         <button class="arrow-button" onclick="autoMove('left')">⬅︎</button>
         <button class="arrow-button" onclick="autoMove('right')">➡︎</button>
     </div>
-    <button class="arrow-button" onclick="autoMove('down')">⬇︎</button><br><br>
+    <button class="arrow-button" onclick="autoMove('down')">⬇︎</button>
     <button class="arrow-button" onclick="zoomOut()">Zoom Out</button>
 </div>
 
