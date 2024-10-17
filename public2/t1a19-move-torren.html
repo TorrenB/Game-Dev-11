@@ -5,69 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Move Image</title>
     <style>
-        /* Optional styling to see the button and image placement clearly */
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Arrow button styling */
+        .arrow-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 5px; /* Spacing between buttons */
+        }
+
+        /* Style for the image */
+        #myImage01 {
+            position: relative;
+            width: 100px;
+            height: 80px;
+            top: 0px;
+            left: 0px;
         }
     </style>
 </head>
 <body>
 
-<h1 align="center">t1a19-move-torren.html</h1>
+<h1 align="center">Move Image with Arrow Keys</h1>
 
 <script>
     // Global variable to hold the interval
     let myClock02;
 
-    function moveImageRight() {
+    function moveImage(direction) {
         const image = document.getElementById('myImage01');
-        image.style.left = (parseInt(image.style.left) + 10) + 'px';
+        const step = 10; // Pixels to move
+        switch (direction) {
+            case 'right':
+                image.style.left = (parseInt(image.style.left) + step) + 'px';
+                break;
+            case 'left':
+                image.style.left = (parseInt(image.style.left) - step) + 'px';
+                break;
+            case 'down':
+                image.style.top = (parseInt(image.style.top) + step) + 'px';
+                break;
+            case 'up':
+                image.style.top = (parseInt(image.style.top) - step) + 'px';
+                break;
+        }
     }
 
-    function moveImageLeft() {
+    function autoMove(direction) {
         const image = document.getElementById('myImage01');
-        image.style.left = (parseInt(image.style.left) - 10) + 'px';
-    }
-
-    function moveImageDown() {
-        const image = document.getElementById('myImage01');
-        image.style.top = (parseInt(image.style.top) + 10) + 'px'; // Move image down
-    }
-
-    function moveImageUp() {
-        const image = document.getElementById('myImage01');
-        image.style.top = (parseInt(image.style.top) - 10) + 'px'; // Move image up
-    }
-
-    function autoMoveRight() {
-        const image = document.getElementById('myImage01');
-        image.style.left = '0px'; // Reset position to the left
         clearInterval(myClock02);
-        myClock02 = setInterval(moveImageRight, 30);
-    }
-
-    function autoMoveLeft() {
-        const image = document.getElementById('myImage01');
-        image.style.left = '0px'; // Reset position to the left
-        clearInterval(myClock02);
-        myClock02 = setInterval(moveImageLeft, 30);
-    }
-
-    function autoMoveDown() {
-        const image = document.getElementById('myImage01');
-        image.style.top = '0px'; // Reset position to the top
-        clearInterval(myClock02);
-        myClock02 = setInterval(moveImageDown, 30);
-    }
-
-    function autoMoveUp() {
-        const image = document.getElementById('myImage01');
-        image.style.top = '0px'; // Reset position to the top
-        clearInterval(myClock02);
-        myClock02 = setInterval(moveImageUp, 30);
+        myClock02 = setInterval(() => moveImage(direction), 30);
     }
 
     function zoomOut() {
@@ -87,21 +83,18 @@
     }
 </script>
 
-<input type="button" value="Image Right" onclick="moveImageRight()"><br><br>
-<input type="button" value="Auto Move Right" onclick="autoMoveRight()"><br><br>
+<!-- Arrow buttons for movement -->
+<div style="position: absolute; top: 20px; left: 20px;">
+    <button class="arrow-button" onclick="autoMove('up')">⬆︎</button><br>
+    <div>
+        <button class="arrow-button" onclick="autoMove('left')">⬅︎</button>
+        <button class="arrow-button" onclick="autoMove('right')">➡︎</button>
+    </div>
+    <button class="arrow-button" onclick="autoMove('down')">⬇︎</button><br><br>
+    <button class="arrow-button" onclick="zoomOut()">Zoom Out</button>
+</div>
 
-<input type="button" value="Image Left" onclick="moveImageLeft()"><br><br>
-<input type="button" value="Auto Move Left" onclick="autoMoveLeft()"><br><br>
-
-<input type="button" value="Image Down" onclick="moveImageDown()"><br><br>
-<input type="button" value="Auto Move Down" onclick="autoMoveDown()"><br><br>
-
-<input type="button" value="Image Up" onclick="moveImageUp()"><br><br>
-<input type="button" value="Auto Move Up" onclick="autoMoveUp()"><br><br>
-
-<input type="button" value="Zoom Out" onclick="zoomOut()"><br><br>
-
-<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; left:0px;" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image">
+<img id="myImage01" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image">
 
 </body>
 </html>
