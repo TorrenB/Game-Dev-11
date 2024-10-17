@@ -1,33 +1,59 @@
-<h1 align=center>t1a19-move-torren.html</h1>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Image</title>
+    <style>
+        /* Optional styling to see the button and image placement clearly */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<h1 align="center">t1a19-move-torren.html</h1>
 
 <script>
-  //global variables
-  let myClock02
-  
+    // Global variable to hold the interval
+    let myClock02;
+
+    function moveImageRight() {
+        const image = document.getElementById('myImage01');
+        image.style.left = (parseInt(image.style.left) + 10) + 'px';
+    }
+
+    function autoMoveRight() {
+        const image = document.getElementById('myImage01');
+        image.style.left = '0px'; // Reset position to the left
+        clearInterval(myClock02);
+        myClock02 = setInterval(moveImageRight, 30);
+    }
+
+    function moveImageDown() {
+        const image = document.getElementById('myImage01');
+        image.style.top = (parseInt(image.style.top) + 10) + 'px'; // Move image down
+    }
+
+    function autoMoveDown() {
+        const image = document.getElementById('myImage01');
+        image.style.top = '0px'; // Reset position to the top
+        clearInterval(myClock02);
+        myClock02 = setInterval(moveImageDown, 30);
+    }
 </script>
 
-<input type=button id="myButton02" value="Image Right" onclick="{
-  document.getElementById('myImage01').style.left = 
-  parseInt(document.getElementById('myImage01').style.left) + 10 + 'px'
-  }"><br><br>
+<input type="button" id="myButton02" value="Image Right" onclick="moveImageRight()"><br><br>
 
-  <input type=button value="Auto Move Right" onclick="{
-    document.getElementById('myImage01').style.left = 0
-    clearInterval(myClock02)
-    myClock02 = setInterval(function(){
-      document.getElementById('myButton02'). click()
-    }, 30)   <br><br>
-      
-<input type=button value="Auto Move Down" onclick="{
-    document.getElementById('myImage01').style.down = 0
-    clearInterval(myClock02)
-    myClock02 = setInterval(function(){
-      document.getElementById('myButton02'). click()
-    }, 30)   
+<input type="button" value="Auto Move Right" onclick="autoMoveRight()"><br><br>
 
-  }"><br><br>
+<input type="button" value="Auto Move Down" onclick="autoMoveDown()"><br><br>
 
+<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; left:0px;" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image">
 
-<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; 
-  left:0px;" src="myImage01.jpg">
-    
+</body>
+</html>
