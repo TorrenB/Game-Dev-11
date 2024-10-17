@@ -58,6 +58,7 @@
             display: flex;
             justify-content: center; /* Center align buttons */
             margin-bottom: 20px; /* Space from the bottom */
+            flex-wrap: wrap; /* Allow wrapping for better layout */
         }
 
         .horizontal-buttons {
@@ -132,20 +133,19 @@
     window.onload = resetImage;
 
     // Keyboard control
-    let keyMovementInterval;
     document.addEventListener('keydown', function(event) {
         switch (event.key) {
             case 'ArrowUp':
-                startMoving('up', 5); // Move 5 pixels every 100ms (30 pixels per second)
+                startMoving('up', 30); // Move 30 pixels per second
                 break;
             case 'ArrowDown':
-                startMoving('down', 5);
+                startMoving('down', 30);
                 break;
             case 'ArrowLeft':
-                startMoving('left', 5);
+                startMoving('left', 30);
                 break;
             case 'ArrowRight':
-                startMoving('right', 5);
+                startMoving('right', 30);
                 break;
         }
     });
@@ -158,14 +158,14 @@
 <!-- Button container at the bottom center -->
 <div class="button-container">
     <div class="button-group">
-        <button class="arrow-button" onmousedown="startMoving('up', 5)" onmouseup="stopMoving()">⬆︎</button>
+        <button class="arrow-button" onmousedown="startMoving('up', 30)" onmouseup="stopMoving()">⬆︎</button>
     </div>
     <div class="button-group horizontal-buttons">
-        <button class="arrow-button" onmousedown="startMoving('left', 5)" onmouseup="stopMoving()">⬅︎</button>
-        <button class="arrow-button" onmousedown="startMoving('right', 5)" onmouseup="stopMoving()">➡︎</button>
+        <button class="arrow-button" onmousedown="startMoving('left', 30)" onmouseup="stopMoving()">⬅︎</button>
+        <button class="arrow-button" onmousedown="startMoving('right', 30)" onmouseup="stopMoving()">➡︎</button>
     </div>
     <div class="button-group">
-        <button class="arrow-button" onmousedown="startMoving('down', 5)" onmouseup="stopMoving()">⬇︎</button>
+        <button class="arrow-button" onmousedown="startMoving('down', 30)" onmouseup="stopMoving()">⬇︎</button>
     </div>
     <h3>Move 20 Pixels</h3>
     <div class="button-group">
@@ -181,7 +181,193 @@
     <button class="arrow-button" onclick="resetImage()">Reset Image</button> <!-- Reset button -->
 </div>
 
-<img id="myImage01" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image">
+<img id="myImage01" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image" style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);">
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Image</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            height: 100vh; /* Set body height to 100% of viewport height */
+            overflow: hidden; /* Prevent overflow */
+        }
+
+        /* Arrow button styling */
+        .arrow-button {
+            background: lightgray;
+            border: 2px solid #333;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 5px; /* Spacing between buttons */
+            padding: 10px; /* Padding for button */
+            transition: background-color 0.2s;
+        }
+
+        .arrow-button:hover {
+            background-color: #ddd; /* Change background on hover */
+        }
+
+        /* Style for the image */
+        #myImage01 {
+            position: absolute;
+            width: 100px;
+            height: 80px;
+            transition: top 0.1s, left 0.1s; /* Smooth transition */
+        }
+
+        /* Coordinates display */
+        #coordinates {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 1; /* Ensure it's on top of other elements */
+        }
+
+        /* Button container positioning */
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center align buttons */
+            margin-bottom: 20px; /* Space from the bottom */
+            flex-wrap: wrap; /* Allow wrapping for better layout */
+        }
+
+        .horizontal-buttons {
+            display: flex; /* Create a row for left and right buttons */
+        }
+
+        .button-group {
+            display: flex; /* Horizontally stack buttons in a group */
+            flex-direction: column; /* Stack vertically */
+            margin: 5px; /* Spacing between groups */
+        }
+    </style>
+</head>
+<body>
+
+<h1 align="center">Move Image with Arrow Keys</h1>
+
+<div id="coordinates">X: 0, Y: 0</div>
+
+<script>
+    // Global variable to hold the interval for continuous movement
+    let moveInterval;
+    let continuousMove = false;
+
+    function updateCoordinates(image) {
+        const coordinatesDisplay = document.getElementById('coordinates');
+        const x = parseInt(image.style.left);
+        const y = parseInt(image.style.top);
+        coordinatesDisplay.innerText = `X: ${x}, Y: ${y}`;
+    }
+
+    function moveImage(direction, step) {
+        const image = document.getElementById('myImage01');
+        switch (direction) {
+            case 'right':
+                image.style.left = (parseInt(image.style.left) + step) + 'px';
+                break;
+            case 'left':
+                image.style.left = (parseInt(image.style.left) - step) + 'px';
+                break;
+            case 'down':
+                image.style.top = (parseInt(image.style.top) + step) + 'px';
+                break;
+            case 'up':
+                image.style.top = (parseInt(image.style.top) - step) + 'px';
+                break;
+        }
+        updateCoordinates(image); // Update coordinates display
+    }
+
+    function startMoving(direction, step) {
+        if (!continuousMove) {
+            continuousMove = true;
+            moveInterval = setInterval(() => moveImage(direction, step), 100); // Move every 100 ms
+        }
+    }
+
+    function stopMoving() {
+        continuousMove = false;
+        clearInterval(moveInterval);
+    }
+
+    function resetImage() {
+        const image = document.getElementById('myImage01');
+        image.style.top = '50%'; // Center in Y
+        image.style.left = '50%'; // Center in X
+        image.style.transform = 'translate(-50%, -50%)'; // Adjust for size of the image
+        updateCoordinates(image); // Update coordinates display
+    }
+
+    // Reset image position on page load
+    window.onload = resetImage;
+
+    // Keyboard control
+    document.addEventListener('keydown', function(event) {
+        switch (event.key) {
+            case 'ArrowUp':
+                startMoving('up', 30); // Move 30 pixels per second
+                break;
+            case 'ArrowDown':
+                startMoving('down', 30);
+                break;
+            case 'ArrowLeft':
+                startMoving('left', 30);
+                break;
+            case 'ArrowRight':
+                startMoving('right', 30);
+                break;
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        stopMoving();
+    });
+</script>
+
+<!-- Button container at the bottom center -->
+<div class="button-container">
+    <div class="button-group">
+        <button class="arrow-button" onmousedown="startMoving('up', 30)" onmouseup="stopMoving()">⬆︎</button>
+    </div>
+    <div class="button-group horizontal-buttons">
+        <button class="arrow-button" onmousedown="startMoving('left', 30)" onmouseup="stopMoving()">⬅︎</button>
+        <button class="arrow-button" onmousedown="startMoving('right', 30)" onmouseup="stopMoving()">➡︎</button>
+    </div>
+    <div class="button-group">
+        <button class="arrow-button" onmousedown="startMoving('down', 30)" onmouseup="stopMoving()">⬇︎</button>
+    </div>
+    <h3>Move 20 Pixels</h3>
+    <div class="button-group">
+        <button class="arrow-button" onclick="moveImage('up', 20)">⬆︎ (20px)</button>
+    </div>
+    <div class="button-group horizontal-buttons">
+        <button class="arrow-button" onclick="moveImage('left', 20)">⬅︎ (20px)</button>
+        <button class="arrow-button" onclick="moveImage('right', 20)">➡︎ (20px)</button>
+    </div>
+    <div class="button-group">
+        <button class="arrow-button" onclick="moveImage('down', 20)">⬇︎ (20px)</button>
+    </div>
+    <button class="arrow-button" onclick="resetImage()">Reset Image</button> <!-- Reset button -->
+</div>
+
+<img id="myImage01" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image" style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);">
 
 </body>
 </html>
