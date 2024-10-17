@@ -7,8 +7,8 @@
     <style>
         body {
             display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: flex-end;
             margin: 0;
             padding: 20px;
             position: relative;
@@ -55,13 +55,9 @@
 
         /* Button container positioning */
         .button-container {
-            position: absolute;
-            bottom: 20px; /* Distance from the bottom */
-            left: 50%;
-            transform: translateX(-50%); /* Center align horizontally */
             display: flex;
-            flex-direction: column; /* Arrange buttons vertically */
-            align-items: center; /* Center align items */
+            justify-content: center; /* Center align buttons */
+            margin-bottom: 20px; /* Space from the bottom */
         }
 
         .horizontal-buttons {
@@ -70,7 +66,8 @@
 
         .button-group {
             display: flex; /* Horizontally stack buttons in a group */
-            margin: 10px 0; /* Spacing between button groups */
+            flex-direction: column; /* Stack vertically */
+            margin: 5px; /* Spacing between groups */
         }
     </style>
 </head>
@@ -81,8 +78,9 @@
 <div id="coordinates">X: 0, Y: 0</div>
 
 <script>
-    // Global variable to hold the interval
-    let myClock02;
+    // Global variable to hold the interval for continuous movement
+    let moveInterval;
+    let continuousMove = false;
 
     function updateCoordinates(image) {
         const coordinatesDisplay = document.getElementById('coordinates');
@@ -110,6 +108,18 @@
         updateCoordinates(image); // Update coordinates display
     }
 
+    function startMoving(direction, step) {
+        if (!continuousMove) {
+            continuousMove = true;
+            moveInterval = setInterval(() => moveImage(direction, step), 100); // Move every 100 ms
+        }
+    }
+
+    function stopMoving() {
+        continuousMove = false;
+        clearInterval(moveInterval);
+    }
+
     function resetImage() {
         const image = document.getElementById('myImage01');
         image.style.top = '50%'; // Center in Y
@@ -122,36 +132,40 @@
     window.onload = resetImage;
 
     // Keyboard control
+    let keyMovementInterval;
     document.addEventListener('keydown', function(event) {
         switch (event.key) {
             case 'ArrowUp':
-                moveImage('up', 10);
+                startMoving('up', 5); // Move 5 pixels every 100ms (30 pixels per second)
                 break;
             case 'ArrowDown':
-                moveImage('down', 10);
+                startMoving('down', 5);
                 break;
             case 'ArrowLeft':
-                moveImage('left', 10);
+                startMoving('left', 5);
                 break;
             case 'ArrowRight':
-                moveImage('right', 10);
+                startMoving('right', 5);
                 break;
         }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        stopMoving();
     });
 </script>
 
 <!-- Button container at the bottom center -->
 <div class="button-container">
-    <h3>Move 10 Pixels</h3>
     <div class="button-group">
-        <button class="arrow-button" onclick="moveImage('up', 10)">⬆︎</button>
+        <button class="arrow-button" onmousedown="startMoving('up', 5)" onmouseup="stopMoving()">⬆︎</button>
     </div>
     <div class="button-group horizontal-buttons">
-        <button class="arrow-button" onclick="moveImage('left', 10)">⬅︎</button>
-        <button class="arrow-button" onclick="moveImage('right', 10)">➡︎</button>
+        <button class="arrow-button" onmousedown="startMoving('left', 5)" onmouseup="stopMoving()">⬅︎</button>
+        <button class="arrow-button" onmousedown="startMoving('right', 5)" onmouseup="stopMoving()">➡︎</button>
     </div>
     <div class="button-group">
-        <button class="arrow-button" onclick="moveImage('down', 10)">⬇︎</button>
+        <button class="arrow-button" onmousedown="startMoving('down', 5)" onmouseup="stopMoving()">⬇︎</button>
     </div>
     <h3>Move 20 Pixels</h3>
     <div class="button-group">
