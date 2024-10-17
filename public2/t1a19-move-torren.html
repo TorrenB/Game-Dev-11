@@ -1,0 +1,26 @@
+<h1 align=center>t1a19-move-torren.html</h1>  
+
+<script>
+  //global variables
+  let myClock02
+  
+</script>
+
+<input type=button id="myButton02" value="Image Right" onclick="{
+  document.getElementById('myImage01').style.left = 
+  parseInt(document.getElementById('myImage01').style.left) + 10 + 'px'
+  }"><br><br>
+
+  <input type=button value="Auto Move Right" onclick="{
+    document.getElementById('myImage01').style.left = 0
+    clearInterval(myClock02)
+    myClock02 = setInterval(function(){
+      document.getElementById('myButton02'). click()
+    }, 30)   
+
+  }"><br><br>
+
+
+<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; 
+  left:0px;" src="myImage01.jpg">
+    
