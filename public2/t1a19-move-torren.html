@@ -69,6 +69,22 @@
         clearInterval(myClock02);
         myClock02 = setInterval(moveImageUp, 30);
     }
+
+    function zoomOut() {
+        const image = document.getElementById('myImage01');
+        let size = 100; // Starting size (100px width)
+
+        clearInterval(myClock02);
+        myClock02 = setInterval(function() {
+            if (size > 10) { // Stop zooming out at size of 10px
+                size -= 1; // Reduce size by 1
+                image.style.width = size + 'px';
+                image.style.height = (size * (80 / 100)) + 'px'; // Maintain aspect ratio
+            } else {
+                clearInterval(myClock02); // Clear interval when done
+            }
+        }, 30);
+    }
 </script>
 
 <input type="button" value="Image Right" onclick="moveImageRight()"><br><br>
@@ -83,7 +99,9 @@
 <input type="button" value="Image Up" onclick="moveImageUp()"><br><br>
 <input type="button" value="Auto Move Up" onclick="autoMoveUp()"><br><br>
 
-<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; left:0px;" src="myImage01.jpg" alt="Moving Image">
+<input type="button" value="Zoom Out" onclick="zoomOut()"><br><br>
+
+<img id="myImage01" style="position:relative; width:100px; height:80px; top:0px; left:0px;" src="https://pbs.twimg.com/profile_images/1707770612171624448/eFS3WceQ_400x400.jpg" alt="Moving Image">
 
 </body>
 </html>
