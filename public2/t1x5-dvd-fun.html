@@ -44,6 +44,7 @@
         let velocityY = Math.random() > 0.5 ? movePerFrame : -movePerFrame;
 
         let currentImageIndex = 0; // Track the current image index
+        let hitCount = 0; // Count the number of hits on the walls
 
         function getRandomImage(excludeIndex) {
             let randomIndex;
@@ -59,16 +60,30 @@
 
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
-                velocityX = -velocityX; // Reverse direction on the X-axis
-                const newImageIndex = getRandomImage(currentImageIndex);
-                currentImageIndex = newImageIndex; // Update the current image index
-                dvd.src = images[currentImageIndex]; // Change to a new image
+                velocityX = (posX <= 0) ? movePerFrame : -movePerFrame;
+                hitCount++;
+                if (hitCount >= 5) { // Change direction towards corner after 5 hits
+                    // Direct the logo towards bottom-right corner
+                    velocityX = (posX <= 0) ? movePerFrame : -movePerFrame;
+                    velocityY = (posY <= 0) ? movePerFrame : -movePerFrame;
+                } else {
+                    const newImageIndex = getRandomImage(currentImageIndex);
+                    currentImageIndex = newImageIndex; // Update the current image index
+                    dvd.src = images[currentImageIndex]; // Change to a new image
+                }
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
-                velocityY = -velocityY; // Reverse direction on the Y-axis
-                const newImageIndex = getRandomImage(currentImageIndex);
-                currentImageIndex = newImageIndex; // Update the current image index
-                dvd.src = images[currentImageIndex]; // Change to a new image
+                velocityY = (posY <= 0) ? movePerFrame : -movePerFrame;
+                hitCount++;
+                if (hitCount >= 5) { // Change direction towards corner after 5 hits
+                    // Direct the logo towards bottom-right corner
+                    velocityX = (posX <= 0) ? movePerFrame : -movePerFrame;
+                    velocityY = (posY <= 0) ? movePerFrame : -movePerFrame;
+                } else {
+                    const newImageIndex = getRandomImage(currentImageIndex);
+                    currentImageIndex = newImageIndex; // Update the current image index
+                    dvd.src = images[currentImageIndex]; // Change to a new image
+                }
             }
 
             // Update position
