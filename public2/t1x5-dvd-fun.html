@@ -37,7 +37,6 @@
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
         const speed = 169; // Speed in pixels per second
         const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
-        const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
 
         // Randomly set initial direction
         let angle = Math.random() * 2 * Math.PI; // Random angle in radians
@@ -54,40 +53,32 @@
             return randomIndex;
         }
 
-        function normalizeVelocity(vx, vy, speed) {
-            const magnitude = Math.sqrt(vx * vx + vy * vy);
-            return {
-                x: (vx / magnitude) * speed,
-                y: (vy / magnitude) * speed
-            };
-        }
-
         function animate() {
             posX += velocityX * (frameTime / 1000);
             posY += velocityY * (frameTime / 1000);
 
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
-                velocityX = -velocityX + (Math.random() * 20 - 10); // Add slight randomness
+                velocityX = -velocityX + (Math.random() * 10 - 5); // Add slight randomness in angle
                 const newImageIndex = getRandomImage(currentImageIndex);
                 currentImageIndex = newImageIndex; // Update the current image index
                 dvd.src = images[currentImageIndex]; // Change to a new image
 
-                // Normalize velocity to maintain speed
-                const normalized = normalizeVelocity(velocityX, velocityY, speed);
-                velocityX = normalized.x;
-                velocityY = normalized.y;
+                // Recalculate velocity and normalize it to maintain speed
+                const angle = Math.atan2(velocityY, velocityX);
+                velocityX = Math.cos(angle) * speed; // Maintain constant speed
+                velocityY = Math.sin(angle) * speed;
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
-                velocityY = -velocityY + (Math.random() * 20 - 10); // Add slight randomness
+                velocityY = -velocityY + (Math.random() * 10 - 5); // Add slight randomness in angle
                 const newImageIndex = getRandomImage(currentImageIndex);
                 currentImageIndex = newImageIndex; // Update the current image index
                 dvd.src = images[currentImageIndex]; // Change to a new image
 
-                // Normalize velocity to maintain speed
-                const normalized = normalizeVelocity(velocityX, velocityY, speed);
-                velocityX = normalized.x;
-                velocityY = normalized.y;
+                // Recalculate velocity and normalize it to maintain speed
+                const angle = Math.atan2(velocityY, velocityX);
+                velocityX = Math.cos(angle) * speed; // Maintain constant speed
+                velocityY = Math.sin(angle) * speed; 
             }
 
             // Update position
