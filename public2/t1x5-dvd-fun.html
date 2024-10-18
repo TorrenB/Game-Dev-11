@@ -1,61 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bouncing DVD Logo</title>
-<style>
-body {
-margin: 0;
-overflow: hidden;
-background-color: black;
-}
-#dvd {
-position: absolute;
-height: 100px; /* Set the size of the DVD logo */
-transition: filter 0.1s;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing DVD Logo</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        #dvd {
+            position: absolute;
+            height: 100px; /* Set the size of the DVD logo */
+            transition: filter 0.1s;
+        }
+    </style>
 </head>
 <body>
-<!-- DVD logo images -->
-<img id="dvd" src="https://bouncingdvdlogo.com/logos/dvdlogo-01.svg" alt="DVD Logo">
+    <!-- DVD logo images -->
+    <img id="dvd" src="https://bouncingdvdlogo.com/logos/dvdlogo-01.svg" alt="DVD Logo">
 
-<script>
-const dvd = document.getElementById('dvd');
-const images = [
-"https://bouncingdvdlogo.com/logos/dvdlogo-01.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-02.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-03.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-04.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-05.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-06.svg",
-"https://bouncingdvdlogo.com/logos/dvdlogo-07.svg",
-];
+    <script>
+        const dvd = document.getElementById('dvd');
+        const images = [
+            "https://bouncingdvdlogo.com/logos/dvdlogo-01.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-02.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-03.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-04.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-05.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-06.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-07.svg",
+        ];
 
-let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
-let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
-        const speed = 169; // 169 pixels per second
+        let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
+        let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
         const speed = 169; // Speed in pixels per second
-const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
-const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
+        const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
+        const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
 
-// Randomly set initial direction
-        let velocityX = (Math.random() > 0.5 ? 1 : -1) * movePerFrame;
-        let velocityY = (Math.random() > 0.5 ? 1 : -1) * movePerFrame;
+        // Randomly set initial direction
         let angle = Math.random() * 2 * Math.PI; // Random angle in radians
         let velocityX = Math.cos(angle) * speed;
         let velocityY = Math.sin(angle) * speed;
 
-let currentImageIndex = 0; // Track the current image index
+        let currentImageIndex = 0; // Track the current image index
 
-function getRandomImage(excludeIndex) {
-let randomIndex;
-do {
-randomIndex = Math.floor(Math.random() * images.length);
-} while (randomIndex === excludeIndex); // Ensure new image is different
-return randomIndex;
-}
+        function getRandomImage(excludeIndex) {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * images.length);
+            } while (randomIndex === excludeIndex); // Ensure new image is different
+            return randomIndex;
+        }
 
         function normalizeVelocity(vx, vy, speed) {
             const magnitude = Math.sqrt(vx * vx + vy * vy);
@@ -65,52 +62,41 @@ return randomIndex;
             };
         }
 
-function animate() {
-            posX += velocityX;
-            posY += velocityY;
+        function animate() {
             posX += velocityX * (frameTime / 1000);
             posY += velocityY * (frameTime / 1000);
 
-// Check for collision with walls
-if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
-velocityX = -velocityX + (Math.random() * 20 - 10); // Add slight randomness
-const newImageIndex = getRandomImage(currentImageIndex);
-currentImageIndex = newImageIndex; // Update the current image index
-dvd.src = images[currentImageIndex]; // Change to a new image
-                
-                // Ensure velocityX does not go to zero
-                if (Math.abs(velocityX) < 5) {
-                    velocityX = velocityX > 0 ? 5 : -5;
-                }
+            // Check for collision with walls
+            if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
+                velocityX = -velocityX + (Math.random() * 20 - 10); // Add slight randomness
+                const newImageIndex = getRandomImage(currentImageIndex);
+                currentImageIndex = newImageIndex; // Update the current image index
+                dvd.src = images[currentImageIndex]; // Change to a new image
 
                 // Normalize velocity to maintain speed
                 const normalized = normalizeVelocity(velocityX, velocityY, speed);
                 velocityX = normalized.x;
                 velocityY = normalized.y;
-}
-if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
-velocityY = -velocityY + (Math.random() * 20 - 10); // Add slight randomness
-const newImageIndex = getRandomImage(currentImageIndex);
-currentImageIndex = newImageIndex; // Update the current image index
-dvd.src = images[currentImageIndex]; // Change to a new image
+            }
+            if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
+                velocityY = -velocityY + (Math.random() * 20 - 10); // Add slight randomness
+                const newImageIndex = getRandomImage(currentImageIndex);
+                currentImageIndex = newImageIndex; // Update the current image index
+                dvd.src = images[currentImageIndex]; // Change to a new image
 
-                // Ensure velocityY does not go to zero
-                if (Math.abs(velocityY) < 5) {
-                    velocityY = velocityY > 0 ? 5 : -5;
-                }
                 // Normalize velocity to maintain speed
                 const normalized = normalizeVelocity(velocityX, velocityY, speed);
                 velocityX = normalized.x;
                 velocityY = normalized.y;
-}
+            }
 
-// Update position
-dvd.style.transform = `translate(${posX}px, ${posY}px)`;
-requestAnimationFrame(animate);
-}
+            // Update position
+            dvd.style.transform = `translate(${posX}px, ${posY}px)`;
+            requestAnimationFrame(animate);
+        }
 
-// Start the animation
-animate();
-</script>
+        // Start the animation
+        animate();
+    </script>
 </body>
 </html>
