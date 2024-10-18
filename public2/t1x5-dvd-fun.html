@@ -35,8 +35,13 @@
 
         let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
-        let velocityX = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 3); // Random speed and direction
-        let velocityY = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 3); // Random speed and direction
+        const speed = 100; // 100 pixels per second
+        const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
+        const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
+
+        // Randomly set initial direction
+        let velocityX = Math.random() > 0.5 ? movePerFrame : -movePerFrame;
+        let velocityY = Math.random() > 0.5 ? movePerFrame : -movePerFrame;
 
         function getRandomImage() {
             const randomIndex = Math.floor(Math.random() * images.length);
@@ -49,20 +54,12 @@
 
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
-                velocityX = -velocityX; // Reverse direction on X-axis
-                // Change to a random image
-                dvd.src = getRandomImage();
-
-                // Introduce small random change in velocity
-                velocityX += (Math.random() - 0.5) * 2; 
+                velocityX = -velocityX; // Reverse direction on the X-axis
+                dvd.src = getRandomImage(); // Change to a random image
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
-                velocityY = -velocityY; // Reverse direction on Y-axis
-                // Change to a random image
-                dvd.src = getRandomImage();
-
-                // Introduce small random change in velocity
-                velocityY += (Math.random() - 0.5) * 2; 
+                velocityY = -velocityY; // Reverse direction on the Y-axis
+                dvd.src = getRandomImage(); // Change to a random image
             }
 
             // Update position
