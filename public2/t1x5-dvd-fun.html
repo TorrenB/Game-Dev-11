@@ -35,7 +35,7 @@
 
         let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
-        const speed = 100; // 100 pixels per second
+        const speed = 169; // 169 pixels per second
         const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
         const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
 
@@ -43,9 +43,14 @@
         let velocityX = Math.random() > 0.5 ? movePerFrame : -movePerFrame;
         let velocityY = Math.random() > 0.5 ? movePerFrame : -movePerFrame;
 
-        function getRandomImage() {
-            const randomIndex = Math.floor(Math.random() * images.length);
-            return images[randomIndex];
+        let currentImageIndex = 0; // Track the current image index
+
+        function getRandomImage(excludeIndex) {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * images.length);
+            } while (randomIndex === excludeIndex); // Ensure new image is different
+            return randomIndex;
         }
 
         function animate() {
@@ -55,11 +60,15 @@
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
                 velocityX = -velocityX; // Reverse direction on the X-axis
-                dvd.src = getRandomImage(); // Change to a random image
+                const newImageIndex = getRandomImage(currentImageIndex);
+                currentImageIndex = newImageIndex; // Update the current image index
+                dvd.src = images[currentImageIndex]; // Change to a new image
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
                 velocityY = -velocityY; // Reverse direction on the Y-axis
-                dvd.src = getRandomImage(); // Change to a random image
+                const newImageIndex = getRandomImage(currentImageIndex);
+                currentImageIndex = newImageIndex; // Update the current image index
+                dvd.src = images[currentImageIndex]; // Change to a new image
             }
 
             // Update position
