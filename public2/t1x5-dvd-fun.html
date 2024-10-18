@@ -18,25 +18,29 @@
     </style>
 </head>
 <body>
-    <!-- Updated logo image -->
-    <img id="dvd" src="https://cdn.freebiesupply.com/logos/large/2x/dvd-logo-png-transparent.png" alt="DVD Logo">
+    <!-- DVD logo images -->
+    <img id="dvd" src="https://bouncingdvdlogo.com/logos/dvdlogo-01.svg" alt="DVD Logo">
 
     <script>
         const dvd = document.getElementById('dvd');
+        const images = [
+            "https://bouncingdvdlogo.com/logos/dvdlogo-01.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-02.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-03.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-04.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-05.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-06.svg",
+            "https://bouncingdvdlogo.com/logos/dvdlogo-07.svg"
+        ];
+
         let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
         let velocityX = 2;
         let velocityY = 2;
 
-        // Function to generate a random color that is never black
-        function getRandomColor() {
-            let r, g, b;
-            do {
-                r = Math.floor(Math.random() * 256);
-                g = Math.floor(Math.random() * 256);
-                b = Math.floor(Math.random() * 256);
-            } while (r === 0 && g === 0 && b === 0); // Ensure it's not black
-            return `rgb(${r}, ${g}, ${b})`;
+        function getRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            return images[randomIndex];
         }
 
         function animate() {
@@ -46,13 +50,13 @@
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
                 velocityX = -velocityX; // Reverse direction on X-axis
-                // Change to a random color
-                dvd.style.filter = `drop-shadow(0 0 5px ${getRandomColor()})`;
+                // Change to a random image
+                dvd.src = getRandomImage();
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
                 velocityY = -velocityY; // Reverse direction on Y-axis
-                // Change to a random color
-                dvd.style.filter = `drop-shadow(0 0 5px ${getRandomColor()})`;
+                // Change to a random image
+                dvd.src = getRandomImage();
             }
 
             // Update position
