@@ -36,8 +36,8 @@
 
         let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
-        let velocityX = 2;
-        let velocityY = 2;
+        let velocityX = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 3); // Random speed and direction
+        let velocityY = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 3); // Random speed and direction
 
         function getRandomImage() {
             const randomIndex = Math.floor(Math.random() * images.length);
@@ -53,11 +53,17 @@
                 velocityX = -velocityX; // Reverse direction on X-axis
                 // Change to a random image
                 dvd.src = getRandomImage();
+
+                // Introduce small random change in velocity
+                velocityX += (Math.random() - 0.5) * 2; 
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
                 velocityY = -velocityY; // Reverse direction on Y-axis
                 // Change to a random image
                 dvd.src = getRandomImage();
+
+                // Introduce small random change in velocity
+                velocityY += (Math.random() - 0.5) * 2; 
             }
 
             // Update position
