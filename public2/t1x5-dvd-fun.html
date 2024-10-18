@@ -35,13 +35,14 @@
 
         let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
         let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
-        const speed = 169; // 169 pixels per second
+        const speed = 169; // Speed in pixels per second
         const frameTime = 1000 / 60; // Time per frame in milliseconds (60 FPS)
         const movePerFrame = speed * (frameTime / 1000); // Move distance per frame
 
         // Randomly set initial direction
-        let velocityX = (Math.random() > 0.5 ? 1 : -1) * movePerFrame;
-        let velocityY = (Math.random() > 0.5 ? 1 : -1) * movePerFrame;
+        let angle = Math.random() * 2 * Math.PI; // Random angle in radians
+        let velocityX = Math.cos(angle) * speed;
+        let velocityY = Math.sin(angle) * speed;
 
         let currentImageIndex = 0; // Track the current image index
 
@@ -53,9 +54,17 @@
             return randomIndex;
         }
 
+        function normalizeVelocity(vx, vy, speed) {
+            const magnitude = Math.sqrt(vx * vx + vy * vy);
+            return {
+                x: (vx / magnitude) * speed,
+                y: (vy / magnitude) * speed
+            };
+        }
+
         function animate() {
-            posX += velocityX;
-            posY += velocityY;
+            posX += velocityX * (frameTime / 1000);
+            posY += velocityY * (frameTime / 1000);
 
             // Check for collision with walls
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
@@ -63,11 +72,11 @@
                 const newImageIndex = getRandomImage(currentImageIndex);
                 currentImageIndex = newImageIndex; // Update the current image index
                 dvd.src = images[currentImageIndex]; // Change to a new image
-                
-                // Ensure velocityX does not go to zero
-                if (Math.abs(velocityX) < 5) {
-                    velocityX = velocityX > 0 ? 5 : -5;
-                }
+
+                // Normalize velocity to maintain speed
+                const normalized = normalizeVelocity(velocityX, velocityY, speed);
+                velocityX = normalized.x;
+                velocityY = normalized.y;
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
                 velocityY = -velocityY + (Math.random() * 20 - 10); // Add slight randomness
@@ -75,10 +84,10 @@
                 currentImageIndex = newImageIndex; // Update the current image index
                 dvd.src = images[currentImageIndex]; // Change to a new image
 
-                // Ensure velocityY does not go to zero
-                if (Math.abs(velocityY) < 5) {
-                    velocityY = velocityY > 0 ? 5 : -5;
-                }
+                // Normalize velocity to maintain speed
+                const normalized = normalizeVelocity(velocityX, velocityY, speed);
+                velocityX = normalized.x;
+                velocityY = normalized.y;
             }
 
             // Update position
