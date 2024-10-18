@@ -7,13 +7,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #001f3f, #002f5f, #003f7f, #004f9f, #005fbf); /* Different shades of navy */
+            background: linear-gradient(to bottom, #001f3f, #002f5f, #003f7f, #004f9f, #005fbf);
             color: #333;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #002147; /* Navy */
+            background-color: #002147;
             color: white;
             padding: 20px;
             text-align: center;
@@ -25,7 +25,7 @@
             padding: 20px;
         }
         button {
-            background-color: #005f73; /* Darker Navy */
+            background-color: #005f73;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -35,10 +35,10 @@
             font-size: 16px;
         }
         button:hover {
-            background-color: #003f5c; /* Even Darker Navy */
+            background-color: #003f5c;
         }
         p {
-            background-color: #e0e0e0; /* Light Gray */
+            background-color: #e0e0e0;
             padding: 10px;
             border-radius: 5px;
             width: 80%;
@@ -74,167 +74,160 @@
 
         <button onclick="showDeviceInfo()">Show Device Info</button>
         <p id="deviceInfo"></p>
+
+        <button onclick="showCrowDetails()">Show Crow Details</button>
+        <p id="crowDetails"></p>
     </main>
 
     <script>
         // Define the Person class
         class Person {
             constructor(name) {
-                this.name = name; // Property
+                this.name = name;
             }
 
-            // Method
             greet() {
                 return `Hello, my name is ${this.name}!`;
             }
         }
 
-        // Create an instance of the Person class
         const person = new Person('Alice');
 
-        // Function to display the greeting
         function showGreeting() {
             document.getElementById('greeting').innerText = person.greet();
         }
 
-        // Define a class named Car
         class Car {
-            // Constructor to initialize properties
             constructor(make, model, year) {
-                this.make = make; // Property
-                this.model = model; // Property
-                this.year = year; // Property
+                this.make = make;
+                this.model = model;
+                this.year = year;
             }
 
-            // Method to get car details
             getDetails() {
                 return `${this.year} ${this.make} ${this.model}`;
             }
         }
 
-        // Create an instance of the Car class
         const myCar = new Car('Toyota', 'Corolla', 2021);
 
-        // Function to display car details
         function showCarDetails() {
             document.getElementById('carDetails').innerText = myCar.getDetails();
         }
 
-        // Function to display the document width
         function showDocumentWidth() {
-            const width = document.body.clientWidth; // Built-in property
+            const width = document.body.clientWidth;
             document.getElementById('documentWidth').innerText = `Document width is ${width}px`;
         }
 
-        // Define a class named Book
         class Book {
             constructor(title, author, year) {
-                this.title = title; // Property
-                this.author = author; // Property
-                this.year = year; // Property
+                this.title = title;
+                this.author = author;
+                this.year = year;
             }
 
-            // Method to get book details
             getDetails() {
                 return `${this.title} by ${this.author}, published in ${this.year}`;
             }
         }
 
-        // Create an instance of the Book class
         const myBook = new Book('1984', 'George Orwell', 1949);
 
-        // Function to display book details
         function showBookDetails() {
             document.getElementById('bookDetails').innerText = myBook.getDetails();
         }
 
-        // Define a class named Animal
         class Animal {
             constructor(name, sound) {
-                this.name = name; // Property
-                this.sound = sound; // Property
+                this.name = name;
+                this.sound = sound;
             }
 
-            // Method to get animal sound
             makeSound() {
                 return `${this.name} says ${this.sound}`;
             }
         }
 
-        // Create an instance of the Animal class
         const myAnimal = new Animal('Dog', 'Woof');
 
-        // Function to display animal sound
         function showAnimalSound() {
             document.getElementById('animalSound').innerText = myAnimal.makeSound();
         }
 
-        // Define a class named Movie
         class Movie {
             constructor(title, director, year) {
-                this.title = title; // Property
-                this.director = director; // Property
-                this.year = year; // Property
+                this.title = title;
+                this.director = director;
+                this.year = year;
             }
 
-            // Method to get movie info
             getInfo() {
                 return `${this.title}, directed by ${this.director}, released in ${this.year}`;
             }
         }
 
-        // Create an instance of the Movie class
         const myMovie = new Movie('Inception', 'Christopher Nolan', 2010);
 
-        // Function to display movie info
         function showMovieInfo() {
             document.getElementById('movieInfo').innerText = myMovie.getInfo();
         }
 
-        // Define a class named City
         class City {
             constructor(name, country, population) {
-                this.name = name; // Property
-                this.country = country; // Property
-                this.population = population; // Property
+                this.name = name;
+                this.country = country;
+                this.population = population;
             }
 
-            // Method to get city info
             getInfo() {
                 return `${this.name}, ${this.country}, population: ${this.population}`;
             }
         }
 
-        // Create an instance of the City class
         const myCity = new City('Tokyo', 'Japan', 13929286);
 
-        // Function to display city info
         function showCityInfo() {
             document.getElementById('cityInfo').innerText = myCity.getInfo();
         }
 
-        // Define a class named Device
         class Device {
             constructor(name, brand, year) {
-                this.name = name; // Property
-                this.brand = brand; // Property
-                this.year = year; // Property
+                this.name = name;
+                this.brand = brand;
+                this.year = year;
             }
 
-            // Method to get device info
             getInfo() {
                 return `${this.name} by ${this.brand}, released in ${this.year}`;
             }
         }
 
-        // Create an instance of the Device class
         const myDevice = new Device('iPhone', 'Apple', 2020);
 
-        // Function to display device info
         function showDeviceInfo() {
             document.getElementById('deviceInfo').innerText = myDevice.getInfo();
+        }
+
+        // Define a class named Crow
+        class Crow {
+            constructor(color, location) {
+                this.color = color; // Property
+                this.location = location; // Property
+            }
+
+            describe() {
+                return `A ${this.color} crow is standing on the majestic lawn in ${this.location}.`;
+            }
+        }
+
+        // Create an instance of the Crow class
+        const myCrow = new Crow('black', 'Ohio');
+
+        // Function to display crow details
+        function showCrowDetails() {
+            document.getElementById('crowDetails').innerText = myCrow.describe();
         }
     </script>
 </body>
 </html>
-
