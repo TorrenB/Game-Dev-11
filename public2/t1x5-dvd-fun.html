@@ -13,13 +13,13 @@
         #dvd {
             position: absolute;
             height: 100px; /* Set the size of the DVD logo */
-            transition: background-color 0.1s;
+            transition: filter 0.1s;
         }
     </style>
 </head>
 <body>
-    <!-- DVD logo image -->
-    <img id="dvd" src="https://www.pngplay.com/wp-content/uploads/12/DVD-PNG-Photos.png" alt="DVD Logo">
+    <!-- Updated logo image -->
+    <img id="dvd" src="https://cdn.freebiesupply.com/logos/large/2x/dvd-logo-png-transparent.png" alt="DVD Logo">
 
     <script>
         const dvd = document.getElementById('dvd');
@@ -28,11 +28,14 @@
         let velocityX = 2;
         let velocityY = 2;
 
-        // Function to generate a random color
+        // Function to generate a random color that is never black
         function getRandomColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
+            let r, g, b;
+            do {
+                r = Math.floor(Math.random() * 256);
+                g = Math.floor(Math.random() * 256);
+                b = Math.floor(Math.random() * 256);
+            } while (r === 0 && g === 0 && b === 0); // Ensure it's not black
             return `rgb(${r}, ${g}, ${b})`;
         }
 
@@ -44,14 +47,12 @@
             if (posX <= 0 || posX + dvd.clientWidth >= window.innerWidth) {
                 velocityX = -velocityX; // Reverse direction on X-axis
                 // Change to a random color
-                dvd.style.filter = ''; // Reset any filter
-                dvd.style.backgroundColor = getRandomColor();
+                dvd.style.filter = `drop-shadow(0 0 5px ${getRandomColor()})`;
             }
             if (posY <= 0 || posY + dvd.clientHeight >= window.innerHeight) {
                 velocityY = -velocityY; // Reverse direction on Y-axis
                 // Change to a random color
-                dvd.style.filter = ''; // Reset any filter
-                dvd.style.backgroundColor = getRandomColor();
+                dvd.style.filter = `drop-shadow(0 0 5px ${getRandomColor()})`;
             }
 
             // Update position
