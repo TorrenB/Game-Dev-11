@@ -11,7 +11,7 @@
             background-color: #FFB6C1; /* Light Pink */
             color: #000000; /* Black text */
             text-align: center; 
-            background-image: url('https://th.bing.com/th/id/OIP.OAXSwnuKYVfxuxs7NOzWuAAAAA?rs=1&pid=ImgDetMain'); /* Annoying background gif */
+            background-image: url('https://i.imgur.com/EkLN7C8.gif'); /* Annoying background gif */
             animation: background-change 5s infinite;
         }
 
@@ -31,7 +31,7 @@
             text-shadow: 5px 5px 5px #FFFFFF; /* White shadow */
             transform: rotate(-5deg); /* More tilt for confusion */
         }
-
+        
         nav ul {
             list-style-type: none; 
             padding: 0;
@@ -276,6 +276,8 @@
             <div id="output6" class="output"></div>
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
+        
+        <button onclick="readCode()" style="font-size: 24px; padding: 10px 20px; margin-top: 20px;">Read Code</button>
 
     </main>
 
@@ -311,6 +313,65 @@
 
             document.getElementById(outputId).innerText = response;
             document.getElementById(inputId).value = ""; // Clear the input field
+        }
+
+        function readCode() {
+            const code = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Hideous Website</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            background-color: #FFB6C1; /* Light Pink */
+            color: #000000; /* Black text */
+            text-align: center; 
+            background-image: url('https://i.imgur.com/EkLN7C8.gif'); /* Annoying background gif */
+            animation: background-change 5s infinite;
+        }
+        /* (Styles omitted for brevity) */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ultimate Hideous Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+                <li><a href="#section4">Section 4</a></li>
+                <li><a href="#section5">Section 5</a></li>
+                <li><a href="#section6">Flashing Section</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="section1">
+            <h2 style="font-family: 'Wingdings';">Section 1</h2>
+            <input type="text" id="input1" placeholder="What's your name?" style="font-size:18px;">
+            <button onclick="generateResponse('input1', 'output1')" style="font-size:18px;">Submit</button>
+            <div id="output1" class="output"></div>
+        </section>
+        <!-- (Sections omitted for brevity) -->
+    </main>
+    <footer id="footer">
+        <h2 style="font-family: 'Wingdings';">Contact Us</h2>
+    </footer>
+    <script>
+        /* (Scripts omitted for brevity) */
+    </script>
+</body>
+</html>`;
+            
+            const speech = new SpeechSynthesisUtterance(code);
+            speech.lang = 'en-US';
+            speech.rate = 0.8; // Adjust the rate for clarity
+            window.speechSynthesis.speak(speech);
         }
     </script>
 </body>
