@@ -59,7 +59,7 @@
             font-weight: bold;
             color: #FF0000; /* Bright Red */
             text-align: center;
-            margin-top: 100px; /* Center vertically */
+            margin-top: 20px; /* Center vertically */
         }
 
         .flashing-screen {
@@ -76,6 +76,13 @@
             line-height: 100vh; /* Center vertically */
             font-size: 48px;
             font-weight: bold;
+        }
+
+        .output {
+            margin-top: 10px; 
+            padding: 10px; 
+            background-color: #e0e0e0; /* Light gray background for output */
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -99,42 +106,55 @@
     <main>
         <section id="section1">
             <h2>Section 1</h2>
-            <p>This is some content for section 1. Scroll down to see more sections.</p>
+            <input type="text" id="input1" placeholder="What's your name?">
+            <button onclick="generateResponse('input1', 'output1')">Submit</button>
+            <div id="output1" class="output"></div>
         </section>
 
         <section id="section2">
             <h2>Section 2</h2>
-            <p>This is some content for section 2.</p>
+            <input type="text" id="input2" placeholder="What's your favorite food?">
+            <button onclick="generateResponse('input2', 'output2')">Submit</button>
+            <div id="output2" class="output"></div>
         </section>
 
         <section id="section3">
             <h2>Section 3</h2>
-            <p>This is some content for section 3.</p>
+            <input type="text" id="input3" placeholder="Where are you from?">
+            <button onclick="generateResponse('input3', 'output3')">Submit</button>
+            <div id="output3" class="output"></div>
         </section>
 
         <section id="section4">
             <h2>Section 4</h2>
-            <p>This is some content for section 4.</p>
+            <input type="text" id="input4" placeholder="What’s your favorite color?">
+            <button onclick="generateResponse('input4', 'output4')">Submit</button>
+            <div id="output4" class="output"></div>
         </section>
 
         <section id="section5">
             <h2>Section 5</h2>
-            <p>This is some content for section 5.</p>
+            <input type="text" id="input5" placeholder="What's your hobby?">
+            <button onclick="generateResponse('input5', 'output5')">Submit</button>
+            <div id="output5" class="output"></div>
         </section>
 
         <section id="section6">
             <h2>Flashing Colors Section</h2>
+            <input type="text" id="input6" placeholder="What do you think of this site?">
+            <button onclick="generateResponse('input6', 'output6')">Submit</button>
+            <div id="output6" class="output"></div>
             <button onclick="startFlashing()">Start Flashing Full Screen</button>
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
 
-        <div id="flashing" class="flashing-screen">GET OUT OF MY WALLS!</div>
+        <div id="flashing" class="flashing-screen">GET OUT!</div>
 
-        <label for="colorPicker">Choose Background Color:</label>
-        <input type="color" id="colorPicker" value="#FF00FF" onchange="changeColors(this.value)">
+        <label for="colorPicker">Choose First Flashing Color:</label>
+        <input type="color" id="flashingColorPicker1" value="#FF0000" onchange="changeFlashingColor()">
         
-        <label for="flashingColorPicker">Choose Flashing Screen Color:</label>
-        <input type="color" id="flashingColorPicker" value="#FFFFFF" onchange="changeFlashingColor(this.value)">
+        <label for="flashingColorPicker">Choose Second Flashing Color:</label>
+        <input type="color" id="flashingColorPicker2" value="#000000" onchange="changeFlashingColor()">
     </main>
 
     <footer id="footer">
@@ -142,18 +162,20 @@
     </footer>
 
     <script>
-        // Store the flashing color for later use
-        let flashingColor = '#FFFFFF'; // default flashing color
+        let flashingColor1 = '#FF0000'; // Default first flashing color
+        let flashingColor2 = '#000000'; // Default second flashing color
+        let isFlashingColor1 = true; // To track which color to show
+
+        function changeFlashingColor() {
+            flashingColor1 = document.getElementById('flashingColorPicker1').value;
+            flashingColor2 = document.getElementById('flashingColorPicker2').value;
+        }
 
         function changeColors(color) {
             document.body.style.backgroundColor = color;
             header.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
             footer.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
             document.querySelector('.angry-text').style.color = adjustColor(color, 0.7); // Adjust for visibility
-        }
-
-        function changeFlashingColor(color) {
-            flashingColor = color; // Update the global variable for flashing color
         }
 
         function adjustColor(color, amount) {
@@ -176,13 +198,40 @@
             const flashingDiv = document.getElementById('flashing');
             flashingDiv.style.display = 'block'; // Show the flashing screen
             
-            let isFlashingColor = true; // To track current color
-            
             setInterval(() => {
-                document.body.style.backgroundColor = isFlashingColor ? flashingColor : '#000000'; // Use flashing color
-                flashingDiv.style.backgroundColor = isFlashingColor ? flashingColor : '#000000'; // Same for flashing div
-                isFlashingColor = !isFlashingColor; // Toggle the color
+                document.body.style.backgroundColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Alternate between two colors
+                flashingDiv.style.backgroundColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Same for flashing div
+                isFlashingColor1 = !isFlashingColor1; // Toggle the color
             }, 100); // Change color every 100 milliseconds
+        }
+
+        function generateResponse(inputId, outputId) {
+            const input = document.getElementById(inputId).value;
+            let response = "";
+
+            switch (inputId) {
+                case 'input1':
+                    response = `Your questionable name is ${input}. Get a better name!`;
+                    break;
+                case 'input2':
+                    response = `Hmm, ${input}? Sounds like a mediocre choice.`;
+                    break;
+                case 'input3':
+                    response = `Oh, you hail from ${input}? Interesting... not!`;
+                    break;
+                case 'input4':
+                    response = `${input} is fine, but I prefer something more vibrant!`;
+                    break;
+                case 'input5':
+                    response = `${input} as a hobby? I'm not impressed!`;
+                    break;
+                case 'input6':
+                    response = `Your thoughts on this site: ${input}? A bold claim!`;
+                    break;
+            }
+
+            document.getElementById(outputId).innerText = response;
+            document.getElementById(inputId).value = ""; // Clear the input field
         }
     </script>
 </body>
