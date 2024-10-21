@@ -88,6 +88,17 @@
         .color-picker {
             margin: 20px 0;
         }
+
+        .warning {
+            display: none; /* Initially not displayed */
+            background-color: #FFD700; /* Gold background */
+            color: #000; /* Black text */
+            padding: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -166,6 +177,8 @@
             <label for="colorPicker">Change Website Color:</label>
             <input type="color" id="colorPicker" value="#FF00FF" onchange="changePageColor()">
         </div>
+        
+        <div id="warning" class="warning">Be careful, flashing screen ahead, epileptic!</div>
     </main>
 
     <footer id="footer">
@@ -209,7 +222,10 @@
         function startFlashing() {
             const flashingDiv = document.getElementById('flashing');
             const flashingText = document.getElementById('flashingText');
+            const warning = document.getElementById('warning');
+            
             flashingDiv.style.display = 'block'; // Show the flashing screen
+            warning.style.display = 'block'; // Show the warning message
             
             setInterval(() => {
                 const currentColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Determine current color
