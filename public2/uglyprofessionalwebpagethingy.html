@@ -8,155 +8,197 @@
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
-            background-color: #FFDEAD; /* Navajo White */
+            background-color: #FFB6C1; /* Light Pink */
             color: #000000; /* Black text */
             text-align: center; 
+            background-image: url('https://i.imgur.com/EkLN7C8.gif'); /* Annoying background gif */
+            animation: background-change 5s infinite;
+        }
+
+        @keyframes background-change {
+            0% { background-color: #FFB6C1; }
+            50% { background-color: #FFD700; }
+            100% { background-color: #FF69B4; }
         }
 
         header {
-            background: #7FFF00; /* Chartreuse */
-            color: #FF69B4; /* Hot Pink */
-            padding: 20px;
+            background: #FF4500; /* Orange Red */
+            color: #00FF00; /* Bright Green */
+            padding: 40px;
             text-align: center; 
-            border: 10px groove #8A2BE2; /* Blue Violet groove border */
-            font-size: 48px; 
-            text-shadow: 3px 3px 2px #FFD700; /* Gold shadow */
-            transform: rotate(-2deg); /* Slight tilt for confusion */
+            border: 10px dashed #0000FF; /* Bright Blue dashed border */
+            font-size: 64px; 
+            text-shadow: 5px 5px 5px #FFFFFF; /* White shadow */
+            transform: rotate(-5deg); /* More tilt for confusion */
         }
 
         nav ul {
-            list-style-type: none; /* No bullets */
+            list-style-type: none; 
             padding: 0;
-            background-color: #FF1493; /* Deep Pink */
-            margin: -20px; /* Push it up */
-            font-size: 18px; 
+            background-color: #8A2BE2; /* Blue Violet */
+            margin: -20px; 
+            font-size: 24px; 
         }
 
         nav ul li {
             display: inline-block;
-            margin: 10px;
-            padding: 5px 10px;
-            border: 3px dashed #FFD700; /* Gold */
-            background-color: #00CED1; /* Dark Turquoise */
+            margin: 15px;
+            padding: 10px 20px;
+            border: 5px double #FFD700; /* Gold */
+            background-color: #FF69B4; /* Hot Pink */
             font-weight: bold; 
-            font-family: 'Courier New', Courier, monospace; /* Monospace font */
-            text-transform: uppercase; /* Uppercase text */
+            font-family: 'Courier New', Courier, monospace; 
+            text-transform: uppercase; 
+            animation: pulse 1s infinite; /* Pulsing animation */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         nav ul li a {
-            color: #0000FF; /* Bright Blue text */
-            text-decoration: underline wavy #FF0000; /* Wavy underline */
+            color: #FFFF00; /* Bright Yellow */
+            text-decoration: none;
+            font-size: 20px;
         }
 
         section {
             margin: 30px; 
-            padding: 25px; 
-            border: 10px solid #B22222; /* Firebrick */
-            height: 300px; /* Fixed height for disorder */
+            padding: 30px; 
+            border: 10px solid #DC143C; /* Crimson */
+            height: 400px; /* Increased height for chaos */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative; 
+            animation: float 3s infinite; /* Floating effect */
         }
 
-        /* Specific styles for each section */
+        @keyframes float {
+            0% { transform: translatey(0px); }
+            50% { transform: translatey(-10px); }
+            100% { transform: translatey(0px); }
+        }
+
+        /* Different Section Styles */
         #section1 {
-            background-color: #FF8C00; /* Dark Orange */
-            color: #FFFF00; /* Yellow */
-            font-size: 24px; 
-            border-radius: 30px; /* Round corners */
-            transform: rotate(10deg); /* More tilt */
+            background-color: #FFD700; /* Gold */
+            color: #8B0000; /* Dark Red */
+            font-size: 32px; 
+            border-radius: 15px; 
+            transform: rotate(3deg); 
         }
 
         #section2 {
             background-color: #ADFF2F; /* Green Yellow */
-            color: #8B0000; /* Dark Red */
-            font-size: 28px; 
-            text-decoration: line-through; /* Strikethrough text */
-            border: 5px solid #FF6347; /* Tomato */
+            color: #FF4500; /* Orange Red */
+            font-size: 36px; 
+            text-decoration: underline wavy #FF00FF; /* Wavy underline */
+            border: 5px solid #8A2BE2; /* Blue Violet */
         }
 
         #section3 {
             background-color: #BA55D3; /* Medium Orchid */
-            color: #FFFFE0; /* Light Yellow */
-            border: 10px dashed #20B2AA; /* Light Sea Green */
-            font-style: italic; /* Italics */
-            padding: 50px; /* Abnormal padding */
-            font-size: 42px; 
-            text-align: left; /* Left-align text for chaos */
+            color: #FFF500; /* Bright Yellow */
+            border: 10px dotted #DC143C; /* Crimson */
+            font-style: oblique; /* Underlined italics */
+            padding: 20px; 
+            font-size: 48px; 
+            text-align: right; /* Right-align for chaos */
         }
 
         #section4 {
-            background-color: #FFD700; /* Gold */
+            background-color: #00CED1; /* Dark Turquoise */
             color: #000000; /* Black */
-            font-size: 20px; 
-            border: 15px double #DC143C; /* Crimson */
-            font-weight: bold; 
-            padding: 15px; /* Cluttered padding */
+            font-size: 26px; 
+            border: 10px double #FF1493; /* Deep Pink */
+            font-weight: bolder; 
+            padding: 30px; 
+            text-transform: lowercase; /* Lowercase to throw people off */
         }
 
         #section5 {
-            background-color: #00FF00; /* Bright Green */
-            color: #00008B; /* Dark Blue */
-            font-size: 30px; 
-            border: 7px ridge #FF00FF; /* Magenta */
-            text-shadow: 2px 2px 3px #000000; /* Dark shadow */
-            font-family: Georgia, serif; /* Another font switch */
+            background-color: #FF6347; /* Tomato */
+            color: #FFFFFF; /* White */
+            font-size: 40px; 
+            border: 7px groove #FFD700; /* Gold */
+            text-shadow: 3px 3px 5px #000000; /* Dark shadow */
         }
 
         #section6 {
-            background-color: #FF4500; /* Orange Red */
-            color: #FFFFFF; /* White text */
-            font-size: 50px; 
-            border: 2px solid #FFFFFF; /* White border */
-            padding: 20px; 
-            transform: scale(1.2); /* Scale up */
+            background-color: #FF8C00; /* Dark Orange */
+            color: #000000; /* Black text */
+            font-size: 60px;
+            border: 5px dashed #008000; /* Green */
+            padding: 30px; 
+            margin-top: 50px; 
+            transform: scale(1.5); /* Oversized */
+            animation: blink 1s infinite; /* Blinking effect */
+        }
+
+        @keyframes blink {
+            0%, 100% { visibility: visible; }
+            50% { visibility: hidden; }
         }
 
         footer {
             background: #6A5ACD; /* Slate Blue */
-            color: #FF1493; /* Deep Pink */
-            padding: 20px;
-            font-size: 28px; 
+            color: #FF4500; /* Orange Red */
+            padding: 30px;
+            font-size: 32px; 
             margin-top: 30px;
-            border-top: 5px double #FF7F50; /* Coral */
-            text-shadow: 1px 1px #FFF; /* Light shadow */
-            position: relative; /* Ugly positioning */
-            transition: 0.5s; /* Transition for hover */
+            border-top: 10px solid #FF8C00; /* Bright Orange */
+            text-shadow: 1px 2px #FFF; /* Light shadow */
+            position: relative; 
+            transition: 0.5s; 
         }
 
         footer:hover {
-            transform: rotate(5deg); /* Rotate on hover */
-            background-color: #8B4513; /* SaddleBrown */
+            transform: rotate(-10deg); /* Rotate on hover */
+            background-color: #FF00FF; /* Magenta */
         }
 
         .angry-text {
-            font-size: 40px; /* Large */
+            font-size: 48px; /* Huge */
             font-weight: bold; 
-            color: #800080; /* Purple */
+            color: #FF0000; /* Red */
             text-align: center; 
             margin-top: 20px; 
-            animation: shake 0.5s infinite; /* Shake animation */
+            animation: shake 0.5s infinite; /* Shake */
         }
 
         @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            25% { transform: translate(-1px, -2px); }
-            50% { transform: translate(-2px, 0); }
-            75% { transform: translate(2px, 2px); }
-            100% { transform: translate(0, 0); }
+            0% { transform: translate(0px, 0px); }
+            25% { transform: translate(-5px, -5px); }
+            50% { transform: translate(5px, 5px); }
+            75% { transform: translate(-5px, 5px); }
+            100% { transform: translate(0px, 0px); }
         }
 
         .output {
             background-color: #FFF0F5; /* Lavender Blush */
-            color: #5F9EA0; /* Cadet Blue */
-            padding: 15px;
+            color: #000000; /* Black */
+            padding: 20px;
             margin: 10px 0;
             border: 5px solid #FF69B4; /* Hot Pink */
-            display: inline-block; /* Have them not take full width */
-            font-size: 18px; 
+            display: inline-block; 
+            font-size: 22px; 
+            animation: flash 1s infinite; /* Flashing effect */
+        }
+
+        @keyframes flash {
+            0% { background-color: #FFF0F5; }
+            50% { background-color: #FF1493; }
+            100% { background-color: #FFF0F5; }
         }
 
         .color-picker {
             display: flex; 
-            flex-direction: column; /* Stack vertically */
-            align-items: center; /* Center */
+            flex-direction: column; 
+            align-items: center; 
             margin: 50px; 
             color: #FF8C00; /* Dark Orange */
         }
@@ -169,8 +211,8 @@
             margin: 20px 0; 
             font-weight: bold; 
             font-size: 20px; 
-            border-radius: 10px; 
-            border: 3px solid #FF4500; /* Orange Red border */
+            border-radius: 15px; 
+            border: 5px solid #FF4500; /* Orange Red border */
         }
     </style>
 </head>
@@ -194,43 +236,43 @@
     <main>
         <section id="section1">
             <h2>Section 1</h2>
-            <input type="text" id="input1" placeholder="What's your name?">
-            <button onclick="generateResponse('input1', 'output1')">Submit</button>
+            <input type="text" id="input1" placeholder="What's your name?" style="font-size:18px;">
+            <button onclick="generateResponse('input1', 'output1')" style="font-size:18px;">Submit</button>
             <div id="output1" class="output"></div>
         </section>
 
         <section id="section2">
             <h2>Section 2</h2>
-            <input type="text" id="input2" placeholder="What's your favorite food?">
-            <button onclick="generateResponse('input2', 'output2')">Submit</button>
+            <input type="text" id="input2" placeholder="What's your favorite food?" style="font-size:18px;">
+            <button onclick="generateResponse('input2', 'output2')" style="font-size:18px;">Submit</button>
             <div id="output2" class="output"></div>
         </section>
 
         <section id="section3">
             <h2>Section 3</h2>
-            <input type="text" id="input3" placeholder="Where are you from?">
-            <button onclick="generateResponse('input3', 'output3')">Submit</button>
+            <input type="text" id="input3" placeholder="Where are you from?" style="font-size:18px;">
+            <button onclick="generateResponse('input3', 'output3')" style="font-size:18px;">Submit</button>
             <div id="output3" class="output"></div>
         </section>
 
         <section id="section4">
             <h2>Section 4</h2>
-            <input type="text" id="input4" placeholder="What’s your favorite color?">
-            <button onclick="generateResponse('input4', 'output4')">Submit</button>
+            <input type="text" id="input4" placeholder="What’s your favorite color?" style="font-size:18px;">
+            <button onclick="generateResponse('input4', 'output4')" style="font-size:18px;">Submit</button>
             <div id="output4" class="output"></div>
         </section>
 
         <section id="section5">
             <h2>Section 5</h2>
-            <input type="text" id="input5" placeholder="What's your hobby?">
-            <button onclick="generateResponse('input5', 'output5')">Submit</button>
+            <input type="text" id="input5" placeholder="What's your hobby?" style="font-size:18px;">
+            <button onclick="generateResponse('input5', 'output5')" style="font-size:18px;">Submit</button>
             <div id="output5" class="output"></div>
         </section>
 
         <section id="section6">
             <h2>Flashing Colors Section</h2>
-            <input type="text" id="input6" placeholder="What do you think of this site?">
-            <button onclick="generateResponse('input6', 'output6')">Submit</button>
+            <input type="text" id="input6" placeholder="What do you think of this site?" style="font-size:18px;">
+            <button onclick="generateResponse('input6', 'output6')" style="font-size:18px;">Submit</button>
             <div id="output6" class="output"></div>
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
