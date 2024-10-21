@@ -3,75 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intensely Ugly Website</title>
+    <title>Unbelievably Ugly Website</title>
     <style>
-        /* Intentionally overwhelming styles */
+        /* Hideous styles */
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
-            background-color: #90EE90; /* Light green */
-            color: #800080; /* Purple text */
-            font-size: 24px;
+            background-color: #FFE4E1; /* Misty Rose */
+            color: #FF4500; /* Orange Red */
+            font-size: 32px;
+            text-align: center; /* Center everything for confusion */
+            line-height: 1.5; /* Too close for comfort */
         }
 
         header {
-            background-color: #FF6347; /* Tomato */
-            color: #FFFF00; /* Bright Yellow */
-            padding: 15px;
-            text-align: left; /* Align text to the left */
-            border: 5px dashed #0000FF; /* Blue dashed border */
+            background-color: #FF69B4; /* Hot Pink */
+            color: #6A5ACD; /* Slate Blue */
+            padding: 20px;
+            text-align: right; /* Align text to the right to annoy */
+            border: 10px solid #008B8B; /* Dark Cyan border */
+            transform: rotate(-5deg); /* Tilt the header */
         }
 
         nav ul {
-            list-style-type: circle; /* Circle bullets */
-            padding: 10px;
-            margin: -10px; /* Negative margin */
+            list-style-type: square; /* Square bullets */
+            padding: 20px;
+            margin: -30px; /* Negative margins for extra chaos */
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA
+            AAAFCAYAAACNbyblAAAAIUlEQVR42mL8//8/Az9AAZkBzYDBgDAKwAjDQAiZkDEbAAAA
+            AABgPlX2QAAAABJRU5ErkJggg==') repeat; /* Background image */
         }
 
         nav ul li {
-            display: block; /* Stack items vertically */
-            margin: 5px; /* Add spacing */
-            padding: 10px;
-            border: 2px solid #FF00FF; /* Magenta border */
-            color: #008000; /* Green text */
+            display: inline; /* Inline for confusion */
+            margin: 15px; /* A mess of spacing */
+            padding: 7px;
+            border: 5px dashed #800080; /* Purple border */
+            background-color: #FFFF00; /* Bright Yellow */
         }
 
         nav ul li a {
-            color: #FFD700; /* Gold links */
-            text-decoration: wavy underline; /* Wavy underlines */
+            color: #0000FF; /* Bright Blue links */
+            text-decoration: blink; /* Blinking links (only works in some browsers) */
+            font-weight: bold; /* Bold links */
+            font-size: 18px; /* Small link font */
         }
 
         main {
-            padding: 30px;
-            border: 10px solid #000; /* Black border */
-            background-color: #FF69B4; /* Hot Pink */
+            padding: 50px;
+            border: 15px double #B22222; /* Firebrick */
+            background-color: #FFDAB9; /* Peach Puff */
+            transform: skewY(-5deg); /* Tilt the main section */
         }
 
         section {
-            margin: 10px; /* Dismal spacing */
-            padding: 10px;
-            border: 5px solid #008080; /* Teal border */
-            background-color: #FFF0F5; /* Lavender blush */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* Dark shadow */
+            margin: 30px; /* Overstuffed margins */
+            padding: 15px;
+            border: 8px solid #ADFF2F; /* Green Yellow border */
+            background-color: #FFB6C1; /* Light Pink */
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8); /* Heavy shadow */
+            font-size: 26px; /* Extra large */
+            text-shadow: 1px 1px #000; /* Shadow for hard reading */
         }
 
         footer {
-            background: #B22222; /* Firebrick */
-            color: #FFF; /* White text */
-            text-align: right; /* Align text to the right */
-            padding: 20px;
-            font-size: 18px;
-            margin-top: 20px; /* Spacing above */
+            background: #000; /* Black */
+            color: #FF1493; /* Deep Pink */
+            text-align: left; /* Align text to the left */
+            padding: 10px;
+            font-size: 40px; /* Huge font */
+            margin-top: 30px;
+            border-top: 5px dash #FFFFFF; /* White. Misspelled property will be ignored! */
         }
 
         .angry-text {
-            font-size: 48px; /* Large font */
+            font-size: 56px; /* Extra large */
             font-weight: bold;
-            color: #000; /* Black */
-            text-align: center; /* Center text */
-            margin-top: 50px; 
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); /* White shadow */
-            transform: rotate(10deg); /* Slight rotation */
+            color: #FFD700; /* Gold text */
+            text-align: center;
+            margin-top: 100px; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); /* Dark shadow */
+            transform: scale(1.2); /* Make it bigger */
         }
 
         .flashing-screen {
@@ -80,47 +92,66 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #FF0000; /* Red */
-            color: #000; /* Black text */
-            display: none; /* Initially hidden */
+            background-color: #FF0000; /* Bright Red */
+            color: #FFFFFF; /* White text */
+            display: none; /* Keep it hidden initially */
             z-index: 9999; 
             text-align: center;
-            line-height: 100vh; /* Centering */
-            font-size: 72px; /* Extra bold text */
+            line-height: 100vh; /* Force centering */
+            font-size: 80px; /* Supersized text */
+            border: 5px solid #9400D3; /* Dark Violet border */
+            animation: shake 0.5s infinite; /* Shake effect */
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            25% { transform: translate(-1px, -2px); }
+            50% { transform: translate(-2px, 0); }
+            75% { transform: translate(2px, 2px); }
+            100% { transform: translate(0, 0); }
         }
 
         .output {
             margin: 10px; 
-            padding: 15px; 
-            background-color: #FFE4E1; /* Misty Rose */
-            border: 3px solid #A52A2A; /* Brown border */
+            padding: 25px; 
+            background-color: #FFF0F5; /* Lavender Blush */
+            border: 5px solid #FF4500; /* Orange Red border */
+            font-size: 20px; /* Smaller for poor usability */
+            animation: blink 1s infinite; /* Blink effect */
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         .color-picker {
-            margin: 50px 0; /* Large margin */
+            margin: 100px 0; /* Outrageously large margin */
             display: flex;
-            flex-direction: column; /* Stack vertically */
+            flex-direction: row; /* Lane display */
+            justify-content: space-around; /* Aimless space distribution */
             align-items: center; /* Center align */
-            font-size: 30px; /* Bigger font */
+            font-size: 36px; /* Should be smaller */
+            color: #0000CD; /* Medium Blue */
         }
 
         .warning {
             display: none; 
             background-color: #FFD700; /* Gold background */
-            color: #000; /* Black text */
-            padding: 10px;
+            color: #FF0000; /* Red text */
+            padding: 20px;
             text-align: center;
-            margin: 25px 0; 
-            border-radius: 10px; 
-            border: 3px dashed #FF4500; /* Orange dashed border */
+            margin: 15px 0; 
+            border-radius: 20px; 
+            border: 8px dotted #ADFF2F; /* Green Yellow dotted border */
             font-weight: bold;
+            font-size: 28px; /* Large but poorly readable */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Professional Website</h1>
+        <h1>Unbelievably Ugly Website</h1>
         <nav>
             <ul>
                 <li><a href="#section1">Section 1</a></li>
@@ -193,7 +224,7 @@
             <label for="colorPicker">Change Website Color:</label>
             <input type="color" id="colorPicker" value="#FF00FF" onchange="changePageColor()">
         </div>
-        
+
         <div id="warning" class="warning">Be careful, flashing screen ahead, epileptic!</div>
     </main>
 
