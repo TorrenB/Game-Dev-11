@@ -152,7 +152,9 @@
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
 
-        <div id="flashing" class="flashing-screen">GET OUT!</div>
+        <div id="flashing" class="flashing-screen">
+            <span id="flashingText">GET OUT OF MY WALLS!</span>
+        </div>
 
         <label for="flashingColorPicker1">Choose First Flashing Color:</label>
         <input type="color" id="flashingColorPicker1" value="#FF0000" onchange="changeFlashingColor()">
@@ -206,11 +208,17 @@
 
         function startFlashing() {
             const flashingDiv = document.getElementById('flashing');
+            const flashingText = document.getElementById('flashingText');
             flashingDiv.style.display = 'block'; // Show the flashing screen
             
             setInterval(() => {
-                document.body.style.backgroundColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Alternate between two colors
-                flashingDiv.style.backgroundColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Same for flashing div
+                const currentColor = isFlashingColor1 ? flashingColor1 : flashingColor2; // Determine current color
+                const oppositeColor = isFlashingColor1 ? flashingColor2 : flashingColor1; // Determine opposite color
+
+                document.body.style.backgroundColor = currentColor; // Flashing background
+                flashingDiv.style.backgroundColor = currentColor; // Same for flashing div
+                flashingText.style.color = oppositeColor; // Text flashes opposite color
+                
                 isFlashingColor1 = !isFlashingColor1; // Toggle the color
             }, 100); // Change color every 100 milliseconds
         }
