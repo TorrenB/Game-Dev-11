@@ -7,205 +7,170 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000000; /* Vantablack background */
-            color: #ffffff; /* White text */
+            background-color: #000;
+            color: #fff;
             padding: 20px;
         }
 
         h1 {
-            text-align: center;
-            font-style: italic;
-            border: 2px dotted #FFC107; /* Light yellow border */
-            background-color: #343A40; /* Dark gray background */
-            color: #ffffff; /* White text */
-            padding: 5px; /* Reduced padding for a snug fit */
-            margin: 0; /* Remove default margin to fit snugly with the body */
+            text-align: center; 
+            font-style: italic; 
+            border: 2px dotted #FFC107; 
+            background-color: #343A40; 
+            padding: 5px; 
+            margin: 0;
         }
 
         h3 {
-            margin: 0; /* Remove default margin */
-            padding: 10px; /* Adjust padding for snug fit */
-            text-align: center; /* Center align for consistency */
-            background-color: #007BFF; /* Blue background for headers */
-            color: #ffffff; /* White text */
-            border-radius: 5px; /* Rounded edges */
+            margin: 0; 
+            padding: 10px; 
+            text-align: center; 
+            background-color: #007BFF; 
+            border-radius: 5px;
         }
 
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
             gap: 20px;
         }
 
         .event-box {
-            border: 2px solid #6C757D; /* Gray border */
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #1a1a1a; /* Darker boxes for visibility */
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1); /* Subtle light shadow for contrast */
-            width: 200px;
-            text-align: center;
+            border: 2px solid #6C757D; 
+            padding: 20px; 
+            border-radius: 5px; 
+            background-color: #1a1a1a; 
+            text-align: center; 
+            transition: background-color 0.3s;
         }
 
         .event-box:hover {
-            background-color: #333333; /* Lighten on hover */
+            background-color: #333;
         }
 
-        button, input[type="text"], input[type="range"] {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #6C757D; /* Gray border */
-            color: #ffffff; /* White text */
+        button, input[type="text"], input[type="range"], select {
+            margin-top: 10px; 
+            padding: 10px; 
+            border-radius: 5px; 
+            border: 1px solid #6C757D; 
+            color: #fff; 
             cursor: pointer;
-            transition: box-shadow 0.2s ease;
+            transition: background-color 0.2s, box-shadow 0.2s;
         }
 
         button {
-            background-color: #007BFF; /* Blue buttons */
-            color: white; /* White text on buttons */
+            background-color: #007BFF; 
         }
 
         button:hover {
-            background-color: #FFC107; /* Yellow on hover */
+            background-color: #FFC107; 
             box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
         }
 
-        button:active {
-            background-color: #343A40; /* Dark gray when clicked */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
         input[type="text"] {
+            background-color: #555; 
             width: 80%;
-            border-radius: 5px;
-            background-color: #555; /* Dark background for inputs */
-            border: 1px solid #6C757D;
-            color: #ffffff; /* White text in input */
         }
 
         p.result {
-            margin-top: 10px;
-            font-weight: bold;
-            color: #FFC107; /* Light yellow text for results */
+            margin-top: 10px; 
+            font-weight: bold; 
+            color: #FFC107;
         }
 
         .explanation {
-            font-size: 0.9em;
-            margin-top: 5px;
-            color: #cccccc; /* Gray explanation text */
+            font-size: 0.9em; 
+            margin-top: 5px; 
+            color: #ccc;
         }
 
         #mydiv01 {
-            margin-top: 20px;
+            margin-top: 20px; 
             font-weight: bold;
-            color: #ffffff; /* White text for mouse position */
         }
 
-        /* CPS Test Styles */
         .cps-test-box {
-            width: 300px;
+            width: 300px; 
             text-align: center;
         }
 
-        /* Countdown Timer Styles */
-        .countdown {
-            font-size: 1.5em;
-            color: #FFC107; /* Light yellow color for countdown */
-            margin: 10px 0; /* Vertical margin for spacing */
+        .countdown, .current-cps, .best-cps {
+            font-size: 1.5em; 
+            margin: 10px 0;
         }
 
-        /* Current CPS Tracker */
-        .current-cps {
-            font-size: 1.2em;
-            color: #28A745; /* Green color for current CPS */
-        }
-
-        /* Best CPS Tracker */
-        .best-cps {
-            font-size: 1.2em;
-            color: #DC3545; /* Red color for best CPS */
-        }
-
-        /* Responsive Styles */
         @media (max-width: 600px) {
             .event-box {
-                width: 90%; /* Make boxes full width on small screens */
+                width: 90%;
             }
         }
     </style>
 </head>
-<body onmousemove="document.getElementById('mydiv01').innerHTML = 'x: ' + event.clientX + ', y: ' + event.clientY;">
+<body onmousemove="updateMousePosition(event);">
 
 <h1>JavaScript Events Example</h1>
 <div id="mydiv01">Move your mouse around!</div>
 <div class="container">
     <!-- Enter Your Name Section -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Enter Your Name</h3>
+        <h3>Enter Your Name</h3>
         <input type="text" id="nameInput" placeholder="Enter your name" />
-        <button class="color-shade-yellow" onclick="submitName()">Submit</button>
+        <button onclick="submitName()">Submit</button>
         <p class="result" id="nameResult"></p>
     </div>
 
     <!-- Click Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Click Event</h3>
-        <button class="color-shade-gray" id="colorButton" onclick="changeButtonColor(this)">Click Me</button>
+        <h3>Click Event</h3>
+        <button id="colorButton" onclick="changeButtonColor(this)">Click Me</button>
         <p class="explanation">This event triggers when the button is clicked.</p>
         <p class="result" id="clickResult"></p>
     </div>
 
     <!-- Double Click Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">DblClick Event</h3>
-        <button class="color-shade-gray" ondblclick="changeColorOnDoubleClick(this); showResult('Button Double Clicked!', 'dblClickResult')">Double Click Me</button>
+        <h3>DblClick Event</h3>
+        <button ondblclick="handleDoubleClick(this)">Double Click Me</button>
         <p class="explanation">Triggered when the button is double-clicked quickly.</p>
         <p class="result" id="dblClickResult"></p>
     </div>
 
     <!-- Mouse Over Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Mouse Over Event</h3>
-        <button class="color-shade-yellow" onmouseover="changeColor(this, '#FFD700')" onmouseout="changeColor(this, '')">Hover Over Me</button>
-        <p class="explanation">This event occurs when the mouse pointer moves over the button.</p>
+        <h3>Mouse Over Event</h3>
+        <button onmouseover="changeColor(this, '#FFD700')" onmouseout="changeColor(this, '')">Hover Over Me</button>
+        <p class="explanation">Triggers when the mouse pointer moves over the button.</p>
     </div>
 
     <!-- Context Menu Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Context Menu Event</h3>
-        <button class="color-shade-gray" oncontextmenu="changeColorOnRightClick(this); showResult('Right Click Event Triggered!', 'rightClickResult'); return false;">Right Click Me</button>
+        <h3>Context Menu Event</h3>
+        <button oncontextmenu="handleRightClick(this); return false;">Right Click Me</button>
         <p class="explanation">Occurs when the right mouse button is clicked on the button.</p>
         <p class="result" id="rightClickResult"></p>
     </div>
 
     <!-- Focus and Blur Events -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Focus and Blur Events</h3>
+        <h3>Focus and Blur Events</h3>
         <input type="text" id="blurInput" onfocus="clearBlur()" oninput="inputModified()" onblur="applyBlur()" placeholder="Type and then click away" />
         <p class="explanation">Text will only blur after typing and clicking out.</p>
     </div>
 
     <!-- Scroll Event -->
-    <div class="event-box" style="width: 300px;">
-        <h3 class="color-shade-blue" style="font-style: italic;">Scroll Event</h3>
-        <div style="height: 200px; overflow-y: scroll; border: 1px solid #6C757D;"> <!-- Gray border -->
+    <div class="event-box">
+        <h3>Scroll Event</h3>
+        <div style="height: 200px; overflow-y: scroll; border: 1px solid #6C757D;">
             <div style="height: 500px; background: linear-gradient(to bottom, #fff, #ddd);"></div>
         </div>
-        <script>
-            const scrollableDiv = document.querySelector('div[style*="scroll"]');
-            scrollableDiv.onscroll = function() {
-                showResult('Scrolled with Mouse Wheel', 'scrollResult');
-            }
-        </script>
         <p class="explanation">This event triggers when an element is scrolled.</p>
         <p class="result" id="scrollResult"></p>
     </div>
 
     <!-- Input Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Input Event</h3>
+        <h3>Input Event</h3>
         <input type="text" id="inputChange" oninput="showResult(`Input changed to: ${this.value}`, 'inputResult')" placeholder="Type here..." />
         <p class="explanation">Triggers when the input value changes.</p>
         <p class="result" id="inputResult"></p>
@@ -213,12 +178,12 @@
 
     <!-- Change Event -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Change Event</h3>
+        <h3>Change Event</h3>
         <select onchange="showResult(`Selected: ${this.value}`, 'changeResult')">
             <option value="">Select an option</option>
             <option value="Beans">Beans</option>
             <option value="Spaghetti">Spaghetti</option>
-            <option value="Quantam Physics">Quantam Physics</option>
+            <option value="Quantum Physics">Quantum Physics</option>
         </select>
         <p class="explanation">This event triggers when the option is changed.</p>
         <p class="result" id="changeResult"></p>
@@ -226,148 +191,120 @@
 
     <!-- Key Events -->
     <div class="event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">Key Events</h3>
+        <h3>Key Events</h3>
         <input type="text" id="keyInput" onkeydown="showKeyPress(event, 'keyDownResult')" onkeyup="showKeyPress(event, 'keyUpResult')" placeholder="Press a key..." />
         <p class="explanation">Type in the box to see key events.</p>
         <p class="result" id="keyDownResult"></p>
         <p class="result" id="keyUpResult"></p>
-        <p class="result" id="keyPressResult"></p> <!-- Show the last key pressed -->
+        <p class="result" id="keyPressResult"></p> 
     </div>
 
     <!-- CPS Test Section -->
     <div class="cps-test-box event-box">
-        <h3 class="color-shade-blue" style="font-style: italic;">CPS Test</h3>
+        <h3>CPS Test</h3>
         <button id="startCpsTestButton" onclick="startCpsTest()">Start Test</button>
         <div class="countdown" id="cpsCountdown">10</div>
         <div class="current-cps" id="currentCpsDisplay">Current CPS: 0</div>
         <div class="best-cps" id="bestCpsDisplay">Best CPS: 0</div>
     </div>
-
 </div>
 
 <script>
-    let clickCount = 0;
-    let testInterval;
-    let countdownInterval;
-    let bestCps = 0;
-    let cpsTracking = 0;
+    let clickCount = 0, testInterval, countdownInterval, bestCps = 0, cpsTracking = 0;
 
-    // Start CPS Test
-    function startCpsTest() {
-        clickCount = 0; // Reset click count
-        cpsTracking = 0; // Reset cps tracking
-        const resultElement = document.getElementById('currentCpsDisplay');
-        const countdownElement = document.getElementById('cpsCountdown');
-        const bestCpsElement = document.getElementById('bestCpsDisplay');
-        
-        clearTimeout(testInterval); // Clear previous interval if one exists
-        clearInterval(countdownInterval); // Clear previous countdown if one exists
-
-        // Reset UI before starting the test
-        resultElement.textContent = 'Current CPS: 0';
-        countdownElement.textContent = '10'; // Set for 10 seconds countdown
-        bestCpsElement.textContent = `Best CPS: ${bestCps}`; // Display best CPS
-
-        // Add click event listener
-        const button = document.getElementById('startCpsTestButton');
-        button.onclick = () => {
-            clickCount++;
-        };
-
-        // Start countdown
-        let timeLeft = 10; // 10 seconds countdown
-        countdownElement.textContent = timeLeft;
-
-        countdownInterval = setInterval(() => {
-            timeLeft--;
-            countdownElement.textContent = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                button.onclick = null; // Disable clicking after test ends
-                clearTimeout(testInterval);
-                
-                const cps = clickCount / 10; // Calculate CPS
-                if (cps > bestCps) {
-                    bestCps = cps; // Update best CPS
-                }
-                resultElement.textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
-
-                // Update best CPS tracker
-                bestCpsElement.textContent = `Best CPS: ${bestCps.toFixed(2)}`;
-
-                // Reset the button for another attempt
-                button.innerHTML = 'Start Test Again';
-                button.onclick = startCpsTest; // Re-enable clicking for another test
-            }
-        }, 1000); // Update countdown every second
-
-        // Update current CPS display
-        testInterval = setInterval(() => {
-            const currentCps = clickCount / (10 - timeLeft); // Calculate current CPS
-            resultElement.textContent = `Current CPS: ${currentCps.toFixed(2)}`;
-        }, 100); // Update every 100 milliseconds
+    function updateMousePosition(event) {
+        document.getElementById('mydiv01').innerHTML = `x: ${event.clientX}, y: ${event.clientY}`;
     }
 
-    // Function to change button color when clicked
+    function startCpsTest() {
+        resetTest();
+        const button = document.getElementById('startCpsTestButton');
+        button.onclick = () => clickCount++;
+        
+        let timeLeft = 10;
+        countdownInterval = setInterval(() => {
+            if (timeLeft <= 0) endCpsTest();
+            document.getElementById('cpsCountdown').textContent = --timeLeft;
+        }, 1000);
+        
+        testInterval = setInterval(() => {
+            document.getElementById('currentCpsDisplay').textContent = `Current CPS: ${(clickCount / (10 - timeLeft)).toFixed(2)}`;
+        }, 100);
+    }
+
+    function resetTest() {
+        clickCount = 0;
+        document.getElementById('currentCpsDisplay').textContent = 'Current CPS: 0';
+        document.getElementById('cpsCountdown').textContent = '10';
+        document.getElementById('bestCpsDisplay').textContent = `Best CPS: ${bestCps.toFixed(2)}`;
+        clearInterval(testInterval);
+        clearInterval(countdownInterval);
+    }
+
+    function endCpsTest() {
+        clearInterval(testInterval);
+        const cps = clickCount / 10;
+        if (cps > bestCps) bestCps = cps;
+        
+        updateCpsDisplay(cps);
+    }
+
+    function updateCpsDisplay(cps) {
+        document.getElementById('currentCpsDisplay').textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
+        document.getElementById('bestCpsDisplay').textContent = `Best CPS: ${bestCps.toFixed(2)}`;
+        const button = document.getElementById('startCpsTestButton');
+        button.textContent = 'Start Test Again';
+        button.onclick = startCpsTest;
+    }
+
     function changeButtonColor(button) {
-        const colors = ['#007BFF', '#FFC107', '#6C757D', '#343A40']; // Blue, Yellow, Gray, Black
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        button.style.backgroundColor = randomColor;
+        button.style.backgroundColor = randomColor();
+    }
+
+    function handleDoubleClick(button) {
+        button.style.backgroundColor = randomColor();
+        showResult('Button Double Clicked!', 'dblClickResult');
+    }
+
+    function handleRightClick(button) {
+        button.style.backgroundColor = randomColor();
+        showResult('Right Click Event Triggered!', 'rightClickResult');
     }
 
     function changeColor(button, color) {
         button.style.backgroundColor = color;
     }
-    
-    function changeColorOnDoubleClick(button) {
-        const colors = ['#007BFF', '#FFC107', '#6C757D', '#343A40']; // Blue, Yellow, Gray, Black
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        button.style.backgroundColor = randomColor;
-    }
 
-    function changeColorOnRightClick(button) {
-        const colors = ['#007BFF', '#FFC107', '#6C757D', '#343A40']; // Blue, Yellow, Gray, Black
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        button.style.backgroundColor = randomColor;
+    function randomColor() {
+        const colors = ['#007BFF', '#FFC107', '#6C757D', '#343A40'];
+        return colors[Math.floor(Math.random() * colors.length)];
     }
 
     const eventCounts = {};
-
     function incrementEventCount(event) {
-        if (!eventCounts[event]) {
-            eventCounts[event] = 0;
-        }
-        eventCounts[event]++;
+        eventCounts[event] = (eventCounts[event] || 0) + 1;
         return eventCounts[event];
     }
 
     function showResult(message, resultId) {
         const count = incrementEventCount(message);
-        const resultElement = document.getElementById(resultId);
-        resultElement.textContent = `${message} (${count})`;
+        document.getElementById(resultId).textContent = `${message} (${count})`;
     }
 
     function showKeyPress(event, resultId) {
-        const key = event.key; // Get the pressed key
-        const resultElement = document.getElementById(resultId);
-        const message = `Key ${event.type === 'keydown' ? 'Pressed' : 'Released'}: ${key}`;
-        resultElement.textContent = message + ` (Count: ${incrementEventCount(message)})`;
-
-        // Display the last key pressed
-        const keyPressResult = document.getElementById('keyPressResult');
-        keyPressResult.textContent = `Last Key Pressed: ${key}`;
+        const key = event.key;
+        const action = event.type === 'keydown' ? 'Pressed' : 'Released';
+        const message = `Key ${action}: ${key} (Count: ${incrementEventCount(message)})`;
+        
+        document.getElementById(resultId).textContent = message;
+        document.getElementById('keyPressResult').textContent = `Last Key Pressed: ${key}`;
     }
 
     function submitName() {
-        const nameInput = document.getElementById('nameInput').value;
-        const resultElement = document.getElementById('nameResult');
-        
-        if (nameInput.trim() !== "") {
-            resultElement.textContent = `Your amazing Skibidi Ohio Rizzler name is ${nameInput}!`;
-        } else {
-            resultElement.textContent = "Please enter a name.";
-        }
+        const nameInput = document.getElementById('nameInput').value.trim();
+        document.getElementById('nameResult').textContent = nameInput ? 
+            `Your amazing Skibidi Ohio Rizzler name is ${nameInput}!` : 
+            "Please enter a name.";
     }
 </script>
 
