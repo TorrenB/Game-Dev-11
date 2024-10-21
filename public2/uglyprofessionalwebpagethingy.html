@@ -128,6 +128,9 @@
         </section>
 
         <div id="flashing" class="flashing-screen">GET OUT!</div>
+
+        <label for="colorPicker">Choose Background Color:</label>
+        <input type="color" id="colorPicker" value="#FF00FF" onchange="changeColors(this.value)">
     </main>
 
     <footer id="footer">
@@ -135,6 +138,30 @@
     </footer>
 
     <script>
+        function changeColors(color) {
+            document.body.style.backgroundColor = color;
+            header.style.backgroundColor = adjustColor(color, -0.2); // Adjusted for visibility
+            footer.style.backgroundColor = adjustColor(color, -0.2); // Adjusted for visibility
+            document.querySelector('.angry-text').style.color = adjustColor(color, 0.7); // Adjusted for visibility
+            // Additional adjustments can be made for link colors, etc.
+        }
+
+        function adjustColor(color, amount) {
+            let usePound = false;
+            if (color[0] === "#") {
+                color = color.slice(1);
+                usePound = true;
+            }
+            const num = parseInt(color, 16);
+            let r = (num >> 16) + amount * 255;
+            r = Math.min(255, Math.max(0, r));
+            let g = ((num >> 8) & 0x00FF) + amount * 255;
+            g = Math.min(255, Math.max(0, g));
+            let b = (num & 0x0000FF) + amount * 255;
+            b = Math.min(255, Math.max(0, b));
+            return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+        }
+
         function startFlashing() {
             const flashingDiv = document.getElementById('flashing');
             flashingDiv.style.display = 'block'; // Show the flashing screen
