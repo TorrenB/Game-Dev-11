@@ -11,7 +11,6 @@
             padding: 0;
             background-color: #FF00FF; /* Bright Magenta */
             color: #FFFF00; /* Bright Yellow */
-            /* Removed overflow: hidden; to enable scrolling */
         }
 
         header {
@@ -133,6 +132,9 @@
 
         <label for="colorPicker">Choose Background Color:</label>
         <input type="color" id="colorPicker" value="#FF00FF" onchange="changeColors(this.value)">
+        
+        <label for="flashingColorPicker">Choose Flashing Screen Color:</label>
+        <input type="color" id="flashingColorPicker" value="#FFFFFF" onchange="changeFlashingColor(this.value)">
     </main>
 
     <footer id="footer">
@@ -140,12 +142,18 @@
     </footer>
 
     <script>
+        // Store the flashing color for later use
+        let flashingColor = '#FFFFFF'; // default flashing color
+
         function changeColors(color) {
             document.body.style.backgroundColor = color;
-            header.style.backgroundColor = adjustColor(color, -0.2); // Adjusted for visibility
-            footer.style.backgroundColor = adjustColor(color, -0.2); // Adjusted for visibility
-            document.querySelector('.angry-text').style.color = adjustColor(color, 0.7); // Adjusted for visibility
-            // Additional adjustments can be made for link colors, etc.
+            header.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
+            footer.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
+            document.querySelector('.angry-text').style.color = adjustColor(color, 0.7); // Adjust for visibility
+        }
+
+        function changeFlashingColor(color) {
+            flashingColor = color; // Update the global variable for flashing color
         }
 
         function adjustColor(color, amount) {
@@ -168,12 +176,12 @@
             const flashingDiv = document.getElementById('flashing');
             flashingDiv.style.display = 'block'; // Show the flashing screen
             
-            let isWhite = true; // To track current color
+            let isFlashingColor = true; // To track current color
             
             setInterval(() => {
-                document.body.style.backgroundColor = isWhite ? '#FFFFFF' : '#000000'; // Flash between white and black
-                flashingDiv.style.backgroundColor = isWhite ? '#FFFFFF' : '#000000'; // Same for flashing div
-                isWhite = !isWhite; // Toggle the color
+                document.body.style.backgroundColor = isFlashingColor ? flashingColor : '#000000'; // Use flashing color
+                flashingDiv.style.backgroundColor = isFlashingColor ? flashingColor : '#000000'; // Same for flashing div
+                isFlashingColor = !isFlashingColor; // Toggle the color
             }, 100); // Change color every 100 milliseconds
         }
     </script>
