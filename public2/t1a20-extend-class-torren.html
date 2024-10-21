@@ -43,36 +43,5 @@
             inputField.value = '';
         }
     </script>
-    <script>
-        class InputOutput {
-            constructor() {
-                this.result = '';
-            }
-            
-            setInput(input) {
-                this.result = input;
-            }
-
-            getOutput() {
-                return this.result;
-            }
-        }
-
-        class ExtendedInputOutput extends InputOutput {
-            processInput() {
-                return this.result.split('').backwards().join('');
-            }
-        }
-
-        const extendedIO = new ExtendedInputOutput();
-
-        function handleInput() {
-            const inputField = document.getElementById('inputField');
-            extendedIO.setInput(inputField.value);
-            const output = extendedIO.processInput();
-            document.getElementById('outputArea').innerText = output;
-            inputField.value = '';
-        }
-    </script>
 </body>
 </html>
