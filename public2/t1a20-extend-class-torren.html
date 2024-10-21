@@ -1,1 +1,71 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Extension Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Input Output with Extended Class</h1>
+    <input type="text" id="inputField" placeholder="Enter some text">
+    <button onclick="handleInput()">Submit</button>
+    <h2>Output:</h2>
+    <div id="outputArea"></div>
+    
+    <script>
+        // Base Class
+        class InputOutput {
+            constructor() {
+                this.result = '';
+            }
+            
+            setInput(input) {
+                this.result = input;
+            }
+
+            getOutput() {
+                return this.result;
+            }
+        }
+
+        // Extended Class
+        class ExtendedInputOutput extends InputOutput {
+            constructor() {
+                super();
+            }
+
+            // Additional method to process input
+            processInput() {
+                return this.result.split('').reverse().join('');
+            }
+        }
+
+        // Instantiate the extended class
+        const extendedIO = new ExtendedInputOutput();
+
+        // Function to handle input and output
+        function handleInput() {
+            const inputField = document.getElementById('inputField');
+            const outputArea = document.getElementById('outputArea');
+
+            // Set input in the extended class
+            extendedIO.setInput(inputField.value);
+
+            // Get processed output (in this case, reversing the input string)
+            const output = extendedIO.processInput();
+
+            // Display the output
+            outputArea.innerHTML = output;
+
+            // Clear the input field
+            inputField.value = '';
+        }
+    </script>
+</body>
+</html>
