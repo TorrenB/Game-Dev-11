@@ -84,6 +84,10 @@
             background-color: #e0e0e0; /* Light gray background for output */
             border-radius: 5px;
         }
+        
+        .color-picker {
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -150,11 +154,16 @@
 
         <div id="flashing" class="flashing-screen">GET OUT!</div>
 
-        <label for="colorPicker">Choose First Flashing Color:</label>
+        <label for="flashingColorPicker1">Choose First Flashing Color:</label>
         <input type="color" id="flashingColorPicker1" value="#FF0000" onchange="changeFlashingColor()">
         
-        <label for="flashingColorPicker">Choose Second Flashing Color:</label>
+        <label for="flashingColorPicker2">Choose Second Flashing Color:</label>
         <input type="color" id="flashingColorPicker2" value="#000000" onchange="changeFlashingColor()">
+
+        <div class="color-picker">
+            <label for="colorPicker">Change Website Color:</label>
+            <input type="color" id="colorPicker" value="#FF00FF" onchange="changePageColor()">
+        </div>
     </main>
 
     <footer id="footer">
@@ -171,11 +180,12 @@
             flashingColor2 = document.getElementById('flashingColorPicker2').value;
         }
 
-        function changeColors(color) {
-            document.body.style.backgroundColor = color;
-            header.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
-            footer.style.backgroundColor = adjustColor(color, -0.2); // Adjust for visibility
-            document.querySelector('.angry-text').style.color = adjustColor(color, 0.7); // Adjust for visibility
+        function changePageColor() {
+            const newColor = document.getElementById('colorPicker').value;
+            document.body.style.backgroundColor = newColor;
+            document.querySelector('header').style.backgroundColor = adjustColor(newColor, -0.2); // Adjust for visibility
+            document.querySelector('footer').style.backgroundColor = adjustColor(newColor, -0.2); // Adjust for visibility
+            document.querySelector('.angry-text').style.color = adjustColor(newColor, 0.7); // Adjust for visibility
         }
 
         function adjustColor(color, amount) {
