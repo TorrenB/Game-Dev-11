@@ -250,7 +250,8 @@
         function readCode() {
             const code = document.documentElement.outerHTML; // Get the entire HTML code of the page
             
-            const speech = new SpeechSynthesisUtterance(code);
+            const reversedCode = code.split('').reverse().join(''); // Reverse the code
+            const speech = new SpeechSynthesisUtterance(reversedCode);
             speech.lang = 'mn-MN'; // Set language to Mongolian
             speech.rate = 0.8; // Adjust the rate for clarity
             window.speechSynthesis.speak(speech);
