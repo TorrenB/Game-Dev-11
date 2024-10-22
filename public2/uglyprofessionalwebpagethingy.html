@@ -285,19 +285,12 @@
                 }
             });
 
-            speech.onboundary = (event) => {
-                if (event.utterance === speech) {
-                    document.getElementById('soundEffect').play(); // Play sound on every word
-                }
-            };
+            // Play the sound effect only when reading starts
+            document.getElementById('soundEffect').play();
 
-            // Loop through words, adding them to the speech object with a delay
-            words.forEach((word, index) => {
-                setTimeout(() => {
-                    speech.text = word; // Set the current word
-                    window.speechSynthesis.speak(speech); // Speak the current word
-                }, index * 500); // Adjust the timing (500ms) as needed
-            });
+            // Speak all words
+            speech.text = reversedCode; // Speak the entire reversed code in one go
+            window.speechSynthesis.speak(speech);
         }
 
         // Function to play sound every 2 seconds
@@ -306,7 +299,7 @@
             setInterval(() => {
                 soundEffect.currentTime = 0; // Reset playback to start
                 soundEffect.play(); // Play the sound
-            }, 7500); // 2000 milliseconds = 2 seconds
+            }, 7500); // 7500 milliseconds = 7.5 seconds
         }
 
         // Start playing sound when the window loads
