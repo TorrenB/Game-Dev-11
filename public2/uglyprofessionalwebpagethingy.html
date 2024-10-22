@@ -84,48 +84,12 @@
         }
 
         /* Different Section Styles */
-        #section1 {
-            background-color: #FFD700; /* Gold */
+        #section1, #section2, #section3, #section4, #section5, #section6 {
+            background-color: #FFD700; /* Gold for simplicity */
             color: #8B0000; /* Dark Red */
             font-size: 32px; 
             border-radius: 15px; 
             transform: rotate(3deg); 
-        }
-
-        #section2 {
-            background-color: #ADFF2F; /* Green Yellow */
-            color: #FF4500; /* Orange Red */
-            font-size: 36px; 
-            text-decoration: underline wavy #FF00FF; /* Wavy underline */
-            border: 5px solid #8A2BE2; /* Blue Violet */
-        }
-
-        #section3 {
-            background-color: #BA55D3; /* Medium Orchid */
-            color: #FFF500; /* Bright Yellow */
-            border: 10px dotted #DC143C; /* Crimson */
-            font-style: oblique; /* Underlined italics */
-            padding: 20px; 
-            font-size: 48px; 
-            text-align: right; /* Right-align for chaos */
-        }
-
-        #section4 {
-            background-color: #00CED1; /* Dark Turquoise */
-            color: #000000; /* Black */
-            font-size: 26px; 
-            border: 10px double #FF1493; /* Deep Pink */
-            font-weight: bolder; 
-            padding: 30px; 
-            text-transform: lowercase; /* Lowercase to throw people off */
-        }
-
-        #section5 {
-            background-color: #FF6347; /* Tomato */
-            color: #FFFFFF; /* White */
-            font-size: 40px; 
-            border: 7px groove #FFD700; /* Gold */
-            text-shadow: 3px 3px 5px #000000; /* Dark shadow */
         }
 
         #section6 {
@@ -137,11 +101,6 @@
             margin-top: 50px; 
             transform: scale(1.5); /* Oversized */
             animation: blink 1s infinite; /* Blinking effect */
-        }
-
-        @keyframes blink {
-            0%, 100% { visibility: visible; }
-            50% { visibility: hidden; }
         }
 
         footer {
@@ -194,26 +153,6 @@
             50% { background-color: #FF1493; }
             100% { background-color: #FFF0F5; }
         }
-
-        .color-picker {
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            margin: 50px; 
-            color: #FF8C00; /* Dark Orange */
-        }
-
-        .warning {
-            display: none; 
-            background-color: #FFD700; /* Gold */
-            color: #000000; /* Black */
-            padding: 20px; 
-            margin: 20px 0; 
-            font-weight: bold; 
-            font-size: 20px; 
-            border-radius: 15px; 
-            border: 5px solid #FF4500; /* Orange Red border */
-        }
     </style>
 </head>
 <body>
@@ -228,6 +167,7 @@
                 <li><a href="#section4">Section 4</a></li>
                 <li><a href="#section5">Section 5</a></li>
                 <li><a href="#section6">Flashing Section</a></li>
+                <li><a href="#codeSection">Read Code</a></li>
                 <li><a href="#footer">Contact</a></li>
             </ul>
         </nav>
@@ -277,8 +217,11 @@
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
         
-        <button onclick="readCode()" style="font-size: 24px; padding: 10px 20px; margin-top: 20px;">Read Code</button>
-
+        <!-- New section for the read code button -->
+        <section id="codeSection">
+            <h2>Read Code Section</h2>
+            <button onclick="readCode()" style="font-size: 24px; padding: 10px 20px; margin-top: 20px;">Read Code</button>
+        </section>
     </main>
 
     <footer id="footer">
