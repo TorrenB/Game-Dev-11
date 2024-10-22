@@ -14,7 +14,7 @@
             background-image: url('https://i.imgur.com/EkLN7C8.gif'); /* Annoying background gif */
             animation: background-change 5s infinite;
         }
-
+        
         @keyframes background-change {
             0% { background-color: #FFB6C1; }
             50% { background-color: #FFD700; }
@@ -90,17 +90,6 @@
             font-size: 32px; 
             border-radius: 15px; 
             transform: rotate(3deg); 
-        }
-
-        #section6 {
-            background-color: #FF8C00; /* Dark Orange */
-            color: #000000; /* Black text */
-            font-size: 60px;
-            border: 5px dashed #008000; /* Green */
-            padding: 30px; 
-            margin-top: 50px; 
-            transform: scale(1.5); /* Oversized */
-            animation: blink 1s infinite; /* Blinking effect */
         }
 
         footer {
@@ -259,57 +248,7 @@
         }
 
         function readCode() {
-            const code = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Hideous Website</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            margin: 0;
-            background-color: #FFB6C1; /* Light Pink */
-            color: #000000; /* Black text */
-            text-align: center; 
-            background-image: url('https://i.imgur.com/EkLN7C8.gif'); /* Annoying background gif */
-            animation: background-change 5s infinite;
-        }
-        /* (Styles omitted for brevity) */
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Ultimate Hideous Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#section1">Section 1</a></li>
-                <li><a href="#section2">Section 2</a></li>
-                <li><a href="#section3">Section 3</a></li>
-                <li><a href="#section4">Section 4</a></li>
-                <li><a href="#section5">Section 5</a></li>
-                <li><a href="#section6">Flashing Section</a></li>
-                <li><a href="#footer">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="section1">
-            <h2 style="font-family: 'Wingdings';">Section 1</h2>
-            <input type="text" id="input1" placeholder="What's your name?" style="font-size:18px;">
-            <button onclick="generateResponse('input1', 'output1')" style="font-size:18px;">Submit</button>
-            <div id="output1" class="output"></div>
-        </section>
-        <!-- (Sections omitted for brevity) -->
-    </main>
-    <footer id="footer">
-        <h2 style="font-family: 'Wingdings';">Contact Us</h2>
-    </footer>
-    <script>
-        /* (Scripts omitted for brevity) */
-    </script>
-</body>
-</html>`;
+            const code = document.documentElement.outerHTML; // Get the entire HTML code of the page
             
             const speech = new SpeechSynthesisUtterance(code);
             speech.lang = 'en-US';
