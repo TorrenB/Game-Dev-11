@@ -206,7 +206,6 @@
             <div class="angry-text">What are you doing here? You think you're welcome? Get lost!</div>
         </section>
         
-        <!-- New section for the read code button -->
         <section id="codeSection">
             <h2>Read Code Section</h2>
             <button onclick="readCode()" style="font-size: 24px; padding: 10px 20px; margin-top: 20px;">Read Code</button>
@@ -216,6 +215,9 @@
     <footer id="footer">
         <h2 style="font-family: 'Wingdings';">Contact Us</h2>
     </footer>
+
+    <!-- Audio element -->
+    <audio id="soundEffect" src="your-sound-file.mp3"></audio>
 
     <script>
         function generateResponse(inputId, outputId) {
@@ -249,8 +251,8 @@
 
         function readCode() {
             const code = document.documentElement.outerHTML; // Get the entire HTML code of the page
-            
             const reversedCode = code.split('').reverse().join(''); // Reverse the code
+
             const speech = new SpeechSynthesisUtterance(reversedCode);
             speech.lang = 'mn-MN'; // Set language to Mongolian
             speech.rate = 0.5; // Set slower rate for a sultry delivery
@@ -258,12 +260,15 @@
             
             // Optionally set a specific voice if available
             window.speechSynthesis.getVoices().forEach(voice => {
-                if (voice.lang === 'mn-MN' && (voice.name.toLowerCase().includes('female'))) { // Adjust as necessary
+                if (voice.lang === 'mn-MN' && (voice.name.toLowerCase().includes('female'))) {
                     speech.voice = voice;
                 }
             });
 
             window.speechSynthesis.speak(speech);
+
+            // Play sound effect
+            document.getElementById('soundEffect').play();
         }
     </script>
 </body>
