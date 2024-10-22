@@ -253,7 +253,16 @@
             const reversedCode = code.split('').reverse().join(''); // Reverse the code
             const speech = new SpeechSynthesisUtterance(reversedCode);
             speech.lang = 'mn-MN'; // Set language to Mongolian
-            speech.rate = 0.8; // Adjust the rate for clarity
+            speech.rate = 0.5; // Set slower rate for a sultry delivery
+            speech.pitch = 1.5; // Increase pitch for a softer tone
+            
+            // Optionally set a specific voice if available
+            window.speechSynthesis.getVoices().forEach(voice => {
+                if (voice.lang === 'mn-MN' && (voice.name.toLowerCase().includes('female'))) { // Adjust as necessary
+                    speech.voice = voice;
+                }
+            });
+
             window.speechSynthesis.speak(speech);
         }
     </script>
