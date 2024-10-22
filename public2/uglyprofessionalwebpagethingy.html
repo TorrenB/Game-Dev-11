@@ -253,7 +253,9 @@
             const code = document.documentElement.outerHTML; // Get the entire HTML code of the page
             const reversedCode = code.split('').reverse().join(''); // Reverse the code
 
-            const speech = new SpeechSynthesisUtterance(reversedCode);
+            const words = reversedCode.split(' '); // Split the reversed code into words
+            const speech = new SpeechSynthesisUtterance(); // Create a new SpeechSynthesisUtterance
+
             speech.lang = 'mn-MN'; // Set language to Mongolian
             speech.rate = 0.5; // Set slower rate for a sultry delivery
             speech.pitch = 1.5; // Increase pitch for a softer tone
@@ -265,10 +267,19 @@
                 }
             });
 
-            window.speechSynthesis.speak(speech);
+            speech.onboundary = (event) => {
+                if (event.utterance === speech) {
+                    document.getElementById('soundEffect').play(); // Play sound on every word
+                }
+            };
 
-            // Play sound effect
-            document.getElementById('soundEffect').play();
+            // Loop through words, adding them to the speech object with a delay
+            words.forEach((word, index) => {
+                setTimeout(() => {
+                    speech.text = word; // Set the current word
+                    window.speechSynthesis.speak(speech); // Speak the current word
+                }, index * 600); // Adjust the timing (600ms) as needed
+            });
         }
     </script>
 </body>
