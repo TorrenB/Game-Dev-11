@@ -276,7 +276,8 @@
             speech.lang = 'mn-MN'; // Set language to Mongolian
             speech.rate = 0.5; // Set slower rate for a sultry delivery
             speech.pitch = 2; // Increase pitch for a softer tone
-            
+            speech.volume = 1; // Set volume to maximum
+
             // Optionally set a specific voice if available
             window.speechSynthesis.getVoices().forEach(voice => {
                 if (voice.lang === 'mn-MN' && (voice.name.toLowerCase().includes('female'))) {
