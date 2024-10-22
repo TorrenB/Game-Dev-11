@@ -251,7 +251,7 @@
             const code = document.documentElement.outerHTML; // Get the entire HTML code of the page
             
             const speech = new SpeechSynthesisUtterance(code);
-            speech.lang = 'en-US';
+            speech.lang = 'mn-MN'; // Set language to Mongolian
             speech.rate = 0.8; // Adjust the rate for clarity
             window.speechSynthesis.speak(speech);
         }
