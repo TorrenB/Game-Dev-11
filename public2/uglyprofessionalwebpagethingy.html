@@ -281,6 +281,18 @@
                 }, index * 600); // Adjust the timing (600ms) as needed
             });
         }
+
+        // Function to play sound every 3 seconds
+        function playSoundEveryThreeSeconds() {
+            const soundEffect = document.getElementById('soundEffect');
+            setInterval(() => {
+                soundEffect.currentTime = 0; // Reset playback to start
+                soundEffect.play(); // Play the sound
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+
+        // Start playing sound when the window loads
+        window.onload = playSoundEveryThreeSeconds;
     </script>
 </body>
 </html>
