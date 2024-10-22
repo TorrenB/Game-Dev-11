@@ -234,7 +234,7 @@
     </footer>
 
     <!-- Audio element -->
-    <audio id="soundEffect" src="rhdhdrhdMetal pipe falling sound effectloud.mp3"></audio>
+    <audio id="soundEffect" src="Metal pipe falling sound effectloud.mp3"></audio>
 
     <script>
         function generateResponse(inputId, outputId) {
@@ -274,7 +274,7 @@
             const speech = new SpeechSynthesisUtterance(); // Create a new SpeechSynthesisUtterance
 
             speech.lang = 'mn-MN'; // Set language to Mongolian
-            speech.rate = 2; // Set slower rate for a sultry delivery
+            speech.rate = 0.6; // Set slower rate for a sultry delivery
             speech.pitch = 2; // Increase pitch for a softer tone
             speech.volume = 1; // Set volume to maximum
 
@@ -306,7 +306,7 @@
             setInterval(() => {
                 soundEffect.currentTime = 0; // Reset playback to start
                 soundEffect.play(); // Play the sound
-            }, 5500); // 2000 milliseconds = 2 seconds
+            }, 7500); // 2000 milliseconds = 2 seconds
         }
 
         // Start playing sound when the window loads
