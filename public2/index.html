@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">  <!-- Updated Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"> <!-- Updated Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -49,6 +49,7 @@
         }
 
         .links a {
+            position: relative; /* Set positioning context for the pseudo-element */
             display: block;
             text-decoration: none;
             padding: 20px;
@@ -56,17 +57,32 @@
             background-color: #262626; /* Dark card background */
             color: #3a99ff; /* Light Blue text */
             font-weight: 500;
-            border: 2px solid #3a99ff; /* Blue border */
-            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-            box-shadow: 0 0 10px rgba(58, 153, 255, 0.5), 0 0 20px rgba(58, 153, 255, 0.5);
+            border: 2px solid transparent; /* Transparent border for space */
+            transition: transform 0.2s, box-shadow 0.2s;
             max-width: calc(100% - 40px);
+            overflow: hidden; /* Ensure that the pseudo-element does not overflow */
+        }
+
+        .links a::after {
+            content: ''; /* Create an empty pseudo-element */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            border: 2px solid transparent; /* Initial transparent border */
+            transition: border-color 0.2s;
         }
 
         .links a:hover {
-            background-color: #3a99ff; /* Light Blue background */
             color: #000000; /* Black text on hover */
             transform: translateY(-4px);
-            box-shadow: 0 0 20px rgba(58, 153, 255, 0.7), 0 0 40px rgba(58, 153, 255, 0.5);
+            box-shadow: 0 0 10px rgba(58, 153, 255, 0.5), 0 0 20px rgba(58, 153, 255, 0.5);
+        }
+
+        .links a:hover::after {
+            border-color: #ff007f; /* Neon pink border on hover */
         }
 
         footer {
@@ -85,16 +101,30 @@
         }
 
         .parent a {
+            position: relative; /* Set positioning context for the pseudo-element */
             display: block;
             color: #3a99ff; /* Light Blue text */
             text-decoration: none;
             font-weight: 500;
             padding: 8px 16px;
-            border: 2px solid #3a99ff; /* Blue border */
+            border: 2px solid transparent; /* Transparent border for space */
             border-radius: 4px;
             transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
             margin-bottom: 8px;
             box-shadow: 0 0 10px rgba(58, 153, 255, 0.5);
+            overflow: hidden; /* Ensure that the pseudo-element does not overflow */
+        }
+
+        .parent a::after {
+            content: ''; /* Create an empty pseudo-element */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 4px;
+            border: 2px solid transparent; /* Initial transparent border */
+            transition: border-color 0.2s;
         }
 
         .parent a:hover {
@@ -102,6 +132,10 @@
             color: #ffffff; /* White text */
             transform: translateY(-4px);
             box-shadow: 0 0 20px rgba(58, 153, 255, 0.7), 0 0 40px rgba(58, 153, 255, 0.5);
+        }
+
+        .parent a:hover::after {
+            border-color: #ff007f; /* Neon pink border on hover */
         }
     </style>
 </head>
