@@ -32,7 +32,7 @@
 
         h1, h2 {
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; /* Neon effect on text */
+            text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; /* Neon effect */
         }
 
         h1 {
@@ -66,32 +66,69 @@
             background-color: #262626; 
             color: #3a99ff;
             font-weight: 500;
-            border: 2px solid transparent; 
-            transition: transform 0.2s, box-shadow 0.2s;
-            max-width: calc(100% - 40px);
             overflow: hidden; 
+            box-shadow: 0 0 10px rgba(58, 153, 255, 0.5);
+            transition: transform 0.2s;
+        }
+
+        /* Initial state for the neon pink border */
+        .links a::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 8px;
+            border: 2px solid #ff007f; /* Neon pink */
+            transform: scale(0);
+            transition: transform 0.5s;
+            z-index: -1; /* Send behind background */
         }
 
         .links a::after {
-            content: ''; 
-            position: absolute;
+            content: '';
+            position: absolute; 
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             border-radius: 8px;
-            border: 2px solid transparent; 
-            transition: border-color 0.2s;
+            transition: background-color 0.2s;
+            clip-path: inset(0% 100% 0% 0%); /* Hide overflow */
         }
 
         .links a:hover {
             color: #000000; 
             transform: translateY(-4px);
-            box-shadow: 0 0 10px rgba(58, 153, 255, 0.5), 0 0 20px rgba(58, 153, 255, 0.5);
+            background-color: #3a99ff; /* Neon Blue background on hover */
+        }
+
+        .links a:hover::before {
+            transform: scale(1);
         }
 
         .links a:hover::after {
-            border-color: #ff007f; 
+            animation: moveBorder 1s linear forwards; /* Animating the moving outline */
+            background-color: #3a99ff; /* Keep the background color */
+        }
+
+        @keyframes moveBorder {
+            0% {
+                clip-path: inset(0% 100% 0% 0%);
+            }
+            25% {
+                clip-path: inset(0% 0% 0% 0%);
+            }
+            50% {
+                clip-path: inset(100% 0% 0% 0%);
+            }
+            75% {
+                clip-path: inset(0% 0% 100% 0%);
+            }
+            100% {
+                clip-path: inset(0% 0% 0% 100%);
+            }
         }
 
         footer {
