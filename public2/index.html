@@ -5,25 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"> <!-- Updated Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"> <!-- Font Import -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #1e1e2f; /* Dark background */
-            color: #ffffff; /* White text */
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff; /* White text */
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             height: 100vh;
             overflow-y: auto;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) 20%, rgba(58, 99, 255, 0.8) 20%, rgba(58, 99, 255, 0.8) 40%, rgba(255, 0, 120, 0.8) 40%, rgba(255, 0, 120, 0.8) 60%, rgba(0, 0, 0, 0.8) 60%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1, h2 {
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; /* Neon effect */
+            text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; /* Neon effect on text */
         }
 
         h1 {
@@ -49,46 +58,46 @@
         }
 
         .links a {
-            position: relative; /* Set positioning context for the pseudo-element */
+            position: relative; 
             display: block;
             text-decoration: none;
             padding: 20px;
             border-radius: 8px;
-            background-color: #262626; /* Dark card background */
-            color: #3a99ff; /* Light Blue text */
+            background-color: #262626; 
+            color: #3a99ff;
             font-weight: 500;
-            border: 2px solid transparent; /* Transparent border for space */
+            border: 2px solid transparent; 
             transition: transform 0.2s, box-shadow 0.2s;
             max-width: calc(100% - 40px);
-            overflow: hidden; /* Ensure that the pseudo-element does not overflow */
+            overflow: hidden; 
         }
 
         .links a::after {
-            content: ''; /* Create an empty pseudo-element */
+            content: ''; 
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             border-radius: 8px;
-            border: 2px solid transparent; /* Initial transparent border */
+            border: 2px solid transparent; 
             transition: border-color 0.2s;
         }
 
         .links a:hover {
-            color: #000000; /* Black text on hover */
+            color: #000000; 
             transform: translateY(-4px);
             box-shadow: 0 0 10px rgba(58, 153, 255, 0.5), 0 0 20px rgba(58, 153, 255, 0.5);
         }
 
         .links a:hover::after {
-            border-color: #ff007f; /* Neon pink border on hover */
+            border-color: #ff007f; 
         }
 
         footer {
             margin-top: 40px;
             font-size: 0.8em;
-            color: #cccccc; /* Light Gray */
+            color: #cccccc; 
             text-align: center;
             width: 100%;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
@@ -101,46 +110,59 @@
         }
 
         .parent a {
-            position: relative; /* Set positioning context for the pseudo-element */
+            position: relative; 
             display: block;
-            color: #3a99ff; /* Light Blue text */
+            color: #3a99ff; 
             text-decoration: none;
             font-weight: 500;
             padding: 8px 16px;
-            border: 2px solid transparent; /* Transparent border for space */
+            border: 2px solid transparent; 
             border-radius: 4px;
             transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
             margin-bottom: 8px;
             box-shadow: 0 0 10px rgba(58, 153, 255, 0.5);
-            overflow: hidden; /* Ensure that the pseudo-element does not overflow */
+            overflow: hidden;
         }
 
         .parent a::after {
-            content: ''; /* Create an empty pseudo-element */
+            content: ''; 
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             border-radius: 4px;
-            border: 2px solid transparent; /* Initial transparent border */
+            border: 2px solid transparent; 
             transition: border-color 0.2s;
         }
 
         .parent a:hover {
-            background-color: #3a99ff; /* Light Blue background */
-            color: #ffffff; /* White text */
+            background-color: #3a99ff; 
+            color: #ffffff; 
             transform: translateY(-4px);
             box-shadow: 0 0 20px rgba(58, 153, 255, 0.7), 0 0 40px rgba(58, 153, 255, 0.5);
         }
 
         .parent a:hover::after {
-            border-color: #ff007f; /* Neon pink border on hover */
+            border-color: #ff007f; 
+        }
+
+        /* City skyline SVG */
+        .skyline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><rect width="10" height="20" x="5" y="10" fill="%233a99ff"/><rect width="8" height="15" x="15" y="5" fill="%23ff007f"/><rect width="3" height="12" x="20" y="8" fill="%233a99ff"/><rect width="6" height="18" x="25" y="2" fill="%23ff007f"/><rect width="12" height="10" x="35" y="10" fill="%233a99ff"/><rect width="5" height="14" x="50" y="6" fill="%23ff007f"/><rect width="5" height="6" x="60" y="14" fill="%233a99ff"/><rect width="10" height="16" x="70" y="4" fill="%23ff007f"/><rect width="3" height="8" x="85" y="12" fill="%233a99ff"/><rect width="5" height="10" x="90" y="10" fill="%23ff007f"/></svg>') no-repeat center bottom; 
+            background-size: cover; /* Make the SVG image cover the area */
         }
     </style>
 </head>
 
 <body>
+
+    <div class="skyline"></div> <!-- City Skyline -->
 
     <h1>Torrens Index</h1>
 
