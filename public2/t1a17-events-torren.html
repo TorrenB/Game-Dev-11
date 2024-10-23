@@ -116,7 +116,7 @@
 <h1>JavaScript Events Example</h1>
 <div id="mydiv01">Move your mouse around!</div>
 <div class="container">
-    <!-- All your existing boxes -->
+    <!-- Enter Your Name Section -->
     <div class="event-box" onclick="focusBox(event)">
         <h3>Enter Your Name</h3>
         <input type="text" id="nameInput" placeholder="Enter your name" />
@@ -124,8 +124,93 @@
         <p class="result" id="nameResult"></p>
     </div>
 
-    <!-- Additional Event Boxes goes here -->
+    <!-- Click Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Click Event</h3>
+        <button id="colorButton" onclick="changeButtonColor(this)">Click Me</button>
+        <p class="explanation">This event triggers when the button is clicked.</p>
+        <p class="result" id="clickResult"></p>
+    </div>
 
+    <!-- Double Click Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>DblClick Event</h3>
+        <button ondblclick="handleDoubleClick(this)">Double Click Me</button>
+        <p class="explanation">Triggered when the button is double-clicked quickly.</p>
+        <p class="result" id="dblClickResult"></p>
+    </div>
+
+    <!-- Mouse Over Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Mouse Over Event</h3>
+        <button onmouseover="changeColor(this, '#FFD700')" onmouseout="changeColor(this, '')">Hover Over Me</button>
+        <p class="explanation">Triggers when the mouse pointer moves over the button.</p>
+    </div>
+
+    <!-- Context Menu Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Context Menu Event</h3>
+        <button oncontextmenu="handleRightClick(this); return false;">Right Click Me</button>
+        <p class="explanation">Occurs when the right mouse button is clicked on the button.</p>
+        <p class="result" id="rightClickResult"></p>
+    </div>
+
+    <!-- Focus and Blur Events -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Focus and Blur Events</h3>
+        <input type="text" id="blurInput" onfocus="clearBlur()" oninput="inputModified()" onblur="applyBlur()" placeholder="Type and then click away" />
+        <p class="explanation">Text will only blur after typing and clicking out.</p>
+    </div>
+
+    <!-- Scroll Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Scroll Event</h3>
+        <div style="height: 200px; overflow-y: scroll; border: 1px solid #6C757D;">
+            <div style="height: 500px; background: linear-gradient(to bottom, #fff, #ddd);"></div>
+        </div>
+        <p class="explanation">This event triggers when an element is scrolled.</p>
+        <p class="result" id="scrollResult"></p>
+    </div>
+
+    <!-- Input Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Input Event</h3>
+        <input type="text" id="inputChange" oninput="showResult(`Input changed to: ${this.value}`, 'inputResult')" placeholder="Type here..." />
+        <p class="explanation">Triggers when the input value changes.</p>
+        <p class="result" id="inputResult"></p>
+    </div>
+
+    <!-- Change Event -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Change Event</h3>
+        <select onchange="showResult(`Selected: ${this.value}`, 'changeResult')">
+            <option value="">Select an option</option>
+            <option value="Beans">Beans</option>
+            <option value="Spaghetti">Spaghetti</option>
+            <option value="Quantum Physics">Quantum Physics</option>
+        </select>
+        <p class="explanation">This event triggers when the option is changed.</p>
+        <p class="result" id="changeResult"></p>
+    </div>
+
+    <!-- Key Events -->
+    <div class="event-box" onclick="focusBox(event)">
+        <h3>Key Events</h3>
+        <input type="text" id="keyInput" onkeydown="showKeyPress(event, 'keyDownResult')" onkeyup="showKeyPress(event, 'keyUpResult')" placeholder="Press a key..." />
+        <p class="explanation">Type in the box to see key events.</p>
+        <p class="result" id="keyDownResult"></p>
+        <p class="result" id="keyUpResult"></p>
+        <p class="result" id="keyPressResult"></p> 
+    </div>
+
+    <!-- CPS Test Section -->
+    <div class="cps-test-box event-box" onclick="focusBox(event)">
+        <h3>CPS Test</h3>
+        <button id="startCpsTestButton" onclick="startCpsTest()">Start Test</button>
+        <div class="countdown" id="cpsCountdown">10</div>
+        <div class="current-cps" id="currentCpsDisplay">Current CPS: 0</div>
+        <div class="best-cps" id="bestCpsDisplay">Best CPS: 0</div>
+    </div>
 </div>
 
 <script>
@@ -155,15 +240,95 @@
         }
     });
 
+    function startCpsTest() {
+        resetTest();
+        const button = document.getElementById('startCpsTestButton');
+        button.onclick = () => clickCount++;
+        
+        let timeLeft = 10;
+        countdownInterval = setInterval(() => {
+            if (timeLeft <= 0) endCpsTest();
+            document.getElementById('cpsCountdown').textContent = --timeLeft;
+        }, 1000);
+        
+        testInterval = setInterval(() => {
+            document.getElementById('currentCpsDisplay').textContent = `Current CPS: ${(clickCount / (10 - timeLeft)).toFixed(2)}`;
+        }, 100);
+    }
+
+    function resetTest() {
+        clickCount = 0;
+        document.getElementById('currentCpsDisplay').textContent = 'Current CPS: 0';
+        document.getElementById('cpsCountdown').textContent = '10';
+        document.getElementById('bestCpsDisplay').textContent = `Best CPS: ${bestCps.toFixed(2)}`;
+        clearInterval(testInterval);
+        clearInterval(countdownInterval);
+    }
+
+    function endCpsTest() {
+        clearInterval(testInterval);
+        const cps = clickCount / 10;
+        if (cps > bestCps) bestCps = cps;
+
+        updateCpsDisplay(cps);
+    }
+
+    function updateCpsDisplay(cps) {
+        document.getElementById('currentCpsDisplay').textContent = `Test ended! Your CPS: ${cps.toFixed(2)}`;
+        document.getElementById('bestCpsDisplay').textContent = `Best CPS: ${bestCps.toFixed(2)}`;
+        const button = document.getElementById('startCpsTestButton');
+        button.textContent = 'Start Test Again';
+        button.onclick = startCpsTest;
+    }
+
+    function changeButtonColor(button) {
+        button.style.backgroundColor = randomColor();
+    }
+
+    function handleDoubleClick(button) {
+        button.style.backgroundColor = randomColor();
+        showResult('Button Double Clicked!', 'dblClickResult');
+    }
+
+    function handleRightClick(button) {
+        button.style.backgroundColor = randomColor();
+        showResult('Right Click Event Triggered!', 'rightClickResult');
+    }
+
+    function changeColor(button, color) {
+        button.style.backgroundColor = color;
+    }
+
+    function randomColor() {
+        const colors = ['#007BFF', '#FFC107', '#6C757D', '#343A40'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    const eventCounts = {};
+    function incrementEventCount(event) {
+        eventCounts[event] = (eventCounts[event] || 0) + 1;
+        return eventCounts[event];
+    }
+
+    function showResult(message, resultId) {
+        const count = incrementEventCount(message);
+        document.getElementById(resultId).textContent = `${message} (${count})`;
+    }
+
+    function showKeyPress(event, resultId) {
+        const key = event.key;
+        const action = event.type === 'keydown' ? 'Pressed' : 'Released';
+        const message = `Key ${action}: ${key}`;
+        document.getElementById(resultId).textContent = message;
+        document.getElementById('keyPressResult').textContent = `Last Key Pressed: ${key}`;
+    }
+
     function submitName() {
         const nameInput = document.getElementById('nameInput').value.trim();
         document.getElementById('nameResult').textContent = nameInput ? 
             `Your amazing Skibidi Ohio Rizzler name is ${nameInput}!` : 
             "Please enter a name.";
     }
-    
-    // Other existing functions...
-
 </script>
 
 </body>
