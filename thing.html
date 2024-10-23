@@ -6,7 +6,7 @@
     <title>Text to Speech</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
-        label, select, input { margin: 10px; }
+        label, select, input, button { margin: 10px; }
     </style>
 </head>
 <body>
@@ -14,6 +14,7 @@
 <h1>Text to Speech Demo</h1>
 <input type="text" id="text-input" placeholder="Type something..." />
 <button id="speak-button">Speak</button>
+<button id="change-voice-button">Change Gender</button>
 
 <h2>Voice Settings</h2>
 <label for="voice-select">Voice:</label>
@@ -30,6 +31,7 @@
 <script>
     const textInput = document.getElementById('text-input');
     const speakButton = document.getElementById('speak-button');
+    const changeVoiceButton = document.getElementById('change-voice-button');
     const voiceSelect = document.getElementById('voice-select');
     const rateControl = document.getElementById('rate');
     const volumeControl = document.getElementById('volume');
@@ -37,19 +39,30 @@
     const volumeValue = document.getElementById('volume-value');
 
     let voices = [];
+    let currentVoiceIndex = 0;
 
     function populateVoiceList() {
         voices = speechSynthesis.getVoices();
+        voiceSelect.innerHTML = '';
         voices.forEach((voice, index) => {
             const option = document.createElement('option');
             option.value = index;
             option.textContent = `${voice.name} (${voice.lang})`;
             voiceSelect.appendChild(option);
         });
+        setDefaultIndianVoice(); // Set default Indian voice
+    }
+
+    function setDefaultIndianVoice() {
+        const indianVoiceIndex = voices.findIndex(voice => voice.lang.includes('en-IN'));
+        if (indianVoiceIndex !== -1) {
+            currentVoiceIndex = indianVoiceIndex;
+            voiceSelect.selectedIndex = indianVoiceIndex;
+        }
     }
 
     speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
-    populateVoiceList(); // Call it initially in case the voices are already loaded
+    populateVoiceList();
 
     speakButton.addEventListener('click', () => {
         const utterance = new SpeechSynthesisUtterance(textInput.value);
@@ -74,6 +87,14 @@
 
     volumeControl.addEventListener('input', () => {
         volumeValue.textContent = volumeControl.value;
+    });
+
+    changeVoiceButton.addEventListener('click', () => {
+        if (voices.length > 0) {
+            // Toggle between male and female voices
+            currentVoiceIndex = (currentVoiceIndex + 1) % voices.length;
+            voiceSelect.selectedIndex = currentVoiceIndex;
+        }
     });
 
 </script>
