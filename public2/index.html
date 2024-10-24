@@ -68,46 +68,32 @@
             font-weight: 500;
             overflow: hidden; 
             box-shadow: 0 0 10px rgba(58, 153, 255, 0.5);
-            transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
+            transition: color 0.2s, background-color 0.3s, box-shadow 0.2s;
         }
 
-        .links a::before {
+        .links a::after {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
             border-radius: 8px;
             border: 2px solid #ff007f; /* Neon pink */
-            transform: translate(20px, 20px); /* Start position: bottom right */
-            z-index: -1; /* Send behind background */
+            transform: scale(0); /* Start with no visible border */
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            pointer-events: none; /* Avoid interaction with the pseudo-element */
+            opacity: 1; /* Ensure pseudo-element is visible */
         }
 
-        @keyframes moveBorder {
-            0% {
-                transform: translate(20px, 20px); /* Start at bottom right */
-            }
-            25% {
-                transform: translate(20px, -20px); /* Move to top right */
-            }
-            50% {
-                transform: translate(-20px, -20px); /* Move to top left */
-            }
-            75% {
-                transform: translate(-20px, 20px); /* Move to bottom left */
-            }
-            100% {
-                transform: translate(20px, 20px); /* Return to bottom right */
-            }
+        .links a:hover::after {
+            transform: scale(1); /* Scale up to show border on hover */
         }
 
         .links a:hover {
             color: #000000; 
-            transform: translateY(-4px);
             background-color: #3a99ff; /* Neon Blue background on hover */
             box-shadow: 0 0 20px rgba(58, 153, 255, 1), 0 0 40px rgba(58, 153, 255, 0.5); /* Increased glow effect */
-            animation: moveBorder 1s linear forwards; /* Attach the animation */
         }
 
         .parent {
@@ -203,7 +189,7 @@
     </div>
 
     <footer aria-label="Footer">
-        &copy; 2023 Torrens Index. All rights reserved.
+        © 2023 Torrens Index. All rights reserved.
     </footer>
 
 </body>
