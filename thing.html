@@ -4,29 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text to Speech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        label, select, input, button { margin: 10px; }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
+            color: #333; 
+        }
+
+        h1 { 
+            text-align: center; 
+            color: #5a5a5a; 
+        }
+
+        .container {
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        textarea {
+            width: 100%; 
+            height: 150px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            padding: 10px; 
+            font-size: 16px; 
+            resize: none; 
+            margin-bottom: 20px; 
+            outline: none; 
+            transition: border 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #007bff; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            padding: 10px 15px; 
+            font-size: 16px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px 5px; 
+            transition: background 0.3s, transform 0.3s; 
+        }
+
+        button:hover {
+            background: #0056b3; 
+            color: white;
+            transform: translateY(-2px); 
+        }
+
+        button:active {
+            transform: translateY(0); 
+        }
+
+        select, 
+        input[type="range"] {
+            width: calc(100% - 20px); 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            margin: 10px 0; 
+            outline: none; 
+            font-size: 16px;
+            box-sizing: border-box; 
+            transition: border 0.3s;
+        }
+
+        select:focus, 
+        input[type="range"]:focus {
+            border-color: #007bff; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        span {
+            display: inline-block; 
+            margin: 0 10px; 
+        }
+
+        h2 {
+            font-size: 1.5em; 
+            margin-top: 20px; 
+            color: #333;
+        }
     </style>
 </head>
 <body>
 
-<h1>Text to Speech Demo</h1>
-<input type="text" id="text-input" placeholder="Type something..." />
-<button id="speak-button">Speak</button>
-<button id="change-voice-button">Change Gender</button>
+<div class="container">
+    <h1>Text to Speech Demo</h1>
+    <textarea id="text-input" placeholder="Type something..."></textarea>
+    <button id="speak-button">Speak</button>
+    <button id="change-voice-button">Change Gender</button>
 
-<h2>Voice Settings</h2>
-<label for="voice-select">Voice:</label>
-<select id="voice-select"></select><br>
+    <h2>Voice Settings</h2>
+    <label for="voice-select">Voice:</label>
+    <select id="voice-select"></select>
 
-<label for="rate">Rate:</label>
-<input type="range" id="rate" min="0.1" max="2" step="0.1" value="1"><br>
-<span id="rate-value">1</span><br>
+    <label for="rate">Rate:</label>
+    <input type="range" id="rate" min="0.1" max="2" step="0.1" value="1"><br>
+    <span id="rate-value">1</span>
 
-<label for="volume">Volume:</label>
-<input type="range" id="volume" min="0" max="1" step="0.1" value="1"><br>
-<span id="volume-value">1</span><br>
+    <label for="volume">Volume:</label>
+    <input type="range" id="volume" min="0" max="1" step="0.1" value="1"><br>
+    <span id="volume-value">1</span>
+</div>
 
 <script>
     const textInput = document.getElementById('text-input');
@@ -72,6 +162,12 @@
         utterance.rate = rateControl.value;
         utterance.volume = volumeControl.value;
 
+        // Cancel currently speaking text before speaking new text
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+
+        // Speak the new utterance
         speechSynthesis.speak(utterance);
     });
 
@@ -96,7 +192,6 @@
             voiceSelect.selectedIndex = currentVoiceIndex;
         }
     });
-
 </script>
 
 </body>
