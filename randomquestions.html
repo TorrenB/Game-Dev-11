@@ -11,31 +11,54 @@
             background-color: black;
             color: white;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: yellow;
+        }
+        #score {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        #quiz {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
         }
         #question {
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 20px;
         }
-        #options {
-            margin-bottom: 20px;
-        }
-        button {
-            margin-right: 10px;
-            padding: 10px;
+        #options button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            max-width: 300px;
             background-color: blue;
             color: yellow;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            transition: background 0.3s;
         }
-        button:hover {
+        #options button:hover {
             background-color: yellow;
             color: black;
         }
         #hint {
             margin-top: 10px;
-            font-size: 14px;
+            font-size: 16px;
             color: yellow;
+        }
+        button {
+            margin: 10px 5px; /* Spacing between buttons */
         }
     </style>
 </head>
