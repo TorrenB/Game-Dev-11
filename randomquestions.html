@@ -31,13 +31,20 @@
             max-width: 600px;
             text-align: center;
             margin-bottom: 20px;
+            transition: opacity 0.5s ease; /* Fade transition */
+            opacity: 1;
         }
         #question {
             font-size: 24px;
             margin-bottom: 20px;
         }
+        #options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         #options button {
-            margin: 10px 0;
+            margin: 15px 0;
             padding: 12px;
             width: 100%;
             max-width: 300px;
@@ -57,9 +64,6 @@
             font-size: 16px;
             color: yellow;
         }
-        button {
-            margin: 10px 5px; /* Spacing between buttons */
-        }
     </style>
 </head>
 <body>
@@ -67,7 +71,6 @@
     <div id="score">Score: 0</div>
     <div id="quiz"></div>
     <button id="hintButton">Get Hint (Cost: 3 points)</button>
-    <button id="nextButton" style="display:none;">Next Question</button>
 
     <script>
         const questions = [
@@ -128,38 +131,70 @@
             { question: "What fruit has seeds on the outside?", options: ["Kiwi", "Banana", "Strawberry", "Blueberry"], answer: 2, hint: "It is often used in desserts." },
         ];
 
+        // Shuffle the questions array to randomize order
+        function shuffleQuestions(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions on startup
+        shuffleQuestions(questions);
+
         let currentQuestionIndex = 0;
         let score = 0;
+        let firstAttempt = true; // Track if it's the first attempt
 
         function showQuestion() {
+            const quizDiv = document.getElementById("quiz");
+            quizDiv.style.opacity = 1; // Reset opacity for fade in
+
+            // Clear previous hint
+            document.getElementById("hint").innerText = "";
+
             if (currentQuestionIndex >= questions.length) {
-                document.getElementById("quiz").innerHTML = "<div>Quiz Over! Your score is: " + score + "</div>";
+                quizDiv.innerHTML = "<div>Quiz Over! Your score is: " + score + "</div>";
                 document.getElementById("hintButton").style.display = "none";
-                document.getElementById("nextButton").style.display = "none";
                 return;
             }
 
+            firstAttempt = true; // Reset for new question
             const question = questions[currentQuestionIndex];
             const questionHtml = `<div id="question">${question.question}</div>`;
             const optionsHtml = question.options.map((option, index) => `<button onclick="checkAnswer(${index})">${option}</button>`).join("");
             
-            document.getElementById("quiz").innerHTML = questionHtml + `<div id="options">${optionsHtml}</div><div id="hint"></div>`;
-            document.getElementById("hintButton").style.display = "inline";
-            document.getElementById("nextButton").style.display = "none";
+            quizDiv.innerHTML = questionHtml + `<div id="options">${optionsHtml}</div>`;
         }
 
         function checkAnswer(selectedIndex) {
             const question = questions[currentQuestionIndex];
+            const quizDiv = document.getElementById("quiz");
             const hintDiv = document.getElementById("hint");
 
             if (selectedIndex === question.answer) {
-                score += 5;
-                hintDiv.innerText = "Correct Answer!";
-                document.getElementById("nextButton").style.display = "inline";
-                document.getElementById("hintButton").style.display = "none";
+                if (firstAttempt) {
+                    score += 5;  // Full score for the first attempt
+                    hintDiv.innerText = "Correct Answer!";
+                } else {
+                    score += 2;  // Reduced score for subsequent attempts
+                    hintDiv.innerText = "Correct Answer, but you missed the first attempt.";
+                }
+
+                firstAttempt = false; // Mark that the answer has been checked
+
+                // Fade out and then show next question
+                quizDiv.style.opacity = 0;
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    showQuestion();
+                    quizDiv.style.opacity = 1; // Fade in the next question
+                }, 500); // Wait for half a second before moving to the next question
+
                 document.getElementById("score").innerText = "Score: " + score;
             } else {
                 hintDiv.innerText = "Wrong Answer. Try again!";
+                firstAttempt = false; // Mark that the answer was checked
             }
         }
 
@@ -171,11 +206,6 @@
             } else {
                 document.getElementById("hint").innerText = "You need at least 3 points to use a hint!";
             }
-        });
-
-        document.getElementById("nextButton").addEventListener("click", function() {
-            currentQuestionIndex++;
-            showQuestion();
         });
 
         showQuestion();  // Show first question
