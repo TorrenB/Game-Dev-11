@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,17 +18,17 @@
             height: 100vh;
             overflow-y: auto;
             position: relative;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 20%, rgba(0, 51, 255, 0.8) 20%, rgba(0, 51, 255, 0.8) 40%, rgba(255, 0, 90, 0.8) 40%, rgba(255, 0, 90, 0.8) 60%, rgba(0, 0, 0, 0.9) 60%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 20%, rgba(0, 30, 200, 0.8) 20%, rgba(0, 30, 200, 0.8) 40%, rgba(200, 0, 64, 0.8) 40%, rgba(200, 0, 64, 0.8) 60%, rgba(0, 0, 0, 0.9) 60%);
             background-size: 400% 400%;
             animation: gradientAnimation 15s ease infinite;
         }
 
         @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }    /* From left */
-            25% { background-position: 50% 0%; }   /* From top */
-            50% { background-position: 100% 0%; }  /* From top-right */
-            75% { background-position: 100% 100%; } /* From bottom-right */
-            100% { background-position: 0% 100%; }  /* From bottom-left */
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 0%; }
+            50% { background-position: 100% 0%; }
+            75% { background-position: 100% 100%; }
+            100% { background-position: 0% 100%; }
         }
 
         h1, h2 {
@@ -194,5 +193,4 @@
     </footer>
 
 </body>
-
 </html>
