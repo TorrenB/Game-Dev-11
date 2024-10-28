@@ -1,224 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Orbitron', sans-serif;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            height: 100vh;
-            overflow: hidden;
-            position: relative; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torrens Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+margin: 0;
+padding: 0;
+font-family: 'Orbitron', sans-serif;
+color: #ffffff;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+height: 100vh;
+overflow-y: auto;
+position: relative;
+background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) 20%, rgba(58, 99, 255, 0.6) 20%, rgba(58, 99, 255, 0.6) 40%, rgba(255, 0, 120, 0.7) 40%, rgba(255, 0, 120, 0.7) 60%, rgba(0, 0, 0, 0.8) 60%);
+background-size: 400% 400%;
+animation: gradientAnimation 15s ease infinite;
+}
 
-        @keyframes backgroundAnimation {
-            0% { transform: translateX(-100%); }
-            25% { transform: translateX(0); }
-            50% { transform: translateX(0); }
-            75% { transform: translateX(100%); }
-            100% { transform: translateX(100%); }
-        }
+@keyframes gradientAnimation {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
 
-        .color-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            animation: backgroundAnimation 12s linear infinite;
-        }
+h1, h2 {
+margin-bottom: 20px;
+text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; 
+}
 
-        .color-layer:nth-child(1) {
-            background-color: rgba(0, 0, 0, 0.9); /* Black */
-            animation-delay: 0s;       /* No delay for the first layer */
-        }
+h1 {
+font-size: 3em;
+text-shadow: 
+0 0 10px #1f51ff, 
+0 0 20px #1f51ff, 
+0 0 30px #1f51ff; 
+}
 
-        .color-layer:nth-child(2) {
-            background-color: rgba(200, 0, 64, 0.8); /* Pink */
-            animation-delay: 4s;       /* Delay to start when it's time to show pink */
-        }
+h2 {
+font-size: 2em;
+}
 
-        .color-layer:nth-child(3) {
-            background-color: rgba(80, 0, 128, 0.8); /* Purple */
-            animation-delay: 8s;       /* Delay to start when it's time to show purple */
-        }
+.links {
+display: flex;
+flex-wrap: wrap;
+list-style: none;
+padding: 0;
+margin: 0;
+width: 100%;
+}
 
-        h1, h2 {
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(0, 51, 255, 1), 0 0 30px rgba(0, 51, 255, 1), 0 0 40px rgba(0, 51, 255, 1); 
-        }
+.links li {
+margin-right: 20px;
+margin-bottom: 20px;
+}
 
-        h1 {
-            font-size: 3em;
-            text-shadow: 
-                0 0 10px rgba(0, 51, 255, 1),
-                0 0 20px rgba(0, 51, 255, 1),
-                0 0 30px rgba(0, 51, 255, 1);
-        }
+.links a {
+position: relative;
+display: block;
+text-decoration: none;
+padding: 20px;
+border-radius: 8px;
+background-color: #1f51ff;
+color: #ffffff;
+font-weight: 500;
+box-shadow: 0 0 10px rgba(31, 81, 255, 0.7);
+transition: color 0.2s, background-color 0.3s;
+}
 
-        h2 {
-            font-size: 2em;
-            text-shadow: 
-                0 0 10px rgba(0, 51, 255, 1),
-                0 0 20px rgba(0, 51, 255, 0.8);
-        }
+.links a::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+height: 100%;
+width: 100%;
+border-radius: 8px;
+border: 2px solid transparent; 
+transition: border-color 0.5s ease;
+}
 
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-        }
+.links a:hover::after {
+border-color: #ff007f; 
+}
 
-        .links li {
-            margin-right: 20px;
-            margin-bottom: 20px;
-        }
+.links a:hover {
+color: #000000; 
+}
 
-        .links a {
-            position: relative;
-            display: block;
-            text-decoration: none;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: rgba(0, 51, 255, 0.8); /* Blue button color */
-            color: #ffffff;
-            font-weight: 500;
-            box-shadow: 0 0 10px rgba(0, 51, 255, 0.7);
-            transition: color 0.2s, background-color 0.3s;
-        }
+.parent {
+width: 100%;
+margin-top: 40px;
+text-align: right;
+}
 
-        .links a::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            border-radius: 8px;
-            border: 2px solid transparent; 
-            transition: border-color 0.5s ease;
-        }
+.parent a {
+position: relative; 
+display: block;
+color: #ffffff;
+text-decoration: none;
+font-weight: 500;
+padding: 8px 16px;
+border: 2px solid transparent;
+border-radius: 4px;
+transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+margin-bottom: 8px;
+overflow: hidden;
+box-shadow: 0 0 10px rgba(31, 81, 255, 0.5);
+background-color: #1f51ff; 
+}
 
-        .links a:hover::after {
-            border-color: #ff007f; 
-        }
+.parent a:hover {
+color: #ffffff; 
+transform: translateY(-4px);
+box-shadow: 0 0 20px rgba(31, 81, 255, 0.7), 0 0 40px rgba(31, 81, 255, 0.5);
+}
 
-        .links a:hover {
-            color: #000000; 
-        }
+.parent a::after {
+content: ''; 
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+border-radius: 4px;
+border: 2px solid transparent; 
+transition: border-color 0.2s;
+}
 
-        .parent {
-            width: 100%;
-            margin-top: 40px;
-            text-align: right;
-        }
+.parent a:hover::after {
+border-color: #ff007f; 
+}
 
-        .parent a {
-            position: relative; 
-            display: block;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-            margin-bottom: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(200, 0, 64, 0.5);
-            background-color: rgba(0, 51, 255, 0.8); /* Blue button color */
-        }
-
-        .parent a:hover {
-            color: #ffffff; 
-            transform: translateY(-4px);
-            box-shadow: 0 0 20px rgba(200, 0, 64, 0.7), 0 0 40px rgba(200, 0, 64, 0.5);
-        }
-
-        .parent a::after {
-            content: ''; 
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 4px;
-            border: 2px solid transparent; 
-            transition: border-color 0.2s;
-        }
-
-        .parent a:hover::after {
-            border-color: #ff007f; 
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #cccccc; 
-            text-align: center;
-            width: 100%;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-    </style>
+footer {
+margin-top: 40px;
+font-size: 0.8em;
+color: #cccccc; 
+text-align: center;
+width: 100%;
+text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+</style>
 </head>
 
 <body>
 
-    <div class="color-layer"></div>
-    <div class="color-layer"></div>
-    <div class="color-layer"></div>
+<h1>Torrens Index</h1>
 
-    <h1>Torrens Index</h1>
+<ul class="links">
+    <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a11-arrays-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
+</ul>
 
-    <ul class="links">
-        <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a11-arrays-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
-         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
-         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
-        
-    </ul>
-
-    <div class="parent">
-        <h2>X Assignments</h2>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
+<div class="parent">
+<h2>X Assignments</h2>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
+<a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speach</a>
+        < a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
         <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
-    </div>
+</div>
 
-    <footer aria-label="Footer">
-        © 2023 Torrens Index. All rights reserved.
-    </footer>
+<footer aria-label="Footer">
+© 2023 Torrens Index. All rights reserved.
+</footer>
 
 </body>
+
 </html>
