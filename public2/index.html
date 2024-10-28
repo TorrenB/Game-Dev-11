@@ -26,8 +26,10 @@
 
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            25% { background-position: 50% 0%; } /* Move from left to top */
+            50% { background-position: 100% 50%; } /* Move from top to right */
+            75% { background-position: 50% 100%; } /* Move from right to bottom */
+            100% { background-position: 0% 50%; } /* Move from bottom to left */
         }
 
         h1, h2 {
