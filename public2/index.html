@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torrens Index</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -16,36 +15,61 @@
             flex-direction: column;
             align-items: flex-start;
             height: 100vh;
-            overflow-y: auto;
-            position: relative;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(200, 0, 64, 0.8), rgba(80, 0, 128, 0.8), rgba(0, 0, 0, 0.9));
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s linear infinite;
+            overflow: hidden;
+            position: relative; 
         }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 25% 50%; }
-            50% { background-position: 50% 50%; }
-            75% { background-position: 75% 50%; }
-            100% { background-position: 100% 50%; }
+        @keyframes backgroundAnimation {
+            0% { transform: translateX(-100%); }
+            25% { transform: translateX(0); }
+            50% { transform: translateX(0); }
+            75% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .color-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: backgroundAnimation 12s linear infinite;
+        }
+
+        .color-layer:nth-child(1) {
+            background-color: rgba(0, 0, 0, 0.9); /* Black */
+            animation-delay: 0s;       /* No delay for the first layer */
+        }
+
+        .color-layer:nth-child(2) {
+            background-color: rgba(200, 0, 64, 0.8); /* Pink */
+            animation-delay: 4s;       /* Delay to start when it's time to show pink */
+        }
+
+        .color-layer:nth-child(3) {
+            background-color: rgba(80, 0, 128, 0.8); /* Purple */
+            animation-delay: 8s;       /* Delay to start when it's time to show purple */
         }
 
         h1, h2 {
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #ff007f, 0 0 30px #ff007f, 0 0 40px #ff007f; 
+            text-shadow: 0 0 20px rgba(0, 51, 255, 1), 0 0 30px rgba(0, 51, 255, 1), 0 0 40px rgba(0, 51, 255, 1); 
         }
 
         h1 {
             font-size: 3em;
             text-shadow: 
-                0 0 10px rgba(200, 0, 64, 1),
-                0 0 20px rgba(200, 0, 64, 1),
-                0 0 30px rgba(200, 0, 64, 1); 
+                0 0 10px rgba(0, 51, 255, 1),
+                0 0 20px rgba(0, 51, 255, 1),
+                0 0 30px rgba(0, 51, 255, 1);
         }
 
         h2 {
             font-size: 2em;
+            text-shadow: 
+                0 0 10px rgba(0, 51, 255, 1),
+                0 0 20px rgba(0, 51, 255, 0.8);
         }
 
         .links {
@@ -152,6 +176,10 @@
 
 <body>
 
+    <div class="color-layer"></div>
+    <div class="color-layer"></div>
+    <div class="color-layer"></div>
+
     <h1>Torrens Index</h1>
 
     <ul class="links">
@@ -166,7 +194,7 @@
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a11-extend-classes-torren</a></li>
+        <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a11-classes-torren</a></li>
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a12-arrays-torren</a></li>
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a13-objects-torren</a></li>
         <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
