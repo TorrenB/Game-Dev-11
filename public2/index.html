@@ -18,30 +18,30 @@
             height: 100vh;
             overflow-y: auto;
             position: relative;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 20%, rgba(0, 30, 200, 0.8) 20%, rgba(0, 30, 200, 0.8) 40%, rgba(200, 0, 64, 0.8) 40%, rgba(200, 0, 64, 0.8) 60%, rgba(0, 0, 0, 0.9) 60%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 20%, rgba(200, 0, 64, 0.8) 20%, rgba(200, 0, 64, 0.8) 40%, rgba(80, 0, 128, 0.8) 40%, rgba(80, 0, 128, 0.8) 60%, rgba(0, 0, 0, 0.9) 60%);
             background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            animation: gradientAnimation 15s linear infinite; /* Changed to linear for smoothness */
         }
 
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
-            25% { background-position: 50% 0%; }
-            50% { background-position: 100% 0%; }
-            75% { background-position: 100% 100%; }
-            100% { background-position: 0% 100%; }
+            25% { background-position: 25% 50%; }
+            50% { background-position: 50% 50%; }
+            75% { background-position: 75% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
         h1, h2 {
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; 
+            text-shadow: 0 0 20px #ff007f, 0 0 30px #ff007f, 0 0 40px #ff007f; 
         }
 
         h1 {
             font-size: 3em;
             text-shadow: 
-                0 0 10px #1f51ff, 
-                0 0 20px #1f51ff, 
-                0 0 30px #1f51ff; 
+                0 0 10px rgba(200, 0, 64, 1),
+                0 0 20px rgba(200, 0, 64, 1),
+                0 0 30px rgba(200, 0, 64, 1); 
         }
 
         h2 {
@@ -68,10 +68,10 @@
             text-decoration: none;
             padding: 20px;
             border-radius: 8px;
-            background-color: #1f51ff;
+            background-color: rgba(200, 0, 64, 0.8);
             color: #ffffff;
             font-weight: 500;
-            box-shadow: 0 0 10px rgba(31, 81, 255, 0.7);
+            box-shadow: 0 0 10px rgba(200, 0, 64, 0.7);
             transition: color 0.2s, background-color 0.3s;
         }
 
@@ -113,14 +113,14 @@
             transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
             margin-bottom: 8px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(31, 81, 255, 0.5);
-            background-color: #1f51ff; 
+            box-shadow: 0 0 10px rgba(200, 0, 64, 0.5);
+            background-color: rgba(200, 0, 64, 0.8);
         }
 
         .parent a:hover {
             color: #ffffff; 
             transform: translateY(-4px);
-            box-shadow: 0 0 20px rgba(31, 81, 255, 0.7), 0 0 40px rgba(31, 81, 255, 0.5);
+            box-shadow: 0 0 20px rgba(200, 0, 64, 0.7), 0 0 40px rgba(200, 0, 64, 0.5);
         }
 
         .parent a::after {
