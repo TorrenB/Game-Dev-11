@@ -19,17 +19,17 @@
             height: 100vh;
             overflow-y: auto;
             position: relative;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) 20%, rgba(58, 99, 255, 0.6) 20%, rgba(58, 99, 255, 0.6) 40%, rgba(255, 0, 120, 0.7) 40%, rgba(255, 0, 120, 0.7) 60%, rgba(0, 0, 0, 0.8) 60%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 20%, rgba(0, 51, 255, 0.8) 20%, rgba(0, 51, 255, 0.8) 40%, rgba(255, 0, 90, 0.8) 40%, rgba(255, 0, 90, 0.8) 60%, rgba(0, 0, 0, 0.9) 60%);
             background-size: 400% 400%;
             animation: gradientAnimation 15s ease infinite;
         }
 
         @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 50% 0%; } /* Move from left to top */
-            50% { background-position: 100% 50%; } /* Move from top to right */
-            75% { background-position: 50% 100%; } /* Move from right to bottom */
-            100% { background-position: 0% 50%; } /* Move from bottom to left */
+            0% { background-position: 0% 50%; }    /* From left */
+            25% { background-position: 50% 0%; }   /* From top */
+            50% { background-position: 100% 0%; }  /* From top-right */
+            75% { background-position: 100% 100%; } /* From bottom-right */
+            100% { background-position: 0% 100%; }  /* From bottom-left */
         }
 
         h1, h2 {
@@ -185,7 +185,7 @@
         <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
         <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
         <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speach</a>
+        <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
         <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
     </div>
 
