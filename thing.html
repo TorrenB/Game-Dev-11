@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text to Speech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        label, select, input, button { margin: 10px; }
-        body { 
+    <style>
+        body {
             font-family: 'Roboto', sans-serif; 
             margin: 0; 
             padding: 20px; 
-            background-color: #f4f4f4; 
             color: #333; 
+            animation: backgroundChange 10s infinite; /* Animate for 10 seconds */
+        }
+
+        @keyframes backgroundChange {
+            0% { background-color: #ff1493; } /* Pink */
+            33% { background-color: #1e90ff; } /* Blue */
+            66% { background-color: #800080; } /* Purple */
+            100% { background-color: #ff1493; } /* Pink */
         }
 
         h1 { 
@@ -97,9 +102,10 @@
             margin-top: 20px; 
             color: #333;
         }
-</style>
+    </style>
 </head>
 <body>
+
 
 <h1>Text to Speech Demo</h1>
 <input type="text" id="text-input" placeholder="Type something..." />
