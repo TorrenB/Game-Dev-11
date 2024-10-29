@@ -173,19 +173,13 @@
             option.textContent = `${voice.name} (${voice.lang})`;
             voiceSelect.appendChild(option);
         });
-        setDefaultIndianVoice(); // Set default Indian voice
-    }
-
-    function setDefaultIndianVoice() {
-        const indianVoiceIndex = voices.findIndex(voice => voice.lang.includes('en-IN'));
-        if (indianVoiceIndex !== -1) {
-            currentVoiceIndex = indianVoiceIndex;
-            voiceSelect.selectedIndex = indianVoiceIndex;
-        }
+        voiceSelect.selectedIndex = currentVoiceIndex;
     }
 
     // Load saved theme preference on page load
-    document.body.toggleAttribute('data-theme', localStorage.getItem('theme') || 'light');
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+    }
 
     speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
     populateVoiceList();
