@@ -77,34 +77,35 @@
         .links a::after {
             content: '';
             position: absolute;
-            top: -20px; /* Position the line above the button */
-            left: -20px; /* Position the line to the left of the button */
-            height: calc(100% + 40px); /* Extend height to cover the box's height */
-            width: calc(100% + 40px); /* Extend width to cover the box's width */
+            top: 0; /* Align top */
+            left: 0; /* Align left */
+            height: 100%; /* Match button height */
+            width: 100%; /* Match button width */
             border-radius: 8px; /* Match border radius */
-            border: 20px solid transparent; /* Set border thickness */
-            border-color: #D5006D transparent transparent transparent; /* Set deep pink for top border */
+            border: 2px solid transparent; /* Set border thickness to be thinner */
+            border-color: #D5006D transparent transparent transparent; /* Start from top with pink */
             animation: moveLine 4s linear infinite; /* Animate line movement */
+            pointer-events: none; /* Prevent interaction with the pseudo-element */
         }
 
         @keyframes moveLine {
             0% {
-                transform: translateY(0);
+                transform: rotate(0) translateY(-100%); /* Start at top */
             }
             25% {
-                transform: translateY(100%); /* Move down */
-                border-color: transparent transparent #D5006D transparent; /* Set the bottom border as deep pink */
+                transform: rotate(90deg) translateY(-100%); /* Move to right */
+                border-color: transparent #D5006D transparent transparent; /* Transition to right border */
             }
             50% {
-                transform: translateY(100%) translateX(100%); /* Move to bottom-right */
-                border-color: transparent transparent transparent #D5006D; /* Set the right border as deep pink */
+                transform: rotate(90deg) translateY(0); /* Move to bottom */
+                border-color: transparent transparent #D5006D transparent; /* Transition to bottom border */
             }
             75% {
-                transform: translateY(0) translateX(100%); /* Move up and to the right */
-                border-color: #D5006D transparent transparent transparent; /* Restore the top border as deep pink */
+                transform: rotate(90deg) translateY(0) translateX(100%); /* Move to left */
+                border-color: transparent transparent transparent #D5006D; /* Transition to left border */
             }
             100% {
-                transform: translateY(0); /* Reset position */
+                transform: rotate(0) translateY(0); /* Reset position */
             }
         }
 
