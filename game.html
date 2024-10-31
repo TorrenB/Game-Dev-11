@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shooter Game</title>
+    <title>Click Speed Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,12 +62,12 @@
                 removeEnemy();  // Remove enemy if clicked
             });
 
-            // Move the enemy and set a timeout for 1 second
+            // Move the enemy and set a timeout for 3 seconds
             const intervalId = setInterval(moveEnemy, 500); // Move every 500 ms
             setTimeout(() => {
                 clearInterval(intervalId);
-                removeEnemy(); // Remove the enemy after 1 second
-            }, 1000);
+                removeEnemy(); // Remove the enemy after 3 seconds
+            }, 3000); // Changed to 3000 ms (3 seconds)
         }
 
         // Spawn an enemy every 2 seconds
