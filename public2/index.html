@@ -67,6 +67,7 @@
             box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease; /* Smooth transition */
             border: 1px solid white;
+            animation: buttonColorAnimation 6s ease infinite; /* Changed animation duration to 6s */
         }
 
         .links a:hover {
@@ -92,12 +93,19 @@
             transition: transform 0.2s, box-shadow 0.3s, background-color 0.5s ease;
             margin: 5px; /* Added margin between buttons */
             background: black;
+            animation: buttonColorAnimation 6s ease infinite; /* Changed animation duration to 6s */
         }
 
         /* Effect for parent links on hover */
         .parent a:hover {
             transform: translateY(-6px); /* Slightly stronger pop-out effect */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+        }
+
+        @keyframes buttonColorAnimation {
+            0% { background-color: black; }
+            50% { background-color: rgb(0, 0, 80); } /* Could choose a different color here */
+            100% { background-color: black; }
         }
 
         footer {
