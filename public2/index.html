@@ -20,7 +20,7 @@
             position: relative;
             background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
             background-size: 400% 400%;
-            animation: gradientAnimation 7.5s ease infinite; /* Changed from 15s to 7.5s */
+            animation: gradientAnimation 7.5s ease infinite; /* Gradient animation duration */
         }
 
         @keyframes gradientAnimation {
@@ -76,7 +76,7 @@
             font-weight: 500;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
             overflow: hidden;
-            animation: colorRotate 2s infinite alternate;
+            animation: colorRotate 4s infinite alternate; /* Changed from 2s to 4s */
         }
 
         .assignments a {
@@ -90,7 +90,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             margin-bottom: 8px;
             background-color: #000000; /* Start with black */
-            animation: colorRotate 2s infinite alternate; /* Same animation */
+            animation: colorRotate 4s infinite alternate; /* Changed from 2s to 4s */
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Add a white pixel glow */
         }
 
