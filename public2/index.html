@@ -61,49 +61,25 @@
             text-decoration: none;
             padding: 20px 20px; /* Adjusted padding for aesthetics */
             border-radius: 8px;
-            background-color: #000000; /* Pitch black */
+            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(0, 0, 80)); /* Initial gradient */
+            background-size: 200% 200%; /* Size for animation */
             color: #ffffff;
             font-weight: 500;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+            animation: buttonGradientAnimation 15s ease infinite; /* Apply animation */
+        }
+
+        @keyframes buttonGradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .links a:hover {
             transform: translateY(-5px); /* Move button up */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Dark shadow effect */
-        }
-
-        .outer-line {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            pointer-events: none; /* Prevent interaction */
-            border: 2px solid #D5006D; /* Pink color */
-            border-radius: 0; /* Full corners, no border-radius */
-            box-sizing: border-box; /* Ensure border is included in dimensions */
-            animation: outlineMovement 10s linear infinite; /* Animate the movement */
-        }
-
-        @keyframes outlineMovement {
-            0% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(calc(100% - 2px)); /* Move to the right */
-            }
-            50% {
-                transform: translate(calc(100% - 2px), calc(100% - 2px)); /* Move to the bottom-right */
-            }
-            75% {
-                transform: translateY(calc(100% - 2px)); /* Move to the bottom */
-            }
-            100% {
-                transform: translateX(0); /* Reset to the start */
-            }
         }
 
         .parent {
@@ -123,7 +99,9 @@
             border-radius: 4px;
             transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
             margin-bottom: 8px;
-            background-color: #000000; /* Pitch black */
+            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(0, 0, 80)); /* Initial gradient for parent links */
+            background-size: 200% 200%; /* Size for animation */
+            animation: buttonGradientAnimation 15s ease infinite; /* Apply animation */
         }
 
         footer {
@@ -138,9 +116,6 @@
 </head>
 
 <body>
-
-<!-- Outer line around the webpage -->
-<div class="outer-line"></div>
 
 <h1>Torrens Index</h1>
 
