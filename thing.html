@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
-body { font-family: Arial, sans-serif; padding: 20px; }
-        label, select, input { margin: 10px; }
-label, select, input, button { margin: 10px; }
+        label, select, input, button { margin: 10px; }
         body { 
             font-family: 'Roboto', sans-serif; 
             margin: 0; 
@@ -139,7 +137,6 @@ label, select, input, button { margin: 10px; }
 const textInput = document.getElementById('text-input');
 const speakButton = document.getElementById('speak-button');
 const changeVoiceButton = document.getElementById('change-voice-button');
-    const changeVoiceButton = document.getElementById('change-voice-button');
 const voiceSelect = document.getElementById('voice-select');
 const rateControl = document.getElementById('rate');
 const volumeControl = document.getElementById('volume');
@@ -148,12 +145,10 @@ const volumeValue = document.getElementById('volume-value');
 
 let voices = [];
 let currentVoiceIndex = 0;
-    let currentVoiceIndex = 0;
 
 function populateVoiceList() {
 voices = speechSynthesis.getVoices();
 voiceSelect.innerHTML = '';
-        voiceSelect.innerHTML = '';
 voices.forEach((voice, index) => {
 const option = document.createElement('option');
 option.value = index;
@@ -169,21 +164,10 @@ if (indianVoiceIndex !== -1) {
 currentVoiceIndex = indianVoiceIndex;
 voiceSelect.selectedIndex = indianVoiceIndex;
 }
-        setDefaultIndianVoice(); // Set default Indian voice
-    }
-
-    function setDefaultIndianVoice() {
-        const indianVoiceIndex = voices.findIndex(voice => voice.lang.includes('en-IN'));
-        if (indianVoiceIndex !== -1) {
-            currentVoiceIndex = indianVoiceIndex;
-            voiceSelect.selectedIndex = indianVoiceIndex;
-        }
 }
 
 speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
 populateVoiceList();
-    populateVoiceList(); // Call it initially in case the voices are already loaded
-    populateVoiceList();
 
 speakButton.addEventListener('click', () => {
 const utterance = new SpeechSynthesisUtterance(textInput.value);
@@ -223,13 +207,6 @@ currentVoiceIndex = (currentVoiceIndex + 1) % voices.length;
 voiceSelect.selectedIndex = currentVoiceIndex;
 }
 });
-    changeVoiceButton.addEventListener('click', () => {
-        if (voices.length > 0) {
-            // Toggle between male and female voices
-            currentVoiceIndex = (currentVoiceIndex + 1) % voices.length;
-            voiceSelect.selectedIndex = currentVoiceIndex;
-        }
-    });
 
 </script>
 
