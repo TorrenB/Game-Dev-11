@@ -1,108 +1,157 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif; /* Modern font */
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center align items */
-            height: 100vh;
-            overflow-y: auto;
-            position: relative;
-            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torrens Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<style>
+body {
+margin: 0;
+padding: 0;
+font-family: 'Orbitron', sans-serif;
+color: #ffffff;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+height: 100vh;
+overflow-y: auto;
+position: relative;
+background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
+background-size: 400% 400%;
+animation: gradientAnimation 15s ease infinite;
+}
 
-        h1 {
-            margin-top: 20px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-        }
+@keyframes gradientAnimation {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
 
-        .links {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping */
-            list-style: none;
-            padding: 0;
-            margin: 20px; /* Margin around the links container */
-            justify-content: center; /* Center the content horizontally */
-            flex-grow: 1; /* Allow it to grow and take up available space */
-        }
+h1, h2 {
+margin-bottom: 20px;
+text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
+}
 
-        .links li {
-            margin: 10px; /* Space between buttons */
-        }
+h1 {
+font-size: 3em;
+}
 
-        .links a {
-            display: block;
-            text-decoration: none;
-            padding: 15px 55px; /* Increased button width (40px extra) */
-            border-radius: 10px; /* More modern rounded corners */
-            background: #1d1d1d;
-            color: #ffffff;
-            font-weight: 500;
-            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease; /* Smooth transition */
-            border: 1px solid white;
-            font-size: 1em; /* Font size */
-        }
+h2 {
+font-size: 2em;
+}
 
-        .parent {
-            width: 100%;
-            margin: 20px 0; /* Margin above and below the parent links */
-            text-align: center; /* Center the parent links */
-        }
+.links {
+display: flex;
+flex-wrap: wrap;
+list-style: none;
+padding: 0;
+margin: 0;
+width: 100%;
+}
 
-        .parent a {
-            display: inline-block;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 600; /* Bold font for emphasis */
-            padding: 12px 64px; /* Increased button width (40px extra) */
-            border: 1px solid white; 
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.3s, background-color 0.5s ease;
-            margin: 10px; /* Space between buttons */
-            background: #1d1d1d;
-            font-size: 1em; /* Font size */
-        }
+.links li {
+margin-right: 20px;
+margin-bottom: 20px;
+}
 
-        footer {
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #cccccc; 
-            text-align: center;
-            width: 100%;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            position: absolute; /* Make footer stick to the bottom */
-            bottom: 0; /* Stick to the bottom */
-        }
+.links a {
+position: relative;
+display: block;
+text-decoration: none;
+padding: 20px 20px; /* Adjusted padding for aesthetics */
+border-radius: 8px;
+background-color: #000000; /* Pitch black */
+color: #ffffff;
+font-weight: 500;
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+overflow: hidden;
+transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
-        }
+.links a:hover {
+transform: translateY(-5px); /* Move button up */
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Dark shadow effect */
+}
 
-        @media (max-width: 600px) {
-            .links a,
-            .parent a {
-                padding: 12px 40px; /* Reduced padding on smaller devices */
-            }
-            h1 {
-                font-size: 2em; /* Smaller heading on smaller devices */
-            }
-        }
-    </style>
+.links a::after {
+content: '';
+position: absolute;
+            top: -20px; /* Position the line above the button */
+            left: -20px; /* Position the line to the left of the button */
+            height: calc(100% + 40px); /* Extend height to cover the box's height */
+            width: calc(100% + 40px); /* Extend width to cover the box's width */
+            top: 0; /* Align top */
+            left: 0; /* Align left */
+            height: 100%; /* Match button height */
+            width: 100%; /* Match button width */
+border-radius: 8px; /* Match border radius */
+            border: 20px solid transparent; /* Set border thickness */
+            border-color: #D5006D transparent transparent transparent; /* Set deep pink for top border */
+            border: 2px solid transparent; /* Set border thickness to be thinner */
+            border-color: #D5006D transparent transparent transparent; /* Start from top with pink */
+animation: moveLine 4s linear infinite; /* Animate line movement */
+            pointer-events: none; /* Prevent interaction with the pseudo-element */
+}
+
+@keyframes moveLine {
+0% {
+                transform: translateY(0);
+                transform: rotate(0) translateY(-100%); /* Start at top */
+}
+25% {
+                transform: translateY(100%); /* Move down */
+                border-color: transparent transparent #D5006D transparent; /* Set the bottom border as deep pink */
+                transform: rotate(90deg) translateY(-100%); /* Move to right */
+                border-color: transparent #D5006D transparent transparent; /* Transition to right border */
+}
+50% {
+                transform: translateY(100%) translateX(100%); /* Move to bottom-right */
+                border-color: transparent transparent transparent #D5006D; /* Set the right border as deep pink */
+                transform: rotate(90deg) translateY(0); /* Move to bottom */
+                border-color: transparent transparent #D5006D transparent; /* Transition to bottom border */
+}
+75% {
+                transform: translateY(0) translateX(100%); /* Move up and to the right */
+                border-color: #D5006D transparent transparent transparent; /* Restore the top border as deep pink */
+                transform: rotate(90deg) translateY(0) translateX(100%); /* Move to left */
+                border-color: transparent transparent transparent #D5006D; /* Transition to left border */
+}
+100% {
+                transform: translateY(0); /* Reset position */
+                transform: rotate(0) translateY(0); /* Reset position */
+}
+}
+
+.parent {
+width: 100%;
+margin-top: 40px;
+text-align: right;
+}
+
+.parent a {
+position: relative; 
+display: block;
+color: #ffffff;
+text-decoration: none;
+font-weight: 500;
+padding: 8px 16px;
+border: 2px solid transparent;
+border-radius: 4px;
+transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
+margin-bottom: 8px;
+background-color: #000000; /* Pitch black */
+}
+
+footer {
+margin-top: 40px;
+font-size: 0.8em;
+color: #cccccc; 
+text-align: center;
+width: 100%;
+text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
+}
+</style>
 </head>
 
 <body>
@@ -110,41 +159,41 @@
 <h1>Torrens Index</h1>
 
 <ul class="links">
-    <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a11-arrays-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
-    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
+<li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a11-arrays-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
+<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
 </ul>
 
 <div class="parent">
-    <h2>X Assignments</h2>
-    <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
-    <a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
+<h2>X Assignments</h2>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
+<a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
+<a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
+<a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
+<a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
 </div>
 
 <footer aria-label="Footer">
-    © 2023 Torrens Index. All rights reserved.
+© 2023 Torrens Index. All rights reserved.
 </footer>
 
 </body>
