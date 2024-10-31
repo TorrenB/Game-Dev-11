@@ -74,38 +74,35 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Dark shadow effect */
         }
 
-        .links a::after {
+        .outer-line {
             content: '';
-            position: absolute;
-            top: 0; /* Align top */
-            left: 0; /* Align left */
-            height: 100%; /* Match button height */
-            width: 100%; /* Match button width */
-            border-radius: 8px; /* Match border radius */
-            border: 2px solid transparent; /* Set border thickness to be thinner */
-            border-color: #D5006D transparent transparent transparent; /* Start from top with pink */
-            animation: moveLine 4s linear infinite; /* Animate line movement */
-            pointer-events: none; /* Prevent interaction with the pseudo-element */
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            pointer-events: none; /* Prevent interaction */
+            border: 2px solid #D5006D; /* Pink color */
+            border-radius: 0; /* Full corners, no border-radius */
+            box-sizing: border-box; /* Ensure border is included in dimensions */
+            animation: outlineMovement 10s linear infinite; /* Animate the movement */
         }
 
-        @keyframes moveLine {
+        @keyframes outlineMovement {
             0% {
-                transform: rotate(0) translateY(-100%); /* Start at top */
+                transform: translateX(0);
             }
             25% {
-                transform: rotate(90deg) translateY(-100%); /* Move to right */
-                border-color: transparent #D5006D transparent transparent; /* Transition to right border */
+                transform: translateX(calc(100% - 2px)); /* Move to the right */
             }
             50% {
-                transform: rotate(90deg) translateY(0); /* Move to bottom */
-                border-color: transparent transparent #D5006D transparent; /* Transition to bottom border */
+                transform: translate(calc(100% - 2px), calc(100% - 2px)); /* Move to the bottom-right */
             }
             75% {
-                transform: rotate(90deg) translateY(0) translateX(100%); /* Move to left */
-                border-color: transparent transparent transparent #D5006D; /* Transition to left border */
+                transform: translateY(calc(100% - 2px)); /* Move to the bottom */
             }
             100% {
-                transform: rotate(0) translateY(0); /* Reset position */
+                transform: translateX(0); /* Reset to the start */
             }
         }
 
@@ -141,6 +138,9 @@
 </head>
 
 <body>
+
+<!-- Outer line around the webpage -->
+<div class="outer-line"></div>
 
 <h1>Torrens Index</h1>
 
