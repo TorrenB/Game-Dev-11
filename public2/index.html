@@ -7,149 +7,101 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 <style>
 body {
-margin: 0;
-padding: 0;
-font-family: 'Orbitron', sans-serif;
-color: #ffffff;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-height: 100vh;
-overflow-y: auto;
-position: relative;
-background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
-background-size: 400% 400%;
-animation: gradientAnimation 15s ease infinite;
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
 }
 
 @keyframes gradientAnimation {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 h1, h2 {
-margin-bottom: 20px;
-text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
 }
 
 h1 {
-font-size: 3em;
+    font-size: 3em;
 }
 
 h2 {
-font-size: 2em;
+    font-size: 2em;
 }
 
 .links {
-display: flex;
-flex-wrap: wrap;
-list-style: none;
-padding: 0;
-margin: 0;
-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .links li {
-margin-right: 20px;
-margin-bottom: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .links a {
-position: relative;
-display: block;
-text-decoration: none;
-padding: 20px 20px; /* Adjusted padding for aesthetics */
-border-radius: 8px;
-background-color: #000000; /* Pitch black */
-color: #ffffff;
-font-weight: 500;
-box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-overflow: hidden;
-transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    position: relative;
+    display: block;
+    text-decoration: none;
+    padding: 20px 20px;
+    border-radius: 8px;
+    background-color: #000000; /* Pitch black */
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 6.5s; /* Added background color transition */
 }
 
 .links a:hover {
-transform: translateY(-5px); /* Move button up */
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Dark shadow effect */
-}
-
-.links a::after {
-content: '';
-position: absolute;
-            top: -20px; /* Position the line above the button */
-            left: -20px; /* Position the line to the left of the button */
-            height: calc(100% + 40px); /* Extend height to cover the box's height */
-            width: calc(100% + 40px); /* Extend width to cover the box's width */
-            top: 0; /* Align top */
-            left: 0; /* Align left */
-            height: 100%; /* Match button height */
-            width: 100%; /* Match button width */
-border-radius: 8px; /* Match border radius */
-            border: 20px solid transparent; /* Set border thickness */
-            border-color: #D5006D transparent transparent transparent; /* Set deep pink for top border */
-            border: 2px solid transparent; /* Set border thickness to be thinner */
-            border-color: #D5006D transparent transparent transparent; /* Start from top with pink */
-animation: moveLine 4s linear infinite; /* Animate line movement */
-            pointer-events: none; /* Prevent interaction with the pseudo-element */
-}
-
-@keyframes moveLine {
-0% {
-                transform: translateY(0);
-                transform: rotate(0) translateY(-100%); /* Start at top */
-}
-25% {
-                transform: translateY(100%); /* Move down */
-                border-color: transparent transparent #D5006D transparent; /* Set the bottom border as deep pink */
-                transform: rotate(90deg) translateY(-100%); /* Move to right */
-                border-color: transparent #D5006D transparent transparent; /* Transition to right border */
-}
-50% {
-                transform: translateY(100%) translateX(100%); /* Move to bottom-right */
-                border-color: transparent transparent transparent #D5006D; /* Set the right border as deep pink */
-                transform: rotate(90deg) translateY(0); /* Move to bottom */
-                border-color: transparent transparent #D5006D transparent; /* Transition to bottom border */
-}
-75% {
-                transform: translateY(0) translateX(100%); /* Move up and to the right */
-                border-color: #D5006D transparent transparent transparent; /* Restore the top border as deep pink */
-                transform: rotate(90deg) translateY(0) translateX(100%); /* Move to left */
-                border-color: transparent transparent transparent #D5006D; /* Transition to left border */
-}
-100% {
-                transform: translateY(0); /* Reset position */
-                transform: rotate(0) translateY(0); /* Reset position */
-}
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background-color: #0000FF; /* Blue background on hover */
 }
 
 .parent {
-width: 100%;
-margin-top: 40px;
-text-align: right;
+    width: 100%;
+    margin-top: 40px;
+    text-align: right;
 }
 
 .parent a {
-position: relative; 
-display: block;
-color: #ffffff;
-text-decoration: none;
-font-weight: 500;
-padding: 8px 16px;
-border: 2px solid transparent;
-border-radius: 4px;
-transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
-margin-bottom: 8px;
-background-color: #000000; /* Pitch black */
+    position: relative; 
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 8px;
+    background-color: #000000; /* Pitch black */
 }
 
 footer {
-margin-top: 40px;
-font-size: 0.8em;
-color: #cccccc; 
-text-align: center;
-width: 100%;
-text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
+    margin-top: 40px;
+    font-size: 0.8em;
+    color: #cccccc; 
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
 }
 </style>
 </head>
@@ -159,25 +111,25 @@ text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
 <h1>Torrens Index</h1>
 
 <ul class="links">
-<li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a12-arrays-torren.html">t1a11-arrays-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
-<li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
+    <li><a href="https://github.com/TorrenB/Game-Dev-11?tab=readme-ov-file">Torrens GitHub</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a01basic-torren.html">t1a01-basic-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a02-proper-Torren.html">t1a02-proper-Torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a03-table-list-Torren.html">t1a03-table-list-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a04-forms-torren.html">t1a04-forms-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a05-css-torren.html">t1a05-css-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a06-in-and-out-torren.html">t1a06-in-and-out</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a07-functions-torren.html">t1a07-functions-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a08-varibles-torren.html">t1a08-variables-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a09-decisions-torren.html">t1a09-decisions-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a10-loops-torren.html">t1a10-loops-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-arrays-torren.html">t1a11-arrays-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a13-objects.html">t1a12-objects-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a15-JSON-torren.html">t1a13-json-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a14-objects-classes.html">t1a14-objects-classes-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a17-events-torren.html">t1a15-events-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a18-multi-d-arrays.html">t1a16-multi-d-arrays-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a19-move-torren.html">t1a17-move-torren</a></li>
+    <li><a href="https://torrenb.github.io/Game-Dev-11/public2/t1a11-classes-torren.html">t1a18-classes-torren</a></li>
 </ul>
 
 <div class="parent">
