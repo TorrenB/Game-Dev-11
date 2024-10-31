@@ -79,6 +79,20 @@
             animation: colorRotate 2s infinite alternate;
         }
 
+        .assignments a {
+            position: relative;
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 8px;
+            background-color: #000000; /* Start with black */
+            animation: colorRotate 2s infinite alternate; /* Same animation */
+        }
+
         @keyframes colorRotate {
             0% {
                 background-color: #000000; /* Black at start */
@@ -89,7 +103,8 @@
             }
         }
 
-        .links a:hover {
+        .links a:hover,
+        .assignments a:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             background-color: #000000; /* Change background color to black on hover */
@@ -99,20 +114,6 @@
             width: 100%;
             margin-top: 40px;
             text-align: right;
-        }
-
-        .parent a {
-            position: relative;
-            display: block;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
-            margin-bottom: 8px;
-            background-color: #000000; /* Pitch black */
         }
 
         footer {
@@ -154,14 +155,16 @@
 
     <div class="parent">
         <h2>X Assignments</h2>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
-        <a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
+        <div class="assignments">
+            <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
+            <a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
+        </div>
     </div>
 
     <footer aria-label="Footer">
