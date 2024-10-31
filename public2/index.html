@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Roboto Mono', monospace; /* Changed font to Roboto Mono */
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -59,22 +59,22 @@
             position: relative;
             display: block;
             text-decoration: none;
-            padding: 20px 20px; /* Adjusted padding for aesthetics */
+            padding: 20px; /* Adjusted padding for aesthetics */
             border-radius: 8px;
-            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(0, 0, 80)); /* Initial gradient */
-            background-size: 200% 200%; /* Size for animation */
+            background: black; /* Start with black */
             color: #ffffff;
             font-weight: 500;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
-            animation: buttonGradientAnimation 15s ease infinite; /* Apply animation */
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease; /* Smooth transition */
+            border: 1px solid white; /* White outline */
+            animation: buttonColorAnimation 4s ease infinite; /* Apply color animation */
         }
 
-        @keyframes buttonGradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes buttonColorAnimation {
+            0% { background-color: black; }
+            50% { background-color: rgb(0, 0, 80); } /* Targeting the other background color */
+            100% { background-color: black; }
         }
 
         .links a:hover {
@@ -95,13 +95,12 @@
             text-decoration: none;
             font-weight: 500;
             padding: 8px 16px;
-            border: 2px solid transparent;
+            border: 1px solid white; /* White outline */
             border-radius: 4px;
-            transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
+            transition: color 0.2s, transform 0.2s, box-shadow 0.2s, background-color 0.5s ease;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(0, 0, 80)); /* Initial gradient for parent links */
-            background-size: 200% 200%; /* Size for animation */
-            animation: buttonGradientAnimation 15s ease infinite; /* Apply animation */
+            background: black; /* Start with black */
+            animation: buttonColorAnimation 4s ease infinite; /* Apply color animation */
         }
 
         footer {
