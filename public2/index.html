@@ -20,7 +20,7 @@
             position: relative;
             background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
             background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            animation: gradientAnimation 7.5s ease infinite; /* Changed from 15s to 7.5s */
         }
 
         @keyframes gradientAnimation {
@@ -91,6 +91,7 @@
             margin-bottom: 8px;
             background-color: #000000; /* Start with black */
             animation: colorRotate 2s infinite alternate; /* Same animation */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Add a white pixel glow */
         }
 
         @keyframes colorRotate {
@@ -106,7 +107,7 @@
         .links a:hover,
         .assignments a:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.5); /* White glow on hover */
             background-color: #000000; /* Change background color to black on hover */
         }
 
