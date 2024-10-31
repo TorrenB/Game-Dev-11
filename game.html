@@ -28,6 +28,12 @@
             height: 90px; /* 3x the size of normal enemy */
             background-color: gold; /* Different color for the boss */
             border-radius: 45px; /* Make it round */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: black; /* Text color for clicks left */
+            font-weight: bold;
         }
 
         #score {
@@ -75,29 +81,18 @@
 
             megaBoss = document.createElement('div');
             megaBoss.classList.add('mega-boss');
-            const clicksNeeded = 6; // Number of clicks needed to defeat
+            let clicksLeft = 6; // Number of clicks needed to defeat
 
-            // Create the remaining clicks display
-            const bossClicksDisplay = document.createElement('div');
-            bossClicksDisplay.style.position = 'absolute';
-            bossClicksDisplay.style.color = 'white';
-            bossClicksDisplay.style.fontSize = '20px';
-            bossClicksDisplay.style.top = '15px'; // Adjust as needed
-            bossClicksDisplay.style.left = '15px'; // Adjust as needed
-            document.body.appendChild(bossClicksDisplay);
-
-            let clicksLeft = clicksNeeded;
-            bossClicksDisplay.innerText = `Clicks left: ${clicksLeft}`;
+            megaBoss.innerText = clicksLeft; // Display clicks left on boss
             moveMegaBoss();
 
             megaBoss.addEventListener('click', function() {
                 clicksLeft--;
-                bossClicksDisplay.innerText = `Clicks left: ${clicksLeft}`;
+                megaBoss.innerText = clicksLeft; // Update clicks left on boss
                 if (clicksLeft <= 0) {
                     score += 5; // Bonus points for defeating the boss
                     scoreDisplay.innerText = `Score: ${score}`;
                     megaBoss.remove();
-                    bossClicksDisplay.remove();
                     megaBoss = null; // Reset the boss
                 }
             });
@@ -105,7 +100,6 @@
             document.body.appendChild(megaBoss);
             setTimeout(() => { 
                 megaBoss.remove(); 
-                bossClicksDisplay.remove(); 
                 megaBoss = null; // Reset the boss if not defeated
             }, 3000); // Boss stays for 3 seconds
         }
