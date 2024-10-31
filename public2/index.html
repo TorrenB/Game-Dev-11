@@ -1,142 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Torrens Index</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Orbitron', sans-serif;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 100vh;
-    overflow-y: auto;
-    position: relative;
-    background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torrens Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            height: 100vh;
+            overflow-y: auto;
+            position: relative;
+            background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
 
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-h1, h2 {
-    margin-bottom: 20px;
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
-}
+        h1, h2 {
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
+        }
 
-h1 {
-    font-size: 3em;
-}
+        h1 {
+            font-size: 3em;
+        }
 
-h2 {
-    font-size: 2em;
-}
+        h2 {
+            font-size: 2em;
+        }
 
-.links {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
 
-.links li {
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
+        .links li {
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
 
-.links a {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    padding: 20px 20px; /* Adjusted padding for aesthetics */
-    border-radius: 8px;
-    background-color: #000000; /* Pitch black */
-    color: #ffffff;
-    font-weight: 500;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-}
+        .links a {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            padding: 20px 20px; /* Adjusted padding for aesthetics */
+            border-radius: 8px;
+            background-color: #000000; /* Pitch black */
+            color: #ffffff;
+            font-weight: 500;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
 
-.links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    box-shadow: 0 0 0 0 pink; /* Start with no visible shadow */
-    animation: movingBorder 4s linear infinite;
-}
+        .links a::after {
+            content: '';
+            position: absolute;
+            top: -20px; /* Position the line above the button */
+            left: -20px; /* Position the line to the left of the button */
+            height: calc(100% + 40px); /* Extend height to cover the box's height */
+            width: calc(100% + 40px); /* Extend width to cover the box's width */
+            border-radius: 8px; /* Match border radius */
+            border: 20px solid transparent; /* Set border thickness */
+            border-color: pink transparent transparent transparent; /* Set pink color for top border */
+            animation: moveLine 4s linear infinite; /* Animate line movement */
+        }
 
-@keyframes movingBorder {
-    0% {
-        box-shadow: 0 0 0 2px pink; /* Starting at the top */
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateY(0); /* Move to the top-right */
-        box-shadow: 0 0 0 2px pink;
-    }
-    50% {
-        transform: translate(0, 100%); /* Move to bottom-right */
-        box-shadow: 0 0 0 2px pink;
-    }
-    75% {
-        transform: translate(-100%, 0); /* Move to bottom-left */
-        box-shadow: 0 0 0 2px pink;
-    }
-    100% {
-        transform: translateX(0); /* Return to starting position */
-        box-shadow: 0 0 0 2px pink;
-    }
-}
+        @keyframes moveLine {
+            0% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(100%); /* Move down */
+                border-color: transparent transparent pink transparent; /* Set the bottom border as pink */
+            }
+            50% {
+                transform: translateY(100%) translateX(100%); /* Move to bottom-right */
+                border-color: transparent transparent transparent pink; /* Set the right border as pink */
+            }
+            75% {
+                transform: translateY(0) translateX(100%); /* Move up and to the right */
+                border-color: pink transparent transparent transparent; /* Restore the top border as pink */
+            }
+            100% {
+                transform: translateY(0); /* Reset position */
+            }
+        }
 
-.links a:hover {
-    color: #ffffff; 
-}
+        .parent {
+            width: 100%;
+            margin-top: 40px;
+            text-align: right;
+        }
 
-.parent {
-    width: 100%;
-    margin-top: 40px;
-    text-align: right;
-}
+        .parent a {
+            position: relative; 
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 8px;
+            background-color: #000000; /* Pitch black */
+        }
 
-.parent a {
-    position: relative; 
-    display: block;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    border: 2px solid transparent;
-    border-radius: 4px;
-    transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
-    margin-bottom: 8px;
-    background-color: #000000; /* Pitch black */
-}
-
-footer {
-    margin-top: 40px;
-    font-size: 0.8em;
-    color: #cccccc; 
-    text-align: center;
-    width: 100%;
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
-}
-</style>
+        footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #cccccc; 
+            text-align: center;
+            width: 100%;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
+        }
+    </style>
 </head>
 
 <body>
