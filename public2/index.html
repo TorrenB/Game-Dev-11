@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torrens Index</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif; /* Modern font */
+            font-family: 'Poppins', sans-serif; /* Modern font */
             color: #ffffff;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center; /* Center align items */
             height: 100vh;
             overflow-y: auto;
             position: relative;
@@ -22,90 +22,58 @@
             animation: gradientAnimation 15s ease infinite;
         }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        h1, h2 {
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-        }
-
         h1 {
-            font-size: 3em;
-        }
-
-        h2 {
-            font-size: 2em;
+            margin-top: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
         }
 
         .links {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Allow wrapping */
             list-style: none;
             padding: 0;
-            margin: 0;
-            width: 100%;
+            margin: 20px; /* Margin around the links container */
+            justify-content: center; /* Center the content horizontally */
+            flex-grow: 1; /* Allow it to grow and take up available space */
         }
 
         .links li {
-            margin-right: 20px;
-            margin-bottom: 20px;
+            margin: 10px; /* Space between buttons */
         }
 
         .links a {
-            position: relative;
             display: block;
             text-decoration: none;
-            padding: 15px; /* Adjusted padding for aesthetics */
+            padding: 15px 55px; /* Increased button width (40px extra) */
             border-radius: 10px; /* More modern rounded corners */
-            background: black;
+            background: #1d1d1d;
             color: #ffffff;
             font-weight: 500;
             box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease; /* Smooth transition */
             border: 1px solid white;
-            animation: buttonColorAnimation 6s ease infinite; /* Changed animation duration to 6s */
-        }
-
-        .links a:hover {
-            transform: translateY(-5px); /* Move button up */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Increased shadow effect */
+            font-size: 1em; /* Font size */
         }
 
         .parent {
             width: 100%;
-            margin-top: 40px;
-            text-align: right;
+            margin: 20px 0; /* Margin above and below the parent links */
+            text-align: center; /* Center the parent links */
         }
 
         .parent a {
-            position: relative; 
-            display: inline-block; /* Changed to inline-block for better layout */
+            display: inline-block;
             color: #ffffff;
             text-decoration: none;
             font-weight: 600; /* Bold font for emphasis */
-            padding: 12px 24px; /* Uniform padding */
+            padding: 12px 64px; /* Increased button width (40px extra) */
             border: 1px solid white; 
             border-radius: 8px;
             transition: transform 0.2s, box-shadow 0.3s, background-color 0.5s ease;
-            margin: 5px; /* Added margin between buttons */
-            background: black;
-            animation: buttonColorAnimation 6s ease infinite; /* Changed animation duration to 6s */
-        }
-
-        /* Effect for parent links on hover */
-        .parent a:hover {
-            transform: translateY(-6px); /* Slightly stronger pop-out effect */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow */
-        }
-
-        @keyframes buttonColorAnimation {
-            0% { background-color: black; }
-            50% { background-color: rgb(0, 0, 80); } /* Could choose a different color here */
-            100% { background-color: black; }
+            margin: 10px; /* Space between buttons */
+            background: #1d1d1d;
+            font-size: 1em; /* Font size */
         }
 
         footer {
@@ -115,6 +83,24 @@
             text-align: center;
             width: 100%;
             text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: absolute; /* Make footer stick to the bottom */
+            bottom: 0; /* Stick to the bottom */
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        @media (max-width: 600px) {
+            .links a,
+            .parent a {
+                padding: 12px 40px; /* Reduced padding on smaller devices */
+            }
+            h1 {
+                font-size: 2em; /* Smaller heading on smaller devices */
+            }
         }
     </style>
 </head>
@@ -146,19 +132,19 @@
 </ul>
 
 <div class="parent">
-<h2>X Assignments</h2>
-<a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
-<a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
-<a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
-<a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
-<a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-<a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
-<a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
-<a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
+    <h2>X Assignments</h2>
+    <a href="https://torrenb.github.io/Game-Dev-11/public2/camera.html">X assignment v1 camera</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/public2/uselessweb.html">X assignment v2 something fun</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
+    <a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
 </div>
 
 <footer aria-label="Footer">
-© 2023 Torrens Index. All rights reserved.
+    © 2023 Torrens Index. All rights reserved.
 </footer>
 
 </body>
