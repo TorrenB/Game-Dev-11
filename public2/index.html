@@ -6,145 +6,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Torrens Index</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 body {
-margin: 0;
-padding: 0;
-font-family: 'Orbitron', sans-serif;
-color: #ffffff;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-height: 100vh;
-overflow-y: auto;
-position: relative;
-background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) 20%, rgba(58, 99, 255, 0.6) 20%, rgba(58, 99, 255, 0.6) 40%, rgba(255, 0, 120, 0.7) 40%, rgba(255, 0, 120, 0.7) 60%, rgba(0, 0, 0, 0.8) 60%);
-background-size: 400% 400%;
-animation: gradientAnimation 15s ease infinite;
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    background: linear-gradient(135deg, rgb(20, 20, 20), rgb(20, 20, 20) 40%, rgb(0, 0, 80) 40%, rgb(0, 0, 80) 60%);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
 }
 
 @keyframes gradientAnimation {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 h1, h2 {
-margin-bottom: 20px;
-text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; 
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; 
 }
 
 h1 {
-font-size: 3em;
-text-shadow: 
-0 0 10px #1f51ff, 
-0 0 20px #1f51ff, 
-0 0 30px #1f51ff; 
+    font-size: 3em;
+    text-shadow: 
+        0 0 10px #1f51ff, 
+        0 0 20px #1f51ff, 
+        0 0 30px #1f51ff; 
 }
 
 h2 {
-font-size: 2em;
+    font-size: 2em;
 }
 
 .links {
-display: flex;
-flex-wrap: wrap;
-list-style: none;
-padding: 0;
-margin: 0;
-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .links li {
-margin-right: 20px;
-margin-bottom: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .links a {
-position: relative;
-display: block;
-text-decoration: none;
-padding: 20px;
-border-radius: 8px;
-background-color: #1f51ff;
-color: #ffffff;
-font-weight: 500;
-box-shadow: 0 0 10px rgba(31, 81, 255, 0.7);
-transition: color 0.2s, background-color 0.3s;
-}
-
-.links a::after {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-height: 100%;
-width: 100%;
-border-radius: 8px;
-border: 2px solid transparent; 
-transition: border-color 0.5s ease;
-}
-
-.links a:hover::after {
-border-color: #ff007f; 
+    position: relative;
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ff007f; /* Changed to glossy pink */
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.7); /* Changed to match pink */
+    transition: color 0.2s, background-color 0.3s;
 }
 
 .links a:hover {
-color: #000000; 
+    color: #000000; 
 }
 
 .parent {
-width: 100%;
-margin-top: 40px;
-text-align: right;
+    width: 100%;
+    margin-top: 40px;
+    text-align: right;
 }
 
 .parent a {
-position: relative; 
-display: block;
-color: #ffffff;
-text-decoration: none;
-font-weight: 500;
-padding: 8px 16px;
-border: 2px solid transparent;
-border-radius: 4px;
-transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-margin-bottom: 8px;
-overflow: hidden;
-box-shadow: 0 0 10px rgba(31, 81, 255, 0.5);
-background-color: #1f51ff; 
+    position: relative; 
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.5); /* Changed to match pink */
+    background-color: #ff007f; /* Changed to glossy pink */
 }
 
 .parent a:hover {
-color: #ffffff; 
-transform: translateY(-4px);
-box-shadow: 0 0 20px rgba(31, 81, 255, 0.7), 0 0 40px rgba(31, 81, 255, 0.5);
-}
-
-.parent a::after {
-content: ''; 
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-border-radius: 4px;
-border: 2px solid transparent; 
-transition: border-color 0.2s;
-}
-
-.parent a:hover::after {
-border-color: #ff007f; 
+    color: #000000; 
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.7), 0 0 40px rgba(255, 0, 127, 0.5); /* Changed to match pink */
 }
 
 footer {
-margin-top: 40px;
-font-size: 0.8em;
-color: #cccccc; 
-text-align: center;
-width: 100%;
-text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    margin-top: 40px;
+    font-size: 0.8em;
+    color: #cccccc; 
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 </style>
 </head>
@@ -182,9 +149,9 @@ text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 <a href="https://torrenb.github.io/Game-Dev-11/public2/t1xassignment3-dino.html">X assignment v3, working calculator</a>
 <a href="https://torrenb.github.io/Game-Dev-11/public2/t1x5-dvd-fun.html">X assignment v4 dvd fun</a>
 <a href="https://torrenb.github.io/Game-Dev-11/public2/uglyprofessionalwebpagethingy.html">X Assignment v5 super ugly website</a>
-<a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speach</a>
+<a href="https://torrenb.github.io/Game-Dev-11/thing.html">X assignment v6 Fun Text to Speech</a>
 <a href="https://torrenb.github.io/Game-Dev-11/randomquestions.html">X assignment v7 Trivia</a>
-<a href="https://torrenb.github.io/Game-Dev-11/game.html"> X assignment v8 Game</a>
+<a href="https://torrenb.github.io/Game-Dev-11/game.html">X assignment v8 Game</a>
 </div>
 
 <footer aria-label="Footer">
