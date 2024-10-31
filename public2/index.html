@@ -66,15 +66,47 @@ h2 {
     text-decoration: none;
     padding: 20px;
     border-radius: 8px;
-    background-color: #ff007f; /* Changed to glossy pink */
+    background-color: #000000; /* Pitch black */
     color: #ffffff;
     font-weight: 500;
-    box-shadow: 0 0 10px rgba(255, 0, 127, 0.7); /* Changed to match pink */
-    transition: color 0.2s, background-color 0.3s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: color 0.2s;
+    overflow: hidden;
+}
+
+.links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    animation: moveBorder 3s linear infinite; /* Animation for the border */
+}
+
+@keyframes moveBorder {
+    0% {
+        transform: translate(-2px, -2px);  /* Border starts at top-left */
+        border-color: rgba(255, 0, 127, 0.7);
+    }
+    25% {
+        transform: translate(-2px, 2px);   /* Moves to top-right */
+    }
+    50% {
+        transform: translate(2px, 2px);    /* Moves to bottom-right */
+    }
+    75% {
+        transform: translate(2px, -2px);   /* Moves to bottom-left */
+    }
+    100% {
+        transform: translate(-2px, -2px);  /* Returns to start */
+    }
 }
 
 .links a:hover {
-    color: #000000; 
+    color: #ffffff; 
 }
 
 .parent {
@@ -92,17 +124,28 @@ h2 {
     padding: 8px 16px;
     border: 2px solid transparent;
     border-radius: 4px;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
     margin-bottom: 8px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(255, 0, 127, 0.5); /* Changed to match pink */
-    background-color: #ff007f; /* Changed to glossy pink */
+    background-color: #000000; /* Pitch black */
+}
+
+.parent a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    animation: moveBorder 3s linear infinite; /* Animation for the border */
 }
 
 .parent a:hover {
-    color: #000000; 
+    color: #ffffff; 
     transform: translateY(-4px);
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.7), 0 0 40px rgba(255, 0, 127, 0.5); /* Changed to match pink */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
 footer {
