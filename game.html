@@ -22,6 +22,14 @@
             transition: transform 0.1s linear; /* Smooth movement */
         }
 
+        .mega-boss {
+            position: absolute;
+            width: 90px;  /* 3x the size of normal enemy */
+            height: 90px; /* 3x the size of normal enemy */
+            background-color: gold; /* Different color for the boss */
+            border-radius: 45px; /* Make it round */
+        }
+
         #score {
             position: absolute;
             top: 10px;
@@ -36,41 +44,79 @@
     <script>
         const scoreDisplay = document.getElementById('score');
         let score = 0;
+        let megaBoss; // Hold reference to the mega boss
 
         function spawnEnemy() {
             const enemy = document.createElement('div');
             enemy.classList.add('enemy');
-
-            // Random position for the enemy within the window
-            const moveEnemy = () => {
-                const x = Math.random() * (window.innerWidth - 30);
-                const y = Math.random() * (window.innerHeight - 30);
-                enemy.style.transform = `translate(${x}px, ${y}px)`;
-            };
-
-            moveEnemy();
+            moveEnemy(enemy);
             document.body.appendChild(enemy);
-
-            // Set up the click event to shoot the enemy
-            const removeEnemy = () => {
-                enemy.remove();  // Remove the enemy when the time is up
-            };
 
             enemy.addEventListener('click', function() {
                 score++;
                 scoreDisplay.innerText = `Score: ${score}`;
-                removeEnemy();  // Remove enemy if clicked
+                enemy.remove(); // Remove enemy if clicked
+
+                // Spawn Mega Boss every 5 points
+                if (score % 5 === 0) spawnMegaBoss();
             });
 
-            // Move the enemy and set a timeout for 3 seconds
-            const intervalId = setInterval(moveEnemy, 500); // Move every 500 ms
-            setTimeout(() => {
-                clearInterval(intervalId);
-                removeEnemy(); // Remove the enemy after 3 seconds
-            }, 3000); // Changed to 3000 ms (3 seconds)
+            setTimeout(() => enemy.remove(), 3000);
         }
 
-        // Spawn an enemy every 2 seconds
+        function moveEnemy(enemy) {
+            const x = Math.random() * (window.innerWidth - 30);
+            const y = Math.random() * (window.innerHeight - 30);
+            enemy.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function spawnMegaBoss() {
+            if (megaBoss) return; // Only one boss at a time
+
+            megaBoss = document.createElement('div');
+            megaBoss.classList.add('mega-boss');
+            const clicksNeeded = 6; // Number of clicks needed to defeat
+
+            // Create the remaining clicks display
+            const bossClicksDisplay = document.createElement('div');
+            bossClicksDisplay.style.position = 'absolute';
+            bossClicksDisplay.style.color = 'white';
+            bossClicksDisplay.style.fontSize = '20px';
+            bossClicksDisplay.style.top = '15px'; // Adjust as needed
+            bossClicksDisplay.style.left = '15px'; // Adjust as needed
+            document.body.appendChild(bossClicksDisplay);
+
+            let clicksLeft = clicksNeeded;
+            bossClicksDisplay.innerText = `Clicks left: ${clicksLeft}`;
+            moveMegaBoss();
+
+            megaBoss.addEventListener('click', function() {
+                clicksLeft--;
+                bossClicksDisplay.innerText = `Clicks left: ${clicksLeft}`;
+                if (clicksLeft <= 0) {
+                    score += 5; // Bonus points for defeating the boss
+                    scoreDisplay.innerText = `Score: ${score}`;
+                    megaBoss.remove();
+                    bossClicksDisplay.remove();
+                    megaBoss = null; // Reset the boss
+                }
+            });
+
+            document.body.appendChild(megaBoss);
+            setTimeout(() => { 
+                megaBoss.remove(); 
+                bossClicksDisplay.remove(); 
+                megaBoss = null; // Reset the boss if not defeated
+            }, 3000); // Boss stays for 3 seconds
+        }
+
+        function moveMegaBoss() {
+            const x = Math.random() * (window.innerWidth - 90); // Adjust for boss size
+            const y = Math.random() * (window.innerHeight - 90); // Adjust for boss size
+            megaBoss.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Spawn enemies every 2 seconds
         setInterval(spawnEnemy, 2000);
     </script>
 </body>
