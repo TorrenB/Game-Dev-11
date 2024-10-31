@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,15 +30,11 @@ body {
 
 h1, h2 {
     margin-bottom: 20px;
-    text-shadow: 0 0 20px #3a99ff, 0 0 30px #3a99ff, 0 0 40px #3a99ff; 
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7);
 }
 
 h1 {
     font-size: 3em;
-    text-shadow: 
-        0 0 10px #1f51ff, 
-        0 0 20px #1f51ff, 
-        0 0 30px #1f51ff; 
 }
 
 h2 {
@@ -64,13 +59,12 @@ h2 {
     position: relative;
     display: block;
     text-decoration: none;
-    padding: 20px;
+    padding: 20px 20px; /* Adjusted padding for aesthetics */
     border-radius: 8px;
     background-color: #000000; /* Pitch black */
     color: #ffffff;
     font-weight: 500;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    transition: color 0.2s;
     overflow: hidden;
 }
 
@@ -79,29 +73,34 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid transparent;
+    height: 100%;
+    width: 100%;
     border-radius: 8px;
-    animation: moveBorder 3s linear infinite; /* Animation for the border */
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 0 pink; /* Start with no visible shadow */
+    animation: movingBorder 4s linear infinite;
 }
 
-@keyframes moveBorder {
+@keyframes movingBorder {
     0% {
-        transform: translate(-2px, -2px);  /* Border starts at top-left */
-        border-color: rgba(255, 0, 127, 0.7);
+        box-shadow: 0 0 0 2px pink; /* Starting at the top */
+        transform: translateX(0);
     }
     25% {
-        transform: translate(-2px, 2px);   /* Moves to top-right */
+        transform: translateY(0); /* Move to the top-right */
+        box-shadow: 0 0 0 2px pink;
     }
     50% {
-        transform: translate(2px, 2px);    /* Moves to bottom-right */
+        transform: translate(0, 100%); /* Move to bottom-right */
+        box-shadow: 0 0 0 2px pink;
     }
     75% {
-        transform: translate(2px, -2px);   /* Moves to bottom-left */
+        transform: translate(-100%, 0); /* Move to bottom-left */
+        box-shadow: 0 0 0 2px pink;
     }
     100% {
-        transform: translate(-2px, -2px);  /* Returns to start */
+        transform: translateX(0); /* Return to starting position */
+        box-shadow: 0 0 0 2px pink;
     }
 }
 
@@ -126,26 +125,7 @@ h2 {
     border-radius: 4px;
     transition: color 0.2s, transform 0.2s, box-shadow 0.2s;
     margin-bottom: 8px;
-    overflow: hidden;
     background-color: #000000; /* Pitch black */
-}
-
-.parent a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid transparent;
-    border-radius: 4px;
-    animation: moveBorder 3s linear infinite; /* Animation for the border */
-}
-
-.parent a:hover {
-    color: #ffffff; 
-    transform: translateY(-4px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
 footer {
@@ -154,7 +134,7 @@ footer {
     color: #cccccc; 
     text-align: center;
     width: 100%;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Black shadow */
 }
 </style>
 </head>
@@ -202,5 +182,4 @@ footer {
 </footer>
 
 </body>
-
 </html>
