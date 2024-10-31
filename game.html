@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooter Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: white;
+        }
+
+        #gameArea {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 2px solid #fff;
+            overflow: hidden;
+            background-color: #444;
+        }
+
+        .enemy {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shooter Game</h1>
+    <div id="gameArea"></div>
+    <div id="score">Score: 0</div>
+
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const scoreDisplay = document.getElementById('score');
+
+        let score = 0;
+
+        function spawnEnemy() {
+            const enemy = document.createElement('div');
+            enemy.classList.add('enemy');
+
+            // Random position for the enemy within the game area
+            const x = Math.random() * (gameArea.clientWidth - 30);
+            const y = Math.random() * (gameArea.clientHeight - 30);
+            enemy.style.left = `${x}px`;
+            enemy.style.top = `${y}px`;
+
+            gameArea.appendChild(enemy);
+
+            // Set up the click event to shoot the enemy
+            enemy.addEventListener('click', function() {
+                score++;
+                scoreDisplay.innerText = `Score: ${score}`;
+                gameArea.removeChild(enemy); // Remove the enemy when clicked
+            });
+        }
+
+        // Spawn an enemy every 2 seconds
+        setInterval(spawnEnemy, 2000);
+    </script>
+</body>
+</html>
