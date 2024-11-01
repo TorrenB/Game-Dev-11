@@ -56,7 +56,6 @@
         let myClock;
         let movementSpeed = 5;
         let keysPressed = {};
-        const audio = document.getElementById('public2/Travis Scott - FE!N (Official Audio) ft. Playboi Carti - YTMP3cloud.com (2).mp3'); // Get the audio element
 
         function updateBackgroundPosition() {
             if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
@@ -99,6 +98,9 @@
 
 <body id="myBody">
     <h1>Background Move Example</h1>
+
+      <!-- Audio element -->
+    <audio id="soundEffect" src="public2/Travis Scott - FE!N (Official Audio) ft. Playboi Carti - YTMP3cloud.com (2).mp3"></audio>
     
     
     <div class="button-container">
