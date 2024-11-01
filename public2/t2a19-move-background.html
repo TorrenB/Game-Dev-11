@@ -9,59 +9,93 @@
         body {
             background-image: url('https://a.pinatafarm.com/1858x1304/ff543bb12a/stonks-without-stonks.jpg');
             background-repeat: no-repeat;
-            background-size: cover; /* Use cover to ensure the image covers the entire background */
+            background-size: cover;
             transition: background-position 0.1s;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
     <script>
         let myGlobalX = 0;
-        let myClock01;
-        let myClock02;
-        let mySpeed01 = 400;
+        let myGlobalY = 0;
+        let myClock;
+        let mySpeed = 400;
+        let movementSpeed = 5;
+        let keysPressed = {};
 
         function updateBackgroundPosition() {
-            myGlobalX -= 5;
-            let myTemp = myGlobalX + 'px 0px';
+            // Update the background position based on the key states
+            if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
+            if (keysPressed["d"]) { myGlobalX += movementSpeed; } // Move right
+            if (keysPressed["w"]) { myGlobalY -= movementSpeed; } // Move up
+            if (keysPressed["s"]) { myGlobalY += movementSpeed; } // Move down
+            
+            const myTemp = myGlobalX + 'px ' + myGlobalY + 'px';
             document.getElementById('myBody').style.backgroundPosition = myTemp;
+
+            // Increase speed over time
+            movementSpeed += 0.1;
         }
 
-        function autoBackgroundFaster() {
-            clearInterval(myClock01);
-            mySpeed01 -= 30;
-            if (mySpeed01 < 10) { mySpeed01 = 10; }
-            myClock01 = setInterval(updateBackgroundPosition, mySpeed01);
+        function keyDownHandler(event) {
+            keysPressed[event.key] = true; // Track pressed keys
+            if (!myClock) {
+                myClock = setInterval(updateBackgroundPosition, 20); // Move continuously
+            }
         }
 
-        function autoBackgroundSlower() {
-            clearInterval(myClock01);
-            mySpeed01 += 30;
-            if (mySpeed01 > 1000) { mySpeed01 = 1000; }
-            myClock01 = setInterval(updateBackgroundPosition, mySpeed01);
+        function keyUpHandler(event) {
+            keysPressed[event.key] = false; // Release key
+            if (!Object.values(keysPressed).includes(true)) {
+                clearInterval(myClock); // Stop moving if no keys are pressed
+                myClock = null; // Reset clock
+                movementSpeed = 5; // Reset movement speed
+            }
         }
 
-        function moveImageRight() {
-            let myImage = document.getElementById('myImage01');
-            myImage.style.left = (parseInt(myImage.style.left) + 10) + 'px';
-        }
-
-        function autoMoveLeft() {
-            clearInterval(myClock02);
-            myClock02 = setInterval(moveImageRight, 30);
-        }
+        window.addEventListener('keydown', keyDownHandler);
+        window.addEventListener('keyup', keyUpHandler);
     </script>
 </head>
 
 <body id="myBody">
-    <h1 align="center">t2a19-move-background-fred.html</h1>
+    <h1>Background Move Example</h1>
 
-    <input id="myButton01" type="button" value="Background Move Left" onclick="updateBackgroundPosition()">
-    <input type="button" value="Auto Background Left Faster" onclick="autoBackgroundFaster()">
-    <input type="button" value="Auto Background Left Slower" onclick="autoBackgroundSlower()">
-    <input type="button" id="myButton02" value="Image Right" onclick="moveImageRight()">
-    <br><br>
-    <input type="button" value="Auto Move Left" onclick="autoMoveLeft()">
-
-    <img id="myImage01" style="position: relative; width: 100px; height: 80px; top: 0px; left: 0px;" src="https://1.bp.blogspot.com/-A432NOOC2xI/Va89mmZe_kI/AAAAAAAAA3o/ueZfNQMZS54/s1600/10700304_10154665644540183_2359334464494389137_o.jpg">
+    <div class="button-container">
+        <button onclick="updateBackgroundPosition()">Use W, A, S, D keys to move</button>
+    </div>
 </body>
 
 </html>
