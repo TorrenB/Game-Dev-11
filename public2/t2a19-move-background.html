@@ -46,35 +46,24 @@
         button:hover {
             background-color: #0056b3;
         }
-
-        .audio-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
     </style>
     <script>
         let myGlobalX = 0;
         let myGlobalY = 0;
         let myClock;
-        let mySpeed = 400;
         let movementSpeed = 5;
         let keysPressed = {};
-        let audio = new Audio('Travis Scott - FE!N (Official Audio) ft. Playboi Carti - YTMP3cloud.com.mp3'); 
+        const audio = new Audio('your-audio-file.mp3'); // Replace with your MP3 file
 
         function updateBackgroundPosition() {
-            if (keysPressed["a"]) { myGlobalX -= movementSpeed; } 
-            if (keysPressed["d"]) { myGlobalX += movementSpeed; } 
-            if (keysPressed["w"]) { myGlobalY -= movementSpeed; }
-            if (keysPressed["s"]) { myGlobalY += movementSpeed; } 
+            if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
+            if (keysPressed["d"]) { myGlobalX += movementSpeed; } // Move right
+            if (keysPressed["w"]) { myGlobalY -= movementSpeed; } // Move up
+            if (keysPressed["s"]) { myGlobalY += movementSpeed; } // Move down
             
             const myTemp = myGlobalX + 'px ' + myGlobalY + 'px';
             document.getElementById('myBody').style.backgroundPosition = myTemp;
-            
-            // Increase speed over time
-            movementSpeed += 0.1;
+            movementSpeed += 0.1; // Increase speed over time
         }
 
         function keyDownHandler(event) {
@@ -93,21 +82,16 @@
             }
         }
 
-        function playAudio() {
-            audio.play();
-        }
-
-        function pauseAudio() {
-            audio.pause();
-        }
-
-        function stopAudio() {
-            audio.pause();
-            audio.currentTime = 0; 
-        }
-
         window.addEventListener('keydown', keyDownHandler);
         window.addEventListener('keyup', keyUpHandler);
+
+        // Play audio automatically when the page loads
+        window.addEventListener('load', function() {
+            audio.loop = true; // Optional: loop the audio
+            audio.play().catch(error => {
+                console.log('Audio play failed, possible due to browser restrictions', error);
+            });
+        });
     </script>
 </head>
 
@@ -116,12 +100,6 @@
 
     <div class="button-container">
         <button onclick="updateBackgroundPosition()">Use W, A, S, D keys to move</button>
-    </div>
-
-    <div class="audio-controls">
-        <button onclick="playAudio()">Play</button>
-        <button onclick="pauseAudio()">Pause</button>
-        <button onclick="stopAudio()">Stop</button>
     </div>
 </body>
 
