@@ -62,13 +62,13 @@
         let mySpeed = 400;
         let movementSpeed = 5;
         let keysPressed = {};
-        let audio = new Audio('your-audio-file.mp3'); // Replace with your MP3 file
+        let audio = new Audio('Travis Scott - FE!N (Official Audio) ft. Playboi Carti - YTMP3cloud.com.mp3'); 
 
         function updateBackgroundPosition() {
-            if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
-            if (keysPressed["d"]) { myGlobalX += movementSpeed; } // Move right
-            if (keysPressed["w"]) { myGlobalY -= movementSpeed; } // Move up
-            if (keysPressed["s"]) { myGlobalY += movementSpeed; } // Move down
+            if (keysPressed["a"]) { myGlobalX -= movementSpeed; } 
+            if (keysPressed["d"]) { myGlobalX += movementSpeed; } 
+            if (keysPressed["w"]) { myGlobalY -= movementSpeed; }
+            if (keysPressed["s"]) { myGlobalY += movementSpeed; } 
             
             const myTemp = myGlobalX + 'px ' + myGlobalY + 'px';
             document.getElementById('myBody').style.backgroundPosition = myTemp;
@@ -103,7 +103,7 @@
 
         function stopAudio() {
             audio.pause();
-            audio.currentTime = 0; // Reset to the beginning
+            audio.currentTime = 0; 
         }
 
         window.addEventListener('keydown', keyDownHandler);
