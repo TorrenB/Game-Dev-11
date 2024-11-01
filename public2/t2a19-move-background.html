@@ -56,7 +56,7 @@
         let myClock;
         let movementSpeed = 5;
         let keysPressed = {};
-        const audio = new Audio('Travis Scott - FE!N (Official Audio) ft. Playboi Carti - YTMP3cloud.com.mp3'); // Replace with your MP3 file
+        const audio = document.getElementById('soundEffect'); // Get the audio element
 
         function updateBackgroundPosition() {
             if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
@@ -99,6 +99,9 @@
 
 <body id="myBody">
     <h1>Background Move Example</h1>
+    
+    <!-- Audio element -->
+    <audio id="soundEffect" src="Metal pipe falling sound effectloud.mp3"></audio>
     
     <div class="button-container">
         <button onclick="playAudio()">Play Audio</button>
