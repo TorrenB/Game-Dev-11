@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Move Example</title>
+    <style>
+        body {
+            background-image: url('myBackground.jpg');
+            background-repeat: repeat;
+            background-size: 80%;
+            transition: background-position 0.1s;
+        }
+    </style>
+    <script>
+        let myGlobalX = 0;
+        let myClock01;
+        let myClock02;
+        let mySpeed01 = 400;
+
+        function updateBackgroundPosition() {
+            myGlobalX -= 5;
+            let myTemp = myGlobalX + 'px 0px';
+            document.getElementById('myBody').style.backgroundPosition = myTemp;
+        }
+
+        function autoBackgroundFaster() {
+            clearInterval(myClock01);
+            mySpeed01 -= 30;
+            if (mySpeed01 < 10) { mySpeed01 = 10; }
+            myClock01 = setInterval(updateBackgroundPosition, mySpeed01);
+        }
+
+        function autoBackgroundSlower() {
+            clearInterval(myClock01);
+            mySpeed01 += 30;
+            if (mySpeed01 > 1000) { mySpeed01 = 1000; }
+            myClock01 = setInterval(updateBackgroundPosition, mySpeed01);
+        }
+
+        function moveImageRight() {
+            let myImage = document.getElementById('myImage01');
+            myImage.style.left = (parseInt(myImage.style.left) + 10) + 'px';
+        }
+
+        function autoMoveLeft() {
+            clearInterval(myClock02);
+            myClock02 = setInterval(moveImageRight, 30);
+        }
+    </script>
+</head>
+
+<body id="myBody">
+    <h1 align="center">t2a19-move-background-fred.html</h1>
+
+    <input id="myButton01" type="button" value="Background Move Left" onclick="updateBackgroundPosition()">
+    <input type="button" value="Auto Background Left Faster" onclick="autoBackgroundFaster()">
+    <input type="button" value="Auto Background Left Slower" onclick="autoBackgroundSlower()">
+    <input type="button" id="myButton02" value="Image Right" onclick="moveImageRight()">
+    <br><br>
+    <input type="button" value="Auto Move Left" onclick="autoMoveLeft()">
+
+    <img id="myImage01" style="position: relative; width: 100px; height: 80px; top: 0px; left: 0px;" src="myImage01.jpg">
+</body>
+
+</html>
