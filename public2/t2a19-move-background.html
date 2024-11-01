@@ -25,11 +25,14 @@
         }
 
         .button-container {
+            position: absolute;
+            bottom: 20px;  /* Position from the bottom */
+            right: 20px;   /* Position from the right */
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack buttons vertically */
             gap: 10px;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
         }
 
         button {
@@ -82,23 +85,23 @@
             }
         }
 
-        window.addEventListener('keydown', keyDownHandler);
-        window.addEventListener('keyup', keyUpHandler);
-
-        // Play audio automatically when the page loads
-        window.addEventListener('load', function() {
+        function playAudio() {
             audio.loop = true; // Optional: loop the audio
             audio.play().catch(error => {
-                console.log('Audio play failed, possible due to browser restrictions', error);
+                console.log('Audio play failed, possibly due to browser restrictions', error);
             });
-        });
+        }
+
+        window.addEventListener('keydown', keyDownHandler);
+        window.addEventListener('keyup', keyUpHandler);
     </script>
 </head>
 
 <body id="myBody">
     <h1>Background Move Example</h1>
-
+    
     <div class="button-container">
+        <button onclick="playAudio()">Play Audio</button>
         <button onclick="updateBackgroundPosition()">Use W, A, S, D keys to move</button>
     </div>
 </body>
