@@ -46,6 +46,14 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
     </style>
     <script>
         let myGlobalX = 0;
@@ -54,9 +62,9 @@
         let mySpeed = 400;
         let movementSpeed = 5;
         let keysPressed = {};
+        let audio = new Audio('your-audio-file.mp3'); // Replace with your MP3 file
 
         function updateBackgroundPosition() {
-            // Update the background position based on the key states
             if (keysPressed["a"]) { myGlobalX -= movementSpeed; } // Move left
             if (keysPressed["d"]) { myGlobalX += movementSpeed; } // Move right
             if (keysPressed["w"]) { myGlobalY -= movementSpeed; } // Move up
@@ -64,25 +72,38 @@
             
             const myTemp = myGlobalX + 'px ' + myGlobalY + 'px';
             document.getElementById('myBody').style.backgroundPosition = myTemp;
-
+            
             // Increase speed over time
             movementSpeed += 0.1;
         }
 
         function keyDownHandler(event) {
-            keysPressed[event.key] = true; // Track pressed keys
+            keysPressed[event.key] = true;
             if (!myClock) {
-                myClock = setInterval(updateBackgroundPosition, 20); // Move continuously
+                myClock = setInterval(updateBackgroundPosition, 20);
             }
         }
 
         function keyUpHandler(event) {
-            keysPressed[event.key] = false; // Release key
+            keysPressed[event.key] = false;
             if (!Object.values(keysPressed).includes(true)) {
-                clearInterval(myClock); // Stop moving if no keys are pressed
-                myClock = null; // Reset clock
-                movementSpeed = 5; // Reset movement speed
+                clearInterval(myClock);
+                myClock = null;
+                movementSpeed = 5;
             }
+        }
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0; // Reset to the beginning
         }
 
         window.addEventListener('keydown', keyDownHandler);
@@ -95,6 +116,12 @@
 
     <div class="button-container">
         <button onclick="updateBackgroundPosition()">Use W, A, S, D keys to move</button>
+    </div>
+
+    <div class="audio-controls">
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+        <button onclick="stopAudio()">Stop</button>
     </div>
 </body>
 
