@@ -50,15 +50,17 @@
 
         #frontImage {
             position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
             width: 100px; /* Set the width of the image */
             height: auto; /* Maintain aspect ratio */
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); /* Center the image */
             transition: transform 0.1s; /* Smooth movement transition */
         }
     </style>
     <script>
-        let frontImageX = 0;
-        let frontImageY = 0;
+        let offsetX = 0;
+        let offsetY = 0;
         let myClock;
         let movementSpeed = 5;
         let keysPressed = {};
@@ -66,17 +68,19 @@
         const audio = new Audio('https://torrenb.github.io/Game-Dev-11/public2/Travis%20Scott%20-%20FE!N%20(Official%20Audio)%20ft.%20Playboi%20Carti%20-%20YTMP3cloud.com%20(2).mp3');
 
         function updateFrontImagePosition() {
-            if (keysPressed["a"]) { frontImageX -= movementSpeed; } // Move left
-            if (keysPressed["d"]) { frontImageX += movementSpeed; } // Move right
-            if (keysPressed["w"]) { frontImageY -= movementSpeed; } // Move up
-            if (keysPressed["s"]) { frontImageY += movementSpeed; } // Move down
-
             const frontImage = document.getElementById('frontImage');
-            frontImage.style.transform = `translate(${frontImageX}px, ${frontImageY}px)`;
 
-            // Update the background position to create continuous effect
+            if (keysPressed["a"]) { offsetX -= movementSpeed; } // Move left
+            if (keysPressed["d"]) { offsetX += movementSpeed; } // Move right
+            if (keysPressed["w"]) { offsetY -= movementSpeed; } // Move up
+            if (keysPressed["s"]) { offsetY += movementSpeed; } // Move down
+
+            // Set the position of the potato image
+            frontImage.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+
+            // Update the background position to make it look like it's moving relative to the potato
             const myBody = document.getElementById('myBody');
-            myBody.style.backgroundPosition = `${frontImageX * 0.1}px ${frontImageY * 0.1}px`;
+            myBody.style.backgroundPosition = `${-offsetX * 0.1}px ${-offsetY * 0.1}px`;
         }
 
         function keyDownHandler(event) {
@@ -91,7 +95,6 @@
             if (!Object.values(keysPressed).includes(true)) {
                 clearInterval(myClock);
                 myClock = null;
-                movementSpeed = 5;
             }
         }
 
@@ -101,6 +104,11 @@
                 console.log('Audio play failed, possibly due to browser restrictions', error);
             });
         }
+
+        // Prevent scrolling with the mouse wheel
+        window.addEventListener('wheel', (event) => {
+            event.preventDefault();
+        }, { passive: false });
 
         window.addEventListener('keydown', keyDownHandler);
         window.addEventListener('keyup', keyUpHandler);
