@@ -56,6 +56,18 @@
             height: auto; /* Maintain aspect ratio */
             transform: translate(-50%, -50%); /* Center the image */
         }
+
+        #hair {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            width: 120px; /* Width of hair */
+            height: 20px; /* Height of hair */
+            background-color: brown; /* Color of the hair */
+            border-radius: 10px; /* Rounded ends for a hair-like shape */
+            transform: translate(-50%, -70%) rotate(20deg); /* Adjust position and angle */
+            z-index: -1; /* Send it behind the potato */
+        }
     </style>
     <script>
         let offsetX = 0; // Initial horizontal offset
@@ -73,7 +85,7 @@
             myBody.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`;
         }
 
-        function updateFrontImagePosition() {
+        function updatePositions() {
             // Change offsets based on key presses
             if (keysPressed["a"]) { offsetX -= movementSpeed; } // Move left
             if (keysPressed["d"]) { offsetX += movementSpeed; } // Move right
@@ -87,7 +99,7 @@
         function keyDownHandler(event) {
             keysPressed[event.key] = true;
             if (!myClock) {
-                myClock = setInterval(updateFrontImagePosition, 20);
+                myClock = setInterval(updatePositions, 20);
             }
         }
 
@@ -121,9 +133,11 @@
 
     <img id="frontImage" src="https://png.pngtree.com/png-clipart/20231006/original/pngtree-potato-transparent-background-png-image_13280345.png" alt="Control Image" />
 
+    <div id="hair"></div> <!-- Hair element -->
+
     <div class="button-container">
         <button onclick="playAudio()">Play Audio</button>
-        <button onclick="updateFrontImagePosition()">Use W, A, S, D keys to move</button>
+        <button onclick="updatePositions()">Use W, A, S, D keys to move</button>
     </div>
 </body>
 
