@@ -48,7 +48,7 @@
             transform: scale(1.05);
         }
 
-        #output, #decodedOutput {
+        #output, #decodedOutput, #wingdingsOutput {
             margin-top: 20px;
             font-size: 20px;
             padding: 15px;
@@ -59,8 +59,13 @@
             border-radius: 5px;
         }
 
-        #decodedOutput {
+        #decodedOutput, #wingdingsOutput {
             margin-top: 40px;
+        }
+
+        .wingdings {
+            font-family: 'Wingdings', 'Arial', sans-serif; /* Fallback to Arial */
+            font-size: 30px; /* Adjust size as needed */
         }
     </style>
 </head>
@@ -85,10 +90,15 @@
     <div id="output" placeholder="Encoded Output"></div>
     <div id="decodedOutput" placeholder="Decoded Output"></div>
 
+    <h2>Text to Wingdings</h2>
+    <input type="text" id="wingdingsInput" placeholder="Enter text for Wingdings" />
+    <button onclick="convertToWingdings()">Convert to Wingdings</button>
+    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
+
     <script>
         function getShiftValue() {
             const shiftSelect = document.getElementById("shiftValue");
-            return parseInt(shiftSelect.value, 10); // Get selected shift value, default is 6
+            return parseInt(shiftSelect.value, 10); // Get selected shift value
         }
 
         function encodeText() {
@@ -114,6 +124,12 @@
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
+        }
+
+        function convertToWingdings() {
+            const input = document.getElementById("wingdingsInput").value;
+            const wingdingsOutput = document.getElementById("wingdingsOutput");
+            wingdingsOutput.innerText = input; // Just display the text, style will apply Wingdings
         }
     </script>
 </body>
