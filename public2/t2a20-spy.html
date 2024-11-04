@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cipher Encoder</title>
+    <title>Cipher Encoder/Decoder</title>
     <style>
         body {
             background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
@@ -26,25 +26,43 @@
             margin-left: 10px;
         }
 
-        #output {
+        #output, #decodedOutput {
             margin-top: 20px;
             font-size: 20px;
+            padding: 10px;
+            border: 1px solid white;
+            display: inline-block;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        #decodedOutput {
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <h1>Cipher Encoder</h1>
+    <h1>Cipher Encoder & Decoder</h1>
     <input type="text" id="inputText" placeholder="Enter your text here" />
     <button onclick="encodeText()">Encode</button>
+    <button onclick="decodeText()">Decode</button>
 
-    <div id="output"></div>
+    <div id="output" placeholder="Encoded Output"></div>
+    <div id="decodedOutput" placeholder="Decoded Output"></div>
 
     <script>
+        const shift = 6; // Shift for encoding/decoding
+
         function encodeText() {
             const input = document.getElementById("inputText").value;
-            const shift = 3; // Define a shift for the Caesar cipher
             const output = document.getElementById("output");
             output.innerText = caesarCipher(input, shift);
+        }
+
+        function decodeText() {
+            const input = document.getElementById("output").innerText;
+            const decodedOutput = document.getElementById("decodedOutput");
+            decodedOutput.innerText = caesarCipher(input, -shift);
         }
 
         function caesarCipher(str, shift) {
@@ -52,7 +70,7 @@
                 if (char.match(/[a-z]/i)) {
                     const code = char.charCodeAt();
                     const base = (code >= 65 && code <= 90) ? 65 : 97; // A-Z or a-z
-                    return String.fromCharCode(((code - base + shift) % 26) + base);
+                    return String.fromCharCode(((code - base + shift + 26) % 26) + base);
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
