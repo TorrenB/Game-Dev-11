@@ -8,12 +8,13 @@
     <style>
         body {
             background-image: url('https://a.pinatafarm.com/1858x1304/ff543bb12a/stonks-without-stonks.jpg');
-            background-repeat: no-repeat;
+            background-repeat: repeat; /* Repeat the background image */
             background-size: cover;
             font-family: Arial, sans-serif;
             height: 100vh;
             margin: 0;
-            position: relative; /* Important for the absolute positioning of the image */
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
         }
 
         h1 {
@@ -49,11 +50,9 @@
 
         #frontImage {
             position: absolute;
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
             width: 100px; /* Set the width of the image */
             height: auto; /* Maintain aspect ratio */
-            transform: translate(-50%, -50%); /* Center the image */
+            transform: translate(-50%, -50%);
             transition: transform 0.1s; /* Smooth movement transition */
         }
     </style>
@@ -74,6 +73,10 @@
 
             const frontImage = document.getElementById('frontImage');
             frontImage.style.transform = `translate(${frontImageX}px, ${frontImageY}px)`;
+
+            // Update the background position to create continuous effect
+            const myBody = document.getElementById('myBody');
+            myBody.style.backgroundPosition = `${frontImageX * 0.1}px ${frontImageY * 0.1}px`;
         }
 
         function keyDownHandler(event) {
@@ -107,7 +110,7 @@
 <body id="myBody">
     <h1>Background Move Example</h1>
 
-    <img id="frontImage" src="https://png.pngtree.com/png-clipart/20231006/original/pngtree-potato-transparent-background-png-image_13280345.png" alt="Control Image" /> <!-- Replace the URL with your image URL -->
+    <img id="frontImage" src="https://png.pngtree.com/png-clipart/20231006/original/pngtree-potato-transparent-background-png-image_13280345.png" alt="Control Image" />
 
     <div class="button-container">
         <button onclick="playAudio()">Play Audio</button>
