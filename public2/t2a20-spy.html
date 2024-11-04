@@ -8,32 +8,55 @@
         body {
             background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
             background-size: cover;
-            color: white;
-            font-family: Arial, sans-serif;
+            background-position: center;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 50px;
         }
 
-        input[type="text"] {
+        h1 {
+            font-size: 36px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], select {
             width: 300px;
-            padding: 10px;
-            font-size: 16px;
+            padding: 15px;
+            font-size: 18px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 12px 25px;
+            font-size: 18px;
             margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
         }
 
         #output, #decodedOutput {
             margin-top: 20px;
             font-size: 20px;
-            padding: 10px;
-            border: 1px solid white;
+            padding: 15px;
+            border: 2px solid #ff007b;
             display: inline-block;
             width: 300px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
         }
 
         #decodedOutput {
@@ -44,6 +67,18 @@
 <body>
     <h1>Cipher Encoder & Decoder</h1>
     <input type="text" id="inputText" placeholder="Enter your text here" />
+    <select id="shiftValue">
+        <option value="6" selected>Shift Value: 6</option>
+        <option value="1">Shift Value: 1</option>
+        <option value="2">Shift Value: 2</option>
+        <option value="3">Shift Value: 3</option>
+        <option value="4">Shift Value: 4</option>
+        <option value="5">Shift Value: 5</option>
+        <option value="7">Shift Value: 7</option>
+        <option value="8">Shift Value: 8</option>
+        <option value="9">Shift Value: 9</option>
+        <option value="10">Shift Value: 10</option>
+    </select>
     <button onclick="encodeText()">Encode</button>
     <button onclick="decodeText()">Decode</button>
 
@@ -51,17 +86,22 @@
     <div id="decodedOutput" placeholder="Decoded Output"></div>
 
     <script>
-        const shift = 6; // Shift for encoding/decoding
+        function getShiftValue() {
+            const shiftSelect = document.getElementById("shiftValue");
+            return parseInt(shiftSelect.value, 10); // Get selected shift value, default is 6
+        }
 
         function encodeText() {
             const input = document.getElementById("inputText").value;
             const output = document.getElementById("output");
+            const shift = getShiftValue();
             output.innerText = caesarCipher(input, shift);
         }
 
         function decodeText() {
             const input = document.getElementById("output").innerText;
             const decodedOutput = document.getElementById("decodedOutput");
+            const shift = getShiftValue();
             decodedOutput.innerText = caesarCipher(input, -shift);
         }
 
