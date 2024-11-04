@@ -55,7 +55,6 @@
             width: 100px; /* Set the width of the image */
             height: auto; /* Maintain aspect ratio */
             transform: translate(-50%, -50%); /* Center the image */
-            transition: transform 0.1s; /* Smooth movement transition */
         }
     </style>
     <script>
@@ -67,21 +66,22 @@
 
         const audio = new Audio('https://torrenb.github.io/Game-Dev-11/public2/Travis%20Scott%20-%20FE!N%20(Official%20Audio)%20ft.%20Playboi%20Carti%20-%20YTMP3cloud.com%20(2).mp3');
 
-        function updateFrontImagePosition() {
-            const frontImage = document.getElementById('frontImage');
+        function updateBackgroundPosition() {
+            const myBody = document.getElementById('myBody');
 
+            // Set the new background position based on the offsets
+            myBody.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`;
+        }
+
+        function updateFrontImagePosition() {
             // Change offsets based on key presses
             if (keysPressed["a"]) { offsetX -= movementSpeed; } // Move left
             if (keysPressed["d"]) { offsetX += movementSpeed; } // Move right
             if (keysPressed["w"]) { offsetY -= movementSpeed; } // Move up
             if (keysPressed["s"]) { offsetY += movementSpeed; } // Move down
 
-            // Set the position of the potato image
-            frontImage.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
-
-            // Update background position to match potato movement
-            const myBody = document.getElementById('myBody');
-            myBody.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`; // Adjust to move background at the same speed
+            // Update the background position
+            updateBackgroundPosition();
         }
 
         function keyDownHandler(event) {
