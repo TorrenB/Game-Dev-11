@@ -59,17 +59,18 @@
         }
     </style>
     <script>
-        let offsetX = 0;
-        let offsetY = 0;
+        let offsetX = 0; // Initial horizontal offset
+        let offsetY = 0; // Initial vertical offset
         let myClock;
-        let movementSpeed = 5;
-        let keysPressed = {};
+        let movementSpeed = 5; // Movement speed
+        let keysPressed = {}; // Store keys pressed
 
         const audio = new Audio('https://torrenb.github.io/Game-Dev-11/public2/Travis%20Scott%20-%20FE!N%20(Official%20Audio)%20ft.%20Playboi%20Carti%20-%20YTMP3cloud.com%20(2).mp3');
 
         function updateFrontImagePosition() {
             const frontImage = document.getElementById('frontImage');
 
+            // Change offsets based on key presses
             if (keysPressed["a"]) { offsetX -= movementSpeed; } // Move left
             if (keysPressed["d"]) { offsetX += movementSpeed; } // Move right
             if (keysPressed["w"]) { offsetY -= movementSpeed; } // Move up
@@ -78,9 +79,9 @@
             // Set the position of the potato image
             frontImage.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
 
-            // Update the background position to make it look like it's moving relative to the potato
+            // Update background position to match potato movement
             const myBody = document.getElementById('myBody');
-            myBody.style.backgroundPosition = `${-offsetX * 0.1}px ${-offsetY * 0.1}px`;
+            myBody.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`; // Adjust to move background at the same speed
         }
 
         function keyDownHandler(event) {
