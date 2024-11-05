@@ -155,7 +155,7 @@
 
         function caesarCipher(str, shift) {
             return str.split('').map(char => {
-                if (char.match(/[a-zA-Z]/)) {
+                if (char.match(/[a-zA-Z]/)) { // Check if character is a letter
                     const isUpperCase = char === char.toUpperCase();
                     const code = char.charCodeAt();
                     const base = (code >= 65 && code <= 90) ? 65 : 97; // A-Z or a-z
@@ -172,26 +172,78 @@
             }).join(' '); // Join binary values with space
         }
 
-        function fromWingdings(str) {
-            return str.split('').map(char => {
-                const code = char.charCodeAt(0) - 0xF000 + 32; // Reverse offset for Wingdings
-                return String.fromCharCode(code);
-            }).join('');
-        }
-
         function binaryToText(str) {
             return str.split(' ').map(bin => {
                 return String.fromCharCode(parseInt(bin, 2)); // Convert binary to character
             }).join(''); // Join characters to form the decrypted text
         }
 
+        function fromWingdings(str) {
+            const wingdingsToEnglish = {
+                '✈': 'A',
+                '✉': 'B',
+                '➤': 'C',
+                '✓': 'D',
+                '✖': 'E',
+                '★': 'F',
+                '☼': 'G',
+                '☾': 'H',
+                '☥': 'I',
+                '✿': 'J',
+                '♠': 'K',
+                '♣': 'L',
+                '♥': 'M',
+                '♦': 'N',
+                '⚡': 'O',
+                '♞': 'P',
+                '➲': 'Q',
+                '✦': 'R',
+                '✧': 'S',
+                '✩': 'T',
+                '✪': 'U',
+                'V': '☎',
+                'W': '☮',
+                'X': '⚽',
+                'Y': '✗',
+                'Z': '✼',
+                // Add additional mappings as needed
+            };
+
+            return str.split('').map(char => wingdingsToEnglish[char] || char).join('');
+        }
+
         function toWingdings(str) {
-            return str.split('').map(char => {
-                const isUpperCase = char === char.toUpperCase();
-                const code = (char.charCodeAt(0) - 32) + 0xF000; // Offset for Wingdings
-                const wingdingChar = String.fromCharCode(code);
-                return isUpperCase ? wingdingChar : wingdingChar.toLowerCase();
-            }).join('');
+            const englishToWingdings = {
+                'A': '✈',
+                'B': '✉',
+                'C': '➤',
+                'D': '✓',
+                'E': '✖',
+                'F': '★',
+                'G': '☼',
+                'H': '☾',
+                'I': '☥',
+                'J': '✿',
+                'K': '♠',
+                'L': '♣',
+                'M': '♥',
+                'N': '♦',
+                'O': '⚡',
+                'P': '♞',
+                'Q': '➲',
+                'R': '✦',
+                'S': '✧',
+                'T': '✩',
+                'U': '✪',
+                'V': '☎',
+                'W': '☮',
+                'X': '⚽',
+                'Y': '✗',
+                'Z': '✼',
+                // Add additional mappings as needed
+            };
+
+            return str.toUpperCase().split('').map(char => englishToWingdings[char] || char).join('');
         }
     </script>
 </body>
