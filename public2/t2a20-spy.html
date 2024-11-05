@@ -42,6 +42,7 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s;
+            margin-bottom: 10px;
         }
 
         button:hover {
@@ -70,6 +71,7 @@
     <input type="text" id="inputText" placeholder="Enter your text here" />
 
     <select id="actionSelect">
+        <!-- Shifts Left -->
         <option value="shift-left-1">Shift Left by 1</option>
         <option value="shift-left-2">Shift Left by 2</option>
         <option value="shift-left-3">Shift Left by 3</option>
@@ -80,6 +82,7 @@
         <option value="shift-left-8">Shift Left by 8</option>
         <option value="shift-left-9">Shift Left by 9</option>
         <option value="shift-left-10">Shift Left by 10</option>
+        <!-- Shifts Right -->
         <option value="shift-right-1">Shift Right by 1</option>
         <option value="shift-right-2">Shift Right by 2</option>
         <option value="shift-right-3">Shift Right by 3</option>
@@ -90,11 +93,13 @@
         <option value="shift-right-8">Shift Right by 8</option>
         <option value="shift-right-9">Shift Right by 9</option>
         <option value="shift-right-10">Shift Right by 10</option>
+        <!-- Convert Options -->
         <option value="wingdings">Convert to Wingdings</option>
         <option value="binary">Convert to Binary</option>
     </select>
 
-    <button onclick="performAction()">Submit</button>
+    <button onclick="performAction()">Encrypt</button>
+    <button onclick="performDecryption()">Decrypt</button>
 
     <div id="output" placeholder="Output"></div>
     <div id="binaryOutput" placeholder="Binary Output"></div>
@@ -128,12 +133,41 @@
             }
         }
 
+        function performDecryption() {
+            const input = document.getElementById("inputText").value;
+            const action = document.getElementById("actionSelect").value;
+
+            // Clear outputs before showing new results
+            document.getElementById("output").innerText = '';
+            document.getElementById("binaryOutput").innerText = '';
+            document.getElementById("wingdingsOutput").innerText = '';
+
+            switch(action) {
+                case action.startsWith("shift-left"):
+                    const leftShift = parseInt(action.split('-')[2]);
+                    document.getElementById("output").innerText = caesarCipher(input, leftShift); // Decrypt by shifting right
+                    break;
+                case action.startsWith("shift-right"):
+                    const rightShift = parseInt(action.split('-')[2]);
+                    document.getElementById("output").innerText = caesarCipher(input, -rightShift); // Decrypt by shifting left
+                    break;
+                case "wingdings":
+                    document.getElementById("output").innerText = fromWingdings(input); // Decrypt Wingdings
+                    break;
+                case "binary":
+                    document.getElementById("output").innerText = binaryToText(input); // Decrypt from Binary
+                    break;
+            }
+        }
+
         function caesarCipher(str, shift) {
             return str.split('').map(char => {
                 if (char.match(/[a-zA-Z]/)) {
+                    const isUpperCase = char === char.toUpperCase();
                     const code = char.charCodeAt();
                     const base = (code >= 65 && code <= 90) ? 65 : 97; // A-Z or a-z
-                    return String.fromCharCode(((code - base + shift + 26) % 26) + base);
+                    const shifted = String.fromCharCode(((code - base + shift + 26) % 26) + base);
+                    return isUpperCase ? shifted : shifted.toLowerCase();
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
@@ -145,11 +179,25 @@
             }).join(' '); // Join binary values with space
         }
 
-        function toWingdings(str) {
-            // Convert each character to a Wingdings equivalent using Unicode
+        function fromWingdings(str) {
             return str.split('').map(char => {
-                const code = (char.charCodeAt(0) - 32) + 0xF000; // Offset for Wingdings
+                const code = char.charCodeAt(0) - 0xF000 + 32; // Reverse offset for Wingdings
                 return String.fromCharCode(code);
+            }).join('');
+        }
+
+        function binaryToText(str) {
+            return str.split(' ').map(bin => {
+                return String.fromCharCode(parseInt(bin, 2)); // Convert binary to character
+            }).join(''); // Join characters to form the decrypted text
+        }
+
+        function toWingdings(str) {
+            return str.split('').map(char => {
+                const isUpperCase = char === char.toUpperCase();
+                const code = (char.charCodeAt(0) - 32) + 0xF000; // Offset for Wingdings
+                const wingdingChar = String.fromCharCode(code);
+                return isUpperCase ? wingdingChar : wingdingChar.toLowerCase();
             }).join('');
         }
     </script>
