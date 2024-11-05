@@ -159,6 +159,7 @@
                     const isUpperCase = char === char.toUpperCase();
                     const code = char.charCodeAt();
                     const base = (code >= 65 && code <= 90) ? 65 : 97; // A-Z or a-z
+                    // Calculate shifted character, ensuring wraparound
                     const shifted = String.fromCharCode(((code - base + shift + 26) % 26) + base);
                     return isUpperCase ? shifted : shifted.toLowerCase();
                 }
@@ -173,6 +174,7 @@
         }
 
         function binaryToText(str) {
+            // Split each binary character and convert back to text
             return str.split(' ').map(bin => {
                 return String.fromCharCode(parseInt(bin, 2)); // Convert binary to character
             }).join(''); // Join characters to form the decrypted text
