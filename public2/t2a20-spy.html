@@ -15,20 +15,39 @@
             padding: 50px;
         }
 
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+
         h1 {
-            font-size: 36px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 28px;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
         }
 
         input[type="text"], select {
-            width: 300px;
+            width: 100%;
             padding: 15px;
             font-size: 18px;
             margin: 10px 0;
-            border: none;
+            border: 2px solid #ff007b;
             border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            background-color: #333;
+            color: #ffffff;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        select {
+            appearance: none;
+            background: #ff007b;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
         }
 
         button {
@@ -41,21 +60,22 @@
             color: #ffffff;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.2s;
             margin-bottom: 10px;
+            width: 100%;
         }
 
         button:hover {
             transform: scale(1.05);
         }
 
-        #output, #binaryOutput, #wingdingsOutput {
+        #output, #wingdingsOutput {
             margin-top: 20px;
-            font-size: 20px;
+            font-size: 18px;
             padding: 15px;
             border: 2px solid #ff007b;
             display: inline-block;
-            width: 300px;
+            width: 100%;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
             white-space: normal;
@@ -69,87 +89,80 @@
     </style>
 </head>
 <body>
-    <h1>Cipher Encoder & Decoder</h1>
+    <div class="container">
+        <h1>Cipher Encoder & Decoder</h1>
 
-    <input type="text" id="inputText" placeholder="Enter your text here" />
+        <input type="text" id="inputText" placeholder="Enter your text here" />
+        
+        <select id="actionSelect">
+            <!-- Shifts Left -->
+            <option value="shift-left-1">Shift Left by 1</option>
+            <option value="shift-left-2">Shift Left by 2</option>
+            <option value="shift-left-3">Shift Left by 3</option>
+            <option value="shift-left-4">Shift Left by 4</option>
+            <option value="shift-left-5">Shift Left by 5</option>
+            <option value="shift-left-6">Shift Left by 6</option>
+            <option value="shift-left-7">Shift Left by 7</option>
+            <option value="shift-left-8">Shift Left by 8</option>
+            <option value="shift-left-9">Shift Left by 9</option>
+            <option value="shift-left-10">Shift Left by 10</option>
+            <!-- Shifts Right -->
+            <option value="shift-right-1">Shift Right by 1</option>
+            <option value="shift-right-2">Shift Right by 2</option>
+            <option value="shift-right-3">Shift Right by 3</option>
+            <option value="shift-right-4">Shift Right by 4</option>
+            <option value="shift-right-5">Shift Right by 5</option>
+            <option value="shift-right-6">Shift Right by 6</option>
+            <option value="shift-right-7">Shift Right by 7</option>
+            <option value="shift-right-8">Shift Right by 8</option>
+            <option value="shift-right-9">Shift Right by 9</option>
+            <option value="shift-right-10">Shift Right by 10</option>
+            <!-- Convert Options -->
+            <option value="wingdings">Convert to Wingdings</option>
+        </select>
 
-    <select id="actionSelect">
-        <!-- Shifts Left -->
-        <option value="shift-left-1">Shift Left by 1</option>
-        <option value="shift-left-2">Shift Left by 2</option>
-        <option value="shift-left-3">Shift Left by 3</option>
-        <option value="shift-left-4">Shift Left by 4</option>
-        <option value="shift-left-5">Shift Left by 5</option>
-        <option value="shift-left-6">Shift Left by 6</option>
-        <option value="shift-left-7">Shift Left by 7</option>
-        <option value="shift-left-8">Shift Left by 8</option>
-        <option value="shift-left-9">Shift Left by 9</option>
-        <option value="shift-left-10">Shift Left by 10</option>
-        <!-- Shifts Right -->
-        <option value="shift-right-1">Shift Right by 1</option>
-        <option value="shift-right-2">Shift Right by 2</option>
-        <option value="shift-right-3">Shift Right by 3</option>
-        <option value="shift-right-4">Shift Right by 4</option>
-        <option value="shift-right-5">Shift Right by 5</option>
-        <option value="shift-right-6">Shift Right by 6</option>
-        <option value="shift-right-7">Shift Right by 7</option>
-        <option value="shift-right-8">Shift Right by 8</option>
-        <option value="shift-right-9">Shift Right by 9</option>
-        <option value="shift-right-10">Shift Right by 10</option>
-        <!-- Convert Options -->
-        <option value="wingdings">Convert to Wingdings</option>
-        <option value="binary">Convert to Binary</option>
-    </select>
+        <button onclick="performAction()">Encrypt</button>
+        <button onclick="performDecryption()">Decrypt</button>
 
-    <button onclick="performAction()">Encrypt</button>
-    <button onclick="performDecryption()">Decrypt</button>
-
-    <div id="output" placeholder="Output"></div>
-    <div id="binaryOutput" placeholder="Binary Output"></div>
-    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
+        <div id="output" placeholder="Output"></div>
+        <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
+    </div>
 
     <script>
+        let originalText = ''; // Variable to store the original input text
+
         function performAction() {
             const input = document.getElementById("inputText").value;
+            originalText = input; // Store the original text
             const action = document.getElementById("actionSelect").value;
 
             // Clear outputs before showing new results
             document.getElementById("output").innerText = '';
-            document.getElementById("binaryOutput").innerText = '';
             document.getElementById("wingdingsOutput").innerText = '';
 
             if (action.startsWith("shift-left")) {
                 const leftShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, -leftShift); // Encrypting by shifting left
+                document.getElementById("output").innerText = caesarCipher(input, -leftShift); // Shift left
             } else if (action.startsWith("shift-right")) {
                 const rightShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, rightShift); // Encrypting by shifting right
+                document.getElementById("output").innerText = caesarCipher(input, rightShift); // Shift right
             } else if (action === "wingdings") {
                 document.getElementById("wingdingsOutput").innerText = toWingdings(input);
-            } else if (action === "binary") {
-                document.getElementById("binaryOutput").innerText = textToBinary(input);
             }
         }
 
         function performDecryption() {
-            const input = document.getElementById("inputText").value;
             const action = document.getElementById("actionSelect").value;
 
             // Clear outputs before showing new results
             document.getElementById("output").innerText = '';
-            document.getElementById("binaryOutput").innerText = '';
             document.getElementById("wingdingsOutput").innerText = '';
 
-            if (action.startsWith("shift-left")) {
-                const leftShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, leftShift); // Decrypt by shifting right
-            } else if (action.startsWith("shift-right")) {
-                const rightShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, -rightShift); // Decrypt by shifting left
-            } else if (action === "wingdings") {
-                document.getElementById("output").innerText = fromWingdings(input); // Decrypt Wingdings
-            } else if (action === "binary") {
-                document.getElementById("output").innerText = binaryToText(input); // Decrypt from Binary
+            // Always return to the original text when decrypting
+            document.getElementById("output").innerText = originalText;
+
+            if (action === "wingdings") {
+                document.getElementById("output").innerText = fromWingdings(originalText); // Decrypt Wingdings
             }
         }
 
@@ -165,19 +178,6 @@
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
-        }
-
-        function textToBinary(str) {
-            return str.split('').map(char => {
-                return char.charCodeAt(0).toString(2).padStart(8, '0'); // Convert each character to binary
-            }).join(' '); // Join binary values with space
-        }
-
-        function binaryToText(str) {
-            // Split each binary character and convert back to text
-            return str.split(' ').map(bin => {
-                return String.fromCharCode(parseInt(bin, 2)); // Convert binary to character
-            }).join(''); // Join characters to form the decrypted text
         }
 
         function fromWingdings(str) {
