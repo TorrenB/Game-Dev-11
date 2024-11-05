@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cipher Encoder/Decoder</title>
     <style>
-        /* The existing styles remain unchanged */
         body {
             background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
             background-size: cover;
@@ -123,7 +122,8 @@
             <!-- Hashing Options -->
             <option value="sha256">SHA-256 Hash</option>
             <option value="md5">MD5 Hash</option>
-            <option value="ripemd160">RIPEMD-160 Hash</option> <!-- Added RIPEMD-160 option -->
+            <option value="sha384">SHA-384 Hash</option>
+            <option value="sha512">SHA-512 Hash</option>
         </select>
 
         <button onclick="performAction()">Encrypt / Hash</button>
@@ -134,7 +134,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <script src="https://unpkg.com/js-ripemd160@1.0.0/dist/ripemd160.min.js"></script> <!-- Added JS RIPEMD-160 library -->
     <script>
         let originalText = ''; // Variable to store the original input text
 
@@ -161,8 +160,11 @@
             } else if (action === "md5") {
                 const hash = CryptoJS.MD5(input).toString();
                 document.getElementById("output").innerText = hash;
-            } else if (action === "ripemd160") {
-                const hash = RIPEMD160.hash(input); // Compute RIPEMD-160 hash
+            } else if (action === "sha384") {
+                const hash = await sha384(input);
+                document.getElementById("output").innerText = hash;
+            } else if (action === "sha512") {
+                const hash = await sha512(input);
                 document.getElementById("output").innerText = hash;
             }
         }
@@ -215,15 +217,6 @@
                 '⚡': 'O',
                 '♞': 'P',
                 '➲': 'Q',
-                '✦': 'R',
-                '✧': 'S',
-                '✩': 'T',
-                '✪': 'U',
-                'V': '☎',
-                'W': '☮',
-                'X': '⚽',
-                'Y': '✗',
-                'Z': '✼',
                 // Add additional mappings as needed
             };
 
@@ -249,26 +242,32 @@
                 'O': '⚡',
                 'P': '♞',
                 'Q': '➲',
-                'R': '✦',
-                'S': '✧',
-                'T': '✩',
-                'U': '✪',
-                'V': '☎',
-                'W': '☮',
-                'X': '⚽',
-                'Y': '✗',
-                'Z': '✼',
                 // Add additional mappings as needed
             };
 
             return str.toUpperCase().split('').map(char => englishToWingdings[char] || char).join('');
         }
 
-        // Function to compute SHA-256 hash
         async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);                   
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);      
-            const hashArray = Array.from(new Uint8Array(hashBuffer));                
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function sha384(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-384', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function sha512(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-512', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
             const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
             return hashHex;
         }
