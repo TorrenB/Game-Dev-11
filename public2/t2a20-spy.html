@@ -58,9 +58,9 @@
             width: 300px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
-            white-space: normal; /* Allows text to wrap */
-            word-wrap: break-word; /* Ensures long words break to the next line */
-            overflow-wrap: break-word; /* Additional compatibility */
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .wingdings {
@@ -120,10 +120,10 @@
 
             if (action.startsWith("shift-left")) {
                 const leftShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, -leftShift);
+                document.getElementById("output").innerText = caesarCipher(input, -leftShift); // Encrypting by shifting left
             } else if (action.startsWith("shift-right")) {
                 const rightShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, rightShift);
+                document.getElementById("output").innerText = caesarCipher(input, rightShift); // Encrypting by shifting right
             } else if (action === "wingdings") {
                 document.getElementById("wingdingsOutput").innerText = toWingdings(input);
             } else if (action === "binary") {
