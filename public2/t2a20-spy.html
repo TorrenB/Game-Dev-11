@@ -71,6 +71,11 @@
 </head>
 <body>
     <h1>Cipher Encoder & Decoder</h1>
+    <h2>Text to Wingdings</h2>
+    <input type="text" id="wingdingsInput" placeholder="Enter text for Wingdings" />
+    <button onclick="convertToWingdings()">Convert to Wingdings</button>
+    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
+
     <input type="text" id="inputText" placeholder="Enter your text here" />
     <select id="shiftValue">
         <option value="6" selected>Shift Value: 6</option>
@@ -89,11 +94,6 @@
 
     <div id="output" placeholder="Encoded Output"></div>
     <div id="decodedOutput" placeholder="Decoded Output"></div>
-
-    <h2>Text to Wingdings</h2>
-    <input type="text" id="wingdingsInput" placeholder="Enter text for Wingdings" />
-    <button onclick="convertToWingdings()">Convert to Wingdings</button>
-    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
 
     <script>
         function getShiftValue() {
