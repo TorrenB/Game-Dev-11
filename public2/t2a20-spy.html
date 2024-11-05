@@ -34,7 +34,7 @@
         button {
             padding: 12px 25px;
             font-size: 18px;
-            margin-left: 10px;
+            margin-top: 10px;
             border: none;
             border-radius: 5px;
             background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
@@ -48,7 +48,7 @@
             transform: scale(1.05);
         }
 
-        #output, #decodedOutput, #wingdingsOutput {
+        #output, #decodedOutput {
             margin-top: 20px;
             font-size: 20px;
             padding: 15px;
@@ -59,10 +59,6 @@
             border-radius: 5px;
         }
 
-        #decodedOutput, #wingdingsOutput {
-            margin-top: 40px;
-        }
-
         .wingdings {
             font-family: 'Wingdings', 'Arial', sans-serif; /* Fallback to Arial */
             font-size: 30px; /* Adjust size as needed */
@@ -71,34 +67,25 @@
 </head>
 <body>
     <h1>Cipher Encoder & Decoder</h1>
-    <h2>Text to Wingdings</h2>
-    <input type="text" id="wingdingsInput" placeholder="Enter text for Wingdings" />
-    <button onclick="convertToWingdings()">Convert to Wingdings</button>
-    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
-
+    
+    <!-- Input box to enter text to be encrypted -->
     <input type="text" id="inputText" placeholder="Enter your text here" />
-    <select id="shiftValue">
-        <option value="6" selected>Shift Value: 6</option>
-        <option value="1">Shift Value: 1</option>
-        <option value="2">Shift Value: 2</option>
-        <option value="3">Shift Value: 3</option>
-        <option value="4">Shift Value: 4</option>
-        <option value="5">Shift Value: 5</option>
-        <option value="7">Shift Value: 7</option>
-        <option value="8">Shift Value: 8</option>
-        <option value="9">Shift Value: 9</option>
-        <option value="10">Shift Value: 10</option>
-    </select>
-    <button onclick="encodeText()">Encode</button>
-    <button onclick="decodeText()">Decode</button>
 
-    <div id="output" placeholder="Encoded Output"></div>
-    <div id="decodedOutput" placeholder="Decoded Output"></div>
+    <!-- Button to encrypt the input text -->
+    <button onclick="encodeText()">Encrypt</button>
+
+    <!-- Output box to display the encrypted text -->
+    <div id="output" placeholder="Encrypted Output"></div>
+
+    <!-- Button to decrypt the encrypted text -->
+    <button onclick="decodeText()">Decrypt</button>
+
+    <!-- Output box to display the decrypted text -->
+    <div id="decodedOutput" placeholder="Decrypted Output"></div>
 
     <script>
         function getShiftValue() {
-            const shiftSelect = document.getElementById("shiftValue");
-            return parseInt(shiftSelect.value, 10); // Get selected shift value
+            return 6; // Fixed shift value for consistency
         }
 
         function encodeText() {
@@ -124,12 +111,6 @@
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
-        }
-
-        function convertToWingdings() {
-            const input = document.getElementById("wingdingsInput").value;
-            const wingdingsOutput = document.getElementById("wingdingsOutput");
-            wingdingsOutput.innerText = input; // Just display the text, style will apply Wingdings
         }
     </script>
 </body>
