@@ -58,6 +58,10 @@
             background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
         }
+
+        .wingdings {
+            font-family: 'Wingdings', sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -94,7 +98,7 @@
 
     <div id="output" placeholder="Output"></div>
     <div id="binaryOutput" placeholder="Binary Output"></div>
-    <div id="wingdingsOutput" placeholder="Wingdings Output"></div>
+    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
 
     <script>
         function performAction() {
@@ -143,12 +147,10 @@
 
         function toWingdings(str) {
             // Convert each character to a Wingdings equivalent using Unicode
-            const wingdings = str.split('').map(char => {
-                const code = char.charCodeAt(0) + 0xF000; // Offset for Wingdings
+            return str.split('').map(char => {
+                const code = (char.charCodeAt(0) - 32) + 0xF000; // Offset for Wingdings
                 return String.fromCharCode(code);
             }).join('');
-
-            return wingdings;
         }
     </script>
 </body>
