@@ -48,7 +48,7 @@
             transform: scale(1.05);
         }
 
-        #output, #decodedOutput {
+        #output, #binaryOutput, #wingdingsOutput {
             margin-top: 20px;
             font-size: 20px;
             padding: 15px;
@@ -58,59 +58,97 @@
             background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
         }
-
-        .wingdings {
-            font-family: 'Wingdings', 'Arial', sans-serif; /* Fallback to Arial */
-            font-size: 30px; /* Adjust size as needed */
-        }
     </style>
 </head>
 <body>
     <h1>Cipher Encoder & Decoder</h1>
-    
-    <!-- Input box to enter text to be encrypted -->
+
     <input type="text" id="inputText" placeholder="Enter your text here" />
 
-    <!-- Button to encrypt the input text -->
-    <button onclick="encodeText()">Encrypt</button>
+    <select id="actionSelect">
+        <option value="shift-left-1">Shift Left by 1</option>
+        <option value="shift-left-2">Shift Left by 2</option>
+        <option value="shift-left-3">Shift Left by 3</option>
+        <option value="shift-left-4">Shift Left by 4</option>
+        <option value="shift-left-5">Shift Left by 5</option>
+        <option value="shift-left-6">Shift Left by 6</option>
+        <option value="shift-left-7">Shift Left by 7</option>
+        <option value="shift-left-8">Shift Left by 8</option>
+        <option value="shift-left-9">Shift Left by 9</option>
+        <option value="shift-left-10">Shift Left by 10</option>
+        <option value="shift-right-1">Shift Right by 1</option>
+        <option value="shift-right-2">Shift Right by 2</option>
+        <option value="shift-right-3">Shift Right by 3</option>
+        <option value="shift-right-4">Shift Right by 4</option>
+        <option value="shift-right-5">Shift Right by 5</option>
+        <option value="shift-right-6">Shift Right by 6</option>
+        <option value="shift-right-7">Shift Right by 7</option>
+        <option value="shift-right-8">Shift Right by 8</option>
+        <option value="shift-right-9">Shift Right by 9</option>
+        <option value="shift-right-10">Shift Right by 10</option>
+        <option value="wingdings">Convert to Wingdings</option>
+        <option value="binary">Convert to Binary</option>
+    </select>
 
-    <!-- Output box to display the encrypted text -->
-    <div id="output" placeholder="Encrypted Output"></div>
+    <button onclick="performAction()">Submit</button>
 
-    <!-- Button to decrypt the encrypted text -->
-    <button onclick="decodeText()">Decrypt</button>
-
-    <!-- Output box to display the decrypted text -->
-    <div id="decodedOutput" placeholder="Decrypted Output"></div>
+    <div id="output" placeholder="Output"></div>
+    <div id="binaryOutput" placeholder="Binary Output"></div>
+    <div id="wingdingsOutput" placeholder="Wingdings Output"></div>
 
     <script>
-        function getShiftValue() {
-            return 6; // Fixed shift value for consistency
-        }
-
-        function encodeText() {
+        function performAction() {
             const input = document.getElementById("inputText").value;
-            const output = document.getElementById("output");
-            const shift = getShiftValue();
-            output.innerText = caesarCipher(input, shift);
-        }
+            const action = document.getElementById("actionSelect").value;
 
-        function decodeText() {
-            const input = document.getElementById("output").innerText;
-            const decodedOutput = document.getElementById("decodedOutput");
-            const shift = getShiftValue();
-            decodedOutput.innerText = caesarCipher(input, -shift);
+            // Clear outputs before showing new results
+            document.getElementById("output").innerText = '';
+            document.getElementById("binaryOutput").innerText = '';
+            document.getElementById("wingdingsOutput").innerText = '';
+
+            switch(action) {
+                case action.startsWith("shift-left"):
+                    const leftShift = parseInt(action.split('-')[2]);
+                    document.getElementById("output").innerText = caesarCipher(input, -leftShift);
+                    break;
+                case action.startsWith("shift-right"):
+                    const rightShift = parseInt(action.split('-')[2]);
+                    document.getElementById("output").innerText = caesarCipher(input, rightShift);
+                    break;
+                case "wingdings":
+                    document.getElementById("wingdingsOutput").innerText = toWingdings(input);
+                    break;
+                case "binary":
+                    document.getElementById("binaryOutput").innerText = textToBinary(input);
+                    break;
+            }
         }
 
         function caesarCipher(str, shift) {
             return str.split('').map(char => {
-                if (char.match(/[a-z]/i)) {
+                if (char.match(/[a-zA-Z]/)) {
                     const code = char.charCodeAt();
                     const base = (code >= 65 && code <= 90) ? 65 : 97; // A-Z or a-z
                     return String.fromCharCode(((code - base + shift + 26) % 26) + base);
                 }
                 return char; // Leave non-alphabetical characters unchanged
             }).join('');
+        }
+
+        function textToBinary(str) {
+            return str.split('').map(char => {
+                return char.charCodeAt(0).toString(2).padStart(8, '0'); // Convert each character to binary
+            }).join(' '); // Join binary values with space
+        }
+
+        function toWingdings(str) {
+            // Convert each character to a Wingdings equivalent using Unicode
+            const wingdings = str.split('').map(char => {
+                const code = char.charCodeAt(0) + 0xF000; // Offset for Wingdings
+                return String.fromCharCode(code);
+            }).join('');
+
+            return wingdings;
         }
     </script>
 </body>
