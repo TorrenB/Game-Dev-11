@@ -118,7 +118,7 @@
     </select>
 
     <button onclick="performAction()">Encrypt</button>
-    <button onclick="performDecryption()">Decrypt</button>
+    <button onclick="decryptTopHalf()">Decrypt</button>
 
     <div id="output" placeholder="Output"></div>
     <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
@@ -137,10 +137,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
     let originalText = '';
+    let inputTextBeforeEncryption = ''; // Variable to store the original input text from the top half
 
-    // Function to handle encryption and decryption for the top section.
     function performAction() {
         const inputText = document.getElementById('inputText').value;
+        inputTextBeforeEncryption = inputText; // Store original input text for decryption
         const actionSelect = document.getElementById('actionSelect');
         const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
 
@@ -159,11 +160,7 @@
         let outputText = inputText.split('').map(char => {
             if (char.match(/[a-zA-Z]/)) {
                 // Shift character based on direction
-                if (direction === 1) {
-                    return String.fromCharCode(char.charCodeAt(0) + shiftBy);
-                } else {
-                    return String.fromCharCode(char.charCodeAt(0) - shiftBy);
-                }
+                return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
             }
             return char; // Leave non-letters unchanged
         }).join('');
@@ -171,32 +168,10 @@
         document.getElementById('output').innerText = outputText; // Show the result in the output div
     }
 
-    // Function to handle decryption - since we are shifting back to the original text
-    function performDecryption() {
-        const outputText = document.getElementById('output').innerText;
-        const actionSelect = document.getElementById('actionSelect');
-        const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
-        
-        let shiftBy = 0; // The amount to shift characters
-        let direction = -1; // Decrypting means we shift in the opposite direction
-
-        if (selectedValue.startsWith("shift-left")) {
-            shiftBy = parseInt(selectedValue.split('-')[2], 10);
-        } else if (selectedValue.startsWith("shift-right")) {
-            shiftBy = parseInt(selectedValue.split('-')[2], 10);
-            direction = 1; // We need to shift back to the left
-        }
-
-        // Perform the shift
-        let originalText = outputText.split('').map(char => {
-            if (char.match(/[a-zA-Z]/)) {
-                // Shift character back depending on direction
-                return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
-            }
-            return char; // Leave non-letters unchanged
-        }).join('');
-
-        document.getElementById('output').innerText = originalText; // Show the decrypted text
+    function decryptTopHalf() {
+        // Returns the original input text for the top half
+        document.getElementById('inputText').value = inputTextBeforeEncryption; // Reset to original text in input field
+        document.getElementById('output').innerText = ''; // Clear output
     }
 
     function customEncrypt() {
