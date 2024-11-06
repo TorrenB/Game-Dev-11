@@ -94,34 +94,13 @@
 
     <input type="text" id="inputText" placeholder="Enter your secret text here" />
     
-    <select id="actionSelect">
-        <option value="shift-left-1">Shift Left by 1</option>
-        <option value="shift-left-2">Shift Left by 2</option>
-        <option value="shift-left-3">Shift Left by 3</option>
-        <option value="shift-left-4">Shift Left by 4</option>
-        <option value="shift-left-5">Shift Left by 5</option>
-        <option value="shift-left-6">Shift Left by 6</option>
-        <option value="shift-left-7">Shift Left by 7</option>
-        <option value="shift-left-8">Shift Left by 8</option>
-        <option value="shift-left-9">Shift Left by 9</option>
-        <option value="shift-left-10">Shift Left by 10</option>
-        <option value="shift-right-1">Shift Right by 1</option>
-        <option value="shift-right-2">Shift Right by 2</option>
-        <option value="shift-right-3">Shift Right by 3</option>
-        <option value="shift-right-4">Shift Right by 4</option>
-        <option value="shift-right-5">Shift Right by 5</option>
-        <option value="shift-right-6">Shift Right by 6</option>
-        <option value="shift-right-7">Shift Right by 7</option>
-        <option value="shift-right-8">Shift Right by 8</option>
-        <option value="shift-right-9">Shift Right by 9</option>
-        <option value="shift-right-10">Shift Right by 10</option>
+    <select id="conversionSelect">
+        <option value="wingdings">Convert to Wingdings</option>
+        <!-- You can add more options here -->
     </select>
 
-    <button onclick="performAction()">Encrypt</button>
+    <button onclick="convertText()">Convert</button>
     <button onclick="decryptTopHalf()">Decrypt Top</button>
-    <button onclick="convertToWingdings()">Convert to Wingdings</button>
-    <button onclick="hashSHA256()">SHA-256</button>
-    <button onclick="hashSHA512()">SHA-512</button>
 
     <div id="output" placeholder="Output"></div>
     <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
@@ -132,7 +111,7 @@
     <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
     <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
     <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
-    <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></ textarea>
+    <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
     <div class="section"></div>
 
 </div>
@@ -142,59 +121,23 @@
     let originalInputText = ''; // Variable to store the original input text from the top half
     let originalText = ''; // Variable to store the original text from the custom text area
 
-    function performAction() {
+    function convertText() {
         const inputText = document.getElementById('inputText').value;
-        originalInputText = inputText; // Store original input text for decryption in the top half
-        
-        const actionSelect = document.getElementById('actionSelect');
-        const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
+        originalInputText = inputText; // Store the original input text for decryption
+        const conversionSelect = document.getElementById('conversionSelect').value;
 
-        let shiftBy = 0; // The amount to shift characters
-        let direction = 1; // 1 for right, -1 for left
-
-        if (selectedValue.startsWith("shift-left")) {
-            shiftBy = parseInt(selectedValue.split('-')[2], 10);
-            direction = -1; // Left shift
-        } else if (selectedValue.startsWith("shift-right")) {
-            shiftBy = parseInt(selectedValue.split('-')[2], 10);
-            direction = 1; // Right shift
+        if (conversionSelect === "wingdings") {
+            const wingdingsText = inputText.split('').map(char => {
+                return String.fromCharCode(char.charCodeAt(0) + 0xF000); // Convert to Wingdings
+            }).join('');
+            document.getElementById('wingdingsOutput').innerText = wingdingsText; // Show Wingdings output
         }
-
-        // Perform the shift
-        let outputText = inputText.split('').map(char => {
-            if (char.match(/[a-zA-Z]/)) {
-                // Shift character based on direction
-                return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
-            }
-            return char; // Leave non-letters unchanged
-        }).join('');
-
-        document.getElementById('output').innerText = outputText; // Show the result in the output div
+        // Add more conversion options here as needed
     }
 
     function decryptTopHalf() {
         // Display the original input text in the output box
         document.getElementById('output').innerText = originalInputText; // Show the original text in the output div
-    }
-
-    function convertToWingdings() {
-        const inputText = document.getElementById('inputText').value;
-        const wingdingsText = inputText.split('').map(char => {
-            return String.fromCharCode(char.charCodeAt(0) + 0xF000); // Simple conversion to Wingdings
-        }).join('');
-        document.getElementById('wingdingsOutput').innerText = wingdingsText; // Show Wingdings output
-    }
-
-    function hashSHA256() {
-        const inputText = document.getElementById('inputText').value;
-        const hash = CryptoJS.SHA256(inputText).toString();
-        document.getElementById('output').innerText = `SHA-256: ${hash}`;
-    }
-
-    function hashSHA512() {
-        const inputText = document.getElementById('inputText').value;
-        const hash = CryptoJS.SHA512(inputText).toString();
-        document.getElementById('output').innerText = `SHA-512: ${hash}`;
     }
 
     function customEncrypt() {
