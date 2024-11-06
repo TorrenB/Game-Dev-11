@@ -125,13 +125,14 @@
         <textarea id="myArea01" rows="4" cols="70">Hello, how are you?</textarea><br>
         <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
         <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
-        <input type="button" value="Decrypt" onclick="alert('Sorry, you have to do this!')"><br><br>
+        <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
         <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script>
         let originalText = '';
+        let encryptedText = '';
 
         async function performAction() {
             const input = document.getElementById("inputText").value;
@@ -190,9 +191,9 @@
             const wingdingsToEnglish = {
                 '✈': 'A', '✉': 'B', '➤': 'C', '✓': 'D',
                 '✖': 'E', '★': 'F', '☼': 'G', '☾': 'H',
-                '☥': 'I', '✿': 'J', '♠': 'K', '♣': 'L',
-                '♥': 'M', '♦': 'N', '⚡': 'O', '♞': 'P',
-                '➲': 'Q', // Add additional mappings as needed
+                '☥': 'I', 'J': '✿', 'K': '♠', 'L': '♣',
+                'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
+                'Q': '➲', // Add additional mappings as needed
             };
             return str.split('').map(char => wingdingsToEnglish[char] || char).join('');
         }
@@ -233,6 +234,9 @@
             let myTemp = '';
             let myString = document.getElementById('myArea01').value.toLowerCase().split('');
 
+            // Store the original text for decryption
+            const originalText = myString.join('');
+
             for (let myLoop = 0; myLoop < myString.length; myLoop++) {
                 myTemp = myString[myLoop];
 
@@ -242,8 +246,16 @@
 
                 myString[myLoop] = myTemp;
             }
+            // Set encrypted text in the second textarea
+            encryptedText = myString.join('');
+            document.getElementById('myArea02').value = encryptedText;
+            // Store the original text back into the third textarea
+            document.getElementById('myArea03').value = originalText;
+        }
 
-            document.getElementById('myArea02').value = myString.join('');
+        function customDecrypt() {
+            // Set the original text back to the third textarea
+            document.getElementById('myArea03').value = originalText;
         }
     </script>
 </body>
