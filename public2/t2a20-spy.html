@@ -138,129 +138,153 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <script>
-        let originalText = '';
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script>
+    let originalText = '';
+    let encryptedText = '';
+
+    async function performAction() {
+        const input = document.getElementById("inputText").value;
+        originalText = input;
+        const action = document.getElementById("actionSelect").value;
+
+        document.getElementById("output").innerText = '';
+        document.getElementById("wingdingsOutput").innerText = '';
+
+        if (action.startsWith("shift-left")) {
+            const leftShift = parseInt(action.split('-')[2]);
+            document.getElementById("output").innerText = caesarCipher(input, -leftShift);
+        } else if (action.startsWith("shift-right")) {
+            const rightShift = parseInt(action.split('-')[2]);
+            document.getElementById("output").innerText = caesarCipher(input, rightShift);
+        } else if (action === "wingdings") {
+            document.getElementById("wingdingsOutput").innerText = toWingdings(input);
+        } else if (action === "sha256") {
+            const hash = await sha256(input);
+            document.getElementById("output").innerText = hash;
+        } else if (action === "md5") {
+            const hash = CryptoJS.MD5(input).toString();
+            document.getElementById("output").innerText = hash;
+        } else if (action === "sha384") {
+            const hash = await sha384(input);
+            document.getElementById("output").innerText = hash;
+        } else if (action === "sha512") {
+            const hash = await sha512(input);
+            document.getElementById("output").innerText = hash;
+        } else if (action === "upside-down") {
+            document.getElementById("output").innerText = toUpsideDown(input);
+        }
+    }
+
+    function performDecryption() {
+        const action = document.getElementById("actionSelect").value;
+        if (action === "wingdings") {
+            document.getElementById("output").innerText = fromWingdings(originalText);
+        }
+    }
+
+    function caesarCipher(str, shift) {
+        return str.split('').map(char => {
+            if (char.match(/[a-zA-Z]/)) {
+                const isUpperCase = char === char.toUpperCase();
+                const code = char.charCodeAt();
+                const base = (code >= 65 && code <= 90) ? 65 : 97;
+                const shifted = String.fromCharCode(((code - base + shift + 26) % 26) + base);
+                return isUpperCase ? shifted : shifted.toLowerCase();
+            }
+            return char;
+        }).join('');
+    }
+
+    function toUpsideDown(str) {
+        const upsideDownMap = {
+            'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ',
+            'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+            'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o',
+            'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+            'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ',
+            'z': 'z', 'A': 'Ʌ', 'B': 'ꓭ', 'C': 'Ɔ', 'D': 'ꓷ',
+            'E': 'Ǝ', 'F': 'ꓟ', 'G': 'Ɓ', 'H': 'H', 'I': 'I',
+            'J': 'ⅉ', 'K': 'ꓘ', 'L': '⅃', 'M': '⅂', 'N': 'N',
+            'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S',
+            'T': '┴', 'U': '∩', 'V': 'ʌ', 'W': 'M', 'X': 'X',
+            'Y': '⅄', 'Z': 'Z', ' ': ' ', '!': '¡', '"': '„',
+            '#': '#', '$': '˥', '%': '٪', '&': '⅋', "'": ',',
+            '(': ')', ')': '(', '*': '∗', '+': '+', ',': "'",
+            '-': '-', '.': '˙', '/': '˥', ':': 'ː', ';': '؛',
+            '<': '>', '=': '=', '>': '<', '?': '¿', '@': '⸘',
+            '[': ']', '\\': '⊥', ']': '[', '^': 'ʌ', '_': '‾',
+            '`': ','
+        };
+
+        return str.split('').map(char => upsideDownMap[char] || char).reverse().join('');
+    }
+
+    function fromWingdings(str) {
+        const wingdingsToEnglish = {
+            '✈': 'A', '✉': 'B', '➤': 'C', '✓': 'D',
+            '✖': 'E', '★': 'F', '☼': 'G', '☾': 'H',
+            '☥': 'I', 'J': '✿', 'K': '♠', 'L': '♣',
+            'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
+            'Q': '➲', // Add additional mappings as needed
+        };
+        return str.split('').map(char => wingdingsToEnglish[char] || char).join('');
+    }
+
+    function toWingdings(str) {
+        const englishToWingdings = {
+            'A': '✈', 'B': '✉', 'C': '➤', 'D': '✓',
+            'E': '✖', 'F': '★', 'G': '☼', 'H': '☾',
+            'I': '☥', 'J': '✿', 'K': '♠', 'L': '♣',
+            'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
+            'Q': '➲', // Add additional mappings as needed
+        };
+        return str.toUpperCase().split('').map(char => englishToWingdings[char] || char).join('');
+    }
+
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function sha384(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-384', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function sha512(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-512', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Encryption functionality for custom textarea
+    function customEncrypt() {
+        let myString = document.getElementById('myArea01').value;
         let encryptedText = '';
 
-        async function performAction() {
-            const input = document.getElementById("inputText").value;
-            originalText = input;
-            const action = document.getElementById("actionSelect").value;
-
-            document.getElementById("output").innerText = '';
-            document.getElementById("wingdingsOutput").innerText = '';
-
-            if (action.startsWith("shift-left")) {
-                const leftShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, -leftShift);
-            } else if (action.startsWith("shift-right")) {
-                const rightShift = parseInt(action.split('-')[2]);
-                document.getElementById("output").innerText = caesarCipher(input, rightShift);
-            } else if (action === "wingdings") {
-                document.getElementById("wingdingsOutput").innerText = toWingdings(input);
-            } else if (action === "sha256") {
-                const hash = await sha256(input);
-                document.getElementById("output").innerText = hash;
-            } else if (action === "md5") {
-                const hash = CryptoJS.MD5(input).toString();
-                document.getElementById("output").innerText = hash;
-            } else if (action === "sha384") {
-                const hash = await sha384(input);
-                document.getElementById("output").innerText = hash;
-            } else if (action === "sha512") {
-                const hash = await sha512(input);
-                document.getElementById("output").innerText = hash;
+        // Shift each letter to the left by one
+        for (let char of myString) {
+            if (char >= 'a' && char <= 'z') {
+                encryptedText += String.fromCharCode((char.charCodeAt(0) - 1 + 26 - 97) % 26 + 97);
+            } else if (char >= 'A' && char <= 'Z') {
+                encryptedText += String.fromCharCode((char.charCodeAt(0) - 1 + 26 - 65) % 26 + 65);
+            } else {
+                encryptedText += char; // Keep non-letter characters unchanged
             }
         }
+        document.getElementById('myArea02').value = encryptedText;
+        originalText = myString; // Store original text for decryption
+    }
 
-        function performDecryption() {
-            // This function is modified, but we are not using this for custom input
-            const action = document.getElementById("actionSelect").value;
-            if (action === "wingdings") {
-                document.getElementById("output").innerText = fromWingdings(originalText);
-            }
-        }
-
-        function caesarCipher(str, shift) {
-            return str.split('').map(char => {
-                if (char.match(/[a-zA-Z]/)) {
-                    const isUpperCase = char === char.toUpperCase();
-                    const code = char.charCodeAt();
-                    const base = (code >= 65 && code <= 90) ? 65 : 97;
-                    const shifted = String.fromCharCode(((code - base + shift + 26) % 26) + base);
-                    return isUpperCase ? shifted : shifted.toLowerCase();
-                }
-                return char;
-            }).join('');
-        }
-
-        function fromWingdings(str) {
-            const wingdingsToEnglish = {
-                '✈': 'A', '✉': 'B', '➤': 'C', '✓': 'D',
-                '✖': 'E', '★': 'F', '☼': 'G', '☾': 'H',
-                '☥': 'I', 'J': '✿', 'K': '♠', 'L': '♣',
-                'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
-                'Q': '➲', // Add additional mappings as needed
-            };
-            return str.split('').map(char => wingdingsToEnglish[char] || char).join('');
-        }
-
-        function toWingdings(str) {
-            const englishToWingdings = {
-                'A': '✈', 'B': '✉', 'C': '➤', 'D': '✓',
-                'E': '✖', 'F': '★', 'G': '☼', 'H': '☾',
-                'I': '☥', 'J': '✿', 'K': '♠', 'L': '♣',
-                'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
-                'Q': '➲', // Add additional mappings as needed
-            };
-            return str.toUpperCase().split('').map(char => englishToWingdings[char] || char).join('');
-        }
-
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async function sha384(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-384', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async function sha512(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-512', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // Encryption functionality for custom textarea
-        function customEncrypt() {
-            let myString = document.getElementById('myArea01').value;
-            let encryptedText = '';
-
-            // Shift each letter to the left by one
-            for (let char of myString) {
-                if (char >= 'a' && char <= 'z') {
-                    encryptedText += String.fromCharCode((char.charCodeAt(0) - 1 + 26 - 97) % 26 + 97);
-                } else if (char >= 'A' && char <= 'Z') {
-                    encryptedText += String.fromCharCode((char.charCodeAt(0) - 1 + 26 - 65) % 26 + 65);
-                } else {
-                    encryptedText += char; // Keep non-letter characters unchanged
-                }
-            }
-            document.getElementById('myArea02').value = encryptedText;
-            originalText = myString; // Store original text for decryption
-        }
-
-        function customDecrypt() {
-            // Restore the original text
-            document.getElementById('myArea03').value = originalText;
-        }
-    </script>
-</body>
+    function customDecrypt() {
+        // Restore the original text
+        document.getElementById('myArea03').value = originalText;
+    }
+</script>
 </html>
