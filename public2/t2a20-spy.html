@@ -93,7 +93,7 @@
     <h1>Cipher Encoder & Decoder</h1>
 
     <input type="text" id="inputText" placeholder="Enter your secret text here" />
-
+    
     <select id="actionSelect">
         <option value="shift-left-1">Shift Left by 1</option>
         <option value="shift-left-2">Shift Left by 2</option>
@@ -118,7 +118,10 @@
     </select>
 
     <button onclick="performAction()">Encrypt</button>
-    <button onclick="decryptTopHalf()">Decrypt</button>
+    <button onclick="decryptTopHalf()">Decrypt Top</button>
+    <button onclick="convertToWingdings()">Convert to Wingdings</button>
+    <button onclick="hashSHA256()">SHA-256</button>
+    <button onclick="hashSHA512()">SHA-512</button>
 
     <div id="output" placeholder="Output"></div>
     <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
@@ -129,17 +132,20 @@
     <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
     <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
     <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
-    <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
+    <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></ textarea>
     <div class="section"></div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
-    let originalText = ''; // Variable to store the original text from the bottom half
+    let originalInputText = ''; // Variable to store the original input text from the top half
+    let originalText = ''; // Variable to store the original text from the custom text area
 
     function performAction() {
         const inputText = document.getElementById('inputText').value;
+        originalInputText = inputText; // Store original input text for decryption in the top half
+        
         const actionSelect = document.getElementById('actionSelect');
         const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
 
@@ -167,12 +173,33 @@
     }
 
     function decryptTopHalf() {
-        // This function is intentionally left as is for the top half only
+        // Display the original input text in the output box
+        document.getElementById('output').innerText = originalInputText; // Show the original text in the output div
+    }
+
+    function convertToWingdings() {
+        const inputText = document.getElementById('inputText').value;
+        const wingdingsText = inputText.split('').map(char => {
+            return String.fromCharCode(char.charCodeAt(0) + 0xF000); // Simple conversion to Wingdings
+        }).join('');
+        document.getElementById('wingdingsOutput').innerText = wingdingsText; // Show Wingdings output
+    }
+
+    function hashSHA256() {
+        const inputText = document.getElementById('inputText').value;
+        const hash = CryptoJS.SHA256(inputText).toString();
+        document.getElementById('output').innerText = `SHA-256: ${hash}`;
+    }
+
+    function hashSHA512() {
+        const inputText = document.getElementById('inputText').value;
+        const hash = CryptoJS.SHA512(inputText).toString();
+        document.getElementById('output').innerText = `SHA-512: ${hash}`;
     }
 
     function customEncrypt() {
         const myArea01 = document.getElementById('myArea01').value;
-        originalText = myArea01; // Store the original text for decryption
+        originalText = myArea01; // Store original text for decryption
         let encryptedText = myArea01.split('').map(char => {
             // Only apply to letters (a-z, A-Z)
             if (char.match(/[a-zA-Z]/)) {
