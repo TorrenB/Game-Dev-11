@@ -5,273 +5,161 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipher Encoder/Decoder</title>
 <style>
-body {
-background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
-background-size: cover;
-background-position: center;
-color: #ffffff;
-font-family: 'Arial', sans-serif;
-text-align: center;
-padding: 50px;
-}
+    body {
+        background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        padding: 50px;
+    }
 
-.container {
-background: rgba(0, 0, 0, 0.8);
-border-radius: 10px;
-padding: 30px;
-width: 400px;
-margin: auto;
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-}
+    .container {
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        padding: 30px;
+        width: 400px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
 
-h1 {
-font-size: 28px;
-margin-bottom: 20px;
-text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
-}
+    h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+    }
 
-input[type="text"], textarea, select {
-width: 100%;
-padding: 15px;
-font-size: 18px;
-margin: 10px 0;
-border: 2px solid #ff007b;
-border-radius: 5px;
-background-color: #333;
-color: #ffffff;
-box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-}
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        margin: 10px 0;
+        border: 2px solid #ff007b;
+        border-radius: 5px;
+        background-color: #333;
+        color: #ffffff;
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
 
-button {
-padding: 12px 25px;
-font-size: 18px;
-margin-top: 10px;
-border: none;
-border-radius: 5px;
-background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
-color: #ffffff;
-cursor: pointer;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-transition: transform 0.2s, background 0.2s;
-margin-bottom: 10px;
-width: 100%;
-}
+    button {
+        padding: 12px 25px;
+        font-size: 18px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
+        color: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transition: transform 0.2s, background 0.2s;
+        margin-bottom: 10px;
+        width: 100%;
+    }
 
-button:hover {
-transform: scale(1.05);
-}
+    button:hover {
+        transform: scale(1.05);
+    }
 
-#output, #wingdingsOutput {
-margin-top: 20px;
-font-size: 18px;
-padding: 15px;
-border: 2px solid #ff007b;
-display: inline-block;
-width: 100%;
-background: rgba(0, 0, 0, 0.7);
-border-radius: 5px;
-white-space: normal;
-word-wrap: break-word;
-overflow-wrap: break-word;
-}
+    #output, #wingdingsOutput {
+        margin-top: 20px;
+        font-size: 18px;
+        padding: 15px;
+        border: 2px solid #ff007b;
+        display: inline-block;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-.wingdings {
-font-family: 'Wingdings', sans-serif;
-}
+    .wingdings {
+        font-family: 'Wingdings', sans-serif;
+    }
 
-        .section {
-            margin-top: 30px;
-            padding: 15px;
-            border: 1px solid #ff007b;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
+    .section {
+        margin-top: 30px;
+        padding: 15px;
+        border: 1px solid #ff007b;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Cipher Encoder & Decoder</h1>
+    <h1>Cipher Encoder & Decoder</h1>
 
-<input type="text" id="inputText" placeholder="Enter your secret text here" />
+    <input type="text" id="inputText" placeholder="Enter your secret text here" />
 
-<select id="actionSelect">
-<option value="shift-left-1">Shift Left by 1</option>
-<option value="shift-left-2">Shift Left by 2</option>
-<option value="shift-left-3">Shift Left by 3</option>
-<option value="shift-left-4">Shift Left by 4</option>
-<option value="shift-left-5">Shift Left by 5</option>
-<option value="shift-left-6">Shift Left by 6</option>
-<option value="shift-left-7">Shift Left by 7</option>
-<option value="shift-left-8">Shift Left by 8</option>
-<option value="shift-left-9">Shift Left by 9</option>
-<option value="shift-left-10">Shift Left by 10</option>
-<option value="shift-right-1">Shift Right by 1</option>
-<option value="shift-right-2">Shift Right by 2</option>
-<option value="shift-right-3">Shift Right by 3</option>
-<option value="shift-right-4">Shift Right by 4</option>
-<option value="shift-right-5">Shift Right by 5</option>
-<option value="shift-right-6">Shift Right by 6</option>
-<option value="shift-right-7">Shift Right by 7</option>
-<option value="shift-right-8">Shift Right by 8</option>
-<option value="shift-right-9">Shift Right by 9</option>
-<option value="shift-right-10">Shift Right by 10</option>
-<option value="wingdings">Convert to Wingdings</option>
-<option value="sha256">SHA-256 Hash</option>
-<option value="md5">MD5 Hash</option>
-<option value="sha384">SHA-384 Hash</option>
-<option value="sha512">SHA-512 Hash</option>
-</select>
+    <select id="actionSelect">
+        <option value="shift-left-1">Shift Left by 1</option>
+        <option value="shift-left-2">Shift Left by 2</option>
+        <option value="shift-left-3">Shift Left by 3</option>
+        <option value="shift-left-4">Shift Left by 4</option>
+        <option value="shift-left-5">Shift Left by 5</option>
+        <option value="shift-left-6">Shift Left by 6</option>
+        <option value="shift-left-7">Shift Left by 7</option>
+        <option value="shift-left-8">Shift Left by 8</option>
+        <option value="shift-left-9">Shift Left by 9</option>
+        <option value="shift-left-10">Shift Left by 10</option>
+        <option value="shift-right-1">Shift Right by 1</option>
+        <option value="shift-right-2">Shift Right by 2</option>
+        <option value="shift-right-3">Shift Right by 3</option>
+        <option value="shift-right-4">Shift Right by 4</option>
+        <option value="shift-right-5">Shift Right by 5</option>
+        <option value="shift-right-6">Shift Right by 6</option>
+        <option value="shift-right-7">Shift Right by 7</option>
+        <option value="shift-right-8">Shift Right by 8</option>
+        <option value="shift-right-9">Shift Right by 9</option>
+        <option value="shift-right-10">Shift Right by 10</option>
+        <option value="wingdings">Convert to Wingdings</option>
+        <option value="sha256">SHA-256 Hash</option>
+        <option value="md5">MD5 Hash</option>
+        <option value="sha384">SHA-384 Hash</option>
+        <option value="sha512">SHA-512 Hash</option>
+    </select>
 
-<button onclick="performAction()">Encrypt / Hash</button>
-<button onclick="performDecryption()">Decrypt</button>
+    <button onclick="performAction()">Encrypt / Hash</button>
+    <button onclick="performDecryption()">Decrypt</button>
 
-<div id="output" placeholder="Output"></div>
-<div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
+    <div id="output" placeholder="Output"></div>
+    <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
 
-        <h1>Custom Text Area Encryption</h1>
-        
-        <textarea id="myArea01" rows="4" cols="70">Hello, how are you?</textarea><br>
-        <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
-        <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
-        <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
-        <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
-        <div class="section">
-        
+    <h1>Custom Text Area Encryption</h1>
+    
+    <textarea id="myArea01" rows="4" cols="70">Hello, how are you?</textarea><br>
+    <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
+    <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
+    <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
+    <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
+    <div class="section"></div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
-let originalText = '';
-let encryptedText = '';
+    let originalText = '';
 
-async function performAction() {
-const input = document.getElementById("inputText").value;
-originalText = input;
-const action = document.getElementById("actionSelect").value;
+    function customEncrypt() {
+        const myArea01 = document.getElementById('myArea01').value;
+        originalText = myArea01; // Store the original text
+        let encryptedText = myArea01.split('').map(char => {
+            // Only apply to letters (a-z, A-Z)
+            if (char.match(/[a-zA-Z]/)) {
+                return String.fromCharCode(char.charCodeAt(0) - 1); // Shift left by 1
+            }
+            return char; // Leave non-letters unchanged
+        }).join('');
+        document.getElementById('myArea02').value = encryptedText; // Set encrypted output
+    }
 
-document.getElementById("output").innerText = '';
-document.getElementById("wingdingsOutput").innerText = '';
-
-if (action.startsWith("shift-left")) {
-const leftShift = parseInt(action.split('-')[2]);
-document.getElementById("output").innerText = caesarCipher(input, -leftShift);
-} else if (action.startsWith("shift-right")) {
-const rightShift = parseInt(action.split('-')[2]);
-document.getElementById("output").innerText = caesarCipher(input, rightShift);
-} else if (action === "wingdings") {
-document.getElementById("wingdingsOutput").innerText = toWingdings(input);
-} else if (action === "sha256") {
-const hash = await sha256(input);
-document.getElementById("output").innerText = hash;
-} else if (action === "md5") {
-const hash = CryptoJS.MD5(input).toString();
-document.getElementById("output").innerText = hash;
-} else if (action === "sha384") {
-const hash = await sha384(input);
-document.getElementById("output").innerText = hash;
-} else if (action === "sha512") {
-const hash = await sha512(input);
-document.getElementById("output").innerText = hash;
-}
-}
-
-function performDecryption() {
-            // Decrypt action is now removed from here. Separate functionality for custom input.
-const action = document.getElementById("actionSelect").value;
-            document.getElementById("output").innerText = originalText;
-
-if (action === "wingdings") {
-document.getElementById("output").innerText = fromWingdings(originalText);
-}
-}
-
-function caesarCipher(str, shift) {
-return str.split('').map(char => {
-if (char.match(/[a-zA-Z]/)) {
-const isUpperCase = char === char.toUpperCase();
-const code = char.charCodeAt();
-const base = (code >= 65 && code <= 90) ? 65 : 97;
-const shifted = String.fromCharCode(((code - base + shift + 26) % 26) + base);
-return isUpperCase ? shifted : shifted.toLowerCase();
-}
-return char;
-}).join('');
-}
-
-function fromWingdings(str) {
-const wingdingsToEnglish = {
-'✈': 'A', '✉': 'B', '➤': 'C', '✓': 'D',
-'✖': 'E', '★': 'F', '☼': 'G', '☾': 'H',
-'☥': 'I', 'J': '✿', 'K': '♠', 'L': '♣',
-'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
-'Q': '➲', // Add additional mappings as needed
-};
-return str.split('').map(char => wingdingsToEnglish[char] || char).join('');
-}
-
-function toWingdings(str) {
-const englishToWingdings = {
-'A': '✈', 'B': '✉', 'C': '➤', 'D': '✓',
-'E': '✖', 'F': '★', 'G': '☼', 'H': '☾',
-'I': '☥', 'J': '✿', 'K': '♠', 'L': '♣',
-'M': '♥', 'N': '♦', 'O': '⚡', 'P': '♞',
-'Q': '➲', // Add additional mappings as needed
-};
-return str.toUpperCase().split('').map(char => englishToWingdings[char] || char).join('');
-}
-
-async function sha256(message) {
-const msgBuffer = new TextEncoder().encode(message);
-const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function sha384(message) {
-const msgBuffer = new TextEncoder().encode(message);
-const hashBuffer = await crypto.subtle.digest('SHA-384', msgBuffer);
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function sha512(message) {
-const msgBuffer = new TextEncoder().encode(message);
-const hashBuffer = await crypto.subtle.digest('SHA-512', msgBuffer);
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-        // Encryption functionality for custom textarea
-function customEncrypt() {
-let myTemp = '';
-let myString = document.getElementById('myArea01').value.toLowerCase().split('');
-
-            // Store the original text for decryption
-            const originalText = myString.join('');
-            // Store the original unencrypted text
-            originalText = myString.join('');
-
-for (let myLoop = 0; myLoop < myString.length; myLoop++) {
-myTemp = myString[myLoop];
-
-// Basic substitution cipher
-if (myTemp === 'e') { myTemp = 'f'; }
-else if (myTemp === 'h') { myTemp = 'i'; }
-
-myString[myLoop] = myTemp;
-}
-// Set encrypted text in the second textarea
-encryptedText = myString.join('');
-document.getElementById('myArea02').value = encryptedText;
-            // Store the original text back into the third textarea
-            document.getElementById('myArea03').value = originalText;
-}
-
-function customDecrypt() {
-            // Set the original text back to the third textarea
-            // Only shows the original text when clicking decrypt
-document.getElementById('myArea03').value = originalText;
-}
+    function customDecrypt() {
+        // Decrypt back to the original text
+        document.getElementById('myArea03').value = originalText;
+    }
 </script>
 </body>
 </html>
