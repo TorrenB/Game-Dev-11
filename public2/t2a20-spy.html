@@ -1,92 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cipher Encoder/Decoder</title>
-<style>
-    body {
-        background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
-        background-size: cover;
-        background-position: center;
-        color: #ffffff;
-        font-family: 'Arial', sans-serif;
-        text-align: center;
-        padding: 50px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Encoder & Decoder</title>
+    <style>
+        body {
+            background-image: url('https://i.kym-cdn.com/photos/images/original/001/857/748/54e.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
 
-    .container {
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 10px;
-        padding: 30px;
-        width: 400px;
-        margin: auto;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-    }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
 
-    h1 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
-    }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+        }
 
-    input[type="text"], textarea, select {
-        width: 100%;
-        padding: 15px;
-        font-size: 18px;
-        margin: 10px 0;
-        border: 2px solid #ff007b;
-        border-radius: 5px;
-        background-color: #333;
-        color: #ffffff;
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin: 10px 0;
+            border: 2px solid #ff007b;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ffffff;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
 
-    button {
-        padding: 12px 25px;
-        font-size: 18px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 5px;
-        background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
-        color: #ffffff;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: transform 0.2s, background 0.2s;
-        margin-bottom: 10px;
-        width: 100%;
-    }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(180deg, #ff007b 0%, #6c63ff 100%);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, background 0.2s;
+            margin-bottom: 10px;
+            width: 100%;
+        }
 
-    button:hover {
-        transform: scale(1.05);
-    }
+        button:hover {
+            transform: scale(1.05);
+        }
 
-    #output, #wingdingsOutput {
-        margin-top: 20px;
-        font-size: 18px;
-        padding: 15px;
-        border: 2px solid #ff007b;
-        display: inline-block;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 5px;
-        white-space: normal;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
+        #output, #wingdingsOutput {
+            margin-top: 20px;
+            font-size: 18px;
+            padding: 15px;
+            border: 2px solid #ff007b;
+            display: inline-block;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
 
-    .wingdings {
-        font-family: 'Wingdings', sans-serif;
-    }
+        .wingdings {
+            font-family: 'Wingdings', sans-serif;
+        }
 
-    .section {
-        margin-top: 30px;
-        padding: 15px;
-        border: 1px solid #ff007b;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-</style>
+        .section {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ff007b;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -115,14 +115,9 @@
         <option value="shift-right-8">Shift Right by 8</option>
         <option value="shift-right-9">Shift Right by 9</option>
         <option value="shift-right-10">Shift Right by 10</option>
-        <option value="wingdings">Convert to Wingdings</option>
-        <option value="sha256">SHA-256 Hash</option>
-        <option value="md5">MD5 Hash</option>
-        <option value="sha384">SHA-384 Hash</option>
-        <option value="sha512">SHA-512 Hash</option>
     </select>
 
-    <button onclick="performAction()">Encrypt / Hash</button>
+    <button onclick="performAction()">Encrypt</button>
     <button onclick="performDecryption()">Decrypt</button>
 
     <div id="output" placeholder="Output"></div>
@@ -143,6 +138,67 @@
 <script>
     let originalText = '';
 
+    // Function to handle encryption and decryption for the top section.
+    function performAction() {
+        const inputText = document.getElementById('inputText').value;
+        const actionSelect = document.getElementById('actionSelect');
+        const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
+
+        let shiftBy = 0; // The amount to shift characters
+        let direction = 1; // 1 for right, -1 for left
+
+        if (selectedValue.startsWith("shift-left")) {
+            shiftBy = parseInt(selectedValue.split('-')[2], 10);
+            direction = -1; // Left shift
+        } else if (selectedValue.startsWith("shift-right")) {
+            shiftBy = parseInt(selectedValue.split('-')[2], 10);
+            direction = 1; // Right shift
+        }
+
+        // Perform the shift
+        let outputText = inputText.split('').map(char => {
+            if (char.match(/[a-zA-Z]/)) {
+                // Shift character based on direction
+                if (direction === 1) {
+                    return String.fromCharCode(char.charCodeAt(0) + shiftBy);
+                } else {
+                    return String.fromCharCode(char.charCodeAt(0) - shiftBy);
+                }
+            }
+            return char; // Leave non-letters unchanged
+        }).join('');
+
+        document.getElementById('output').innerText = outputText; // Show the result in the output div
+    }
+
+    // Function to handle decryption - since we are shifting back to the original text
+    function performDecryption() {
+        const outputText = document.getElementById('output').innerText;
+        const actionSelect = document.getElementById('actionSelect');
+        const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
+        
+        let shiftBy = 0; // The amount to shift characters
+        let direction = -1; // Decrypting means we shift in the opposite direction
+
+        if (selectedValue.startsWith("shift-left")) {
+            shiftBy = parseInt(selectedValue.split('-')[2], 10);
+        } else if (selectedValue.startsWith("shift-right")) {
+            shiftBy = parseInt(selectedValue.split('-')[2], 10);
+            direction = 1; // We need to shift back to the left
+        }
+
+        // Perform the shift
+        let originalText = outputText.split('').map(char => {
+            if (char.match(/[a-zA-Z]/)) {
+                // Shift character back depending on direction
+                return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
+            }
+            return char; // Leave non-letters unchanged
+        }).join('');
+
+        document.getElementById('output').innerText = originalText; // Show the decrypted text
+    }
+
     function customEncrypt() {
         const myArea01 = document.getElementById('myArea01').value;
         originalText = myArea01; // Store the original text
@@ -157,8 +213,7 @@
     }
 
     function customDecrypt() {
-        // Decrypt back to the original text
-        document.getElementById('myArea03').value = originalText;
+        document.getElementById('myArea03').value = originalText; // Show the original text
     }
 </script>
 </body>
