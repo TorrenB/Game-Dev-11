@@ -136,11 +136,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 <script>
-    let originalInputText = ''; // Variable to store the original input text from the top half
+    let originalText = ''; // Variable to store the original text from the bottom half
 
     function performAction() {
         const inputText = document.getElementById('inputText').value;
-        originalInputText = inputText; // Store original input text for decryption
         const actionSelect = document.getElementById('actionSelect');
         const selectedValue = actionSelect.options[actionSelect.selectedIndex].value;
 
@@ -168,13 +167,12 @@
     }
 
     function decryptTopHalf() {
-        // Display the original input text in the same output box
-        document.getElementById('output').innerText = originalInputText; // Set output to the original text
+        // This function is intentionally left as is for the top half only
     }
 
     function customEncrypt() {
         const myArea01 = document.getElementById('myArea01').value;
-        let originalText = myArea01; // Store the original text
+        originalText = myArea01; // Store the original text for decryption
         let encryptedText = myArea01.split('').map(char => {
             // Only apply to letters (a-z, A-Z)
             if (char.match(/[a-zA-Z]/)) {
@@ -186,7 +184,8 @@
     }
 
     function customDecrypt() {
-        document.getElementById('myArea03').value = originalText; // Show the original text
+        // Show the original text in the Decrypted Output text area
+        document.getElementById('myArea03').value = originalText; // Display original text in decrypted output box
     }
 </script>
 </body>
