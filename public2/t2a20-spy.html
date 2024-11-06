@@ -115,6 +115,9 @@
         <option value="shift-right-8">Shift Right by 8</option>
         <option value="shift-right-9">Shift Right by 9</option>
         <option value="shift-right-10">Shift Right by 10</option>
+        <option value="wingdings">Convert to Wingdings</option>
+        <option value="sha256">SHA-256 Hash</option>
+        <option value="sha512">SHA-512 Hash</option>
     </select>
 
     <button onclick="performAction()">Convert</button>
@@ -155,16 +158,37 @@
             direction = 1; // Right shift
         }
 
-        // Perform the shift
-        let outputText = inputText.split('').map(char => {
-            if (char.match(/[a-zA-Z]/)) {
-                // Shift character based on direction
-                return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
-            }
-            return char; // Leave non-letters unchanged
-        }).join('');
+        switch(actionSelect) {
+            case "wingdings":
+                const wingdingsText = inputText.split('').map(char => {
+                    return String.fromCharCode(char.charCodeAt(0) + 0xF000); // Convert to Wingdings
+                }).join('');
+                document.getElementById('wingdingsOutput').innerText = wingdingsText; // Show Wingdings output
+                break;
 
-        document.getElementById('output').innerText = outputText; // Show the result in the output div
+            case "sha256":
+                const sha256Hash = CryptoJS.SHA256(inputText).toString();
+                document.getElementById('output').innerText = sha256Hash; // Output the SHA-256 hash
+                break;
+
+            case "sha512":
+                const sha512Hash = CryptoJS.SHA512(inputText).toString();
+                document.getElementById('output').innerText = sha512Hash; // Output the SHA-512 hash
+                break;
+
+            default:
+                // Perform the shift
+                let outputText = inputText.split('').map(char => {
+                    if (char.match(/[a-zA-Z]/)) {
+                        // Shift character based on direction
+                        return String.fromCharCode(char.charCodeAt(0) + (direction * shiftBy));
+                    }
+                    return char; // Leave non-letters unchanged
+                }).join('');
+
+                document.getElementById('output').innerText = outputText; // Show the result in the output div
+                break;
+        }
     }
 
     function decryptTopHalf() {
