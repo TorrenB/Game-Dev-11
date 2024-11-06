@@ -78,6 +78,14 @@
         .wingdings {
             font-family: 'Wingdings', sans-serif;
         }
+
+        .section {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ff007b;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -120,13 +128,14 @@
         <div id="output" placeholder="Output"></div>
         <div id="wingdingsOutput" class="wingdings" placeholder="Wingdings Output"></div>
         
-        <h1>Custom Text Area Encryption</h1>
-        
-        <textarea id="myArea01" rows="4" cols="70">Hello, how are you?</textarea><br>
-        <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
-        <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
-        <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
-        <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
+        <div class="section">
+            <h1>Custom Text Area Encryption</h1>
+            <textarea id="myArea01" rows="4" cols="70">Hello, how are you?</textarea><br>
+            <input type="button" value="Encrypt" onclick="customEncrypt()"><br><br>
+            <textarea id="myArea02" rows="4" cols="70" placeholder="Encrypted Output"></textarea><br>
+            <input type="button" value="Decrypt" onclick="customDecrypt()"><br><br>
+            <textarea id="myArea03" rows="4" cols="70" placeholder="Decrypted Output"></textarea>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
@@ -166,9 +175,8 @@
         }
 
         function performDecryption() {
+            // Decrypt action is now removed from here. Separate functionality for custom input.
             const action = document.getElementById("actionSelect").value;
-            document.getElementById("output").innerText = originalText;
-
             if (action === "wingdings") {
                 document.getElementById("output").innerText = fromWingdings(originalText);
             }
@@ -230,12 +238,13 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        // Encryption functionality for custom textarea
         function customEncrypt() {
             let myTemp = '';
             let myString = document.getElementById('myArea01').value.toLowerCase().split('');
 
-            // Store the original text for decryption
-            const originalText = myString.join('');
+            // Store the original unencrypted text
+            originalText = myString.join('');
 
             for (let myLoop = 0; myLoop < myString.length; myLoop++) {
                 myTemp = myString[myLoop];
@@ -249,12 +258,10 @@
             // Set encrypted text in the second textarea
             encryptedText = myString.join('');
             document.getElementById('myArea02').value = encryptedText;
-            // Store the original text back into the third textarea
-            document.getElementById('myArea03').value = originalText;
         }
 
         function customDecrypt() {
-            // Set the original text back to the third textarea
+            // Only shows the original text when clicking decrypt
             document.getElementById('myArea03').value = originalText;
         }
     </script>
