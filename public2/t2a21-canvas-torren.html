@@ -122,28 +122,28 @@
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        points.push({ x, y }); // Store the click position
+        points.push({ x, y }); 
 
         if (action === 'line' && points.length === 2) {
             drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
-            points = []; // Reset points after drawing
+            points = []; 
         }
         else if (action === 'curve' && points.length === 2) {
             drawCurve(points[0].x, points[0].y, points[1].x, points[1].y);
-            points = []; // Reset points after drawing
+            points = []; 
         }
         else if (action === 'arc') {
             drawArc(x, y);
-            points = []; // Reset points after drawing
+            points = []; 
         }
         else if (action === 'text') {
             drawText(x, y);
-            points = []; // Reset points after drawing
+            points = []; 
         }
     });
 
     function getLineThickness() {
-        return parseInt(document.getElementById('lineThickness').value) || 1; // Default to 1 if not specified
+        return parseInt(document.getElementById('lineThickness').value) || 1; 
     }
 
     function drawLine(x1, y1, x2, y2) {
@@ -175,9 +175,9 @@
         myContext.moveTo(x1, y1);
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
         myContext.lineWidth = getLineThickness();
-        // Using quadraticCurveTo() for curvature
-        const cpX = (x1 + x2) / 2; // Control point X
-        const cpY = y1 - 100; // Control point Y, adjustable for height
+      
+        const cpX = (x1 + x2) / 2; 
+        const cpY = y1 - 100; 
         myContext.quadraticCurveTo(cpX, cpY, x2, y2);
         myContext.stroke();
     }
