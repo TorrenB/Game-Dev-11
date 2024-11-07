@@ -43,7 +43,6 @@
 
         input[type="color"],
         input[type="text"],
-        input[type="number"],
         input[type="button"] {
             padding: 10px;
             margin: 5px;
@@ -59,7 +58,7 @@
             border: none;
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"] {
             width: 150px;
         }
 
@@ -90,19 +89,11 @@
     <label for="customText">Custom Text:</label>
     <input type="text" id="customText" placeholder="Enter your text here" value="Hello World"><br>
 
-    <label for="xCoordinate">X Coordinate:</label>
-    <input type="number" id="xCoordinate" value="400"><br>
+    <input type="button" value=".lineTo (Click Anywhere)" onclick="setAction('lineTo')">
+    <input type="button" value=".arc (Click Anywhere)" onclick="setAction('arc')">
+    <input type="button" value=".fillText (Click Anywhere)" onclick="setAction('fillText')">
+    <input type="button" value=".quadraticCurveTo (Click Anywhere)" onclick="setAction('quadraticCurveTo')"><br>
 
-    <label for="yCoordinate">Y Coordinate:</label>
-    <input type="number" id="yCoordinate" value="100"><br>
-
-    <input type="button" value=".lineTo(X, Y)" onclick="drawLine()">
-    <input type="button" value=".arc(X, Y, 40, 0, 2 * Math.PI)" onclick="drawArc()">
-    <input type="button" value=".fillText('Your Text', X, Y)" onclick="drawText()">
-    <input type="button" value=".quadraticCurveTo(100,220,X, Y)" onclick="drawCurve()">
-    <input type="button" value=".createLinearGradient(100,300,200,400)" onclick="drawGradient()"><br>
-
-    <input type="button" value="clearRect(20, 20, 50, 50)" onclick="clearRect()">
     <input type="button" value="Clear all" onclick="clearAll()">
 </div>
 
@@ -113,10 +104,39 @@
 <script>
     let myCanvas = document.getElementById('myCoolTag');
     let myContext = myCanvas.getContext('2d');
+    let action = ''; // Current drawing action
 
-    function drawLine() {
-        const x = parseInt(document.getElementById('xCoordinate').value);
-        const y = parseInt(document.getElementById('yCoordinate').value);
+    // Function to set the current action
+    function setAction(newAction) {
+        action = newAction;
+    }
+
+    // Mouse click event to draw on the canvas
+    myCanvas.addEventListener('click', (event) => {
+        if (!action) return; // Exit if no action is selected
+        const rect = myCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        switch (action) {
+            case 'lineTo':
+                drawLine(x, y);
+                break;
+            case 'arc':
+                drawArc(x, y);
+                break;
+            case 'fillText':
+                drawText(x, y);
+                break;
+            case 'quadraticCurveTo':
+                drawCurve(x, y);
+                break;
+            default:
+                break;
+        }
+    });
+
+    function drawLine(x, y) {
         myContext.beginPath();
         myContext.lineWidth = 1;   
         myContext.moveTo(20, 10);
@@ -125,9 +145,7 @@
         myContext.stroke();
     }
 
-    function drawArc() {
-        const x = parseInt(document.getElementById('xCoordinate').value);
-        const y = parseInt(document.getElementById('yCoordinate').value);
+    function drawArc(x, y) {
         myContext.beginPath();
         myContext.lineWidth = 10;
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
@@ -135,37 +153,19 @@
         myContext.stroke();
     }
 
-    function drawText() {
-        const x = parseInt(document.getElementById('xCoordinate').value);
-        const y = parseInt(document.getElementById('yCoordinate').value);
+    function drawText(x, y) {
         myContext.font = '20px Arial';
         myContext.fillStyle = document.getElementById('colorPicker').value; 
         const textToDraw = document.getElementById('customText').value; 
         myContext.fillText(textToDraw, x, y);
     }
 
-    function drawCurve() {
-        const x = parseInt(document.getElementById('xCoordinate').value);
-        const y = parseInt(document.getElementById('yCoordinate').value);
+    function drawCurve(x, y) {
         myContext.beginPath();
         myContext.moveTo(300, 100);
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
         myContext.quadraticCurveTo(100, 220, x, y);
         myContext.stroke();
-    }
-
-    function drawGradient() {
-        let myGradient = myContext.createLinearGradient(100, 300, 200, 400);
-        myGradient.addColorStop(0, 'red');
-        myGradient.addColorStop(0.5, 'blue');
-        myGradient.addColorStop(1, 'yellow');
-
-        myContext.fillStyle = myGradient;
-        myContext.fillRect(100, 300, 200, 400);
-    }
-
-    function clearRect() {
-        myContext.clearRect(20, 20, 50, 50);
     }
 
     function clearAll() {
