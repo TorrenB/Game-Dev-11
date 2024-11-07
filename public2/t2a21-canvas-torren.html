@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Art Application</title>
+    <title>Canvas Drawing Application</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -81,7 +81,7 @@
 <body>
 
 <h2>Canvas Drawing Application</h2>
-<p>Create fast and fancy drawings using loops and variables</p>
+<p>Create fast and fancy drawings!</p>
 
 <div class="controls">
     <label for="colorPicker">Select Drawing Color:</label>
@@ -93,50 +93,53 @@
     <label for="customText">Custom Text:</label>
     <input type="text" id="customText" placeholder="Enter your text here" value="Hello World"><br>
 
-    <input type="button" value=".lineTo (Click Anywhere)" onclick="setAction('lineTo')">
-    <input type="button" value=".arc (Click Anywhere)" onclick="setAction('arc')">
-    <input type="button" value=".fillText (Click Anywhere)" onclick="setAction('fillText')">
-    <input type="button" value=".quadraticCurveTo (Click Anywhere)" onclick="setAction('quadraticCurveTo')"><br>
+    <input type="button" value="Draw Line (Click 2 points)" onclick="setAction('line')">
+    <input type="button" value="Draw Arc (Click 1 point)" onclick="setAction('arc')">
+    <input type="button" value="Draw Text (Click 1 point)" onclick="setAction('text')">
+    <input type="button" value="Draw Curve (Click 2 points)" onclick="setAction('curve')"><br>
 
-    <input type="button" value="Clear all" onclick="clearAll()">
+    <input type="button" value="Clear Canvas" onclick="clearAll()">
 </div>
 
 <div id="canvasContainer">
-    <canvas id="myCoolTag" width="1200" height="800"></canvas>
+    <canvas id="myCanvas" width="1200" height="800"></canvas>
 </div>
 
 <script>
-    let myCanvas = document.getElementById('myCoolTag');
+    let myCanvas = document.getElementById('myCanvas');
     let myContext = myCanvas.getContext('2d');
     let action = ''; // Current drawing action
+    let points = []; // Store clicked points
 
     // Function to set the current action
     function setAction(newAction) {
         action = newAction;
+        points = []; // Reset points for new action
     }
 
     // Mouse click event to draw on the canvas
     myCanvas.addEventListener('click', (event) => {
-        if (!action) return; // Exit if no action is selected
         const rect = myCanvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        switch (action) {
-            case 'lineTo':
-                drawLine(x, y);
-                break;
-            case 'arc':
-                drawArc(x, y);
-                break;
-            case 'fillText':
-                drawText(x, y);
-                break;
-            case 'quadraticCurveTo':
-                drawCurve(x, y);
-                break;
-            default:
-                break;
+        points.push({ x, y }); // Store the click position
+
+        if (action === 'line' && points.length === 2) {
+            drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
+            points = []; // Reset points after drawing
+        }
+        else if (action === 'curve' && points.length === 2) {
+            drawCurve(points[0].x, points[0].y, points[1].x, points[1].y);
+            points = []; // Reset points after drawing
+        }
+        else if (action === 'arc') {
+            drawArc(x, y);
+            points = []; // Reset points after drawing
+        }
+        else if (action === 'text') {
+            drawText(x, y);
+            points = []; // Reset points after drawing
         }
     });
 
@@ -144,11 +147,11 @@
         return parseInt(document.getElementById('lineThickness').value) || 1; // Default to 1 if not specified
     }
 
-    function drawLine(x, y) {
+    function drawLine(x1, y1, x2, y2) {
         myContext.beginPath();
-        myContext.lineWidth = getLineThickness();   
-        myContext.moveTo(20, 10);
-        myContext.lineTo(x, y);
+        myContext.lineWidth = getLineThickness();
+        myContext.moveTo(x1, y1);
+        myContext.lineTo(x2, y2);
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
         myContext.stroke();
     }
@@ -168,12 +171,15 @@
         myContext.fillText(textToDraw, x, y);
     }
 
-    function drawCurve(x, y) {
+    function drawCurve(x1, y1, x2, y2) {
         myContext.beginPath();
-        myContext.moveTo(300, 100);
+        myContext.moveTo(x1, y1);
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
         myContext.lineWidth = getLineThickness();
-        myContext.quadraticCurveTo(100, 220, x, y);
+        // Using quadraticCurveTo() for curvature
+        const cpX = (x1 + x2) / 2; // Control point X
+        const cpY = y1 - 100; // Control point Y, adjustable for height
+        myContext.quadraticCurveTo(cpX, cpY, x2, y2);
         myContext.stroke();
     }
 
