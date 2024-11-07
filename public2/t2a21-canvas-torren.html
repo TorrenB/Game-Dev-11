@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Drawing Application</title>
+    <title>t2a21-canvas-torren.html</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -87,7 +87,7 @@
     <label for="colorPicker">Select Drawing Color:</label>
     <input type="color" id="colorPicker" value="#000000"><br>
 
-    <label for="lineThickness">Line Thickness:</label>
+    <label for="lineThickness">Line Thickness (make it thicccccc):</label>
     <input type="number" id="lineThickness" value="1" min="1" max="50"><br>
 
     <label for="customText">Custom Text:</label>
@@ -108,16 +108,15 @@
 <script>
     let myCanvas = document.getElementById('myCanvas');
     let myContext = myCanvas.getContext('2d');
-    let action = ''; // Current drawing action
-    let points = []; // Store clicked points
+    let action = '';
+    let points = [];
 
-    // Function to set the current action
     function setAction(newAction) {
         action = newAction;
-        points = []; // Reset points for new action
+        points = []; 
     }
 
-    // Mouse click event to draw on the canvas
+    
     myCanvas.addEventListener('click', (event) => {
         const rect = myCanvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
