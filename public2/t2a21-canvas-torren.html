@@ -2,45 +2,59 @@
 You use loops and variables to make fast fancy drawings <br><br>
 
 <!-- Color Picker for selecting the drawing color -->
-<input type="color" id="colorPicker" value="#000000">
+<input type="color" id="colorPicker" value="#000000"><br><br>
+
+<!-- Input for custom text -->
+<input type="text" id="customText" placeholder="Enter your text here" value="Hello World"><br><br>
+
+<!-- Input for X and Y coordinates -->
+<label for="xCoordinate">X Coordinate:</label>
+<input type="number" id="xCoordinate" value="400"><br><br>
+<label for="yCoordinate">Y Coordinate:</label>
+<input type="number" id="yCoordinate" value="100"><br><br>
 
 <!-- Drawing Buttons -->
-<input type=button value=".lineTo(30,200)" onclick="{
+<input type=button value=".lineTo(X, Y)" onclick="{
+   const x = parseInt(document.getElementById('xCoordinate').value);
+   const y = parseInt(document.getElementById('yCoordinate').value);
    myContext.beginPath();
    myContext.lineWidth = 1;   
    myContext.moveTo(20,10);
-   myContext.lineTo(30,200);
-   myContext.strokeStyle = document.getElementById('colorPicker').value; // Get the selected color
+   myContext.lineTo(x, y);
+   myContext.strokeStyle = document.getElementById('colorPicker').value; 
    myContext.stroke();
 }">
 
-<input type=button value=".arc(95, 50, 40, 0, 2 * Math.PI)" onclick="{
+<input type=button value=".arc(X, Y, 40, 0, 2 * Math.PI)" onclick="{
+   const x = parseInt(document.getElementById('xCoordinate').value);
+   const y = parseInt(document.getElementById('yCoordinate').value);
    myContext.beginPath();
    myContext.lineWidth = 10;
-   myContext.strokeStyle = document.getElementById('colorPicker').value; // Get the selected color
-   myContext.arc(95, 50, 40, 0, 2 * Math.PI);
+   myContext.strokeStyle = document.getElementById('colorPicker').value; 
+   myContext.arc(x, y, 40, 0, 2 * Math.PI);
    myContext.stroke();
 }">
 
-<input type=button value=".fillText('Hello World', 400, 100)" onclick="{
+<input type=button value=".fillText('Your Text', X, Y)" onclick="{
+   const x = parseInt(document.getElementById('xCoordinate').value);
+   const y = parseInt(document.getElementById('yCoordinate').value);
    myContext.font = '20px Arial';
-   myContext.fillStyle = document.getElementById('colorPicker').value; // Get the selected color for filling text
-   myContext.fillText('Hello World', 400, 100);
-   myContext.translate(400, 100);  
-   myContext.rotate(60 * Math.PI / 180); 
-   myContext.fillText('Hello World', 10, 10);
-   myContext.resetTransform();  
+   myContext.fillStyle = document.getElementById('colorPicker').value; 
+   const textToDraw = document.getElementById('customText').value; 
+   myContext.fillText(textToDraw, x, y);
 }">
 
 <input type=button value=".quadraticCurveTo(100,220,240,110)" onclick="{
+   const x = parseInt(document.getElementById('xCoordinate').value);
+   const y = parseInt(document.getElementById('yCoordinate').value);
    myContext.beginPath();
    myContext.moveTo(300,100);
-   myContext.strokeStyle = document.getElementById('colorPicker').value; // Get the selected color
-   myContext.quadraticCurveTo(100,220,240,110);
+   myContext.strokeStyle = document.getElementById('colorPicker').value; 
+   myContext.quadraticCurveTo(100,220,x, y);
    myContext.stroke();
 }">
 
-<input type=button value=".createLinearGradient(100, 300, 200, 400)" onclick="{
+<input type=button value=".createLinearGradient(100,300,200,400)" onclick="{
    let myGradient = myContext.createLinearGradient(100, 300, 200, 400);
    myGradient.addColorStop(0, 'red');
    myGradient.addColorStop(0.5, 'blue');
@@ -48,8 +62,6 @@ You use loops and variables to make fast fancy drawings <br><br>
 
    myContext.fillStyle = myGradient;
    myContext.fillRect(100, 300, 200, 400);
-
-   // Reset fillstyle
    myContext.fillStyle = 'black';
 }"><br><br>
 
@@ -61,7 +73,7 @@ You use loops and variables to make fast fancy drawings <br><br>
    myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
 }"><br><br>
 
-<canvas id="myCoolTag" width="1000" height="600" style="border:1px solid #000000;"></canvas>
+<canvas id="myCoolTag" width="1200" height="800" style="border:1px solid #000000;"></canvas>
 
 <script>
    // set up global variables
