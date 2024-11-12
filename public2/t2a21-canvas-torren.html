@@ -100,16 +100,10 @@
     <input type="button" value="Draw Line (Click 2 points)" onclick="setAction('line')">
     <input type="button" value="Draw Circle (Click 1 point)" onclick="setAction('arc')">
     <input type="button" value="Draw Text (Click 1 point)" onclick="setAction('text')">
-    <input type="button" value="Draw Curve (Click 2 points)" onclick="setAction('curve')"><br>
+    <input type="button" value="Draw Curve (Click 2 points)" onclick="setAction('curve')">
+    <input type="button" value="Toggle Freehand Drawing" onclick="toggleFreehand()"><br>
     
     <input type="button" value="Clear Canvas" onclick="clearAll()">
-</div>
-
-<div class="controls">
-    <h3>Freehand Drawing</h3>
-    <label for="freehandColorPicker">Select Freehand Color:</label>
-    <input type="color" id="freehandColorPicker" value="#000000"><br>
-    <input type="button" value="Toggle Freehand Drawing" onclick="toggleFreehand()">
 </div>
 
 <div id="canvasContainer">
@@ -174,7 +168,7 @@
             const y = event.clientY - rect.top;
 
             myContext.lineWidth = getLineThickness();
-            myContext.strokeStyle = document.getElementById('freehandColorPicker').value; 
+            myContext.strokeStyle = document.getElementById('colorPicker').value; 
             myContext.lineJoin = 'round';
             myContext.lineCap = 'round';
 
