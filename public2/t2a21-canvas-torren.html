@@ -109,8 +109,7 @@
     <h3>Freehand Drawing</h3>
     <label for="freehandColorPicker">Select Freehand Color:</label>
     <input type="color" id="freehandColorPicker" value="#000000"><br>
-    <input type="button" value="Start Freehand" onclick="startFreehand()">
-    <input type="button" value="Stop Freehand" onclick="stopFreehand()">
+    <input type="button" value="Toggle Freehand Drawing" onclick="toggleFreehand()">
 </div>
 
 <div id="canvasContainer">
@@ -123,6 +122,9 @@
     let action = '';
     let points = [];
     let isDrawing = false;
+    let isFreehand = false;
+    let lastX = 0;
+    let lastY = 0;
 
     function setAction(newAction) {
         action = newAction;
@@ -153,6 +155,59 @@
             points = []; 
         }
     });
+
+    myCanvas.addEventListener('mousedown', (event) => {
+        if (isFreehand) {
+            const rect = myCanvas.getBoundingClientRect();
+            lastX = event.clientX - rect.left;
+            lastY = event.clientY - rect.top;
+            isDrawing = true;
+            myContext.beginPath();
+            myContext.moveTo(lastX, lastY);
+        }
+    });
+
+    myCanvas.addEventListener('mousemove', (event) => {
+        if (isDrawing && isFreehand) {
+            const rect = myCanvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            myContext.lineWidth = getLineThickness();
+            myContext.strokeStyle = document.getElementById('freehandColorPicker').value; 
+            myContext.lineJoin = 'round';
+            myContext.lineCap = 'round';
+
+            myContext.lineTo(x, y);
+            myContext.stroke();
+            myContext.beginPath();
+            myContext.moveTo(x, y);
+        }
+    });
+
+    myCanvas.addEventListener('mouseup', () => {
+        if (isFreehand) {
+            isDrawing = false;
+            myContext.beginPath(); // Reset the path at the end of drawing
+        }
+    });
+
+    myCanvas.addEventListener('mouseleave', () => {
+        if (isFreehand) {
+            isDrawing = false;
+            myContext.beginPath(); // Reset the path at the end of drawing
+        }
+    });
+
+    function toggleFreehand() {
+        isFreehand = !isFreehand;
+        if (isFreehand) {
+            myCanvas.style.cursor = 'crosshair'; // Change cursor to indicate drawing mode
+        } else {
+            myCanvas.style.cursor = 'default'; // Reset cursor
+            myContext.beginPath(); // Reset the path when toggling off
+        }
+    }
 
     function getLineThickness() {
         return parseInt(document.getElementById('lineThickness').value) || 1; 
@@ -197,35 +252,6 @@
 
     function clearAll() {
         myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    }
-
-    function startFreehand() {
-        isDrawing = true;
-        myCanvas.addEventListener('mousemove', drawFreehand);
-    }
-
-    function stopFreehand() {
-        isDrawing = false;
-        myContext.beginPath(); // Reset the path at the end of drawing
-        myCanvas.removeEventListener('mousemove', drawFreehand);
-    }
-
-    function drawFreehand(event) {
-        if (!isDrawing) return;
-
-        const rect = myCanvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        myContext.lineWidth = getLineThickness();
-        myContext.strokeStyle = document.getElementById('freehandColorPicker').value; 
-        myContext.lineJoin = 'round';
-        myContext.lineCap = 'round';
-
-        myContext.lineTo(x, y);
-        myContext.stroke();
-        myContext.beginPath();
-        myContext.moveTo(x, y);
     }
 </script>
 
