@@ -105,6 +105,14 @@
     <input type="button" value="Clear Canvas" onclick="clearAll()">
 </div>
 
+<div class="controls">
+    <h3>Freehand Drawing</h3>
+    <label for="freehandColorPicker">Select Freehand Color:</label>
+    <input type="color" id="freehandColorPicker" value="#000000"><br>
+    <input type="button" value="Start Freehand" onclick="startFreehand()">
+    <input type="button" value="Stop Freehand" onclick="stopFreehand()">
+</div>
+
 <div id="canvasContainer">
     <canvas id="myCanvas" width="1200" height="800"></canvas>
 </div>
@@ -114,6 +122,7 @@
     let myContext = myCanvas.getContext('2d');
     let action = '';
     let points = [];
+    let isDrawing = false;
 
     function setAction(newAction) {
         action = newAction;
@@ -125,7 +134,7 @@
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        points.push({ x, y }); 
+        points.push({ x, y });
 
         if (action === 'line' && points.length === 2) {
             drawLine(points[0].x, points[0].y, points[1].x, points[1].y);
@@ -178,7 +187,7 @@
         myContext.moveTo(x1, y1);
         myContext.strokeStyle = document.getElementById('colorPicker').value; 
         myContext.lineWidth = getLineThickness();
-      
+
         const curveDepth = parseInt(document.getElementById('curveDepth').value) || 100; 
         const cpX = (x1 + x2) / 2; 
         const cpY = y1 - curveDepth; 
@@ -188,6 +197,35 @@
 
     function clearAll() {
         myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    }
+
+    function startFreehand() {
+        isDrawing = true;
+        myCanvas.addEventListener('mousemove', drawFreehand);
+    }
+
+    function stopFreehand() {
+        isDrawing = false;
+        myContext.beginPath(); // Reset the path at the end of drawing
+        myCanvas.removeEventListener('mousemove', drawFreehand);
+    }
+
+    function drawFreehand(event) {
+        if (!isDrawing) return;
+
+        const rect = myCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        myContext.lineWidth = getLineThickness();
+        myContext.strokeStyle = document.getElementById('freehandColorPicker').value; 
+        myContext.lineJoin = 'round';
+        myContext.lineCap = 'round';
+
+        myContext.lineTo(x, y);
+        myContext.stroke();
+        myContext.beginPath();
+        myContext.moveTo(x, y);
     }
 </script>
 
