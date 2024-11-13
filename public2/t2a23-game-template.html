@@ -27,10 +27,9 @@ function myHitOther(my1,my2){
 }
 
 function myCheckHit(){
-   if (myHitOther('myImg01','myImg02')){
-       alert('you lose')  
-       document.getElementById('myImg01').style.left = '20px'
-       location = 't2a13-keydown.html'  // go to your next level
+   if (myHitOther('myImg01', 'myImg02')){
+       // Reset the position of the colliding image to its original position
+       document.getElementById('myImg01').style.left = '50px';  // Reset to initial position
    }
 
    // more if statements here like the above
