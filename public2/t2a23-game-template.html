@@ -8,18 +8,46 @@
    let myClock;
    const originalPositionImg01 = { left: 50, top: 0 }; // Original position for myImg01
    const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02
-   const img02MoveInterval = 1000; // Move every second
+   const img02MoveInterval = 2000; // Move every 2 seconds
+   const myImg02 = document.getElementById('myImg02');
+   let targetPosition = { x: 0, y: 0 }; // Target position for smooth movement
+   let isMoving = false;
 
    // Control movement for myImg02
-   setInterval(moveFishImage, img02MoveInterval);
+   setInterval(setRandomTarget, img02MoveInterval);
 
-   // Function to move myImg02 randomly
-   function moveFishImage() {
-       const myImg02 = document.getElementById('myImg02');
+   // Function to set a random target position for myImg02
+   function setRandomTarget() {
        const randomX = Math.random() * (window.innerWidth - 100); // Random x position
        const randomY = Math.random() * (window.innerHeight - 80); // Random y position
-       myImg02.style.left = randomX + 'px';
-       myImg02.style.top = randomY + 'px';
+       targetPosition = { x: randomX, y: randomY };
+       if (!isMoving) {
+           isMoving = true;
+           moveFishImage();
+       }
+   }
+
+   // Function to animate and smoothly move myImg02
+   function moveFishImage() {
+       const fish = myImg02;
+       const fishPosition = {
+           x: parseInt(fish.style.left),
+           y: parseInt(fish.style.top)
+       };
+
+       const deltaX = targetPosition.x - fishPosition.x;
+       const deltaY = targetPosition.y - fishPosition.y;
+
+       if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+           fish.style.left = (fishPosition.x + deltaX * 0.05) + 'px'; // Move towards the target on x-axis
+           fish.style.top = (fishPosition.y + deltaY * 0.05) + 'px'; // Move towards the target on y-axis
+           requestAnimationFrame(moveFishImage); // Call this function again for the next frame
+       } else {
+           // Reached the target position
+           fish.style.left = targetPosition.x + 'px';
+           fish.style.top = targetPosition.y + 'px';
+           isMoving = false; // Allow for the next movement
+       }
    }
 
    // Function to handle collision detection
