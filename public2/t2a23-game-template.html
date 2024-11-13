@@ -4,73 +4,89 @@
 <br><br><br><br>
 
 <script>
-   // global variables here
    let myGlobalX = 0;
    let myClock;
+   const originalPositionImg01 = { left: 50, top: 0 }; // Original position for myImg01
+   const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02
+   const img02MoveInterval = 1000; // Move every second
 
-   // Control movement for myImg02
-   document.addEventListener('keydown', function(event) {
+   // Move the fish image randomly
+   function moveFishImage() {
        const myImg02 = document.getElementById('myImg02');
-       let leftPosition = parseInt(myImg02.style.left);
+       const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+       const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+       myImg02.style.left = randomX + 'px';
+       myImg02.style.top = randomY + 'px';
+   }
 
-       // Move the image based on key pressed
-       if (event.key === 'ArrowLeft' || event.key === 'a') {
-           myImg02.style.left = leftPosition - 10 + 'px'; // Move left
-       }
-       if (event.key === 'ArrowRight' || event.key === 'd') {
-           myImg02.style.left = leftPosition + 10 + 'px'; // Move right
-       }
-       if (event.key === 'ArrowUp' || event.key === 'w') {
-           myImg02.style.top = (parseInt(myImg02.style.top) - 10) + 'px'; // Move up
-       }
-       if (event.key === 'ArrowDown' || event.key === 's') {
-           myImg02.style.top = (parseInt(myImg02.style.top) + 10) + 'px'; // Move down
-       }
+   // Create a timer to move the fish image periodically
+   setInterval(moveFishImage, img02MoveInterval);
 
-       myCheckHit(); // Check for collisions after moving
-   });
-
-   function myHitOther(my1,my2) {
-       left1 = parseInt(document.getElementById(my1).style.left);
-       right1 = left1 + parseInt(document.getElementById(my1).style.width);
-       top1 = parseInt(document.getElementById(my1).style.top);   
-       bottom1 = top1 + parseInt(document.getElementById(my1).style.height);
-       left2 = parseInt(document.getElementById(my2).style.left);
-       right2 = left2 + parseInt(document.getElementById(my2).style.width);
-       top2 = parseInt(document.getElementById(my2).style.top);   
-       bottom2 = top2 + parseInt(document.getElementById(my2).style.height);
-       if ((right1 >= left2) &&       
-           (bottom1 >= top2) &&
-           (left1 <= right2) &&
-           (top1 <= bottom2)) {
-           return true;
-       }
+   // Handle collision detection
+   function myHitOther(my1, my2) {
+       const left1 = parseInt(document.getElementById(my1).style.left);
+       const right1 = left1 + parseInt(document.getElementById(my1).style.width);
+       const top1 = parseInt(document.getElementById(my1).style.top);   
+       const bottom1 = top1 + parseInt(document.getElementById(my1).style.height);
+       const left2 = parseInt(document.getElementById(my2).style.left);
+       const right2 = left2 + parseInt(document.getElementById(my2).style.width);
+       const top2 = parseInt(document.getElementById(my2).style.top);   
+       const bottom2 = top2 + parseInt(document.getElementById(my2).style.height);
+       return (right1 >= left2) &&       
+              (bottom1 >= top2) &&
+              (left1 <= right2) &&
+              (top1 <= bottom2);
    }
 
    function myCheckHit() {
        if (myHitOther('myImg01', 'myImg02')) {
-           // Reset the position of the colliding image to its original position
-           document.getElementById('myImg02').style.left = '250px';  // Reset to initial position
-           document.getElementById('myImg02').style.top = '0px';    // Reset to initial position
+           // Reset both images to their original positions
+           document.getElementById('myImg01').style.left = originalPositionImg01.left + 'px';
+           document.getElementById('myImg01').style.top = originalPositionImg01.top + 'px';
+           document.getElementById('myImg02').style.left = originalPositionImg02.left + 'px';
+           document.getElementById('myImg02').style.top = originalPositionImg02.top + 'px';
        }
    }
+
+   // Handle arrow key and WASD movement for the image on the left
+   document.addEventListener('keydown', function(event) {
+       const myImg01 = document.getElementById('myImg01');
+       let leftPosition = parseInt(myImg01.style.left);
+       let topPosition = parseInt(myImg01.style.top);
+
+       // Move the image based on key pressed
+       if (event.key === 'ArrowLeft' || event.key === 'a') {
+           myImg01.style.left = leftPosition - 10 + 'px'; // Move left
+       }
+       if (event.key === 'ArrowRight' || event.key === 'd') {
+           myImg01.style.left = leftPosition + 10 + 'px'; // Move right
+       }
+       if (event.key === 'ArrowUp' || event.key === 'w') {
+           myImg01.style.top = topPosition - 10 + 'px'; // Move up
+       }
+       if (event.key === 'ArrowDown' || event.key === 's') {
+           myImg01.style.top = topPosition + 10 + 'px'; // Move down
+       }
+
+       myCheckHit(); // Check for collisions after moving
+   });
 </script>
 
 <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
 <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
 
 <input type="button" value="Auto Background Left" onclick="{
-  clearInterval(myClock)
-  let myTemp = '100px 0px'
+  clearInterval(myClock);
+  let myTemp = '100px 0px';
   myClock = setInterval(function(){
-      myGlobalX -= 5
-      myTemp = myGlobalX + 'px 0px'
-      document.getElementById('myBody').style.backgroundPosition = myTemp
-  }, 100)
+      myGlobalX -= 5;
+      myTemp = myGlobalX + 'px 0px';
+      document.getElementById('myBody').style.backgroundPosition = myTemp;
+  }, 100);
 }">
 <input type="button" value="Image Right Fast Button" onTouchStart="{this.click(); event.preventDefault();}" onclick="{
-  document.getElementById('myImg01').style.left = parseInt(document.getElementById('myImg01').style.left) + 10 + 'px'
-  myCheckHit()     // checks for all collisions
+  document.getElementById('myImg01').style.left = parseInt(document.getElementById('myImg01').style.left) + 10 + 'px';
+  myCheckHit(); // checks for all collisions
 }">
 <br><br>
 </body>
