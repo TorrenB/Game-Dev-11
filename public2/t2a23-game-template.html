@@ -1,4 +1,4 @@
-<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%">
+<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative;">
 
 <h1 align=center>t2a11 Game Template by Fred</h1>
 <br><br><br><br>
@@ -68,24 +68,43 @@
 
        myCheckHit(); // Check for collisions after moving
    });
+
+   // Functions to move background
+   function moveBackground(direction) {
+       const body = document.getElementById('myBody');
+       let position = body.style.backgroundPosition.split(' ');
+
+       let x = parseInt(position[0]) || 0;
+       let y = parseInt(position[1]) || 0;
+
+       switch (direction) {
+           case 'left':
+               x += 10;
+               break;
+           case 'right':
+               x -= 10;
+               break;
+           case 'up':
+               y += 10;
+               break;
+           case 'down':
+               y -= 10;
+               break;
+       }
+
+       body.style.backgroundPosition = `${x}px ${y}px`;
+   }
 </script>
 
 <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
 <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
 
-<input type="button" value="Auto Background Left" onclick="{
-   clearInterval(myClock);
-   let myGlobalX = '100px 0px';
-   myClock = setInterval(function(){
-       myGlobalX -= 5;
-       document.getElementById('myBody').style.backgroundPosition = myGlobalX + 'px 0px';
-   }, 100);
-}">
-<input type="button" value="Image Right Fast Button" onclick="{
-   const myImg01 = document.getElementById('myImg01');
-   myImg01.style.left = parseInt(myImg01.style.left) + 10 + 'px';
-   myCheckHit(); // checks for all collisions
-}">
+<div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px;">
+   <button onclick="moveBackground('left')">Move Background Left</button>
+   <button onclick="moveBackground('right')">Move Background Right</button>
+   <button onclick="moveBackground('up')">Move Background Up</button>
+   <button onclick="moveBackground('down')">Move Background Down</button>
+</div>
 
 <br><br>
 </body>
