@@ -15,6 +15,10 @@
     const myImg01 = document.getElementById('myImg01');
     const myImg02 = document.getElementById('myImg02');
 
+    // Set z-index for myImg01 to be higher than myImg02
+    myImg01.style.zIndex = 10;
+    myImg02.style.zIndex = 1;
+
     // Move the fish image randomly and smoothly
     function moveFishImage() {
         const fishPos = {
