@@ -1,31 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage Example</title>
+    <script>
+        // Function to initialize the input field when page loads
+        window.onload = function() {
+            const myStorage = localStorage.getItem('myStoredText');
+            if (myStorage != null) {
+                document.getElementById('myText1').value = myStorage;
+            }
+        };
+
+        // Function to store the text when the page unloads
+        window.onbeforeunload = function() {
+            localStorage.setItem('myStoredText', document.getElementById('myText1').value);
+        };
+
+        // Function to store text when button is clicked
+        function storeText() {
+            const textValue = document.getElementById('myText1').value;
+            localStorage.setItem('myStoredText', textValue);
+            alert(textValue + ' \nHas been stored');
+            document.getElementById('myText1').value = '';
+        }
+
+        // Function to retrieve text when button is clicked
+        function retrieveText() {
+            document.getElementById('myText1').value = localStorage.getItem('myStoredText');
+        }
+    </script>
+</head>
+<body>
+
 <h2>t2a09-local-storage-name by Fred. Instructions:</h2>
 
+Text example: <input id="myText1" type="text" size="70" value="" placeholder="Write here to store"><br>
 
-body onload="{
-   myStorage = localStorage.getItem('myStoredText')
-   if(myStorage  != null){
-      document.getElementById('myText1').value = myStorage 
-    }
-}">
+<input type="button" value="Store Text" onClick="storeText()">
+<input type="button" value="Retrieve Text" onClick="retrieveText()">
 
-<body onunload="{
-   localstorage.setItem('myStoredText',document.getElementById('myText1').value)
-}">   
-
-Text example: <input id="myText1" type=text size=70 value="" placeholder="Write here to store"><br>
-
-<input type="button" value="Store Text" onClick="{
-   localStorage.setItem('myStoredText', document.getElementById('myText1').value)
-   alert(document.getElementById('myText1').value + ' \nHas been stored')
-   document.getElementById('myText1').value = ''
-}">
-
-<input type="button" value="Retrieve Text" onClick="{
-   document.getElementById('myText1').value = localStorage.getItem('myStoredText')
-}"> 
-
-
-
-
-
-
+</body>
+</html>
