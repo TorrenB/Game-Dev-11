@@ -57,8 +57,18 @@
             background: #218838;
         }
 
-        select {
-            background: #fff;
+        .notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
         }
 
         .footer {
@@ -98,11 +108,11 @@
             const textValue = document.getElementById('myText1').value;
             if (textValue) {
                 localStorage.setItem(textValue, textValue);
-                alert(textValue + ' \nHas been stored');
+                showNotification(textValue + ' has been saved!');
                 document.getElementById('myText1').value = '';
                 updateDropdown();
             } else {
-                alert('Please enter some text to store.');
+                showNotification('Please enter some text to store.');
             }
         }
 
@@ -114,6 +124,15 @@
         function recallFromDropdown() {
             const dropdown = document.getElementById('storedWords');
             document.getElementById('myText1').value = dropdown.options[dropdown.selectedIndex].text;
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
     </script>
 </head>
@@ -128,8 +147,9 @@
             <option value="" disabled selected>Select a previously stored word</option>
         </select>
     </div>
+    <div id="notification" class="notification"></div>
     <div class="footer">
-        <p>&copy; 2024 Seth is short.</p>
+        <p>© 2023 Your Company Name. All Rights Reserved.</p>
     </div>
 </body>
 </html>
