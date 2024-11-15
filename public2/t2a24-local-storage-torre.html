@@ -4,42 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Storage Example</title>
+    <style>
+        body {
+            background-image: url('https://i.ytimg.com/vi/KRyht0yElb8/maxresdefault.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            color: #000;
+            font-size: 16px;
+        }
+
+        input[type="button"] {
+            width: 48%;
+            padding: 10px;
+            margin: 5px 1%;
+            border: none;
+            border-radius: 4px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        input[type="button"]:hover {
+            background: #218838;
+        }
+
+        select {
+            background: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ddd;
+        }
+    </style>
     <script>
-        // Function to initialize the input field when page loads
+        function updateDropdown() {
+            const dropdown = document.getElementById('storedWords');
+            dropdown.innerHTML = '';
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const option = document.createElement('option');
+                option.value = key;
+                option.text = localStorage.getItem(key);
+                dropdown.appendChild(option);
+            }
+        }
+
         window.onload = function() {
             const myStorage = localStorage.getItem('myStoredText');
             if (myStorage != null) {
                 document.getElementById('myText1').value = myStorage;
             }
+            updateDropdown();
         };
 
-        // Function to store the text when the page unloads
         window.onbeforeunload = function() {
             localStorage.setItem('myStoredText', document.getElementById('myText1').value);
+            updateDropdown();
         };
 
-        // Function to store text when button is clicked
         function storeText() {
             const textValue = document.getElementById('myText1').value;
-            localStorage.setItem('myStoredText', textValue);
-            alert(textValue + ' \nHas been stored');
-            document.getElementById('myText1').value = '';
+            if (textValue) {
+                localStorage.setItem(textValue, textValue);
+                alert(textValue + ' \nHas been stored');
+                document.getElementById('myText1').value = '';
+                updateDropdown();
+            } else {
+                alert('Please enter some text to store.');
+            }
         }
 
-        // Function to retrieve text when button is clicked
         function retrieveText() {
-            document.getElementById('myText1').value = localStorage.getItem('myStoredText');
+            const textValue = localStorage.getItem('myStoredText');
+            document.getElementById('myText1').value = textValue;
+        }
+
+        function recallFromDropdown() {
+            const dropdown = document.getElementById('storedWords');
+            document.getElementById('myText1').value = dropdown.options[dropdown.selectedIndex].text;
         }
     </script>
 </head>
 <body>
-
-<h2>t2a09-local-storage-name by Fred. Instructions:</h2>
-
-Text example: <input id="myText1" type="text" size="70" value="" placeholder="Write here to store"><br>
-
-<input type="button" value="Store Text" onClick="storeText()">
-<input type="button" value="Retrieve Text" onClick="retrieveText()">
-
+    <div class="container">
+        <h2>t2a09-local-storage-name by Fred</h2>
+        <p>Text example:</p>
+        <input id="myText1" type="text" placeholder="Write here to store">
+        <input type="button" value="Store Text" onClick="storeText()">
+        <input type="button" value="Retrieve Text" onClick="retrieveText()">
+        <select id="storedWords" onChange="recallFromDropdown()">
+            <option value="" disabled selected>Select a previously stored word</option>
+        </select>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Seth is short.</p>
+    </div>
 </body>
 </html>
