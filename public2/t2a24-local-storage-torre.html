@@ -149,7 +149,7 @@
 
             // Show cookie consent if not accepted
             if (!localStorage.getItem('cookiesAccepted')) {
-                document.getElementById('cookieConsent').style.display = 'block';
+                document.getElementById('cookieConsent').style.display = 'block'; // Show consent box
             }
         };
 
@@ -190,8 +190,8 @@
         }
 
         function acceptCookies() {
-            localStorage.setItem('cookiesAccepted', 'true');
-            document.getElementById('cookieConsent').style.display = 'none';
+            localStorage.setItem('cookiesAccepted', 'true'); // Store consent in local storage
+            document.getElementById('cookieConsent').style.display = 'none'; // Hide consent box
         }
 
     </script>
