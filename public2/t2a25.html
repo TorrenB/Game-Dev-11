@@ -53,6 +53,16 @@
             box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
+        input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #00796b;
+            border-radius: 4px;
+            font-size: 14px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
         button {
             background-color: #00796b;
             color: white;
@@ -100,73 +110,27 @@
         window.name = "myWindow";
         document.cookie = "cookieName=fred";
 
-        var splitIndex = 0;
-        var splitArray = new Array();
-
-        function splits(string, text) {
-            var strLength = string.length, txtLength = text.length;
-            if ((strLength == 0) || (txtLength == 0)) return;
-
-            var i = string.indexOf(text);
-            if ((!i) && (text != string.substring(0, txtLength))) return;
-            if (i == -1) {
-                splitArray[splitIndex++] = string;
-                return;
-            }
-
-            splitArray[splitIndex++] = string.substring(0, i);
-            if (i + txtLength < strLength)
-                splits(string.substring(i + txtLength, strLength), text);
-
-            return;
-        }
-
-        function split(string, text) {
-            splitIndex = 0;
-            splits(string, text);
-        }
-
-        function join(arrayName) {
-            var temp = '';
-            for (var i = 0; i < splitIndex; i++)
-                temp += arrayName[i] + '\n';
-            if (escape(temp.substring(0, 1)) == '%0A')
-                return temp.substring(1, temp.length);
-            else
-                return temp;
-        }
-
-        function sort(arrayName) {
-            for (var i = 0; i < (splitIndex - 1); i++)
-                for (var j = i + 1; j < splitIndex; j++)
-                    if (arrayName[j] < arrayName[i]) {
-                        var dummy = arrayName[i];
-                        arrayName[i] = arrayName[j];
-                        arrayName[j] = dummy;
-                    }
-        }
-
-        function sorttext() {
-            split(document.myForm2.myTextarea.value, '\n');
-            sort(splitArray);
-            document.myForm2.myTextarea.value = join(splitArray);
-        }
+        let lastOutput = ''; // Store the last output for filtering
 
         function myObjectData(myObject) {
-            window.status = 'Please Wait';
-            document.myForm2.myTextarea.value = '';
-            var myLoop = 0;
-            for (var prop in myObject) {
-                myLoop += 1;
-                document.myForm2.myTextarea.value += myObject.name + '.' + prop + '=' + myObject[prop] + '\n';
-                if (myLoop % 3 == 1) {
-                    window.status += '.';
-                }
+            const textarea = document.myForm2.myTextarea;
+            textarea.value = ''; // Clear the textarea
+            lastOutput = ''; // Reset last output
+
+            // Loop through properties of the object
+            for (const prop in myObject) {
+                const line = `${prop} = ${myObject[prop]}`;
+                lastOutput += line + '\n'; // Add to the full output
             }
-            document.myForm2.myText1.value = this.parent.name + '.' + myObject.name;
-            window.status += 'Loaded ';
-            sorttext();
-            window.status += 'Sorted.';
+
+            textarea.value = lastOutput; // Display the full output
+        }
+
+        function filterResults() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const allResults = lastOutput.split('\n'); // Use the last output
+            const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
+            document.myForm2.myTextarea.value = filteredResults.join('\n');
         }
     </script>
 </head>
@@ -177,7 +141,7 @@
 
         <div class="instruction">
             <h3>Instructions</h3>
-            Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea.
+            Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea. Use the search field to filter results.
         </div>
 
         <div id="imageContainer">
@@ -185,6 +149,7 @@
         </div>
 
         <form name="myForm2">
+            <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
             <br>
             <div class="button-container">
