@@ -157,7 +157,7 @@
             window.status = 'Please Wait';
             document.myForm2.myText1.value = '';
             document.myForm2.myTextarea.value = '';
-            myLoop = 0;
+            var myLoop = 0;
             for (var prop in myObject) {
                 myLoop += 1;
                 document.myForm2.myTextarea.value += myObject.name + '.' + prop + '=' + myObject[prop] + '\n';
