@@ -150,9 +150,36 @@
             textarea.value = ''; // Clear the textarea
             lastOutput = ''; // Reset last output
 
-            for (const prop in myObject) {
-                const line = `${prop} = ${myObject[prop]}`;
-                lastOutput += line + '\n'; // Add to the full output
+            if (myObject === Date) {
+                lastOutput = `Current Date: ${new Date()}`;
+            } else if (myObject === Math) {
+                lastOutput = `Math Object: \nRandom Value: ${Math.random()}\nPI Value: ${Math.PI}`;
+            } else if (myObject === Array) {
+                lastOutput = `Array Constructor: \nEmpty Array: ${Array()}\nArray with Values: ${Array(1, 2, 3)}`;
+            } else if (myObject === String) {
+                lastOutput = `String Object: \nExample String: "Hello World".length = ${"Hello World".length}`;
+            } else if (myObject === Number) {
+                lastOutput = `Number Object: \nExample Number: 123.45 toFixed(2) = ${123.45.toFixed(2)}`;
+            } else if (myObject === RegExp) {
+                lastOutput = `RegExp Object: \nExample Regex Test: /abc/.test('abcdef') = ${/abc/.test('abcdef')}`;
+            } else if (myObject === fetch) {
+                lastOutput = `fetch API: \nFetching from a placeholder URL... (Will not fetch actual data here due to limitations)`;
+                // A fetch call wouldn't run in this environment, but you can uncomment this to use in a real browser.
+                // fetch('https://jsonplaceholder.typicode.com/todos/1')
+                //     .then(response => response.json())
+                //     .then(json => {
+                //         lastOutput = `Fetched data: ${JSON.stringify(json)}`;
+                //         textarea.value = lastOutput;
+                //     })
+                //     .catch(error => {
+                //         lastOutput = `Error: ${error}`;
+                //         textarea.value = lastOutput;
+                //     });
+            } else {
+                for (const prop in myObject) {
+                    const line = `${prop} = ${myObject[prop]}`;
+                    lastOutput += line + '\n'; // Add to the full output
+                }
             }
 
             textarea.value = lastOutput; // Display the full output
