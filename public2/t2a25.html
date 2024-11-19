@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml">
-
 <head>
     <title>JavaScript Object Explorer</title>
     <style>
+        v\:* {BEHAVIOR: url(#default#VML)}
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -96,8 +96,8 @@
         }
     </style>
     <script>
-        document.name = "myDocument"
-        window.name = "myWindow"
+        document.name = "myDocument";
+        window.name = "myWindow";
         document.cookie = "cookieName=fred";
 
         var splitIndex = 0;
@@ -115,7 +115,6 @@
             }
 
             splitArray[splitIndex++] = string.substring(0, i);
-
             if (i + txtLength < strLength)
                 splits(string.substring(i + txtLength, strLength), text);
 
@@ -155,7 +154,6 @@
 
         function myObjectData(myObject) {
             window.status = 'Please Wait';
-            document.myForm2.myText1.value = '';
             document.myForm2.myTextarea.value = '';
             var myLoop = 0;
             for (var prop in myObject) {
@@ -179,7 +177,7 @@
 
         <div class="instruction">
             <h3>Instructions</h3>
-            Use the first 15 buttons to explore JavaScript objects and see their properties and values displayed in the textarea. The results may vary across different browsers.
+            Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea.
         </div>
 
         <div id="imageContainer">
@@ -214,5 +212,4 @@
         </form>
     </div>
 </body>
-
 </html>
