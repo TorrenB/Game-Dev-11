@@ -106,10 +106,6 @@
         }
     </style>
     <script>
-        document.name = "myDocument";
-        window.name = "myWindow";
-        document.cookie = "cookieName=fred";
-
         let lastOutput = ''; // Store the last output for filtering
 
         function myObjectData(myObject) {
@@ -117,7 +113,6 @@
             textarea.value = ''; // Clear the textarea
             lastOutput = ''; // Reset last output
 
-            // Loop through properties of the object
             for (const prop in myObject) {
                 const line = `${prop} = ${myObject[prop]}`;
                 lastOutput += line + '\n'; // Add to the full output
@@ -207,11 +202,25 @@
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
             <br>
             <div class="button-container">
+                <button type="button" onclick="myObjectData(window)">Button: window</button>
+                <button type="button" onclick="myObjectData(document)">Button: document</button>
+                <button type="button" onclick="myObjectData(navigator)">Button: navigator</button>
+                <button type="button" onclick="myObjectData(console)">Button: console</button>
+                <button type="button" onclick="showMathExample()">Button: Math</button>
+                <button type="button" onclick="showDateExample()">Button: Date</button>
                 <button type="button" onclick="showFetchExample()">Button: fetch</button>
                 <button type="button" onclick="showNumberExample()">Button: Number</button>
-                <button type="button" onclick="showDateExample()">Button: Date</button>
-                <button type="button" onclick="showMathExample()">Button: Math</button>
                 <button type="button" onclick="showStringExample()">Button: String</button>
+                <button type="button" onclick="myObjectData(RegExp)">Button: RegExp</button>
+                <button type="button" onclick="myObjectData(localStorage)">Button: localStorage</button>
+                <button type="button" onclick="myObjectData(sessionStorage)">Button: sessionStorage</button>
+                <button type="button" onclick="myObjectData(location)">Button: location</button>
+                <button type="button" onclick="myObjectData(performance)">Button: performance</button>
+                <button type="button" onclick="myObjectData(document.body)">Button: document.body</button>
+                <button type="button" onclick="myObjectData(document.head)">Button: document.head</button>
+                <button type="button" onclick="myObjectData(window.navigator)">Button: window.navigator</button>
+                <button type="button" onclick="myObjectData(window.history)">Button: window.history</button>
+                <button type="button" onclick="myObjectData(Event)">Button: Event</button>
             </div>
         </form>
     </div>
