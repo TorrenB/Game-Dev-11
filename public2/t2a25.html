@@ -2,32 +2,55 @@
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
     <title>JavaScript Object Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        v\:* {BEHAVIOR: url(#default#VML)}
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1, h3 {
+            font-family: 'Orbitron', sans-serif;
         }
 
         h1 {
-            color: #00796b;
+            font-size: 2.5rem;
+            color: #00ffab;
             text-align: center;
+            text-shadow: 0 4px 10px rgba(0, 255, 171, 0.5);
+            margin-bottom: 20px;
         }
 
         h3 {
-            color: #004d40;
+            font-size: 1.5rem;
+            color: #00c6ff;
+            margin-bottom: 10px;
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #fff;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 255, 171, 0.2);
+            width: 90%;
+            max-width: 1200px;
+            padding: 30px;
+        }
+
+        .instruction {
+            background: linear-gradient(135deg, #0099f7, #f11712);
+            color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         #imageContainer {
@@ -37,72 +60,76 @@
 
         #myImage {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
+            border-radius: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 255, 171, 0.3);
+        }
+
+        #myImage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.6);
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         textarea {
-            width: 100%;
             height: 200px;
-            margin-bottom: 20px;
-            border: 1px solid #00796b;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 14px;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            resize: none;
         }
 
-        input[type="text"] {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #00796b;
-            border-radius: 4px;
-            font-size: 14px;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #aaa;
         }
 
         button {
-            background-color: #00796b;
-            color: white;
+            background: linear-gradient(135deg, #00ffab, #00c6ff);
+            color: #fff;
             border: none;
-            border-radius: 4px;
-            padding: 10px 15px;
-            font-size: 14px;
-            margin-right: 5px;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            margin: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
-            background-color: #005b47;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .button-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 20px;
         }
 
         .button-container button {
-            flex: 1 1 30%;
-            margin: 5px;
+            flex: 1 1 calc(30% - 10px);
+            margin: 10px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .button-container button {
                 flex: 1 1 100%;
             }
-        }
-
-        .instruction {
-            background-color: #e0f2f1;
-            border-left: 5px solid #00796b;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
         }
     </style>
     <script>
@@ -200,7 +227,6 @@
         <form name="myForm2">
             <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
-            <br>
             <div class="button-container">
                 <button type="button" onclick="myObjectData(window)">Button: window</button>
                 <button type="button" onclick="myObjectData(document)">Button: document</button>
