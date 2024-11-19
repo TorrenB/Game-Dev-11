@@ -132,6 +132,60 @@
             const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
             document.myForm2.myTextarea.value = filteredResults.join('\n');
         }
+
+        function showFetchExample() {
+            document.myForm2.myTextarea.value = "Fetching data from https://jsonplaceholder.typicode.com/todos/1 ...";
+            fetch('https://jsonplaceholder.typicode.com/todos/1')
+                .then(response => response.json())
+                .then(data => {
+                    document.myForm2.myTextarea.value = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.myForm2.myTextarea.value = `Error: ${error}`;
+                });
+        }
+
+        function showNumberExample() {
+            const example = {
+                MIN_VALUE: Number.MIN_VALUE,
+                MAX_VALUE: Number.MAX_VALUE,
+                isFinite: Number.isFinite(100),
+                isNaN: Number.isNaN(NaN)
+            };
+            myObjectData(example);
+        }
+
+        function showDateExample() {
+            const example = {
+                currentDate: new Date().toString(),
+                UTCString: new Date().toUTCString(),
+                ISOString: new Date().toISOString(),
+                timeSince1970: new Date().getTime()
+            };
+            myObjectData(example);
+        }
+
+        function showMathExample() {
+            const example = {
+                PI: Math.PI,
+                E: Math.E,
+                sqrt: Math.sqrt(16),
+                pow: Math.pow(2, 8),
+                random: Math.random()
+            };
+            myObjectData(example);
+        }
+
+        function showStringExample() {
+            const example = {
+                sample: 'Hello, World!',
+                length: 'Hello, World!'.length,
+                toUpperCase: 'Hello, World!'.toUpperCase(),
+                toLowerCase: 'Hello, World!'.toLowerCase(),
+                includes: 'Hello, World!'.includes('World')
+            };
+            myObjectData(example);
+        }
     </script>
 </head>
 
@@ -153,26 +207,11 @@
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
             <br>
             <div class="button-container">
-                <button type="button" onclick="myObjectData(window)">Button 1: window</button>
-                <button type="button" onclick="myObjectData(document)">Button 2: document</button>
-                <button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
-                <button type="button" onclick="myObjectData(console)">Button 4: console</button>
-                <button type="button" onclick="myObjectData(Math)">Button 5: Math</button>
-                <button type="button" onclick="myObjectData(Date)">Button 6: Date</button>
-                <button type="button" onclick="myObjectData(Array)">Button 7: Array</button>
-                <button type="button" onclick="myObjectData(String)">Button 8: String</button>
-                <button type="button" onclick="myObjectData(Number)">Button 9: Number</button>
-                <button type="button" onclick="myObjectData(RegExp)">Button 10: RegExp</button>
-                <button type="button" onclick="myObjectData(localStorage)">Button 11: localStorage</button>
-                <button type="button" onclick="myObjectData(sessionStorage)">Button 12: sessionStorage</button>
-                <button type="button" onclick="myObjectData(location)">Button 13: location</button>
-                <button type="button" onclick="myObjectData(performance)">Button 14: performance</button>
-                <button type="button" onclick="myObjectData(document.body)">Button 15: document.body</button>
-                <button type="button" onclick="myObjectData(document.head)">Button 16: document.head</button>
-                <button type="button" onclick="myObjectData(window.navigator)">Button 17: window.navigator</button>
-                <button type="button" onclick="myObjectData(window.history)">Button 18: window.history</button>
-                <button type="button" onclick="myObjectData(Event)">Button 19: Event</button>
-                <button type="button" onclick="myObjectData(fetch)">Button 20: fetch</button>
+                <button type="button" onclick="showFetchExample()">Button: fetch</button>
+                <button type="button" onclick="showNumberExample()">Button: Number</button>
+                <button type="button" onclick="showDateExample()">Button: Date</button>
+                <button type="button" onclick="showMathExample()">Button: Math</button>
+                <button type="button" onclick="showStringExample()">Button: String</button>
             </div>
         </form>
     </div>
