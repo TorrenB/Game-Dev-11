@@ -149,23 +149,50 @@
             textarea.value = ''; // Clear the textarea
             lastOutput = ''; // Reset last output
 
-            // Check if it's an object or a function to display its properties
-            for (const prop in myObject) {
-                try {
-                    let value = myObject[prop];
-                    // Handle cases where the value might be a function and cannot be displayed directly
-                    if (typeof value === 'function') {
-                        value = `Function: ${value.name}`;
-                    } else if (typeof value === 'object' && value !== null) {
-                        value = JSON.stringify(value, null, 2);
-                    }
-                    lastOutput += `${prop}: ${value}\n`; // Append properties and their values
-                } catch (error) {
-                    lastOutput += `${prop}: Unable to access\n`; // In case of errors
-                }
+            // Handle each JavaScript object with specific properties and methods
+            if (myObject === window) {
+                lastOutput = `Window Object Properties:\nlocation: ${window.location}\nconsole: ${window.console}\nalert: ${window.alert}\n`;
+            } else if (myObject === document) {
+                lastOutput = `Document Object Properties:\nbody: ${document.body}\nhead: ${document.head}\ntitle: ${document.title}\n`;
+            } else if (myObject === navigator) {
+                lastOutput = `Navigator Object Properties:\nuserAgent: ${navigator.userAgent}\nlanguage: ${navigator.language}\nplatform: ${navigator.platform}\n`;
+            } else if (myObject === console) {
+                lastOutput = `Console Object Methods:\nlog: ${console.log}\nwarn: ${console.warn}\nerror: ${console.error}\n`;
+            } else if (myObject === Math) {
+                lastOutput = `Math Object Methods and Properties:\nPI: ${Math.PI}\nRandom: ${Math.random()}\nRound: ${Math.round(3.14)}\n`;
+            } else if (myObject === Date) {
+                lastOutput = `Date Object Methods:\nCurrent Date: ${new Date()}\ngetFullYear: ${new Date().getFullYear()}\ngetDate: ${new Date().getDate()}\n`;
+            } else if (myObject === Array) {
+                lastOutput = `Array Constructor Example:\nArray: ${Array(1, 2, 3)}\nLength: ${Array(1, 2, 3).length}\n`;
+            } else if (myObject === String) {
+                lastOutput = `String Methods:\nExample: "Hello World".toUpperCase() = ${"Hello World".toUpperCase()}\nLength: ${"Hello World".length}\n`;
+            } else if (myObject === Number) {
+                lastOutput = `Number Methods:\nExample: 3.1415.toFixed(2) = ${3.1415.toFixed(2)}\n`;
+            } else if (myObject === RegExp) {
+                lastOutput = `RegExp Methods:\nTest regex on "abcdef": ${/abc/.test('abcdef')}\nExec regex on "abcdef": ${/abc/.exec('abcdef')}\n`;
+            } else if (myObject === localStorage) {
+                lastOutput = `localStorage Methods:\nsetItem: ${localStorage.setItem("key", "value")}\ngetItem: ${localStorage.getItem("key")}\n`;
+            } else if (myObject === Object) {
+                lastOutput = `Object Methods:\nKeys of an object: ${Object.keys({name: "John", age: 30})}\nValues of an object: ${Object.values({name: "John", age: 30})}\n`;
+            } else if (myObject === Promise) {
+                lastOutput = `Promise Example:\nPromise Example: ${new Promise((resolve, reject) => resolve("Success"))}\n`;
+            } else if (myObject === Symbol) {
+                lastOutput = `Symbol Example:\nSymbol: ${Symbol('description')}\n`;
+            } else if (myObject === Set) {
+                lastOutput = `Set Example:\nSet: ${new Set([1, 2, 3])}\nSize: ${new Set([1, 2, 3]).size}\n`;
+            } else if (myObject === Map) {
+                lastOutput = `Map Example:\nMap: ${new Map([["key1", "value1"], ["key2", "value2"]])}\nSize: ${new Map([["key1", "value1"], ["key2", "value2"]]).size}\n`;
+            } else if (myObject === JSON) {
+                lastOutput = `JSON Methods:\nStringify: ${JSON.stringify({name: "John", age: 30})}\nParse: ${JSON.parse('{"name":"John","age":30}')}\n`;
+            } else if (myObject === WeakMap) {
+                lastOutput = `WeakMap Example:\nWeakMap: ${new WeakMap()}\n`;
+            } else if (myObject === WeakSet) {
+                lastOutput = `WeakSet Example:\nWeakSet: ${new WeakSet()}\n`;
+            } else if (myObject === Intl) {
+                lastOutput = `Intl Methods:\nNumber Format: ${new Intl.NumberFormat().format(1234567.89)}\n`;
             }
 
-            textarea.value = lastOutput; // Display the full output
+            textarea.value = lastOutput; // Display the output in the textarea
         }
 
         function filterResults() {
@@ -191,7 +218,6 @@
             <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
             <div class="button-container">
-                <!-- 20 buttons representing different JavaScript objects -->
                 <button type="button" onclick="myObjectData(window)">Button 1: window</button>
                 <button type="button" onclick="myObjectData(document)">Button 2: document</button>
                 <button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
