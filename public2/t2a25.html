@@ -62,6 +62,24 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        #imageContainer {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #myImage {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 255, 171, 0.3);
+        }
+
+        #myImage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.6);
+        }
+
         textarea, input[type="text"] {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
@@ -124,45 +142,63 @@
         }
     </style>
     <script>
-        let lastOutput = '';
+        let lastOutput = ''; // Store the last output for filtering
 
         function myObjectData(myObject) {
             const textarea = document.myForm2.myTextarea;
-            textarea.value = '';
-            lastOutput = '';
+            textarea.value = ''; // Clear the textarea
+            lastOutput = ''; // Reset last output
 
             if (myObject === Date) {
                 lastOutput = `Current Date: ${new Date()}`;
             } else if (myObject === Math) {
-                lastOutput = `Math Object:\nRandom Value: ${Math.random()}\nPI Value: ${Math.PI}`;
+                lastOutput = `Math Object: \nRandom Value: ${Math.random()}\nPI Value: ${Math.PI}`;
             } else if (myObject === Array) {
-                lastOutput = `Array Constructor:\nEmpty Array: ${Array()}\nArray with Values: ${Array(1, 2, 3)}`;
+                lastOutput = `Array Constructor: \nEmpty Array: ${Array()}\nArray with Values: ${Array(1, 2, 3)}`;
             } else if (myObject === String) {
-                lastOutput = `String Object:\nExample String: "Hello World".length = ${"Hello World".length}`;
+                lastOutput = `String Object: \nExample String: "Hello World".length = ${"Hello World".length}`;
             } else if (myObject === Number) {
-                lastOutput = `Number Object:\nExample Number: 123.45.toFixed(2) = ${123.45.toFixed(2)}`;
+                lastOutput = `Number Object: \nExample Number: 123.45 toFixed(2) = ${123.45.toFixed(2)}`;
             } else if (myObject === RegExp) {
-                lastOutput = `RegExp Object:\nExample Regex Test: /abc/.test('abcdef') = ${/abc/.test('abcdef')}`;
+                lastOutput = `RegExp Object: \nExample Regex Test: /abc/.test('abcdef') = ${/abc/.test('abcdef')}`;
             } else if (myObject === fetch) {
-                lastOutput = `Fetch API:\nFetching data is not enabled in this example.`;
+                lastOutput = `fetch API: \nFetching from a placeholder URL... (Will not fetch actual data here due to limitations)`;
+            } else if (myObject === Object) {
+                lastOutput = `Object Constructor: \nExample Object: ${JSON.stringify({name: 'John', age: 30, city: 'New York'})}`;
+            } else if (myObject === Promise) {
+                lastOutput = `Promise Example: \nExample Promise: ${new Promise((resolve, reject) => resolve('Success!'))}`;
+            } else if (myObject === Set) {
+                lastOutput = `Set Example: \nSet Values: ${new Set([1, 2, 3, 3])}`;
+            } else if (myObject === Map) {
+                lastOutput = `Map Example: \nMap Values: ${new Map([['key1', 'value1'], ['key2', 'value2']])}`;
             } else if (myObject === JSON) {
-                lastOutput = `JSON Object:\nStringified: ${JSON.stringify({ key: "value" })}\nParsed: ${JSON.parse('{"key":"value"}').key}`;
-            } else if (myObject === navigator) {
-                for (const prop in myObject) {
-                    lastOutput += `${prop} = ${myObject[prop]}\n`;
-                }
+                lastOutput = `JSON Example: \nParsed Object: ${JSON.stringify(JSON.parse('{"a": 1, "b": 2}'))}`;
+            } else if (myObject === WeakMap) {
+                lastOutput = `WeakMap Example: \nWeakMap Values: ${new WeakMap([[{}, 'value']])}`;
+            } else if (myObject === WeakSet) {
+                lastOutput = `WeakSet Example: \nWeakSet Values: ${new WeakSet([{}])}`;
+            } else if (myObject === Intl) {
+                lastOutput = `Intl Example: \nFormatted Number: ${new Intl.NumberFormat('en-US').format(1234567.89)}`;
+            } else if (myObject === Error) {
+                lastOutput = `Error Example: \nError Message: ${new Error('Something went wrong')}`;
+            } else if (myObject === Symbol) {
+                lastOutput = `Symbol Example: \nSymbol: ${Symbol('id')}`;
+            } else if (myObject === Reflect) {
+                lastOutput = `Reflect Example: \nReflect Apply: ${Reflect.apply(Math.max, Math, [1, 2, 3])}`;
+            } else if (myObject === globalThis) {
+                lastOutput = `globalThis Example: \nglobalThis object: ${globalThis}`;
             } else {
                 for (const prop in myObject) {
-                    lastOutput += `${prop} = ${myObject[prop]}\n`;
+                    lastOutput += `${prop} = ${myObject[prop]}\n`; // Append properties
                 }
             }
 
-            textarea.value = lastOutput;
+            textarea.value = lastOutput; // Display the full output
         }
 
         function filterResults() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();
-            const allResults = lastOutput.split('\n');
+            const allResults = lastOutput.split('\n'); // Use the last output
             const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
             document.myForm2.myTextarea.value = filteredResults.join('\n');
         }
@@ -176,30 +212,34 @@
             <h3>Instructions</h3>
             Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea. Use the search field to filter results.
         </div>
+        <div id="imageContainer">
+            <img id="myImage" src="https://media.tenor.com/kat3uXuyIiQAAAAM/orange.gif" alt="Futuristic Animation" />
+        </div>
         <form name="myForm2">
             <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
             <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
             <div class="button-container">
-                <button onclick="myObjectData(window)">1: window</button>
-                <button onclick="myObjectData(document)">2: document</button>
-                <button onclick="myObjectData(navigator)">3: navigator</button>
-                <button onclick="myObjectData(console)">4: console</button>
-                <button onclick="myObjectData(Math)">5: Math</button>
-                <button onclick="myObjectData(Date)">6: Date</button>
-                <button onclick="myObjectData(Array)">7: Array</button>
-                <button onclick="myObjectData(String)">8: String</button>
-                <button onclick="myObjectData(Number)">9: Number</button>
-                <button onclick="myObjectData(RegExp)">10: RegExp</button>
-                <button onclick="myObjectData(localStorage)">11: localStorage</button>
-                <button onclick="myObjectData(sessionStorage)">12: sessionStorage</button>
-                <button onclick="myObjectData(location)">13: location</button>
-                <button onclick="myObjectData(performance)">14: performance</button>
-                <button onclick="myObjectData(history)">15: history</button>
-                <button onclick="myObjectData(Event)">16: Event</button>
-                <button onclick="myObjectData(fetch)">17: fetch</button>
-                <button onclick="myObjectData(Promise)">18: Promise</button>
-                <button onclick="myObjectData(Symbol)">19: Symbol</button>
-                <button onclick="myObjectData(JSON)">20: JSON</button>
+                <!-- 20 buttons representing different JavaScript objects -->
+                <button type="button" onclick="myObjectData(window)">Button 1: window</button>
+                <button type="button" onclick="myObjectData(document)">Button 2: document</button>
+                <button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
+                <button type="button" onclick="myObjectData(console)">Button 4: console</button>
+                <button type="button" onclick="myObjectData(Math)">Button 5: Math</button>
+                <button type="button" onclick="myObjectData(Date)">Button 6: Date</button>
+                <button type="button" onclick="myObjectData(Array)">Button 7: Array</button>
+                <button type="button" onclick="myObjectData(String)">Button 8: String</button>
+                <button type="button" onclick="myObjectData(Number)">Button 9: Number</button>
+                <button type="button" onclick="myObjectData(RegExp)">Button 10: RegExp</button>
+                <button type="button" onclick="myObjectData(localStorage)">Button 11: localStorage</button>
+                <button type="button" onclick="myObjectData(Object)">Button 12: Object</button>
+                <button type="button" onclick="myObjectData(Promise)">Button 13: Promise</button>
+                <button type="button" onclick="myObjectData(Set)">Button 14: Set</button>
+                <button type="button" onclick="myObjectData(Map)">Button 15: Map</button>
+                <button type="button" onclick="myObjectData(JSON)">Button 16: JSON</button>
+                <button type="button" onclick="myObjectData(WeakMap)">Button 17: WeakMap</button>
+                <button type="button" onclick="myObjectData(WeakSet)">Button 18: WeakSet</button>
+                <button type="button" onclick="myObjectData(Intl)">Button 19: Intl</button>
+                <button type="button" onclick="myObjectData(Error)">Button 20: Error</button>
             </div>
         </form>
     </div>
