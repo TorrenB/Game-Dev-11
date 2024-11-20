@@ -149,47 +149,19 @@
             textarea.value = ''; // Clear the textarea
             lastOutput = ''; // Reset last output
 
-            if (myObject === Date) {
-                lastOutput = `Current Date: ${new Date()}`;
-            } else if (myObject === Math) {
-                lastOutput = `Math Object: \nRandom Value: ${Math.random()}\nPI Value: ${Math.PI}`;
-            } else if (myObject === Array) {
-                lastOutput = `Array Constructor: \nEmpty Array: ${Array()}\nArray with Values: ${Array(1, 2, 3)}`;
-            } else if (myObject === String) {
-                lastOutput = `String Object: \nExample String: "Hello World".length = ${"Hello World".length}`;
-            } else if (myObject === Number) {
-                lastOutput = `Number Object: \nExample Number: 123.45 toFixed(2) = ${123.45.toFixed(2)}`;
-            } else if (myObject === RegExp) {
-                lastOutput = `RegExp Object: \nExample Regex Test: /abc/.test('abcdef') = ${/abc/.test('abcdef')}`;
-            } else if (myObject === fetch) {
-                lastOutput = `fetch API: \nFetching from a placeholder URL... (Will not fetch actual data here due to limitations)`;
-            } else if (myObject === Object) {
-                lastOutput = `Object Constructor: \nExample Object: ${JSON.stringify({name: 'John', age: 30, city: 'New York'})}`;
-            } else if (myObject === Promise) {
-                lastOutput = `Promise Example: \nExample Promise: ${new Promise((resolve, reject) => resolve('Success!'))}`;
-            } else if (myObject === Set) {
-                lastOutput = `Set Example: \nSet Values: ${new Set([1, 2, 3, 3])}`;
-            } else if (myObject === Map) {
-                lastOutput = `Map Example: \nMap Values: ${new Map([['key1', 'value1'], ['key2', 'value2']])}`;
-            } else if (myObject === JSON) {
-                lastOutput = `JSON Example: \nParsed Object: ${JSON.stringify(JSON.parse('{"a": 1, "b": 2}'))}`;
-            } else if (myObject === WeakMap) {
-                lastOutput = `WeakMap Example: \nWeakMap Values: ${new WeakMap([[{}, 'value']])}`;
-            } else if (myObject === WeakSet) {
-                lastOutput = `WeakSet Example: \nWeakSet Values: ${new WeakSet([{}])}`;
-            } else if (myObject === Intl) {
-                lastOutput = `Intl Example: \nFormatted Number: ${new Intl.NumberFormat('en-US').format(1234567.89)}`;
-            } else if (myObject === Error) {
-                lastOutput = `Error Example: \nError Message: ${new Error('Something went wrong')}`;
-            } else if (myObject === Symbol) {
-                lastOutput = `Symbol Example: \nSymbol: ${Symbol('id')}`;
-            } else if (myObject === Reflect) {
-                lastOutput = `Reflect Example: \nReflect Apply: ${Reflect.apply(Math.max, Math, [1, 2, 3])}`;
-            } else if (myObject === globalThis) {
-                lastOutput = `globalThis Example: \nglobalThis object: ${globalThis}`;
-            } else {
-                for (const prop in myObject) {
-                    lastOutput += `${prop} = ${myObject[prop]}\n`; // Append properties
+            // Check if it's an object or a function to display its properties
+            for (const prop in myObject) {
+                try {
+                    let value = myObject[prop];
+                    // Handle cases where the value might be a function and cannot be displayed directly
+                    if (typeof value === 'function') {
+                        value = `Function: ${value.name}`;
+                    } else if (typeof value === 'object' && value !== null) {
+                        value = JSON.stringify(value, null, 2);
+                    }
+                    lastOutput += `${prop}: ${value}\n`; // Append properties and their values
+                } catch (error) {
+                    lastOutput += `${prop}: Unable to access\n`; // In case of errors
                 }
             }
 
