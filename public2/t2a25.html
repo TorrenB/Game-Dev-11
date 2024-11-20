@@ -1,158 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-<title>JavaScript Object Explorer</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<style>
-@keyframes colorShift {
-0% { background: #0f2027; }
-25% { background: #203a43; }
-50% { background: #2c5364; }
-75% { background: #1b3a4b; }
-100% { background: #0f2027; }
-}
+    <title>JavaScript Object Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes colorShift {
+            0% { background: #0f2027; }
+            25% { background: #203a43; }
+            50% { background: #2c5364; }
+            75% { background: #1b3a4b; }
+            100% { background: #0f2027; }
+        }
 
-body {
-font-family: 'Roboto', sans-serif;
-color: #f5f5f5;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-animation: colorShift 20s infinite alternate;
-background-size: 400% 400%;
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            animation: colorShift 20s infinite alternate;
+            background-size: 400% 400%;
+        }
 
-h1, h3 {
-font-family: 'Orbitron', sans-serif;
-}
+        h1, h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
 
-h1 {
-font-size: 2.5rem;
-color: #00ffab;
-text-align: center;
-text-shadow: 0 4px 10px rgba(0, 255, 171, 0.5);
-margin-bottom: 20px;
-}
+        h1 {
+            font-size: 2.5rem;
+            color: #00ffab;
+            text-align: center;
+            text-shadow: 0 4px 10px rgba(0, 255, 171, 0.5);
+            margin-bottom: 20px;
+        }
 
-h3 {
-font-size: 1.5rem;
-color: #00c6ff;
-margin-bottom: 10px;
-}
+        h3 {
+            font-size: 1.5rem;
+            color: #00c6ff;
+            margin-bottom: 10px;
+        }
 
-.container {
-background: rgba(0, 0, 0, 0.8);
-border-radius: 16px;
-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 255, 171, 0.2);
-width: 90%;
-max-width: 1200px;
-padding: 30px;
-}
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 255, 171, 0.2);
+            width: 90%;
+            max-width: 1200px;
+            padding: 30px;
+        }
 
-.instruction {
-background: linear-gradient(135deg, #0099f7, #f11712);
-color: #fff;
-border-radius: 8px;
-padding: 15px;
-margin-bottom: 20px;
-font-size: 1rem;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
+        .instruction {
+            background: linear-gradient(135deg, #0099f7, #f11712);
+            color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-#imageContainer {
-text-align: center;
-margin: 20px 0;
-}
+        #imageContainer {
+            text-align: center;
+            margin: 20px 0;
+        }
 
-#myImage {
-width: 100%;
-max-width: 600px;
-border-radius: 16px;
-transition: transform 0.3s, box-shadow 0.3s;
-box-shadow: 0 5px 15px rgba(0, 255, 171, 0.3);
-}
+        #myImage {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 255, 171, 0.3);
+        }
 
-#myImage:hover {
-transform: scale(1.05);
-box-shadow: 0 10px 25px rgba(0, 255, 171, 0.6);
-}
+        #myImage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.6);
+        }
 
-textarea, input[type="text"] {
-width: 100%;
-background: rgba(255, 255, 255, 0.1);
-border: none;
-border-radius: 8px;
-padding: 15px;
-color: #fff;
-font-size: 1rem;
-margin-bottom: 20px;
-box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+        textarea, input[type="text"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
 
-textarea {
-height: 200px;
-resize: none;
-}
+        textarea {
+            height: 200px;
+            resize: none;
+        }
 
-input[type="text"]::placeholder, textarea::placeholder {
-color: #aaa;
-}
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #aaa;
+        }
 
-button {
-background: linear-gradient(135deg, #00ffab, #00c6ff);
-color: #fff;
-border: none;
-border-radius: 8px;
-padding: 15px 20px;
-font-size: 1rem;
-margin: 10px;
-cursor: pointer;
-transition: transform 0.2s, box-shadow 0.3s;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
+        button {
+            background: linear-gradient(135deg, #00ffab, #00c6ff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
 
-button:hover {
-transform: translateY(-3px);
-box-shadow: 0 10px 25px rgba(0, 255, 171, 0.5);
-}
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.5);
+        }
 
-button:active {
-transform: translateY(0);
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
 
-.button-container {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-}
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-.button-container button {
-flex: 1 1 calc(30% - 10px);
-margin: 10px;
-}
+        .button-container button {
+            flex: 1 1 calc(30% - 10px);
+            margin: 10px;
+        }
 
-@media (max-width: 768px) {
-.button-container button {
-flex: 1 1 100%;
-}
-}
-</style>
-<script>
-// JavaScript functionality remains unchanged
-let lastOutput = ''; // Store the last output for filtering
+        @media (max-width: 768px) {
+            .button-container button {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+    <script>
+        let lastOutput = ''; // Store the last output for filtering
 
-function myObjectData(myObject) {
-const textarea = document.myForm2.myTextarea;
-textarea.value = ''; // Clear the textarea
-lastOutput = ''; // Reset last output
+        function myObjectData(myObject) {
+            const textarea = document.myForm2.myTextarea;
+            textarea.value = ''; // Clear the textarea
+            lastOutput = ''; // Reset last output
 
-            for (const prop in myObject) {
-                const line = `${prop} = ${myObject[prop]}`;
-                lastOutput += line + '\n'; // Add to the full output
             if (myObject === Date) {
                 lastOutput = `Current Date: ${new Date()}`;
             } else if (myObject === Math) {
@@ -167,72 +163,51 @@ lastOutput = ''; // Reset last output
                 lastOutput = `RegExp Object: \nExample Regex Test: /abc/.test('abcdef') = ${/abc/.test('abcdef')}`;
             } else if (myObject === fetch) {
                 lastOutput = `fetch API: \nFetching from a placeholder URL... (Will not fetch actual data here due to limitations)`;
-                // A fetch call wouldn't run in this environment, but you can uncomment this to use in a real browser.
-                // fetch('https://jsonplaceholder.typicode.com/todos/1')
-                //     .then(response => response.json())
-                //     .then(json => {
-                //         lastOutput = `Fetched data: ${JSON.stringify(json)}`;
-                //         textarea.value = lastOutput;
-                //     })
-                //     .catch(error => {
-                //         lastOutput = `Error: ${error}`;
-                //         textarea.value = lastOutput;
-                //     });
             } else {
                 for (const prop in myObject) {
-                    const line = `${prop} = ${myObject[prop]}`;
-                    lastOutput += line + '\n'; // Add to the full output
+                    lastOutput += `${prop} = ${myObject[prop]}\n`; // Append properties
                 }
-}
+            }
 
-textarea.value = lastOutput; // Display the full output
-}
+            textarea.value = lastOutput; // Display the full output
+        }
 
-function filterResults() {
-const searchValue = document.getElementById('searchInput').value.toLowerCase();
-const allResults = lastOutput.split('\n'); // Use the last output
-const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
-document.myForm2.myTextarea.value = filteredResults.join('\n');
-}
-</script>
+        function filterResults() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const allResults = lastOutput.split('\n'); // Use the last output
+            const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
+            document.myForm2.myTextarea.value = filteredResults.join('\n');
+        }
+    </script>
 </head>
 
 <body>
-<div class="container">
-<h1>JavaScript Object Explorer</h1>
-<div class="instruction">
-<h3>Instructions</h3>
-Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea. Use the search field to filter results.
-</div>
-<div id="imageContainer">
-<img id="myImage" src="https://media.tenor.com/kat3uXuyIiQAAAAM/orange.gif" alt="Futuristic Animation" />
-</div>
-<form name="myForm2">
-<input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
-<textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
-<div class="button-container">
-<button type="button" onclick="myObjectData(window)">Button 1: window</button>
-<button type="button" onclick="myObjectData(document)">Button 2: document</button>
-<button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
-<button type="button" onclick="myObjectData(console)">Button 4: console</button>
-<button type="button" onclick="myObjectData(Math)">Button 5: Math</button>
-<button type="button" onclick="myObjectData(Date)">Button 6: Date</button>
-<button type="button" onclick="myObjectData(Array)">Button 7: Array</button>
-<button type="button" onclick="myObjectData(String)">Button 8: String</button>
-<button type="button" onclick="myObjectData(Number)">Button 9: Number</button>
-<button type="button" onclick="myObjectData(RegExp)">Button 10: RegExp</button>
-<button type="button" onclick="myObjectData(localStorage)">Button 11: localStorage</button>
-<button type="button" onclick="myObjectData(sessionStorage)">Button 12: sessionStorage</button>
-<button type="button" onclick="myObjectData(location)">Button 13: location</button>
-<button type="button" onclick="myObjectData(performance)">Button 14: performance</button>
-<button type="button" onclick="myObjectData(document.body)">Button 15: document.body</button>
-<button type="button" onclick="myObjectData(document.head)">Button 16: document.head</button>
-<button type="button" onclick="myObjectData(window.navigator)">Button 17: window.navigator</button>
-<button type="button" onclick="myObjectData(window.history)">Button 18: window.history</button>
-<button type="button" onclick="myObjectData(Event)">Button 19: Event</button>
-<button type="button" onclick="myObjectData(fetch)">Button 20: fetch</button>
-</div>
-</form>
-</div>
+    <div class="container">
+        <h1>JavaScript Object Explorer</h1>
+        <div class="instruction">
+            <h3>Instructions</h3>
+            Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea. Use the search field to filter results.
+        </div>
+        <div id="imageContainer">
+            <img id="myImage" src="https://media.tenor.com/kat3uXuyIiQAAAAM/orange.gif" alt="Futuristic Animation" />
+        </div>
+        <form name="myForm2">
+            <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
+            <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
+            <div class="button-container">
+                <button type="button" onclick="myObjectData(window)">Button 1: window</button>
+                <button type="button" onclick="myObjectData(document)">Button 2: document</button>
+                <button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
+                <button type="button" onclick="myObjectData(console)">Button 4: console</button>
+                <button type="button" onclick="myObjectData(Math)">Button 5: Math</button>
+                <button type="button" onclick="myObjectData(Date)">Button 6: Date</button>
+                <button type="button" onclick="myObjectData(Array)">Button 7: Array</button>
+                <button type="button" onclick="myObjectData(String)">Button 8: String</button>
+                <button type="button" onclick="myObjectData(Number)">Button 9: Number</button>
+                <button type="button" onclick="myObjectData(RegExp)">Button 10: RegExp</button>
+                <button type="button" onclick="myObjectData(localStorage)">Button 11: localStorage</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
