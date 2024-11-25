@@ -6,8 +6,8 @@
     <script>
         // Global variables
         let myClock;
-        const originalPositionImg01 = { left: 50, top: 0 }; // Original position for myImg01
-        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02
+        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Steve)
+        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Fish)
         const img02MoveInterval = 1000; // Move every second
 
         // Control movement for myImg02
@@ -46,7 +46,7 @@
             }
         }
 
-        // Handle movement for myImg01 with WASD
+        // Handle movement for myImg01 (Steve) with WASD
         document.addEventListener('keydown', function(event) {
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left);
@@ -96,7 +96,7 @@
         }
     </script>
 
-    <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px;" src="https://th.bing.com/th/id/OIP.HePyvSV764T0SCCtc9e3aAAAAA?rs=1&pid=ImgDetMain">
+    <img id="myImg01" style="position:absolute; width:100px; height:auto; bottom:0px; right:0px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
     <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
 
     <br><br>
