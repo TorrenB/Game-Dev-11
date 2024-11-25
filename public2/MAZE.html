@@ -6,12 +6,12 @@
     <script>
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
-        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Enderman)
+        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for Enderman
 
-        // Control movement for myImg02 (Enderman)
+        // Control movement for Enderman
         setInterval(moveEndermanImage, 1000); // Move every second
 
-        // Function to move myImg02 randomly
+        // Function to move Enderman randomly in the viewport
         function moveEndermanImage() {
             const myImg02 = document.getElementById('myImg02');
             const randomX = Math.random() * (window.innerWidth - 100); // Random x position
@@ -20,7 +20,7 @@
             myImg02.style.top = randomY + 'px';
         }
 
-        // Handle movement for myImg01 (Steve) with WASD
+        // Handle movement for Steve with WASD keys
         document.addEventListener('keydown', function(event) {
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || originalPositionImg01.left;
@@ -29,35 +29,35 @@
             // Move the image based on key pressed
             if (event.key === 'a' || event.key === 'ArrowLeft') {
                 if (leftPosition > 0) { // Check for left boundary
-                    myImg01.style.left = leftPosition - 10 + 'px'; // Move left
+                    myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
                 }
             }
             if (event.key === 'd' || event.key === 'ArrowRight') {
                 if (leftPosition < window.innerWidth - parseInt(myImg01.style.width)) { // Check for right boundary
-                    myImg01.style.left = leftPosition + 10 + 'px'; // Move right
+                    myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
                 }
             }
             if (event.key === 'w' || event.key === 'ArrowUp') {
                 if (topPosition > 0) { // Check for top boundary
-                    myImg01.style.top = topPosition - 10 + 'px'; // Move up
+                    myImg01.style.top = (topPosition - 10) + 'px'; // Move up
                 }
             }
             if (event.key === 's' || event.key === 'ArrowDown') {
                 if (topPosition < window.innerHeight - parseInt(myImg01.style.height)) { // Check for bottom boundary
-                    myImg01.style.top = topPosition + 10 + 'px'; // Move down
+                    myImg01.style.top = (topPosition + 10) + 'px'; // Move down
                 }
             }
         });
     </script>
 
-    <!-- Steve Image (myImg01) that can be moved -->
-    <img id="myImg01" style="position:absolute; width:100px; height:auto; left:${originalPositionImg01.left}px; top:${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
+    <!-- Steve Image that can be moved -->
+    <img id="myImg01" style="position: absolute; width: 100px; height: auto; left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
     
-    <!-- New Enderman Image (myImg02) that jumps around -->
-    <img id="myImg02" style="position:absolute; width:100px; height:auto; top:0px; left:250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
+    <!-- Enderman Image that jumps around -->
+    <img id="myImg02" style="position: absolute; width: 100px; height: auto; top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
-    <img id="myImg03" style="position:absolute; width:100px; height:auto; left:calc(100% - 100px); top:calc(100% - 100px);" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+    <img id="myImg03" style="position: absolute; width: 100px; height: auto; left: calc(100% - 100px); top: calc(100% - 100px);" src="https://art.pixilart.com/0be03a9e33b57bc.png">
     
     <br><br>
 </body>
