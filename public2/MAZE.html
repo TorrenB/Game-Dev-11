@@ -1,117 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ping Pong Game</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #000;
-        }
+<h6> Version 0.0.1 </h6>
 
-        #ping-pong-canvas {
-            border: 2px solid white;
-            background-color: #000;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="ping-pong-canvas" width="800" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById('ping-pong-canvas');
-        const context = canvas.getContext('2d');
+<body id="myBody" style="background-repeat:repeat; background-size: 80%" background="myBackground01.jpg">
 
-        const paddleWidth = 10;
-        const paddleHeight = 80;
-        const ballSize = 10;
+<h1 align=center>t2a11 Game Template by Fred</h1>
+<br><br><br><br>
 
-        let leftPaddleY = (canvas.height - paddleHeight) / 2;
-        let rightPaddleY = (canvas.height - paddleHeight) / 2;
-        let ballX = canvas.width / 2;
-        let ballY = canvas.height / 2;
-        let ballSpeedX = 4;
-        let ballSpeedY = 4;
+<script>
 
-        document.addEventListener('keydown', (event) => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    if (rightPaddleY > 0) rightPaddleY -= 20;
-                    break;
-                case 'ArrowDown':
-                    if (rightPaddleY < canvas.height - paddleHeight) rightPaddleY += 20;
-                    break;
-                case 'w':
-                    if (leftPaddleY > 0) leftPaddleY -= 20;
-                    break;
-                case 's':
-                    if (leftPaddleY < canvas.height - paddleHeight) leftPaddleY += 20;
-                    break;
-            }
-        });
+   // global variables here
+   let myGlobalX = 0
+   let myClock
 
-        function draw() {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw paddles
-            context.fillStyle = 'white';
-            context.fillRect(0, leftPaddleY, paddleWidth, paddleHeight);
-            context.fillRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight);
-            
-            // Draw ball
-            context.beginPath();
-            context.arc(ballX, ballY, ballSize, 0, Math.PI * 2);
-            context.fillStyle = 'white';
-            context.fill();
-            context.closePath();
-        }
 
-        function update() {
-            // Update ball position
-            ballX += ballSpeedX;
-            ballY += ballSpeedY;
+   // global functions here
+function myHitOther(my1,my2){
+   left1   = parseInt(document.getElementById(my1).style.left)
+   right1  = left1 + parseInt(document.getElementById(my1).style.width)
+   top1    = parseInt(document.getElementById(my1).style.top)   
+   bottom1 = top1   + parseInt(document.getElementById(my1).style.height)
+   left2   = parseInt(document.getElementById(my2).style.left)
+   right2  = left2 + parseInt(document.getElementById(my2).style.width)
+   top2    = parseInt(document.getElementById(my2).style.top)   
+   bottom2 = top2   + parseInt(document.getElementById(my2).style.height)
+   if ((right1  >=  left2  ) &&      	   
+       (bottom1 >=  top2   ) &&
+       (left1   <=  right2 ) &&
+       (top1    <=  bottom2) ){
+       return true
+   }
+}
 
-            // Ball Collisions
-            if (ballY < ballSize || ballY > canvas.height - ballSize) {
-                ballSpeedY = -ballSpeedY; // Reverse Y direction
-            }
 
-            // Paddle Collisions
-            if (
-                ballX < paddleWidth && 
-                ballY > leftPaddleY && 
-                ballY < leftPaddleY + paddleHeight
-            ) {
-                ballSpeedX = -ballSpeedX; // Bounce back from left paddle
-            }
+function myCheckHit(){
+   if ( myHitOther('myImg01','myImg02') ){
+       alert('you lose')  
+       document.getElementById('myImg01').style.left = '20px'
+       location = 't2a13-keydown.html'  // go to your next level
+   }
 
-            if (
-                ballX > canvas.width - paddleWidth && 
-                ballY > rightPaddleY && 
-                ballY < rightPaddleY + paddleHeight
-            ) {
-                ballSpeedX = -ballSpeedX; // Bounce back from right paddle
-            }
 
-            // Reset ball if it goes out of bounds
-            if (ballX < 0 || ballX > canvas.width) {
-                ballX = canvas.width / 2;
-                ballY = canvas.height / 2;
-                ballSpeedX = -ballSpeedX; // Reset direction
-            }
-        }
+   // more if statements here like the above
 
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
 
-        gameLoop();
-    </script>
-</body>
-</html>
+
+}  // end of myCheckHit()
+
+
+</script>
+
+<img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px;"  src="myImage01.jpg">
+<img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="myImage02.jpg">
+
+<input type=button value="Auto Background Left" onclick="{
+  clearInterval(myClock)
+  let myTemp = '100px 0px'
+  myClock = setInterval(function(){
+      myGlobalX -= 5
+      myTemp =  myGlobalX + 'px 0px'
+      document.getElementById('myBody').style.backgroundPosition = myTemp
+  }, 100)
+    
+}">
+
+
+<input type=button value="Image Right Fast Button" onTouchStart="{this.click(); event.preventDefault();}" onclick="{
+  document.getElementById('myImg01').style.left = parseInt(document.getElementById('myImg01').style.left) + 10 + 'px'
+  myCheckHit()     // checks for all collisions
+}"><br><br>
+
+
