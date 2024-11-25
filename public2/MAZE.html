@@ -1,12 +1,12 @@
-<body id="myBody" style="background: url('https://i.pinimg.com/originals/b9/ed/af/b9edafa2213fea4ad6d5ed710a2cf658.png'); background-repeat: repeat; background-size: cover; position: relative;">
+<body id="myBody" style="background: url('https://i.pinimg.com/originals/b9/ed/af/b9edafa2213fea4ad6d5ed710a2cf658.png'); background-repeat: repeat; background-size: cover; position: relative; filter: brightness(1.2) saturate(1.5);">
 
-    <h1 align=center>t2a23 Game Template by Fred</h1>
+    <h1 align=center style="color: #FFD700;">t2a23 Game Template by Fred</h1>
     <br><br><br><br>
 
     <script>
         // Global variables
         let myClock;
-        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Enderman)
+        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Steve)
         const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Enderman)
         const img02MoveInterval = 1000; // Move every second
 
@@ -16,8 +16,8 @@
         // Function to move myImg02 randomly
         function moveEndermanImage() {
             const myImg02 = document.getElementById('myImg02');
-            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
-            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+            const randomX = Math.random() * (window.innerWidth - 100); // Random x position within bounds
+            const randomY = Math.random() * (window.innerHeight - 80); // Random y position within bounds
             myImg02.style.left = randomX + 'px';
             myImg02.style.top = randomY + 'px';
         }
@@ -46,7 +46,7 @@
             }
         }
 
-        // Handle movement for myImg01 (Enderman) with WASD
+        // Handle movement for myImg01 (Steve) with WASD
         document.addEventListener('keydown', function(event) {
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left);
@@ -54,16 +54,24 @@
 
             // Move the image based on key pressed
             if (event.key === 'ArrowLeft' || event.key === 'a') {
-                myImg01.style.left = leftPosition - 10 + 'px'; // Move left
+                if (leftPosition > 0) { // Check for left boundary
+                    myImg01.style.left = leftPosition - 10 + 'px'; // Move left
+                }
             }
             if (event.key === 'ArrowRight' || event.key === 'd') {
-                myImg01.style.left = leftPosition + 10 + 'px'; // Move right
+                if (leftPosition < window.innerWidth - parseInt(myImg01.style.width)) { // Check for right boundary
+                    myImg01.style.left = leftPosition + 10 + 'px'; // Move right
+                }
             }
             if (event.key === 'ArrowUp' || event.key === 'w') {
-                myImg01.style.top = topPosition - 10 + 'px'; // Move up
+                if (topPosition > 0) { // Check for top boundary
+                    myImg01.style.top = topPosition - 10 + 'px'; // Move up
+                }
             }
             if (event.key === 'ArrowDown' || event.key === 's') {
-                myImg01.style.top = topPosition + 10 + 'px'; // Move down
+                if (topPosition < window.innerHeight - parseInt(myImg01.style.height)) { // Check for bottom boundary
+                    myImg01.style.top = topPosition + 10 + 'px'; // Move down
+                }
             }
 
             myCheckHit(); // Check for collisions after moving
@@ -97,7 +105,7 @@
     </script>
 
     <!-- Enderman Image (myImg01) positioned at the bottom right corner -->
-    <img id="myImg01" style="position:absolute; width:100px; height:auto; bottom:0px; right:0px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+    <img id="myImg01" style="position:absolute; width:100px; height:auto; bottom:0px; right:0px; left:${originalPositionImg01.left}px; top:${originalPositionImg01.top}px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
     
     <!-- New Enderman Image (myImg02) that jumps around -->
     <img id="myImg02" style="position:absolute; width:100px; height:auto; top:0px; left:250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
