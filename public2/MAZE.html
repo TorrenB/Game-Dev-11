@@ -6,15 +6,15 @@
     <script>
         // Global variables
         let myClock;
-        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Steve)
-        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Fish)
+        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Enderman)
+        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Enderman)
         const img02MoveInterval = 1000; // Move every second
 
         // Control movement for myImg02
-        setInterval(moveFishImage, img02MoveInterval);
+        setInterval(moveEndermanImage, img02MoveInterval);
 
         // Function to move myImg02 randomly
-        function moveFishImage() {
+        function moveEndermanImage() {
             const myImg02 = document.getElementById('myImg02');
             const randomX = Math.random() * (window.innerWidth - 100); // Random x position
             const randomY = Math.random() * (window.innerHeight - 80); // Random y position
@@ -46,7 +46,7 @@
             }
         }
 
-        // Handle movement for myImg01 (Steve) with WASD
+        // Handle movement for myImg01 (Enderman) with WASD
         document.addEventListener('keydown', function(event) {
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left);
@@ -96,8 +96,11 @@
         }
     </script>
 
+    <!-- Enderman Image (myImg01) positioned at the bottom right corner -->
     <img id="myImg01" style="position:absolute; width:100px; height:auto; bottom:0px; right:0px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
-    <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    
+    <!-- New Enderman Image (myImg02) that jumps around -->
+    <img id="myImg02" style="position:absolute; width:100px; height:auto; top:0px; left:250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <br><br>
 </body>
