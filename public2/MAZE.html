@@ -6,18 +6,19 @@
     <script>
         // Global variables
         let myClock;
-        const originalPositionImg01 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg01 (Steve)
+        const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
+        const originalPositionImg03 = { left: window.innerWidth - 120, top: window.innerHeight - 200 }; // Original position for myImg03 (another image)
         const originalPositionImg02 = { left: 250, top: 0 }; // Original position for myImg02 (Enderman)
         const img02MoveInterval = 1000; // Move every second
 
-        // Control movement for myImg02
+        // Control movement for myImg02 (Enderman)
         setInterval(moveEndermanImage, img02MoveInterval);
 
         // Function to move myImg02 randomly
         function moveEndermanImage() {
             const myImg02 = document.getElementById('myImg02');
-            const randomX = Math.random() * (window.innerWidth - 100); // Random x position within bounds
-            const randomY = Math.random() * (window.innerHeight - 80); // Random y position within bounds
+            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
             myImg02.style.left = randomX + 'px';
             myImg02.style.top = randomY + 'px';
         }
@@ -77,7 +78,7 @@
             myCheckHit(); // Check for collisions after moving
         });
 
-        // Functions to move background
+        // Function to move background (not used in this example)
         function moveBackground(direction) {
             const body = document.getElementById('myBody');
             let position = body.style.backgroundPosition.split(' ');
@@ -104,11 +105,14 @@
         }
     </script>
 
-    <!-- Enderman Image (myImg01) positioned at the bottom right corner -->
-    <img id="myImg01" style="position:absolute; width:100px; height:auto; bottom:0px; right:0px; left:${originalPositionImg01.left}px; top:${originalPositionImg01.top}px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+    <!-- Steve Image (myImg01) that can be moved -->
+    <img id="myImg01" style="position:absolute; width:100px; height:auto; left:${originalPositionImg01.left}px; top:${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
     
     <!-- New Enderman Image (myImg02) that jumps around -->
     <img id="myImg02" style="position:absolute; width:100px; height:auto; top:0px; left:250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
+    <!-- Static Image (myImg03) positioned at the bottom right corner -->
+    <img id="myImg03" style="position:absolute; width:100px; height:auto; left:${originalPositionImg03.left}px; top:${originalPositionImg03.top}px;" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+    
     <br><br>
 </body>
