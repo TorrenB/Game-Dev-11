@@ -4,18 +4,23 @@
 
     <script>
         // Global variables
-        const img02MoveInterval = 1000; // Move every second
+        const imgMoveInterval = 1000; // Move every second
+        const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
 
-        // Control movement for myImg02
-        setInterval(moveFishImage, img02MoveInterval);
+        // Control movements for fish images
+        setInterval(moveFishImage, imgMoveInterval);
+        setInterval(myCheckHit, 100); // Check for collisions more frequently
 
-        // Function to move myImg02 randomly
+        // Function to move fish images randomly
         function moveFishImage() {
-            const myImg02 = document.getElementById('myImg02');
-            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
-            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
-            myImg02.style.left = randomX + 'px';
-            myImg02.style.top = randomY + 'px';
+            const fishImages = ['myImg02', 'myImg03']; // Assume 'myImg02' and 'myImg03' are the IDs of the fish
+            fishImages.forEach(fishId => {
+                const fish = document.getElementById(fishId);
+                const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+                const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+                fish.style.left = randomX + 'px';
+                fish.style.top = randomY + 'px';
+            });
         }
 
         // Function to handle collision detection
@@ -33,13 +38,30 @@
 
         // Function to check for hits
         function myCheckHit() {
+            // Check collision between dog and fish images
+            const fishIds = ['myImg02', 'myImg03']; // Fish IDs to check against the dog
+            fishIds.forEach(fishId => {
+                if (myHitOther('myImg01', fishId)) {
+                    alert("The dog was caught by a fish! Returning to starting position.");
+                    resetDogPosition();
+                }
+            });
+
+            // Check collision between dog and target image
             if (myHitOther('myImg01', 'myTargetImg')) {
                 alert("Congrats on passing, click OK to go to the next level!");
                 window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
             }
         }
 
-        // Handle movement for myImg01 with WASD
+        // Function to reset dog position
+        function resetDogPosition() {
+            const myImg01 = document.getElementById('myImg01');
+            myImg01.style.left = dogInitialPosition.left;
+            myImg01.style.top = dogInitialPosition.top;
+        }
+
+        // Handle movement for dog image (myImg01) with WASD
         document.addEventListener('keydown', function(event) {
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
@@ -91,6 +113,7 @@
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
     <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg03" style="position:absolute; width:100px; height:80px; top:100px; left:400px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png"> <!-- New fish added -->
 
     <!-- New target image positioned at the bottom right corner -->
     <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px; z-index: 1;" src="https://pngimg.com/uploads/eye/eye_PNG35674.png">
