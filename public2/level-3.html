@@ -4,23 +4,24 @@
 
     <script>
         // Global variables
-        const imgMoveInterval = 1000; // Move every second
         const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
 
-        // Control movements for fish images
-        setInterval(moveFishImage, imgMoveInterval);
-        setInterval(myCheckHit, 100); // Check for collisions more frequently
+        // List of fish IDs
+        const fishImages = ['myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09'];
 
-        // Function to move fish images randomly
-        function moveFishImage() {
-            const fishImages = ['myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09']; // IDs of the fish
-            fishImages.forEach(fishId => {
-                const fish = document.getElementById(fishId);
-                const randomX = Math.random() * (window.innerWidth - 100); // Random x position
-                const randomY = Math.random() * (window.innerHeight - 80); // Random y position
-                fish.style.left = randomX + 'px';
-                fish.style.top = randomY + 'px';
-            });
+        // Function to initialize movement for each fish
+        function initializeFishMovement(fishId) {
+            const imgMoveInterval = Math.floor(Math.random() * 3000) + 500; // Random move interval between 500ms and 3500ms
+            setInterval(() => moveFishImage(fishId), imgMoveInterval);
+        }
+
+        // Function to move a single fish image randomly
+        function moveFishImage(fishId) {
+            const fish = document.getElementById(fishId);
+            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+            fish.style.left = randomX + 'px';
+            fish.style.top = randomY + 'px';
         }
 
         // Function to handle collision detection
@@ -39,8 +40,7 @@
         // Function to check for hits
         function myCheckHit() {
             // Check collision between dog and fish images
-            const fishIds = ['myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09']; // fish IDs to check against the dog
-            fishIds.forEach(fishId => {
+            fishImages.forEach(fishId => {
                 if (myHitOther('myImg01', fishId)) {
                     resetDogPosition(); // Reset dog position without alert
                 }
@@ -82,6 +82,9 @@
 
             myCheckHit(); // Check for collisions after moving
         });
+
+        // Initialize movements for each fish
+        fishImages.forEach(fishId => initializeFishMovement(fishId));
 
         // Functions to move background (optional)
         function moveBackground(direction) {
