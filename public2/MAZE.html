@@ -1,12 +1,34 @@
-<body id="myBody" style="background: url('https://i.pinimg.com/originals/b9/ed/af/b9edafa2213fea4ad6d5ed710a2cf658.png'); background-repeat: repeat; background-size: cover; position: relative; filter: brightness(1.2) saturate(1.5);">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Template</title>
+    <style>
+        body {
+            background: url('https://i.pinimg.com/originals/b9/ed/af/b9edafa2213fea4ad6d5ed710a2cf658.png');
+            background-repeat: repeat;
+            background-size: cover;
+            position: relative;
+            filter: brightness(1.2) saturate(1.5);
+        }
+        h1 {
+            color: #FFD700;
+            text-align: center;
+        }
+        #myImg01, #myImg02, #myImg03 {
+            position: absolute;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
 
-    <h1 align=center style="color: #FFD700;">t2a23 Game Template by Fred</h1>
-    <br><br><br><br>
-
+    <h1>t2a23 Game Template by Fred</h1>
     <script>
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
-        const originalPositionImg02 = { left: 250, top: 0 }; // Original position for Enderman
 
         // Control movement for Enderman
         setInterval(moveEndermanImage, 1000); // Move every second
@@ -33,13 +55,8 @@
                 }
             }
             if (event.key === 'd' || event.key === 'ArrowRight') {
-                if (leftPosition < window.innerWidth - parseInt(myImg01.style.width)) { // Check for right boundary
+                if (leftPosition < window.innerWidth - parseInt(myImg01.clientWidth)) { // Check for right boundary
                     myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
-                }
-            }
-            if (event.key === 's' || event.key === 'ArrowDown') {
-                if (topPosition < window.innerHeight - parseInt(myImg01.style.height)) { // Check for bottom boundary
-                    myImg01.style.top = (topPosition + 10) + 'px'; // Move down
                 }
             }
             if (event.key === 'w' || event.key === 'ArrowUp') {
@@ -47,17 +64,22 @@
                     myImg01.style.top = (topPosition - 10) + 'px'; // Move up
                 }
             }
+            if (event.key === 's' || event.key === 'ArrowDown') {
+                if (topPosition < window.innerHeight - parseInt(myImg01.clientHeight)) { // Check for bottom boundary
+                    myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+                }
+            }
         });
     </script>
 
     <!-- Steve Image that can be moved -->
-    <img id="myImg01" style="position: absolute; width: 100px; height: auto; left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
-    
+    <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
+
     <!-- Enderman Image that jumps around -->
-    <img id="myImg02" style="position: absolute; width: 100px; height: auto; top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
+    <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
-    <img id="myImg03" style="position: absolute; width: 100px; height: auto; left: calc(100% - 100px); top: calc(100% - 100px);" src="https://art.pixilart.com/0be03a9e33b57bc.png">
-    
-    <br><br>
+    <img id="myImg03" style="left: calc(100% - 100px); top: calc(100% - 100px);" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+
 </body>
+</html>
