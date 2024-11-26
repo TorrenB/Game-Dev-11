@@ -11,6 +11,7 @@
     <script>
         // Global variables
         const img02MoveInterval = 1000; // Move every second
+        const initialDogPosition = { top: '0px', left: '50px' }; // Store initial position of the dog
 
         // Control movement for myImg02
         setInterval(moveFishImage, img02MoveInterval);
@@ -39,6 +40,17 @@
 
         // Function to check for hits
         function myCheckHit() {
+            const dogImg = document.getElementById('myImg01');
+            const fishImg = document.getElementById('myImg02');
+
+            // Check for collision with fish
+            if (myHitOther('myImg01', 'myImg02')) {
+                // Reset the dog image to its initial position
+                dogImg.style.top = initialDogPosition.top;
+                dogImg.style.left = initialDogPosition.left;
+            }
+
+            // Check for collision with target
             if (myHitOther('myImg01', 'myTargetImg')) {
                 alert("Congrats on passing, click OK to go to the next level!");
                 window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
