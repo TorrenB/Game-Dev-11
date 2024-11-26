@@ -37,6 +37,7 @@
     <script>
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
+        const myImg01 = document.getElementById('myImg01');
 
         // Control movement for Enderman
         setInterval(moveEndermanImage, 1000); // Move every second
@@ -52,7 +53,6 @@
 
         // Handle movement for Steve with WASD keys
         document.addEventListener('keydown', function(event) {
-            const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || originalPositionImg01.left;
             let topPosition = parseInt(myImg01.style.top) || originalPositionImg01.top;
 
@@ -78,12 +78,22 @@
                 }
             }
         });
+
+        // Function to handle clicking on the diamond
+        function onDiamondTouch() {
+            alert("You have passed, here is the next level");
+            window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
+        }
+
+        // Add event listener for diamond touch/click
+        const diamondImg = document.getElementById('myImg03');
+        diamondImg.addEventListener('click', onDiamondTouch);
     </script>
 
     <!-- Steve Image that can be moved -->
     <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
 
-    <!-- Enderman Image that jumps around -->
+    <!-- First Enderman Image that jumps around -->
     <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
