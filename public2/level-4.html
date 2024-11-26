@@ -1,11 +1,14 @@
 <body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative;">
+    <div id="warningText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; text-align: center; z-index: 10;">
+        You cannot move more than 950 pixels in the same direction at a time otherwise you die.
+    </div>
     <h1 align=center>t2a23 Game Template by Fred</h1>
     <br><br><br><br>
 
     <script>
         // Global variables
         const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
-        let totalDistance = 0; // Total distance moved in the current direction
+        let lastDistance = 0; // Distance moved in the current straight line direction
         let lastDirection = ""; // Last direction of movement
 
         // List of fish IDs
@@ -60,7 +63,7 @@
             const myImg01 = document.getElementById('myImg01');
             myImg01.style.left = dogInitialPosition.left;
             myImg01.style.top = dogInitialPosition.top;
-            totalDistance = 0; // Reset the distance when going back to start
+            lastDistance = 0; // Reset the distance when going back to start
             lastDirection = ""; // Reset the direction
         }
 
@@ -69,34 +72,48 @@
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
             let topPosition = parseInt(myImg01.style.top) || 0; // Default to 0 if NaN
-            let distanceMoved = 0; // Distance moved in this key press
+            let distanceMoved = 10; // Fixed step size
 
-            // Move the image based on key pressed
+            // Determine the current direction based on key pressed
             if (event.key === 'ArrowLeft' || event.key === 'a') {
-                leftPosition -= 10; // Move left
-                distanceMoved = 10;
-                lastDirection = "left";
+                leftPosition -= distanceMoved; // Move left
+                if (lastDirection === "left") {
+                    lastDistance += distanceMoved; // Accumulate distance
+                } else {
+                    lastDistance = distanceMoved; // Reset to current distance
+                    lastDirection = "left"; // Update direction
+                }
             }
             if (event.key === 'ArrowRight' || event.key === 'd') {
-                leftPosition += 10; // Move right
-                distanceMoved = 10;
-                lastDirection = "right";
+                leftPosition += distanceMoved; // Move right
+                if (lastDirection === "right") {
+                    lastDistance += distanceMoved; // Accumulate distance
+                } else {
+                    lastDistance = distanceMoved; // Reset to current distance
+                    lastDirection = "right"; // Update direction
+                }
             }
             if (event.key === 'ArrowUp' || event.key === 'w') {
-                topPosition -= 10; // Move up
-                distanceMoved = 10;
-                lastDirection = "up";
+                topPosition -= distanceMoved; // Move up
+                if (lastDirection === "up") {
+                    lastDistance += distanceMoved; // Accumulate distance
+                } else {
+                    lastDistance = distanceMoved; // Reset to current distance
+                    lastDirection = "up"; // Update direction
+                }
             }
             if (event.key === 'ArrowDown' || event.key === 's') {
-                topPosition += 10; // Move down
-                distanceMoved = 10;
-                lastDirection = "down";
+                topPosition += distanceMoved; // Move down
+                if (lastDirection === "down") {
+                    lastDistance += distanceMoved; // Accumulate distance
+                } else {
+                    lastDistance = distanceMoved; // Reset to current distance
+                    lastDirection = "down"; // Update direction
+                }
             }
 
-            totalDistance += distanceMoved; // Update the total distance moved
-
-            // Check if total distance exceeds 900 pixels
-            if (totalDistance >= 900) {
+            // Check if lastDistance exceeds 950 pixels
+            if (lastDistance > 950) {
                 resetDogPosition(); // Send back to the starting position
             } else {
                 myImg01.style.left = leftPosition + 'px'; // Update position
