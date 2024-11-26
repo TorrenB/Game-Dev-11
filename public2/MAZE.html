@@ -21,7 +21,7 @@
         }
         #myImg01, #myImg02, #myImg03 {
             position: absolute;
-            width: 100px;
+            width: 100px;  /* Set a specific width */
             height: auto;
         }
         /* Fixed position for the diamond */
@@ -38,10 +38,12 @@
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
         const myImg01 = document.getElementById('myImg01');
+        myImg01.style.left = originalPositionImg01.left + 'px'; // Set initial left position
+        myImg01.style.top = originalPositionImg01.top + 'px'; // Set initial top position
 
         // Control movement for Enderman
         setInterval(moveEndermanImage, 1000); // Move every second
-
+        
         // Function to move Enderman randomly in the viewport
         function moveEndermanImage() {
             const myImg02 = document.getElementById('myImg02');
@@ -63,7 +65,7 @@
                 }
             }
             if (event.key === 'd' || event.key === 'ArrowRight') {
-                if (leftPosition < window.innerWidth - parseInt(myImg01.clientWidth)) { // Check for right boundary
+                if (leftPosition < window.innerWidth - myImg01.clientWidth) { // Check for right boundary
                     myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
                 }
             }
@@ -73,7 +75,7 @@
                 }
             }
             if (event.key === 's' || event.key === 'ArrowDown') {
-                if (topPosition < window.innerHeight - parseInt(myImg01.clientHeight)) { // Check for bottom boundary
+                if (topPosition < window.innerHeight - myImg01.clientHeight) { // Check for bottom boundary
                     myImg01.style.top = (topPosition + 10) + 'px'; // Move down
                 }
             }
@@ -91,7 +93,7 @@
     </script>
 
     <!-- Steve Image that can be moved -->
-    <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
+    <img id="myImg01" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png" style="position: absolute;">
 
     <!-- First Enderman Image that jumps around -->
     <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
