@@ -37,14 +37,14 @@
                     myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
                 }
             }
-            if (event.key === 'w' || event.key === 'ArrowUp') {
-                if (topPosition > 0) { // Check for top boundary
-                    myImg01.style.top = (topPosition - 10) + 'px'; // Move up
-                }
-            }
             if (event.key === 's' || event.key === 'ArrowDown') {
                 if (topPosition < window.innerHeight - parseInt(myImg01.style.height)) { // Check for bottom boundary
                     myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+                }
+            }
+            if (event.key === 'w' || event.key === 'ArrowUp') {
+                if (topPosition > 0) { // Check for top boundary
+                    myImg01.style.top = (topPosition - 10) + 'px'; // Move up
                 }
             }
         });
