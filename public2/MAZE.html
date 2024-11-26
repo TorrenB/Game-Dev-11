@@ -43,6 +43,12 @@
                 document.getElementById('myImg02').style.left = originalPositionImg02.left + 'px';
                 document.getElementById('myImg02').style.top = originalPositionImg02.top + 'px';
             }
+
+            // Check collision with the new image
+            if (myHitOther('myImg01', 'myTargetImg')) {
+                alert("You've reached the next level!");
+                window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
+            }
         }
 
         // Handle movement for myImg01 with WASD
@@ -97,6 +103,9 @@
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
     <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
-    
+
+    <!-- New target image positioned at the bottom right corner -->
+    <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px;" src="https://example.com/path/to/your/target-image.png">
+
     <br><br>
 </body>
