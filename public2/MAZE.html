@@ -38,67 +38,17 @@
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
 
-        // Set the initial position of Enderman (top-right corner)
-        const myImg02 = document.getElementById('myImg02');
-        myImg02.style.left = (window.innerWidth - 100) + 'px'; // Start at top-right corner
-        myImg02.style.top = '0px';
+        // Control movement for Enderman
+        setInterval(moveEndermanImage, 1000); // Move every second
 
-        // Function to move Enderman toward Steve
+        // Function to move Enderman randomly in the viewport
         function moveEndermanImage() {
-            const myImg01 = document.getElementById('myImg01');
-            let playerPos = {
-                left: parseInt(myImg01.style.left) || originalPositionImg01.left,
-                top: parseInt(myImg01.style.top) || originalPositionImg01.top
-            };
-            let endermanPos = {
-                left: parseInt(myImg02.style.left),
-                top: parseInt(myImg02.style.top)
-            };
-
-            // Calculate the direction toward the player
-            let dx = playerPos.left - endermanPos.left;
-            let dy = playerPos.top - endermanPos.top;
-
-            // Move the Enderman a little bit toward Steve
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const speed = 1; // Speed of the Enderman
-            if (distance > speed) {
-                endermanPos.left += (dx / distance) * speed;
-                endermanPos.top += (dy / distance) * speed;
-            }
-            
-            myImg02.style.left = endermanPos.left + 'px';
-            myImg02.style.top = endermanPos.top + 'px';
-
-            // Check for collision with Steve
-            if (collisionDetected(playerPos, endermanPos)) {
-                resetStevePosition(myImg01);
-            }
+            const myImg02 = document.getElementById('myImg02');
+            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+            myImg02.style.left = randomX + 'px';
+            myImg02.style.top = randomY + 'px';
         }
-
-        // Check if Enderman collides with Steve
-        function collisionDetected(playerPos, endermanPos) {
-            const playerWidth = myImg01.clientWidth;
-            const playerHeight = myImg01.clientHeight;
-            const endermanWidth = myImg02.clientWidth;
-            const endermanHeight = myImg02.clientHeight;
-
-            return !(
-                playerPos.left > endermanPos.left + endermanWidth ||
-                playerPos.left + playerWidth < endermanPos.left ||
-                playerPos.top > endermanPos.top + endermanHeight ||
-                playerPos.top + playerHeight < endermanPos.top
-            );
-        }
-
-        // Reset Steve's position
-        function resetStevePosition(myImg01) {
-            myImg01.style.left = originalPositionImg01.left + 'px';
-            myImg01.style.top = originalPositionImg01.top + 'px';
-        }
-
-        // Update Enderman's position continuously
-        setInterval(moveEndermanImage, 100); // Move 10 times per second
 
         // Handle movement for Steve with WASD keys
         document.addEventListener('keydown', function(event) {
@@ -133,8 +83,8 @@
     <!-- Steve Image that can be moved -->
     <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
 
-    <!-- Enderman Image positioned at top right corner -->
-    <img id="myImg02" style="top: 0px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
+    <!-- Enderman Image that jumps around -->
+    <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
     <img id="myImg03" src="https://art.pixilart.com/0be03a9e33b57bc.png">
