@@ -1,1 +1,141 @@
+<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative;">
+    <h1 align=center>t2a23 Game Template by Fred</h1>
+    <br><br><br><br>
 
+    <script>
+        // Global variables
+        const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
+
+        // List of fish IDs
+        const fishImages = ['myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09', 'myImg10', 'myImg11', 'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16'];
+
+        // Function to initialize movement for each fish
+        function initializeFishMovement(fishId) {
+            const imgMoveInterval = Math.floor(Math.random() * 3000) + 500; // Random move interval between 500ms and 3500ms
+            setInterval(() => moveFishImage(fishId), imgMoveInterval);
+        }
+
+        // Function to move a single fish image randomly
+        function moveFishImage(fishId) {
+            const fish = document.getElementById(fishId);
+            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
+            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+            fish.style.left = randomX + 'px';
+            fish.style.top = randomY + 'px';
+        }
+
+        // Function to handle collision detection
+        function myHitOther(my1, my2) {
+            const rect1 = document.getElementById(my1).getBoundingClientRect();
+            const rect2 = document.getElementById(my2).getBoundingClientRect();
+
+            return (
+                rect1.left < rect2.right &&
+                rect1.right > rect2.left &&
+                rect1.top < rect2.bottom &&
+                rect1.bottom > rect2.top
+            );
+        }
+
+        // Function to check for hits
+        function myCheckHit() {
+            // Check collision between dog and fish images
+            fishImages.forEach(fishId => {
+                if (myHitOther('myImg01', fishId)) {
+                    resetDogPosition(); // Reset dog position without alert
+                }
+            });
+
+            // Check collision between dog and target image
+            if (myHitOther('myImg01', 'myTargetImg')) {
+                alert("Congrats on passing, click OK to go to the next level!");
+                window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
+            }
+        }
+
+        // Function to reset dog position
+        function resetDogPosition() {
+            const myImg01 = document.getElementById('myImg01');
+            myImg01.style.left = dogInitialPosition.left;
+            myImg01.style.top = dogInitialPosition.top;
+        }
+
+        // Handle movement for dog image (myImg01) with WASD
+        document.addEventListener('keydown', function(event) {
+            const myImg01 = document.getElementById('myImg01');
+            let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
+            let topPosition = parseInt(myImg01.style.top) || 0; // Default to 0 if NaN
+
+            // Move the image based on key pressed
+            if (event.key === 'ArrowLeft' || event.key === 'a') {
+                myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
+            }
+            if (event.key === 'ArrowRight' || event.key === 'd') {
+                myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
+            }
+            if (event.key === 'ArrowUp' || event.key === 'w') {
+                myImg01.style.top = (topPosition - 10) + 'px'; // Move up
+            }
+            if (event.key === 'ArrowDown' || event.key === 's') {
+                myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+            }
+
+            myCheckHit(); // Check for collisions after moving
+        });
+
+        // Initialize movements for each fish
+        fishImages.forEach(fishId => initializeFishMovement(fishId));
+
+        // Functions to move background (optional)
+        function moveBackground(direction) {
+            const body = document.getElementById('myBody');
+            let position = body.style.backgroundPosition.split(' ');
+
+            let x = parseInt(position[0]) || 0;
+            let y = parseInt(position[1]) || 0;
+
+            switch (direction) {
+                case 'left':
+                    x += 10;
+                    break;
+                case 'right':
+                    x -= 10;
+                    break;
+                case 'up':
+                    y += 10;
+                    break;
+                case 'down':
+                    y -= 10;
+                    break;
+            }
+
+            body.style.backgroundPosition = `${x}px ${y}px`;
+        }
+    </script>
+
+    <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
+    <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg03" style="position:absolute; width:100px; height:80px; top:100px; left:400px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png"> <!-- Existing fish -->
+    
+    <!-- New fish images -->
+    <img id="myImg04" style="position:absolute; width:100px; height:80px; top:200px; left:150px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg05" style="position:absolute; width:100px; height:80px; top:300px; left:300px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg06" style="position:absolute; width:100px; height:80px; top:400px; left:450px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg07" style="position:absolute; width:100px; height:80px; top:500px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg08" style="position:absolute; width:100px; height:80px; top:600px; left:350px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg09" style="position:absolute; width:100px; height:80px; top:700px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    
+    <!-- New fish -->
+    <img id="myImg10" style="position:absolute; width:100px; height:80px; top:80px; left:620px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg11" style="position:absolute; width:100px; height:80px; top:160px; left:520px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg12" style="position:absolute; width:100px; height:80px; top:240px; left:700px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg13" style="position:absolute; width:100px; height:80px; top:320px; left:430px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg14" style="position:absolute; width:100px; height:80px; top:400px; left:500px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg15" style="position:absolute; width:100px; height:80px; top:480px; left:600px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+    <img id="myImg16" style="position:absolute; width:100px; height:80px; top:560px; left:260px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
+
+    <!-- New target image positioned at the bottom right corner -->
+    <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px; z-index: 1;" src="https://pngimg.com/uploads/eye/eye_PNG35674.png">
+
+    <br><br>
+</body>
