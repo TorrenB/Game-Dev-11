@@ -11,6 +11,9 @@
             background-size: cover;
             position: relative;
             filter: brightness(1.2) saturate(1.5);
+            margin: 0; /* Remove default margin */
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh; /* Full height for the body */
         }
         h1 {
             color: #FFD700;
@@ -20,6 +23,11 @@
             position: absolute;
             width: 100px;
             height: auto;
+        }
+        /* Fixed position for the diamond */
+        #myImg03 {
+            bottom: 0; /* Stick to the bottom */
+            right: 0; /* Stick to the right */
         }
     </style>
 </head>
@@ -79,7 +87,7 @@
     <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
-    <img id="myImg03" style="left: calc(100% - 100px); top: calc(100% - 100px);" src="https://art.pixilart.com/0be03a9e33b57bc.png">
+    <img id="myImg03" src="https://art.pixilart.com/0be03a9e33b57bc.png">
 
 </body>
 </html>
