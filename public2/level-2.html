@@ -42,8 +42,7 @@
             const fishIds = ['myImg02', 'myImg03']; // Fish IDs to check against the dog
             fishIds.forEach(fishId => {
                 if (myHitOther('myImg01', fishId)) {
-                    alert("The dog was caught by a fish! Returning to starting position.");
-                    resetDogPosition();
+                    resetDogPosition(); // Reset dog position without alert
                 }
             });
 
