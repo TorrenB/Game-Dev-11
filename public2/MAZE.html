@@ -36,17 +36,9 @@
 
         // Function to check for hits
         function myCheckHit() {
-            if (myHitOther('myImg01', 'myImg02')) {
-                // Reset both images to their original positions
-                document.getElementById('myImg01').style.left = originalPositionImg01.left + 'px';
-                document.getElementById('myImg01').style.top = originalPositionImg01.top + 'px';
-                document.getElementById('myImg02').style.left = originalPositionImg02.left + 'px';
-                document.getElementById('myImg02').style.top = originalPositionImg02.top + 'px';
-            }
-
-            // Check collision with the new image
+            // Check collision with the eye target image
             if (myHitOther('myImg01', 'myTargetImg')) {
-                alert("You've reached the next level!");
+                alert("Congrats on passing, click OK to go to the next level!");
                 window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
             }
         }
