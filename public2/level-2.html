@@ -19,7 +19,7 @@
             color: #FFD700;
             text-align: center;
         }
-        #myImg01, #myImg02, #myImg03 {
+        #myImg01, #myImg02, #myImg03, #myImg04 {
             position: absolute;
             width: 100px;
             height: auto;
@@ -37,9 +37,11 @@
     <script>
         // Global variables
         const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
+        const myImg01 = document.getElementById('myImg01');
 
         // Control movement for Enderman
         setInterval(moveEndermanImage, 1000); // Move every second
+        setInterval(followPlayer, 100); // Follow the player every 100ms
 
         // Function to move Enderman randomly in the viewport
         function moveEndermanImage() {
@@ -50,9 +52,33 @@
             myImg02.style.top = randomY + 'px';
         }
 
+        // Function to make the second Enderman follow the player
+        function followPlayer() {
+            const myImg04 = document.getElementById('myImg04');
+            const playerRect = myImg01.getBoundingClientRect();
+            const endermanRect = myImg04.getBoundingClientRect();
+
+            // Calculate the positions
+            const playerX = playerRect.x + playerRect.width / 2;
+            const playerY = playerRect.y + playerRect.height / 2;
+
+            const endermanX = endermanRect.x + endermanRect.width / 2;
+            const endermanY = endermanRect.y + endermanRect.height / 2;
+
+            // Calculate distance to player
+            const deltaX = playerX - endermanX;
+            const deltaY = playerY - endermanY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Move the enderman towards the player
+            if (distance > 5) { // To avoid jitter, only update if far enough
+                myImg04.style.left = endermanX + (deltaX / distance * 2) + 'px'; // Move right
+                myImg04.style.top = endermanY + (deltaY / distance * 2) + 'px'; // Move down
+            }
+        }
+
         // Handle movement for Steve with WASD keys
         document.addEventListener('keydown', function(event) {
-            const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || originalPositionImg01.left;
             let topPosition = parseInt(myImg01.style.top) || originalPositionImg01.top;
 
@@ -83,8 +109,11 @@
     <!-- Steve Image that can be moved -->
     <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
 
-    <!-- Enderman Image that jumps around -->
+    <!-- First Enderman Image that jumps around -->
     <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
+
+    <!-- Second Enderman Image that follows the player -->
+    <img id="myImg04" style="top: 100px; left: 150px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
 
     <!-- Static Diamond Image positioned at the bottom right corner -->
     <img id="myImg03" src="https://art.pixilart.com/0be03a9e33b57bc.png">
