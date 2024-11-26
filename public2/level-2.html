@@ -1,50 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Template</title>
-    <style>
-        body {
-            background: url('https://i.pinimg.com/originals/b9/ed/af/b9edafa2213fea4ad6d5ed710a2cf658.png');
-            background-repeat: repeat;
-            background-size: cover;
-            position: relative;
-            filter: brightness(1.2) saturate(1.5);
-            margin: 0; /* Remove default margin */
-            overflow: hidden; /* Prevent scrolling */
-            height: 100vh; /* Full height for the body */
-        }
-        h1 {
-            color: #FFD700;
-            text-align: center;
-        }
-        #myImg01, #myImg02, #myImg03, #myImg04 {
-            position: absolute;
-            width: 100px;
-            height: auto;
-        }
-        /* Fixed position for the diamond */
-        #myImg03 {
-            bottom: 0; /* Stick to the bottom */
-            right: 0; /* Stick to the right */
-        }
-    </style>
-</head>
-<body>
+<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative;">
+    <h1 align=center>t2a23 Game Template by Fred</h1>
+    <br><br><br><br>
 
-    <h1>t2a23 Game Template by Fred</h1>
     <script>
         // Global variables
-        const originalPositionImg01 = { left: 100, top: 100 }; // Starting position for Steve
-        const myImg01 = document.getElementById('myImg01');
+        const img02MoveInterval = 1000; // Move every second
 
-        // Control movement for Enderman
-        setInterval(moveEndermanImage, 1000); // Move every second
-        setInterval(followPlayer, 100); // Follow the player every 100ms
+        // Control movement for myImg02
+        setInterval(moveFishImage, img02MoveInterval);
 
-        // Function to move Enderman randomly in the viewport
-        function moveEndermanImage() {
+        // Function to move myImg02 randomly
+        function moveFishImage() {
             const myImg02 = document.getElementById('myImg02');
             const randomX = Math.random() * (window.innerWidth - 100); // Random x position
             const randomY = Math.random() * (window.innerHeight - 80); // Random y position
@@ -52,81 +18,82 @@
             myImg02.style.top = randomY + 'px';
         }
 
-        // Function to make the second Enderman follow the player
-        function followPlayer() {
-            const myImg04 = document.getElementById('myImg04');
-            const playerRect = myImg01.getBoundingClientRect();
-            const endermanRect = myImg04.getBoundingClientRect();
+        // Function to handle collision detection
+        function myHitOther(my1, my2) {
+            const rect1 = document.getElementById(my1).getBoundingClientRect();
+            const rect2 = document.getElementById(my2).getBoundingClientRect();
 
-            // Calculate the positions
-            const playerX = playerRect.x + playerRect.width / 2;
-            const playerY = playerRect.y + playerRect.height / 2;
+            return (
+                rect1.left < rect2.right &&
+                rect1.right > rect2.left &&
+                rect1.top < rect2.bottom &&
+                rect1.bottom > rect2.top
+            );
+        }
 
-            const endermanX = endermanRect.x + endermanRect.width / 2;
-            const endermanY = endermanRect.y + endermanRect.height / 2;
-
-            // Calculate distance to player
-            const deltaX = playerX - endermanX;
-            const deltaY = playerY - endermanY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-            // Move the enderman towards the player
-            if (distance > 5) { // To avoid jitter, only update if far enough
-                myImg04.style.left = endermanX + (deltaX / distance * 2) + 'px'; // Move right
-                myImg04.style.top = endermanY + (deltaY / distance * 2) + 'px'; // Move down
+        // Function to check for hits
+        function myCheckHit() {
+            if (myHitOther('myImg01', 'myTargetImg')) {
+                alert("Congrats on passing, click OK to go to the next level!");
+                window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
             }
         }
 
-        // Handle movement for Steve with WASD keys
+        // Handle movement for myImg01 with WASD
         document.addEventListener('keydown', function(event) {
-            let leftPosition = parseInt(myImg01.style.left) || originalPositionImg01.left;
-            let topPosition = parseInt(myImg01.style.top) || originalPositionImg01.top;
+            const myImg01 = document.getElementById('myImg01');
+            let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
+            let topPosition = parseInt(myImg01.style.top) || 0; // Default to 0 if NaN
 
             // Move the image based on key pressed
-            if (event.key === 'a' || event.key === 'ArrowLeft') {
-                if (leftPosition > 0) { // Check for left boundary
-                    myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
-                }
+            if (event.key === 'ArrowLeft' || event.key === 'a') {
+                myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
             }
-            if (event.key === 'd' || event.key === 'ArrowRight') {
-                if (leftPosition < window.innerWidth - parseInt(myImg01.clientWidth)) { // Check for right boundary
-                    myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
-                }
+            if (event.key === 'ArrowRight' || event.key === 'd') {
+                myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
             }
-            if (event.key === 'w' || event.key === 'ArrowUp') {
-                if (topPosition > 0) { // Check for top boundary
-                    myImg01.style.top = (topPosition - 10) + 'px'; // Move up
-                }
+            if (event.key === 'ArrowUp' || event.key === 'w') {
+                myImg01.style.top = (topPosition - 10) + 'px'; // Move up
             }
-            if (event.key === 's' || event.key === 'ArrowDown') {
-                if (topPosition < window.innerHeight - parseInt(myImg01.clientHeight)) { // Check for bottom boundary
-                    myImg01.style.top = (topPosition + 10) + 'px'; // Move down
-                }
+            if (event.key === 'ArrowDown' || event.key === 's') {
+                myImg01.style.top = (topPosition + 10) + 'px'; // Move down
             }
+
+            myCheckHit(); // Check for collisions after moving
         });
 
-        // Function to handle clicking on the diamond
-        function onDiamondTouch() {
-            alert("You have passed, here is the next level");
-            window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
-        }
+        // Functions to move background (optional)
+        function moveBackground(direction) {
+            const body = document.getElementById('myBody');
+            let position = body.style.backgroundPosition.split(' ');
 
-        // Add event listener for diamond touch/click
-        const diamondImg = document.getElementById('myImg03');
-        diamondImg.addEventListener('click', onDiamondTouch);
+            let x = parseInt(position[0]) || 0;
+            let y = parseInt(position[1]) || 0;
+
+            switch (direction) {
+                case 'left':
+                    x += 10;
+                    break;
+                case 'right':
+                    x -= 10;
+                    break;
+                case 'up':
+                    y += 10;
+                    break;
+                case 'down':
+                    y -= 10;
+                    break;
+            }
+
+            body.style.backgroundPosition = `${x}px ${y}px`;
+        }
     </script>
 
-    <!-- Steve Image that can be moved -->
-    <img id="myImg01" style="left: ${originalPositionImg01.left}px; top: ${originalPositionImg01.top}px;" src="https://www.seekpng.com/png/full/32-320625_minecraft-steve-png.png">
+    <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
+    <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
 
-    <!-- First Enderman Image that jumps around -->
-    <img id="myImg02" style="top: 0px; left: 250px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
+    <!-- New target image positioned at the bottom right corner -->
+    <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px; z-index: 1;" src="https://pngimg.com/uploads/eye/eye_PNG35674.png">
 
-    <!-- Second Enderman Image that follows the player -->
-    <img id="myImg04" style="top: 100px; left: 150px;" src="https://wallpapers.com/images/hd/minecraft-enderman-vector-art-ssiw094gpxgwc79f.png">
-
-    <!-- Static Diamond Image positioned at the bottom right corner -->
-    <img id="myImg03" src="https://art.pixilart.com/0be03a9e33b57bc.png">
-
+    <br><br>
 </body>
-</html>
