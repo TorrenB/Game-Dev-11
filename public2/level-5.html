@@ -1,6 +1,6 @@
-<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative;">
+<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative; overflow: hidden; margin: 0; padding: 0; height: 100vh;">
     <div id="warningText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; text-align: center; z-index: 10;">
-    You might have to do something to make this game easier. It is built in to your browser. Do it and the game becomes easier.
+        You might have to do something to make this game easier. It is built in to your browser. Do it and the game becomes easier.
     </div>
     <h1 align=center>t2a23 Game Template by Fred</h1>
     <div id="deathCount" style="color: white; font-size: 20px; position: absolute; top: 10px; left: 10px; z-index: 10;">
@@ -11,16 +11,16 @@
         // Global variables
         let deathCount = 0; // Initialize death count
         const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
-        let lastDistance = 0; // Distance moved in the current straight line direction
+        let lastDistance = 0; // Distance moved in current straight line direction
         let lastDirection = ""; // Last direction of movement
 
-        // List of fish IDs (original 16 fish + 30 additional fish)
+        // List of fish IDs 
         const fishImages = [
-            'myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09', 'myImg10', 
-            'myImg11', 'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16', 
-            'myImg17', 'myImg18', 'myImg19', 'myImg20', 'myImg21', 'myImg22', 'myImg23', 'myImg24', 'myImg25', 
-            'myImg26', 'myImg27', 'myImg28', 'myImg29', 'myImg30', 'myImg31', 'myImg32', 'myImg33', 'myImg34', 
-            'myImg35', 'myImg36'
+            'myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09', 
+            'myImg10', 'myImg11', 'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16', 
+            'myImg17', 'myImg18', 'myImg19', 'myImg20', 'myImg21', 'myImg22', 'myImg23', 'myImg24', 
+            'myImg25', 'myImg26', 'myImg27', 'myImg28', 'myImg29', 'myImg30', 'myImg31', 'myImg32', 
+            'myImg33', 'myImg34', 'myImg35', 'myImg36'
         ];
 
         // Function to initialize movement for each fish
@@ -73,8 +73,8 @@
             const myImg01 = document.getElementById('myImg01');
             myImg01.style.left = dogInitialPosition.left;
             myImg01.style.top = dogInitialPosition.top;
-            lastDistance = 0; // Reset the distance when going back to start
-            lastDirection = ""; // Reset the direction
+            lastDistance = 0; // Reset distance when going back to start
+            lastDirection = ""; // Reset direction
         }
 
         // Function to increment death count
@@ -145,36 +145,10 @@
 
         // Initialize movements for each fish
         fishImages.forEach(fishId => initializeFishMovement(fishId));
-
-        // Functions to move background (optional)
-        function moveBackground(direction) {
-            const body = document.getElementById('myBody');
-            let position = body.style.backgroundPosition.split(' ');
-
-            let x = parseInt(position[0]) || 0;
-            let y = parseInt(position[1]) || 0;
-
-            switch (direction) {
-                case 'left':
-                    x += 10;
-                    break;
-                case 'right':
-                    x -= 10;
-                    break;
-                case 'up':
-                    y += 10;
-                    break;
-                case 'down':
-                    y -= 10;
-                    break;
-            }
-
-            body.style.backgroundPosition = `${x}px ${y}px`;
-        }
     </script>
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
-    
+
     <!-- Existing fish images -->
     <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     <img id="myImg03" style="position:absolute; width:100px; height:80px; top:100px; left:400px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
@@ -191,8 +165,6 @@
     <img id="myImg14" style="position:absolute; width:100px; height:80px; top:400px; left:500px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     <img id="myImg15" style="position:absolute; width:100px; height:80px; top:480px; left:600px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     <img id="myImg16" style="position:absolute; width:100px; height:80px; top:560px; left:260px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
-
-    <!-- New fish images (30 additional) -->
     <img id="myImg17" style="position:absolute; width:100px; height:80px; top:120px; left:100px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     <img id="myImg18" style="position:absolute; width:100px; height:80px; top:160px; left:200px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     <img id="myImg19" style="position:absolute; width:100px; height:80px; top:240px; left:320px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
@@ -216,5 +188,4 @@
 
     <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px; z-index: 1;" src="https://pngimg.com/uploads/eye/eye_PNG35674.png">
 
-    <br><br>
 </body>
