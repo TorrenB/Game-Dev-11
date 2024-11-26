@@ -104,6 +104,16 @@
                 }
             }
         });
+
+        // Function to handle clicking on the diamond
+        function onDiamondTouch() {
+            alert("You have passed, here is the next level");
+            window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/level-2.html";
+        }
+
+        // Add event listener for diamond touch/click
+        const diamondImg = document.getElementById('myImg03');
+        diamondImg.addEventListener('click', onDiamondTouch);
     </script>
 
     <!-- Steve Image that can be moved -->
