@@ -5,6 +5,8 @@
     <script>
         // Global variables
         const dogInitialPosition = { left: '50px', top: '0px' }; // Initial position
+        let totalDistance = 0; // Total distance moved in the current direction
+        let lastDirection = ""; // Last direction of movement
 
         // List of fish IDs
         const fishImages = ['myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09', 'myImg10', 'myImg11', 'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16'];
@@ -58,6 +60,8 @@
             const myImg01 = document.getElementById('myImg01');
             myImg01.style.left = dogInitialPosition.left;
             myImg01.style.top = dogInitialPosition.top;
+            totalDistance = 0; // Reset the distance when going back to start
+            lastDirection = ""; // Reset the direction
         }
 
         // Handle movement for dog image (myImg01) with WASD
@@ -65,19 +69,38 @@
             const myImg01 = document.getElementById('myImg01');
             let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
             let topPosition = parseInt(myImg01.style.top) || 0; // Default to 0 if NaN
+            let distanceMoved = 0; // Distance moved in this key press
 
             // Move the image based on key pressed
             if (event.key === 'ArrowLeft' || event.key === 'a') {
-                myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
+                leftPosition -= 10; // Move left
+                distanceMoved = 10;
+                lastDirection = "left";
             }
             if (event.key === 'ArrowRight' || event.key === 'd') {
-                myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
+                leftPosition += 10; // Move right
+                distanceMoved = 10;
+                lastDirection = "right";
             }
             if (event.key === 'ArrowUp' || event.key === 'w') {
-                myImg01.style.top = (topPosition - 10) + 'px'; // Move up
+                topPosition -= 10; // Move up
+                distanceMoved = 10;
+                lastDirection = "up";
             }
             if (event.key === 'ArrowDown' || event.key === 's') {
-                myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+                topPosition += 10; // Move down
+                distanceMoved = 10;
+                lastDirection = "down";
+            }
+
+            totalDistance += distanceMoved; // Update the total distance moved
+
+            // Check if total distance exceeds 900 pixels
+            if (totalDistance >= 900) {
+                resetDogPosition(); // Send back to the starting position
+            } else {
+                myImg01.style.left = leftPosition + 'px'; // Update position
+                myImg01.style.top = topPosition + 'px'; // Update position
             }
 
             myCheckHit(); // Check for collisions after moving
