@@ -21,15 +21,14 @@
         }
 
         img {
-            width: 100px; /* Adjusted size for better alignment */
+            width: 320px; /* Increased size for better visibility */
             height: auto; /* Maintain aspect ratio */
-            margin-left: 10px; /* Space between input and image */
-            vertical-align: middle; /* Aligns vertically with the input */
+            margin-bottom: 20px; /* Space below the image */
         }
 
         input {
             padding: 10px;
-            width: 200px;
+            width: 250px; /* Slightly increased input width */
             font-size: 16px;
         }
 
@@ -43,11 +42,11 @@
 <body>
     <h1>Guess the Flag Game</h1>
     <div id="game">
-        <div style="display: flex; align-items: center;">
+        <img id="flag" src="" alt="Flag" />
+        <div style="display: flex; justify-content: center; align-items: center;">
             <input type="text" id="answer" placeholder="Type the country name here" />
-            <img id="flag" src="" alt="Flag" />
+            <button id="submit">Submit</button>
         </div>
-        <button id="submit">Submit</button>
         <p id="message"></p>
         <p id="score">Score: 0/197</p>
     </div>
