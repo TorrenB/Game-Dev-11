@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Flag Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
 
+        #game {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 200px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Flag Game</h1>
+    <div id="game">
+        <img id="flag" src="" alt="Flag" />
+        <input type="text" id="answer" placeholder="Type the country name here" />
+        <button id="submit">Submit</button>
+        <p id="message"></p>
+        <p id="score">Score: 0/5</p>
+    </div>
+
+    <script>
+        const flags = [
+            { name: "Afghanistan", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAABpElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
+            { name: "Albania", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
+            { name: "Algeria", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
+            { name: "Argentina", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
+            { name: "Australia", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" }
+            // Add more flags here following the same structure.
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+
+        const flagImg = document.getElementById("flag");
+        const answerInput = document.getElementById("answer");
+        const submitButton = document.getElementById("submit");
+        const messageDisplay = document.getElementById("message");
+        const scoreDisplay = document.getElementById("score");
+
+        function showFlag() {
+            if (currentIndex < flags.length) {
+                flagImg.src = flags[currentIndex].img;
+                answerInput.value = '';
+                messageDisplay.textContent = '';
+            } else {
+                messageDisplay.textContent = "Congratulations! You've completed the game!";
+                flagImg.src = '';
+                answerInput.style.display = 'none';
+                submitButton.style.display = 'none';
+            }
+        }
+
+        submitButton.addEventListener("click", () => {
+            const answer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = flags[currentIndex].name.toLowerCase();
+
+            if (answer === correctAnswer) {
+                score++;
+                currentIndex++;
+                scoreDisplay.textContent = `Score: ${score}/${flags.length}`;
+                showFlag();
+            } else {
+                messageDisplay.textContent = `Incorrect! The correct answer was ${flags[currentIndex].name}.`;
+            }
+        });
+
+        // Start the game
+        showFlag();
+    </script>
+</body>
+</html>
