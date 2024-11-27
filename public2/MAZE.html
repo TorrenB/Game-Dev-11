@@ -19,8 +19,10 @@
         // Function to move myImg02 randomly
         function moveFishImage() {
             const myImg02 = document.getElementById('myImg02');
-            const randomX = Math.random() * (window.innerWidth - 100); // Random x position
-            const randomY = Math.random() * (window.innerHeight - 80); // Random y position
+            const maxX = window.innerWidth - myImg02.offsetWidth; // Maximum X position
+            const maxY = window.innerHeight - myImg02.offsetHeight; // Maximum Y position
+            const randomX = Math.random() * maxX; // Random x position
+            const randomY = Math.random() * maxY; // Random y position
             myImg02.style.left = randomX + 'px';
             myImg02.style.top = randomY + 'px';
         }
@@ -65,17 +67,24 @@
 
             // Move the image based on key pressed
             if (event.key === 'ArrowLeft' || event.key === 'a') {
-                myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
+                leftPosition -= 10; // Move left
             }
             if (event.key === 'ArrowRight' || event.key === 'd') {
-                myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
+                leftPosition += 10; // Move right
             }
             if (event.key === 'ArrowUp' || event.key === 'w') {
-                myImg01.style.top = (topPosition - 10) + 'px'; // Move up
+                topPosition -= 10; // Move up
             }
             if (event.key === 'ArrowDown' || event.key === 's') {
-                myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+                topPosition += 10; // Move down
             }
+
+            // Ensure the dog stays within the borders
+            const maxWidth = window.innerWidth - myImg01.offsetWidth;
+            const maxHeight = window.innerHeight - myImg01.offsetHeight;
+
+            myImg01.style.left = Math.max(0, Math.min(leftPosition, maxWidth)) + 'px';
+            myImg01.style.top = Math.max(0, Math.min(topPosition, maxHeight)) + 'px';
 
             myCheckHit(); // Check for collisions after moving
         });
