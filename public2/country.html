@@ -37,6 +37,11 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        .error {
+            color: red; /* Red color for incorrect message */
+            font-weight: bold; /* Bold for emphasis */
+        }
     </style>
 </head>
 <body>
@@ -292,7 +297,8 @@
                 scoreDisplay.textContent = `Score: ${score}/${flags.length}`;
                 showFlag();
             } else {
-                messageDisplay.textContent = `Incorrect! The correct answer was ${flags[currentIndex].name}.`;
+                messageDisplay.classList.add('error'); // Add error class for styling
+                messageDisplay.textContent = "Incorrect!";
             }
         }
 
