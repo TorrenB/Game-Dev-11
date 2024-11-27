@@ -21,9 +21,10 @@
         }
 
         img {
-            width: 200px;
-            height: 150px;
-            margin-bottom: 20px;
+            width: 100px; /* Adjusted size for better alignment */
+            height: auto; /* Maintain aspect ratio */
+            margin-left: 10px; /* Space between input and image */
+            vertical-align: middle; /* Aligns vertically with the input */
         }
 
         input {
@@ -42,8 +43,10 @@
 <body>
     <h1>Guess the Flag Game</h1>
     <div id="game">
-        <img id="flag" src="" alt="Flag" />
-        <input type="text" id="answer" placeholder="Type the country name here" />
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="answer" placeholder="Type the country name here" />
+            <img id="flag" src="" alt="Flag" />
+        </div>
         <button id="submit">Submit</button>
         <p id="message"></p>
         <p id="score">Score: 0/5</p>
@@ -51,12 +54,12 @@
 
     <script>
         const flags = [
-            { name: "Afghanistan", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAABpElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
-            { name: "Albania", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
-            { name: "Algeria", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
-            { name: "Argentina", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" },
-            { name: "Australia", img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB8CAYAAABGJhhsAAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIDe1XwU4DURDAzU9LDW6en4x0sIiMIEvKY+EYbb17HviYS8CTxcbFEokoL2nsXW4gG9nrhzI7rIRiq/2ZsF0+0dyXOauOsdXePcw7eSLQD5F21Ubz6UHXHGPbrBuYX0C4OH7gdGt6oTpgSCfTX9fUxzEQX15c1tFJBiimt4+James9D4AIJx2DbT6ZqKMvSJyR38bdMAAAAAAElFTkSuQmCC" }
-            // Add more flags here following the same structure.
+            { name: "Afghanistan", img: "https://restcountries.com/data/afg.svg" },
+            { name: "Albania", img: "https://restcountries.com/data/alb.svg" },
+            { name: "Algeria", img: "https://restcountries.com/data/dza.svg" },
+            { name: "Argentina", img: "https://restcountries.com/data/arg.svg" },
+            { name: "Australia", img: "https://restcountries.com/data/aus.svg" }
+            // Add more flags here following the same structure and updating the URLs.
         ];
 
         let currentIndex = 0;
