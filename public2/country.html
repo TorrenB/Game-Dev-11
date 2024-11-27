@@ -293,14 +293,25 @@
 
             if (answer === correctAnswer) {
                 score++;
-                currentIndex++;
                 scoreDisplay.textContent = `Score: ${score}/${flags.length}`;
+                currentIndex++;
                 showFlag();
             } else {
                 messageDisplay.classList.add('error'); // Add error class for styling
                 messageDisplay.textContent = "Incorrect!";
             }
         }
+
+        // Autocomplete answers as the user types
+        answerInput.addEventListener("input", function() {
+            const answer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = flags[currentIndex].name.toLowerCase();
+            if (answer === correctAnswer) {
+                checkAnswer();
+            } else {
+                messageDisplay.textContent = ''; // Reset message on change
+            }
+        });
 
         // Submit on button click
         submitButton.addEventListener("click", checkAnswer);
