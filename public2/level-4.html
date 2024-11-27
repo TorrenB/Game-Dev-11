@@ -45,8 +45,8 @@
             );
         }
 
-        // Function to check for hits
-        function myCheckHit() {
+        // Function to check for hits at regular intervals
+        function checkForCollisions() {
             // Check collision between dog and fish images
             fishImages.forEach(fishId => {
                 if (myHitOther('myImg01', fishId)) {
@@ -133,38 +133,13 @@
                 myImg01.style.left = leftPosition + 'px'; // Update position
                 myImg01.style.top = topPosition + 'px'; // Update position
             }
-
-            myCheckHit(); // Check for collisions after moving
         });
 
         // Initialize movements for each fish
         fishImages.forEach(fishId => initializeFishMovement(fishId));
 
-        // Functions to move background (optional)
-        function moveBackground(direction) {
-            const body = document.getElementById('myBody');
-            let position = body.style.backgroundPosition.split(' ');
-
-            let x = parseInt(position[0]) || 0;
-            let y = parseInt(position[1]) || 0;
-
-            switch (direction) {
-                case 'left':
-                    x += 10;
-                    break;
-                case 'right':
-                    x -= 10;
-                    break;
-                case 'up':
-                    y += 10;
-                    break;
-                case 'down':
-                    y -= 10;
-                    break;
-            }
-
-            body.style.backgroundPosition = `${x}px ${y}px`;
-        }
+        // Set an interval to check for collisions every 100 milliseconds
+        setInterval(checkForCollisions, 100);
     </script>
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
