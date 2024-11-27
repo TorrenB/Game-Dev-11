@@ -15,13 +15,15 @@
             setInterval(() => moveFishImage(fishId), imgMoveInterval);
         }
 
-        // Function to move a single fish image randomly
+        // Function to move a single fish image randomly while keeping it within bounds
         function moveFishImage(fishId) {
             const fish = document.getElementById(fishId);
             const randomX = Math.random() * (window.innerWidth - 100); // Random x position
             const randomY = Math.random() * (window.innerHeight - 80); // Random y position
-            fish.style.left = randomX + 'px';
-            fish.style.top = randomY + 'px';
+            
+            // Apply random positions and constrain fish movement within the viewport
+            fish.style.left = Math.min(Math.max(randomX, 0), window.innerWidth - 100) + 'px'; 
+            fish.style.top = Math.min(Math.max(randomY, 0), window.innerHeight - 80) + 'px';
         }
 
         // Function to handle collision detection
@@ -66,18 +68,18 @@
             let leftPosition = parseInt(myImg01.style.left) || 0; // Default to 0 if NaN
             let topPosition = parseInt(myImg01.style.top) || 0; // Default to 0 if NaN
 
-            // Move the image based on key pressed
+            // Move the image based on key pressed with boundary checks
             if (event.key === 'ArrowLeft' || event.key === 'a') {
-                myImg01.style.left = (leftPosition - 10) + 'px'; // Move left
+                myImg01.style.left = Math.max(0, leftPosition - 10) + 'px'; // Move left with boundary
             }
             if (event.key === 'ArrowRight' || event.key === 'd') {
-                myImg01.style.left = (leftPosition + 10) + 'px'; // Move right
+                myImg01.style.left = Math.min(window.innerWidth - 100, leftPosition + 10) + 'px'; // Move right with boundary
             }
             if (event.key === 'ArrowUp' || event.key === 'w') {
-                myImg01.style.top = (topPosition - 10) + 'px'; // Move up
+                myImg01.style.top = Math.max(0, topPosition - 10) + 'px'; // Move up with boundary
             }
             if (event.key === 'ArrowDown' || event.key === 's') {
-                myImg01.style.top = (topPosition + 10) + 'px'; // Move down
+                myImg01.style.top = Math.min(window.innerHeight - 80, topPosition + 10) + 'px'; // Move down with boundary
             }
 
             myCheckHit(); // Check for collisions after moving
@@ -85,37 +87,11 @@
 
         // Initialize movements for each fish
         fishImages.forEach(fishId => initializeFishMovement(fishId));
-
-        // Functions to move background (optional)
-        function moveBackground(direction) {
-            const body = document.getElementById('myBody');
-            let position = body.style.backgroundPosition.split(' ');
-
-            let x = parseInt(position[0]) || 0;
-            let y = parseInt(position[1]) || 0;
-
-            switch (direction) {
-                case 'left':
-                    x += 10;
-                    break;
-                case 'right':
-                    x -= 10;
-                    break;
-                case 'up':
-                    y += 10;
-                    break;
-                case 'down':
-                    y -= 10;
-                    break;
-            }
-
-            body.style.backgroundPosition = `${x}px ${y}px`;
-        }
     </script>
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
     <img id="myImg02" style="position:absolute; width:100px; height:80px; top:0px; left:250px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
-    <img id="myImg03" style="position:absolute; width:100px; height:80px; top:100px; left:400px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png"> <!-- Existing fish -->
+    <img id="myImg03" style="position:absolute; width:100px; height:80px; top:100px; left:400px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
     
     <!-- New fish images -->
     <img id="myImg04" style="position:absolute; width:100px; height:80px; top:200px; left:150px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
