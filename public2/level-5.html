@@ -1,4 +1,5 @@
 <body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative; overflow: hidden; margin: 0; padding: 0; height: 100vh;">
+    <!-- Warning Text -->
     <div id="warningText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: purple; font-size: 24px; text-align: center; z-index: 10;">
         You might have to do something to make this game easier. It is built in to your browser. Do it and the game becomes easier.
     </div>
@@ -139,12 +140,13 @@
                 myImg01.style.left = leftPosition + 'px'; // Update position
                 myImg01.style.top = topPosition + 'px'; // Update position
             }
-
-            myCheckHit(); // Check for collisions after moving
         });
 
         // Initialize movements for each fish
         fishImages.forEach(fishId => initializeFishMovement(fishId));
+
+        // Check for collisions every 100 milliseconds
+        setInterval(myCheckHit, 100);
     </script>
 
     <img id="myImg01" style="position:absolute; width:100px; height:80px; top:0px; left:50px; z-index: 1;" src="https://www.pngarts.com/files/10/Doge-Download-Transparent-PNG-Image.png">
