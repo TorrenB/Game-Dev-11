@@ -66,16 +66,17 @@
             window.status += 'Sorted.';
         }
 
-        // Functions to show document head and body data
+        // Function to display the document body
         function showBodyObject() {
             myObjectData(document.body);
         }
 
+        // Function to display the document head
         function showHeadObject() {
             myObjectData(document.head);
         }
 
-        // Other functions as previously defined
+        // Functions to show various objects
         function showDocumentObject() {
             myObjectData(document);
         }
@@ -84,7 +85,60 @@
             myObjectData(window);
         }
 
-        // Shortened for brevity...
+        function showNavigatorObject() {
+            myObjectData(window.navigator);
+        }
+
+        function showScreenObject() {
+            myObjectData(window.screen);
+        }
+
+        function showLocationObject() {
+            myObjectData(window.location);
+        }
+
+        function showHistoryObject() {
+            myObjectData(window.history);
+        }
+
+        function showCookiesObject() {
+            myObjectData(document.cookie);
+        }
+
+        function showEventObject() {
+            myObjectData(window.event);
+        }
+
+        function showConsoleObject() {
+            myObjectData(console);
+        }
+
+        function showXMLHttpRequestObject() {
+            myObjectData(XMLHttpRequest);
+        }
+
+        function showLocalStorageObject() {
+            myObjectData(window.localStorage);
+        }
+
+        function showSessionStorageObject() {
+            myObjectData(window.sessionStorage);
+        }
+
+        function showApplicationCacheObject() {
+            myObjectData(window.applicationCache);
+        }
+
+        document.counter = 0;
+
+        function moreAnimations() {
+            document.counter += 1;
+            document.all.move1.style.pixelLeft += 2;
+            document.all.move1.style.pixelTop += 1;
+            if ((document.counter > 10) && (document.counter < 20)) {
+                document.all.move1.style.height = parseInt(document.all.move1.style.height) + 10;
+            }
+        }
     </script>
 </head>
 
@@ -102,12 +156,22 @@
         <textarea name="myTextarea" rows="10" cols="50"></textarea><br>
         <input type="text" name="myText1"><br>
         
-        <!-- Existing buttons -->
+        <!-- All buttons including those for showing various objects -->
         <input type="button" value="Show Document" onclick="showDocumentObject()">
         <input type="button" value="Show Window" onclick="showWindowObject()">
+        <input type="button" value="Show Navigator" onclick="showNavigatorObject()">
+        <input type="button" value="Show Screen" onclick="showScreenObject()">
+        <input type="button" value="Show Location" onclick="showLocationObject()">
+        <input type="button" value="Show History" onclick="showHistoryObject()">
         <input type="button" value="Show Body" onclick="showBodyObject()">
         <input type="button" value="Show Head" onclick="showHeadObject()">
-        <!-- Additional buttons added for existing functionalities -->
+        <input type="button" value="Show Cookies" onclick="showCookiesObject()">
+        <input type="button" value="Show Event" onclick="showEventObject()">
+        <input type="button" value="Show Console" onclick="showConsoleObject()">
+        <input type="button" value="Show XMLHTTPRequest" onclick="showXMLHttpRequestObject()">
+        <input type="button" value="Show Local Storage" onclick="showLocalStorageObject()">
+        <input type="button" value="Show Session Storage" onclick="showSessionStorageObject()">
+        <input type="button" value="Show Application Cache" onclick="showApplicationCacheObject()">
 
         <br>
     </form>
