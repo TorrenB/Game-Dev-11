@@ -66,17 +66,7 @@
             window.status += 'Sorted.';
         }
 
-        // Function to display the document body
-        function showBodyObject() {
-            myObjectData(document.body);
-        }
-
-        // Function to display the document head
-        function showHeadObject() {
-            myObjectData(document.head);
-        }
-
-        // Functions to show various objects
+        // Functions to display various objects
         function showDocumentObject() {
             myObjectData(document);
         }
@@ -99,6 +89,14 @@
 
         function showHistoryObject() {
             myObjectData(window.history);
+        }
+
+        function showBodyObject() {
+            myObjectData(document.body);
+        }
+
+        function showHeadObject() {
+            myObjectData(document.head);
         }
 
         function showCookiesObject() {
@@ -129,6 +127,42 @@
             myObjectData(window.applicationCache);
         }
 
+        function showGeolocationObject() {
+            if (navigator.geolocation) {
+                myObjectData(navigator.geolocation);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPerformanceObject() {
+            myObjectData(window.performance);
+        }
+
+        function showAudioContextObject() {
+            if (window.AudioContext) {
+                myObjectData(AudioContext);
+            } else {
+                alert("AudioContext is not supported by this browser.");
+            }
+        }
+
+        function showServiceWorkerObject() {
+            if ('serviceWorker' in navigator) {
+                myObjectData(navigator.serviceWorker);
+            } else {
+                alert("Service Workers are not supported by this browser.");
+            }
+        }
+
+        function showFetchObject() {
+            myObjectData(window.fetch);
+        }
+
+        function showWebSocketObject() {
+            myObjectData(window.WebSocket);
+        }
+
         document.counter = 0;
 
         function moreAnimations() {
@@ -156,7 +190,7 @@
         <textarea name="myTextarea" rows="10" cols="50"></textarea><br>
         <input type="text" name="myText1"><br>
         
-        <!-- All buttons including those for showing various objects -->
+        <!-- All buttons for various objects -->
         <input type="button" value="Show Document" onclick="showDocumentObject()">
         <input type="button" value="Show Window" onclick="showWindowObject()">
         <input type="button" value="Show Navigator" onclick="showNavigatorObject()">
@@ -168,11 +202,17 @@
         <input type="button" value="Show Cookies" onclick="showCookiesObject()">
         <input type="button" value="Show Event" onclick="showEventObject()">
         <input type="button" value="Show Console" onclick="showConsoleObject()">
-        <input type="button" value="Show XMLHTTPRequest" onclick="showXMLHttpRequestObject()">
+        <input type="button" value="Show XMLHttpRequest" onclick="showXMLHttpRequestObject()">
         <input type="button" value="Show Local Storage" onclick="showLocalStorageObject()">
         <input type="button" value="Show Session Storage" onclick="showSessionStorageObject()">
         <input type="button" value="Show Application Cache" onclick="showApplicationCacheObject()">
-
+        <input type="button" value="Show Geolocation" onclick="showGeolocationObject()">
+        <input type="button" value="Show Performance" onclick="showPerformanceObject()">
+        <input type="button" value="Show AudioContext" onclick="showAudioContextObject()">
+        <input type="button" value="Show Service Worker" onclick="showServiceWorkerObject()">
+        <input type="button" value="Show Fetch" onclick="showFetchObject()">
+        <input type="button" value="Show WebSocket" onclick="showWebSocketObject()">
+        
         <br>
     </form>
 </body>
