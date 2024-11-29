@@ -1,245 +1,245 @@
-<!DOCTYPE html>
+<b>Browser Hack by _____________</b>
+
+
+<body bgcolor="#81F7F3">		<br>
+		Object Sort base
 <html xmlns:v="urn:schemas-microsoft-com:vml">
-<head>
-    <title>JavaScript Object Explorer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        @keyframes colorShift {
-            0% { background: #0f2027; }
-            25% { background: #203a43; }
-            50% { background: #2c5364; }
-            75% { background: #1b3a4b; }
-            100% { background: #0f2027; }
-        }
+<head><title>moving objects</title>
+<style>
+ v\:* {BEHAVIOR: url(#default#VML)}
+</style>
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            animation: colorShift 20s infinite alternate;
-            background-size: 400% 400%;
-        }
 
-        h1, h3 {
-            font-family: 'Orbitron', sans-serif;
-        }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #00ffab;
-            text-align: center;
-            text-shadow: 0 4px 10px rgba(0, 255, 171, 0.5);
-            margin-bottom: 20px;
-        }
 
-        h3 {
-            font-size: 1.5rem;
-            color: #00c6ff;
-            margin-bottom: 10px;
-        }
 
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 255, 171, 0.2);
-            width: 90%;
-            max-width: 1200px;
-            padding: 30px;
-        }
 
-        .instruction {
-            background: linear-gradient(135deg, #0099f7, #f11712);
-            color: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
 
-        #imageContainer {
-            text-align: center;
-            margin: 20px 0;
-        }
 
-        #myImage {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 16px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 255, 171, 0.3);
-        }
 
-        #myImage:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.6);
-        }
 
-        textarea, input[type="text"] {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 8px;
-            padding: 15px;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
 
-        textarea {
-            height: 200px;
-            resize: none;
-        }
 
-        input[type="text"]::placeholder, textarea::placeholder {
-            color: #aaa;
-        }
 
-        button {
-            background: linear-gradient(135deg, #00ffab, #00c6ff);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 15px 20px;
-            font-size: 1rem;
-            margin: 10px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 255, 171, 0.5);
-        }
 
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
 
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+<head><title>objects</title>
 
-        .button-container button {
-            flex: 1 1 calc(30% - 10px);
-            margin: 10px;
-        }
 
-        @media (max-width: 768px) {
-            .button-container button {
-                flex: 1 1 100%;
+<script>
+document.name="myDocument"
+window.name="myWindow"
+document.cookie = "cookieName=fred"
+
+
+var splitIndex = 0;
+var splitArray = new Array();
+
+function splits(string,text) {
+    var strLength = string.length, txtLength = text.length;
+    if ((strLength == 0) || (txtLength == 0)) return;
+
+    var i = string.indexOf(text);
+    if ((!i) && (text != string.substring(0,txtLength))) return;
+    if (i == -1) {
+        splitArray[splitIndex++] = string;
+        return;
+    }
+
+    splitArray[splitIndex++] = string.substring(0,i);
+    
+    if (i+txtLength < strLength)
+        splits(string.substring(i+txtLength,strLength),text);
+
+    return;
+}
+
+function split(string,text) {
+    splitIndex = 0;
+    splits(string,text);
+}
+
+function join(arrayName) {
+    var temp = '';
+    for (var i=0; i<splitIndex; i++)
+        temp += arrayName[i] + '\n';
+    if (escape(temp.substring(0,1)) == '%0A')
+        return temp.substring(1,temp.length);
+    else
+        return temp;
+}
+
+function sort(arrayName) {
+    for (var i=0; i<(splitIndex-1); i++)
+        for (var j=i+1; j<splitIndex; j++)
+            if (arrayName[j] < arrayName[i]) {
+                var dummy = arrayName[i];
+                arrayName[i] = arrayName[j];
+                arrayName[j] = dummy;
             }
-        }
-    </style>
-    <script>
-        let lastOutput = ''; // Store the last output for filtering
+}
 
-        function myObjectData(myObject) {
-            const textarea = document.myForm2.myTextarea;
-            textarea.value = ''; // Clear the textarea
-            lastOutput = ''; // Reset last output
+function sorttext() {
+    split(document.myForm.myTextarea.value,'\n');
+    sort(splitArray);
+    document.myForm.myTextarea.value = join(splitArray);
+}
+//--></script>
 
-            // Handle each JavaScript object with specific properties and methods
-            if (myObject === window) {
-                lastOutput = `Window Object Properties:\nlocation: ${window.location}\nconsole: ${window.console}\nalert: ${window.alert}\n`;
-            } else if (myObject === document) {
-                lastOutput = `Document Object Properties:\nbody: ${document.body}\nhead: ${document.head}\ntitle: ${document.title}\n`;
-            } else if (myObject === navigator) {
-                lastOutput = `Navigator Object Properties:\nuserAgent: ${navigator.userAgent}\nlanguage: ${navigator.language}\nplatform: ${navigator.platform}\n`;
-            } else if (myObject === console) {
-                lastOutput = `Console Object Methods:\nlog: ${console.log}\nwarn: ${console.warn}\nerror: ${console.error}\n`;
-            } else if (myObject === Math) {
-                lastOutput = `Math Object Methods and Properties:\nPI: ${Math.PI}\nRandom: ${Math.random()}\nRound: ${Math.round(3.14)}\n`;
-            } else if (myObject === Date) {
-                lastOutput = `Date Object Methods:\nCurrent Date: ${new Date()}\ngetFullYear: ${new Date().getFullYear()}\ngetDate: ${new Date().getDate()}\n`;
-            } else if (myObject === Array) {
-                lastOutput = `Array Constructor Example:\nArray: ${Array(1, 2, 3)}\nLength: ${Array(1, 2, 3).length}\n`;
-            } else if (myObject === String) {
-                lastOutput = `String Methods:\nExample: "Hello World".toUpperCase() = ${"Hello World".toUpperCase()}\nLength: ${"Hello World".length}\n`;
-            } else if (myObject === Number) {
-                lastOutput = `Number Methods:\nExample: 3.1415.toFixed(2) = ${3.1415.toFixed(2)}\n`;
-            } else if (myObject === RegExp) {
-                lastOutput = `RegExp Methods:\nTest regex on "abcdef": ${/abc/.test('abcdef')}\nExec regex on "abcdef": ${/abc/.exec('abcdef')}\n`;
-            } else if (myObject === localStorage) {
-                lastOutput = `localStorage Methods:\nsetItem: ${localStorage.setItem("key", "value")}\ngetItem: ${localStorage.getItem("key")}\n`;
-            } else if (myObject === Object) {
-                lastOutput = `Object Methods:\nKeys of an object: ${Object.keys({name: "John", age: 30})}\nValues of an object: ${Object.values({name: "John", age: 30})}\n`;
-            } else if (myObject === Promise) {
-                lastOutput = `Promise Example:\nPromise Example: ${new Promise((resolve, reject) => resolve("Success"))}\n`;
-            } else if (myObject === Symbol) {
-                lastOutput = `Symbol Example:\nSymbol: ${Symbol('description')}\n`;
-            } else if (myObject === Set) {
-                lastOutput = `Set Example:\nSet: ${new Set([1, 2, 3])}\nSize: ${new Set([1, 2, 3]).size}\n`;
-            } else if (myObject === Map) {
-                lastOutput = `Map Example:\nMap: ${new Map([["key1", "value1"], ["key2", "value2"]])}\nSize: ${new Map([["key1", "value1"], ["key2", "value2"]]).size}\n`;
-            } else if (myObject === JSON) {
-                lastOutput = `JSON Methods:\nStringify: ${JSON.stringify({name: "John", age: 30})}\nParse: ${JSON.parse('{"name":"John","age":30}')}\n`;
-            } else if (myObject === WeakMap) {
-                lastOutput = `WeakMap Example:\nWeakMap: ${new WeakMap()}\n`;
-            } else if (myObject === WeakSet) {
-                lastOutput = `WeakSet Example:\nWeakSet: ${new WeakSet()}\n`;
-            } else if (myObject === Intl) {
-                lastOutput = `Intl Methods:\nNumber Format: ${new Intl.NumberFormat().format(1234567.89)}\n`;
-            }
+<script language="JavaScript1.1"><!--
+function split(string,text) {
+    splitArray = string.split(text);
+    splitIndex = splitArray.length;
+}
 
-            textarea.value = lastOutput; // Display the output in the textarea
-        }
 
-        function filterResults() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase();
-            const allResults = lastOutput.split('\n'); // Use the last output
-            const filteredResults = allResults.filter(line => line.toLowerCase().includes(searchValue));
-            document.myForm2.myTextarea.value = filteredResults.join('\n');
-        }
-    </script>
-</head>
 
-<body>
-    <div class="container">
-        <h1>JavaScript Object Explorer</h1>
-        <div class="instruction">
-            <h3>Instructions</h3>
-            Use the buttons below to explore various JavaScript objects. The properties and their values will be displayed in the textarea. Use the search field to filter results.
-        </div>
-        <div id="imageContainer">
-            <img id="myImage" src="https://media.tenor.com/kat3uXuyIiQAAAAM/orange.gif" alt="Futuristic Animation" />
-        </div>
-        <form name="myForm2">
-            <input type="text" id="searchInput" placeholder="Search properties..." oninput="filterResults()" />
-            <textarea name="myTextarea" rows="10" placeholder="Results will appear here..."></textarea>
-            <div class="button-container">
-                <button type="button" onclick="myObjectData(window)">Button 1: window</button>
-                <button type="button" onclick="myObjectData(document)">Button 2: document</button>
-                <button type="button" onclick="myObjectData(navigator)">Button 3: navigator</button>
-                <button type="button" onclick="myObjectData(console)">Button 4: console</button>
-                <button type="button" onclick="myObjectData(Math)">Button 5: Math</button>
-                <button type="button" onclick="myObjectData(Date)">Button 6: Date</button>
-                <button type="button" onclick="myObjectData(Array)">Button 7: Array</button>
-                <button type="button" onclick="myObjectData(String)">Button 8: String</button>
-                <button type="button" onclick="myObjectData(Number)">Button 9: Number</button>
-                <button type="button" onclick="myObjectData(RegExp)">Button 10: RegExp</button>
-                <button type="button" onclick="myObjectData(localStorage)">Button 11: localStorage</button>
-                <button type="button" onclick="myObjectData(Object)">Button 12: Object</button>
-                <button type="button" onclick="myObjectData(Promise)">Button 13: Promise</button>
-                <button type="button" onclick="myObjectData(Symbol)">Button 14: Symbol</button>
-                <button type="button" onclick="myObjectData(Set)">Button 15: Set</button>
-                <button type="button" onclick="myObjectData(Map)">Button 16: Map</button>
-                <button type="button" onclick="myObjectData(JSON)">Button 17: JSON</button>
-                <button type="button" onclick="myObjectData(WeakMap)">Button 18: WeakMap</button>
-                <button type="button" onclick="myObjectData(WeakSet)">Button 19: WeakSet</button>
-                <button type="button" onclick="myObjectData(Intl)">Button 20: Intl</button>
-            </div>
-        </form>
-    </div>
+
+
+
+
+
+
+function myObjectData(myObject){
+ window.status = 'Please Wait'
+ document.myForm.myText1.value = ''
+ document.myForm.myTextarea.value = ''
+ myLoop = 0
+ for (var prop in myObject){
+    myLoop+=1
+    document.myForm.myTextarea.value+=myObject.name+'.'+prop+'='+myObject[prop]+ '\n'
+    if (myLoop % 3 == 1){
+ window.status += '.'}   
+ }
+ document.myForm.myText1.value =this.parent.name + '.'+myObject.name
+ window.status += 'Loaded '  
+  sorttext() 
+ window.status += 'Sorted.'  
+}
+
+
+
+
+
+
+document.counter=0   // one time set counter = 0
+function moreAnimations(){
+  document.counter+=1
+  document.all.myPic1.style.pixelLeft+=2
+  document.all.myPic1.style.pixelTop+=1
+  if ((document.counter>10) && (document.counter<20)){
+      document.all.myPic1.style.height=parseInt(document.all.myPic1.style.height)+10
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script></head>
+
+
+
+<BODY >
+
+ 
+  
+  
+  
+<h3>Instructions</h3>
+Use the first 15 buttons to decide on what words to enter for the last 5 buttons to gain
+  interesting information from your present web browser. Note: The results may be different on
+  Chrome, Safari, IE or phonegap. Those differences may be useful when programming. Also note: 
+  Objects will not work until a real instance of the object is on the web page!
+
+
+
+<br><br>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+
+
+<img id="move1" style="position:absolute;left:600px;top:560px" src="http://www.autos.ca/wp-content/uploads/2013/03/001-ferrari-laferrari.jpg" width="400" height="200">
+
+<form name="myForm2">
+  <textarea name="myTextarea">wow</textarea>
+
+  <input type=text name="myText1" id="myText2" size=50 value=""><br>
+
+
+</form>
+
+
+<h3>Click the buttons to see all useable properties and methods of the object. Click refresh to reset Browser</h3>
+<form name="myForm">
+
+
+
+
+<bgsound id="myFred3" src="">
+<input type=text name="myText1" size=50 value=""><br>
+
+
+<input type=button value="1 window" onclick="{myObjectData(window)}">
+<input type=button value="2 document" onclick="{myObjectData(document)}">
+<input type=button value="3 document.myForm2" onclick="{myObjectData(document.myForm2)}">
+<input type=button value="4 document.myForm2.myTextarea" onclick="{myObjectData(document.myForm2.myTextarea)}">
+
+
+<input type=button value="5 window.location" onclick="{myObjectData(window.location)}">
+<input type=button value="6 window.parent" onclick="{myObjectData(window.parent)}">
+<input type=button value="7 window.chrome" onclick="{myObjectData(window.chrome)}">
+<input type=button value="8 document.all.move1.style" onclick="{myObjectData(document.all.move1.style)}">
+<input type=button value="9 style" onclick="{myObjectData(style)}">
+<input type=button value="10 document.all.move1" onclick="{myObjectData(document.all.move1)}">
+<input type=button value="11 window.localStorage" onclick="{myObjectData(window.localStorage)}">
+<input type=button value="12 document.getElementById('move1').style" onclick="{myObjectData(document.getElementById('move1').style)}">
+<input type=button id="my10" value="13 document.myForm2.myText1" onclick="{myObjectData(document.myForm2.myText1)}">
+<input type=button value="14 document.getElementById('myText2')" onclick="{myObjectData(document.getElementById('myText2'))}">
+<input type=button value="15 " onclick="{myObjectData()}">
+<input type=button value="16 " onclick="{myObjectData()}">
+<input type=button value="17 " onclick="{myObjectData()}">
+<input type=button value="18 " onclick="{myObjectData()}">
+<input type=button value="19 " onclick="{myObjectData()}">
+<input type=button value="20 " onclick="{myObjectData()}">
+<br>
+
+
+<textarea name="myTextarea" rows=20 cols=70 wrap></textarea>
+</form>
+
+
+
+
+
+<br>At the bottom of every page make sure you include the following button:<br>
+
+<input type=button value="Back" style="font-size:25px" onclick="{window.history.back()}"><br><br>
+
 </body>
 </html>
