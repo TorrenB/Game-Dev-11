@@ -67,7 +67,7 @@
             window.status = 'Please Wait';
             document.myForm.myText1.value = '';
             document.myForm.myTextarea.value = '';
-            myLoop = 0;
+            let myLoop = 0;
             for (var prop in myObject) {
                 myLoop += 1;
                 document.myForm.myTextarea.value += myObject.constructor.name + '.' + prop + '=' + myObject[prop] + '\n';
@@ -79,6 +79,66 @@
             window.status += 'Loaded ';
             sorttext();
             window.status += 'Sorted.';
+        }
+
+        function showDocumentObject() {
+            myObjectData(document);
+        }
+
+        function showWindowObject() {
+            myObjectData(window);
+        }
+
+        function showNavigatorObject() {
+            myObjectData(window.navigator);
+        }
+
+        function showScreenObject() {
+            myObjectData(window.screen);
+        }
+
+        function showLocationObject() {
+            myObjectData(window.location);
+        }
+
+        function showHistoryObject() {
+            myObjectData(window.history);
+        }
+
+        function showBodyObject() {
+            myObjectData(document.body);
+        }
+
+        function showHeadObject() {
+            myObjectData(document.head);
+        }
+
+        function showCookiesObject() {
+            myObjectData(document.cookie);
+        }
+
+        function showEventObject() {
+            myObjectData(window.event);
+        }
+
+        function showConsoleObject() {
+            myObjectData(console);
+        }
+
+        function showXMLHttpRequestObject() {
+            myObjectData(XMLHttpRequest);
+        }
+
+        function showLocalStorageObject() {
+            myObjectData(window.localStorage);
+        }
+
+        function showSessionStorageObject() {
+            myObjectData(window.sessionStorage);
+        }
+
+        function showApplicationCacheObject() {
+            myObjectData(window.applicationCache);
         }
 
         document.counter = 0; // one time set counter = 0
@@ -95,8 +155,8 @@
 
 <body bgcolor="#81F7F3">
     <h3>Instructions</h3>
-    Use the buttons to decide on what words to enter for each to gain interesting information from your present web browser. 
-    Note: The results may be different on Chrome, Safari, IE, or PhoneGap. Those differences may be useful when programming. 
+    Use the buttons to decide on what words to enter for each to gain interesting information from your present web browser.
+    Note: The results may be different on Chrome, Safari, IE, or PhoneGap. Those differences may be useful when programming.
     Also note: Objects will not work until a real instance of the object is on the web page!
 
     <br><br>
@@ -107,28 +167,23 @@
         <textarea name="myTextarea" rows="10" cols="50"></textarea><br>
         <input type="text" name="myText1"><br>
         
-        <!-- Original buttons -->
-        <input type="button" value="1" onclick="myObjectData()"> 
-        <input type="button" value="2" onclick="myObjectData()"> 
-        <input type="button" value="3" onclick="myObjectData()"> 
-        <input type="button" value="4" onclick="myObjectData()"> 
-        <input type="button" value="5" onclick="myObjectData()"> 
-        <input type="button" value="6" onclick="myObjectData()"> 
-        <input type="button" value="7" onclick="myObjectData()"> 
-        <input type="button" value="8" onclick="myObjectData()"> 
-        <input type="button" value="9" onclick="myObjectData()"> 
-        <input type="button" value="10" onclick="myObjectData()"> 
-        <input type="button" value="11" onclick="myObjectData()"> 
-        <input type="button" value="12" onclick="myObjectData()"> 
-        <input type="button" value="13" onclick="myObjectData()"> 
-        <input type="button" value="14" onclick="myObjectData()"> 
-        <input type="button" value="15" onclick="myObjectData()"> 
-        <input type="button" value="16" onclick="myObjectData()"> 
-        <input type="button" value="17" onclick="myObjectData()"> 
-        <input type="button" value="18" onclick="myObjectData()"> 
-        <input type="button" value="19" onclick="myObjectData()"> 
-        <input type="button" value="20" onclick="myObjectData()">
-
+        <!-- Original buttons with individual functions -->
+        <input type="button" value="1 showDocument" onclick="showDocumentObject()">
+        <input type="button" value="2 showWindow" onclick="showWindowObject()">
+        <input type="button" value="3 showNavigator" onclick="showNavigatorObject()">
+        <input type="button" value="4 showScreen" onclick="showScreenObject()">
+        <input type="button" value="5 showLocation" onclick="showLocationObject()">
+        <input type="button" value="6 showHistory" onclick="showHistoryObject()">
+        <input type="button" value="7 showBody" onclick="showBodyObject()">
+        <input type="button" value="8 showHead" onclick="showHeadObject()">
+        <input type="button" value="9 showCookies" onclick="showCookiesObject()">
+        <input type="button" value="10 showEvent" onclick="showEventObject()">
+        <input type="button" value="11 showConsole" onclick="showConsoleObject()">
+        <input type="button" value="12 showXMLHttpRequest" onclick="showXMLHttpRequestObject()">
+        <input type="button" value="13 showLocalStorage" onclick="showLocalStorageObject()">
+        <input type="button" value="14 showSessionStorage" onclick="showSessionStorageObject()">
+        <input type="button" value="15 showApplicationCache" onclick="showApplicationCacheObject()">
+        
         <!-- New buttons for additional objects -->
         <input type="button" value="21 window.navigator" onclick="myObjectData(window.navigator)">
         <input type="button" value="22 window.screen" onclick="myObjectData(window.screen)">
