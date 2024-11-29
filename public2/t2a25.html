@@ -124,7 +124,11 @@
         }
 
         function showApplicationCacheObject() {
-            myObjectData(window.applicationCache);
+            if (window.applicationCache) {
+                myObjectData(window.applicationCache);
+            } else {
+                document.myForm.myTextarea.value = 'Application Cache is not supported by this browser.';
+            }
         }
 
         function showGeolocationObject() {
@@ -141,9 +145,10 @@
 
         function showAudioContextObject() {
             if (window.AudioContext) {
-                myObjectData(AudioContext);
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                myObjectData(audioContext);
             } else {
-                alert("AudioContext is not supported by this browser.");
+                document.myForm.myTextarea.value = 'AudioContext is not supported by this browser.';
             }
         }
 
@@ -157,6 +162,15 @@
 
         function showFetchObject() {
             myObjectData(window.fetch);
+            // Example fetch request just to demonstrate its usage and relation to the page
+            fetch(window.location.href)
+                .then(response => response.text())
+                .then(text => {
+                    document.myForm.myTextarea.value += `\nFetched content of the page:\n${text.substring(0, 200)}...`;
+                })
+                .catch(err => {
+                    document.myForm.myTextarea.value += `\nFetch error: ${err}`;
+                });
         }
 
         function showWebSocketObject() {
