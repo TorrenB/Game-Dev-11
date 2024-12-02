@@ -14,7 +14,7 @@
             color: #333;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         h1 {
@@ -31,12 +31,8 @@
         }
 
         @keyframes textwave {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-3px);
-            }
+            from { transform: translateY(0); }
+            to { transform: translateY(-3px); }
         }
 
         .level {
@@ -62,10 +58,9 @@
             color: #4a4e69;
             margin-bottom: 15px;
             position: relative;
-            letter-spacing: 1px;
         }
 
-       .diamond {
+        .diamond {
             position: absolute;
             width: 30px;
             height: 30px;
@@ -77,22 +72,17 @@
             opacity: 0.8;
             transition: background 0.3s;
         }
-
+        
         .diamond:hover {
             background: #ff4081;
         }
 
         .level p {
-            font-size: 1.15em; /* Slightly reduced for familiarity */
-            margin: 15px 0; /* Increased margin for breathability */
+            font-size: 1.2em;
+            margin: 10px 0;
             position: relative;
             z-index: 1;
             padding: 0 20px;
-            text-align: left; /* Better readability */
-        }
-
-        .level p:first-line {
-            font-weight: bold; /* Emphasize the first line */
         }
 
         .icon {
@@ -101,14 +91,13 @@
             margin-right: 10px;
         }
 
-        /* Style for the first letter */
         p::first-letter {
             font-size: 2.5em;
             color: #1d2a6c;
             font-weight: bold;
             float: left;
             line-height: 0.8;
-            padding-right: 10px; /* Adjusts position */
+            padding-right: 10px;
         }
 
         /* Responsive design */
@@ -120,13 +109,13 @@
             .level {
                 padding: 25px;
             }
-
+            
             .level h2 {
                 font-size: 2em;
             }
 
             .level p {
-                font-size: 1em; /* Adjusted for smaller devices */
+                font-size: 1em;
             }
         }
     </style>
@@ -138,19 +127,20 @@
     <div class="level">
         <div class="diamond"></div>
         <h2><i class="fas fa-gem icon"></i>Level 1</h2>
-        <p>**Welcome to Level 1!**<br> In this stage, you will embark on a delightful journey through a 2D animation where your main task is to skillfully evade a perilous goldfish. This level features five mini-stages, with each becoming progressively more challenging. Upon successfully completing the fifth stage, you will unlock Level 2.</p>
+        <p>Welcome to Level 1!<br>
+        In this stage, embark on a thrilling 2D animation adventure where you must skillfully evade a perilous goldfish. The level features five mini-stages, each presenting a gradual increase in difficulty. Successfully clear the fifth stage to unlock Level 2!</p>
     </div>
 
     <div class="level">
         <div class="diamond"></div>
         <h2><i class="fas fa-book-open icon"></i>Level 2</h2>
-        <p>**Welcome to Level 2!**<br> This level unfolds in an engaging narrative-driven experience crafted using Twine. Expect to encounter puzzles that will test your problem-solving skills and logical reasoning. During your adventure, a calculator and various online resources may prove useful. Upon completion of this level, you will be guided to one of the most famous geography games available.</p>
+        <p>Level 2 offers an engaging narrative-driven experience crafted with Twine. Here, your problem-solving skills and logical thinking will be crucial. Utilize a calculator and online resources to navigate this captivating journey. Upon completion, you’ll be directed to one of the most popular geography games available!</p>
     </div>
 
     <div class="level">
         <div class="diamond"></div>
         <h2><i class="fas fa-flag icon"></i>Level 3</h2>
-        <p>**Welcome to Level 3!**<br> In this stage, your knowledge of national flags will be rigorously tested. If you are already familiar with them, this level may prove to be quite straightforward. Conversely, if you're less confident, you might find it significantly challenging. Few players reach this milestone, so should you succeed, make sure to celebrate your accomplishment!</p>
+        <p>In Level 3, put your knowledge of national flags to the test! If you're familiar with them, this level should be a breeze. However, if you're less confident, you may find it challenging. Very few players reach this stage, so be sure to celebrate if you succeed!</p>
     </div>
 </body>
 
