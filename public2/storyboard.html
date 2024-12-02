@@ -43,7 +43,7 @@
             margin: 20px 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            text-align: center;
+            text-align: left;
             overflow: hidden;
         }
 
@@ -60,21 +60,10 @@
             position: relative;
         }
 
-        .diamond {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #f44336;
-            transform: rotate(45deg);
-            top: -15px;
-            left: 50%;
-            margin-left: -15px;
-            opacity: 0.8;
-            transition: background 0.3s;
-        }
-        
-        .diamond:hover {
-            background: #ff4081;
+        .level h2 .diamond-icon {
+            color: #f44336;
+            margin-right: 10px;
+            font-size: 1.5em;
         }
 
         .level p {
@@ -83,12 +72,14 @@
             position: relative;
             z-index: 1;
             padding: 0 20px;
-        }
-
-        .icon {
-            font-size: 2em;
-            color: #1dc4e9;
-            margin-right: 10px;
+            background: linear-gradient(135deg, #f0e68c 25%, transparent 25%) 0 100%,
+                        linear-gradient(225deg, #f0e68c 25%, transparent 25%) 0 100%,
+                        linear-gradient(45deg, #f0e68c 25%, transparent 25%) 0 100%,
+                        linear-gradient(315deg, #f0e68c 25%, transparent 25%) 0 100%;
+            background-size: 20px 20px;
+            background-position: 0 0;
+            border-radius: 8px;
+            padding: 20px;
         }
 
         p::first-letter {
@@ -125,21 +116,18 @@
     <h1>Game Levels Information</h1>
 
     <div class="level">
-        <div class="diamond"></div>
-        <h2><i class="fas fa-gem icon"></i>Level 1</h2>
+        <h2><i class="fas fa-gem diamond-icon"></i>Level 1</h2>
         <p>Welcome to Level 1!<br>
         In this stage, embark on a thrilling 2D animation adventure where you must skillfully evade a perilous goldfish. The level features five mini-stages, each presenting a gradual increase in difficulty. Successfully clear the fifth stage to unlock Level 2!</p>
     </div>
 
     <div class="level">
-        <div class="diamond"></div>
-        <h2><i class="fas fa-book-open icon"></i>Level 2</h2>
+        <h2><i class="fas fa-book-open diamond-icon"></i>Level 2</h2>
         <p>Level 2 offers an engaging narrative-driven experience crafted with Twine. Here, your problem-solving skills and logical thinking will be crucial. Utilize a calculator and online resources to navigate this captivating journey. Upon completion, you’ll be directed to one of the most popular geography games available!</p>
     </div>
 
     <div class="level">
-        <div class="diamond"></div>
-        <h2><i class="fas fa-flag icon"></i>Level 3</h2>
+        <h2><i class="fas fa-flag diamond-icon"></i>Level 3</h2>
         <p>In Level 3, put your knowledge of national flags to the test! If you're familiar with them, this level should be a breeze. However, if you're less confident, you may find it challenging. Very few players reach this stage, so be sure to celebrate if you succeed!</p>
     </div>
 </body>
