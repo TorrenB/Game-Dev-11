@@ -16,11 +16,10 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            color: #333; /* Dark text for contrast */
+            color: #fff; /* White text for contrast on dark overlay */
             line-height: 1.8;
             position: relative; /* Set position for absolute children */
             overflow: hidden; /* Prevent scrolling during background transition */
-            background-color: #f0f4f8; /* Light sandy background */
         }
 
         .background {
@@ -44,18 +43,32 @@
             transition: opacity 2s ease-in-out;
         }
 
+        /* Dark overlay over the images to enhance text visibility */
+        .background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 1; /* Ensure it covers the images */
+        }
+
         h1 {
             text-align: center;
             font-size: 3em;
-            color: #2c3e50; /* Deep ocean blue for header */
+            color: #fff; /* White text for visibility */
             text-transform: uppercase;
             margin-bottom: 50px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
             font-family: 'Cinzel', serif; /* Classic serif font for a Greek touch */
+            position: relative;
+            z-index: 2; /* Bring header above background overlay */
         }
 
         .level {
-            background: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+            background: rgba(255, 255, 255, 0.9); /* More opaque white background */
             border-radius: 12px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             padding: 40px;
@@ -63,8 +76,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: left;
             position: relative;
-            border: 2px solid #2980b9; /* Grecian border color */
-            overflow: hidden;
+            z-index: 2; /* Bring level boxes above background overlay */
         }
 
         .level:hover {
@@ -159,7 +171,7 @@
             bgImages[current].style.opacity = 1; // Fade in next image
         }
 
-        setInterval(fadeImages, 2500); // Change image every 4 seconds
+        setInterval(fadeImages, 4000); // Change image every 4 seconds
     </script>
 </body>
 
