@@ -50,17 +50,23 @@
 <body>
 
 <div class="container">
-    <h1>t2a20-spy-torren.html</h1>
+    <h1>Spy Name Encryptor</h1>
     
+    <h2>Letter Shift Encryption</h2>
     <textarea id="myArea01" rows="4" placeholder="Type your message here...">Hello how are you</textarea><br>
     
-    <input type="button" value="Encrypt" onclick="encrypt()"><br><br>
+    <input type="button" value="Encrypt" onclick="encrypt()">
+    <input type="button" value="Decrypt" onclick="decrypt()"><br><br>
     
     <textarea id="myArea02" rows="4" placeholder="Encrypted message will appear here..."></textarea><br>
     
-    <input type="button" value="Decrypt" onclick="decrypt()"><br><br>
+    <h2>Caesar Cipher (Shift by 3)</h2>
+    <textarea id="myArea04" rows="4" placeholder="Type your message for Caesar Cipher..."></textarea><br>
     
-    <textarea id="myArea03" rows="4" placeholder="Decrypted message will appear here..."></textarea><br> 
+    <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()">
+    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()"><br><br>
+    
+    <textarea id="myArea05" rows="4" placeholder="Caesar encrypted message will appear here..."></textarea><br> 
 </div>
 
 <script>
@@ -138,6 +144,44 @@
         }
 
         document.getElementById('myArea03').value = result;
+    }
+
+    function caesarEncrypt() {
+        let result = '';
+        const input = document.getElementById('myArea04').value.toLowerCase();
+        const shift = 3; // Set Caesar cipher shift value
+
+        for (let i = 0; i < input.length; i++) {
+            const char = input[i];
+            if (char >= 'a' && char <= 'z') {
+                let code = char.charCodeAt(0) + shift;
+                if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
+                result += String.fromCharCode(code);
+            } else {
+                result += char; // For non-alphabetic characters
+            }
+        }
+
+        document.getElementById('myArea05').value = result;
+    }
+
+    function caesarDecrypt() {
+        let result = '';
+        const input = document.getElementById('myArea05').value.toLowerCase();
+        const shift = 3; // Set Caesar cipher shift value
+
+        for (let i = 0; i < input.length; i++) {
+            const char = input[i];
+            if (char >= 'a' && char <= 'z') {
+                let code = char.charCodeAt(0) - shift;
+                if (code < 'a'.charCodeAt(0)) code += 26; // Wrap around
+                result += String.fromCharCode(code);
+            } else {
+                result += char; // For non-alphabetic characters
+            }
+        }
+
+        document.getElementById('myArea05').value = result;
     }
 </script>
 
