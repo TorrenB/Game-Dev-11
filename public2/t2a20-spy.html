@@ -230,9 +230,33 @@
     }
 
     function rot13Decode() {
-        // Since ROT13 encoding and decoding are the same operation,
-        // we can reuse the encoding function
-        rot13Encode();
+        let result = '';
+        const encodedText = document.getElementById('myArea07').value;
+
+        for (let i = 0; i < encodedText.length; i++) {
+            const char = encodedText[i];
+
+            if (char >= 'a' && char <= 'z') {
+                // Shift character by 13 (same as encode)
+                let code = char.charCodeAt(0) + 13;
+                if (code > 'z'.charCodeAt(0)) {
+                    code -= 26; // Wrap around
+                }
+                result += String.fromCharCode(code);
+            } else if (char >= 'A' && char <= 'Z') {
+                // Handle uppercase letters
+                let code = char.charCodeAt(0) + 13;
+                if (code > 'Z'.charCodeAt(0)) {
+                    code -= 26; // Wrap around
+                }
+                result += String.fromCharCode(code);
+            } else {
+                // Keep non-alphabetic characters unchanged
+                result += char; 
+            }
+        }
+
+        document.getElementById('myArea07').value = result; // Show ROT13 decoded message
     }
 </script>
 
