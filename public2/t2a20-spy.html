@@ -79,20 +79,39 @@
 </div>
 
 <script>
-    let originalText = ''; // Store the original text for each cipher.
-
     function shiftEncrypt() {
         let result = '';
-        originalText = document.getElementById('myArea01').value; // Store original text
-        const input = originalText.toLowerCase();
+        const input = document.getElementById('myArea01').value;
 
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
-            if (char >= 'a' && char <= 'z') {
-                result += String.fromCharCode(((char.charCodeAt(0) - 97 + 1) % 26) + 97);
-            } else {
-                result += char; // For non-alphabetic characters
-            }
+            if (char === 'a') result += 'b';
+            else if (char === 'b') result += 'c';
+            else if (char === 'c') result += 'd';
+            else if (char === 'd') result += 'e';
+            else if (char === 'e') result += 'f';
+            else if (char === 'f') result += 'g';
+            else if (char === 'g') result += 'h';
+            else if (char === 'h') result += 'i';
+            else if (char === 'i') result += 'j';
+            else if (char === 'j') result += 'k';
+            else if (char === 'k') result += 'l';
+            else if (char === 'l') result += 'm';
+            else if (char === 'm') result += 'n';
+            else if (char === 'n') result += 'o';
+            else if (char === 'o') result += 'p';
+            else if (char === 'p') result += 'q';
+            else if (char === 'q') result += 'r';
+            else if (char === 'r') result += 's';
+            else if (char === 's') result += 't';
+            else if (char === 't') result += 'u';
+            else if (char === 'u') result += 'v';
+            else if (char === 'v') result += 'w';
+            else if (char === 'w') result += 'x';
+            else if (char === 'x') result += 'y';
+            else if (char === 'y') result += 'z';
+            else if (char === 'z') result += 'a';
+            else result += char;  // Non-alphabetic characters remain unchanged
         }
 
         document.getElementById('myArea02').value = result; // Output to the results box
@@ -100,15 +119,37 @@
 
     function shiftDecrypt() {
         let result = '';
-        const input = document.getElementById('myArea02').value.toLowerCase();
+        const input = document.getElementById('myArea02').value;
 
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
-            if (char >= 'a' && char <= 'z') {
-                result += String.fromCharCode(((char.charCodeAt(0) - 97 - 1 + 26) % 26) + 97);
-            } else {
-                result += char; // For non-alphabetic characters
-            }
+            if (char === 'a') result += 'z';
+            else if (char === 'b') result += 'a';
+            else if (char === 'c') result += 'b';
+            else if (char === 'd') result += 'c';
+            else if (char === 'e') result += 'd';
+            else if (char === 'f') result += 'e';
+            else if (char === 'g') result += 'f';
+            else if (char === 'h') result += 'g';
+            else if (char === 'i') result += 'h';
+            else if (char === 'j') result += 'i';
+            else if (char === 'k') result += 'j';
+            else if (char === 'l') result += 'k';
+            else if (char === 'm') result += 'l';
+            else if (char === 'n') result += 'm';
+            else if (char === 'o') result += 'n';
+            else if (char === 'p') result += 'o';
+            else if (char === 'q') result += 'p';
+            else if (char === 'r') result += 'q';
+            else if (char === 's') result += 'r';
+            else if (char === 't') result += 's';
+            else if (char === 'u') result += 't';
+            else if (char === 'v') result += 'u';
+            else if (char === 'w') result += 'v';
+            else if (char === 'x') result += 'w';
+            else if (char === 'y') result += 'x';
+            else if (char === 'z') result += 'y';
+            else result += char; // Non-alphabetic characters remain unchanged
         }
 
         document.getElementById('myArea02').value = result; // Output to the results box
@@ -116,17 +157,20 @@
 
     function caesarEncrypt() {
         let result = '';
-        originalText = document.getElementById('myArea04').value.toLowerCase(); // Store original text
-        const shift = 3; // Set Caesar cipher shift value
+        const originalText = document.getElementById('myArea04').value.toLowerCase();
 
         for (let i = 0; i < originalText.length; i++) {
             const char = originalText[i];
             if (char >= 'a' && char <= 'z') {
-                let code = char.charCodeAt(0) + shift;
-                if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
+                // Shift character by 3
+                let code = char.charCodeAt(0) + 3;
+                if (code > 'z'.charCodeAt(0)) {
+                    code -= 26; // Wrap around
+                }
                 result += String.fromCharCode(code);
             } else {
-                result += char; // For non-alphabetic characters
+                // Keep non-alphabetic characters unchanged
+                result += char; 
             }
         }
 
@@ -140,11 +184,15 @@
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
             if (char >= 'a' && char <= 'z') {
-                let code = char.charCodeAt(0) - 3; // Reverse Caesar shift
-                if (code < 'a'.charCodeAt(0)) code += 26; // Wrap around
+                // Reverse Caesar shift by 3
+                let code = char.charCodeAt(0) - 3;
+                if (code < 'a'.charCodeAt(0)) {
+                    code += 26; // Wrap around
+                }
                 result += String.fromCharCode(code);
             } else {
-                result += char; // For non-alphabetic characters
+                // Keep non-alphabetic characters unchanged
+                result += char; 
             }
         }
 
@@ -153,21 +201,28 @@
 
     function rot13Encode() {
         let result = '';
-        originalText = document.getElementById('myArea06').value; // Store original text
-        const shift = 13; // ROT13 cipher shift
+        const originalText = document.getElementById('myArea06').value;
 
         for (let i = 0; i < originalText.length; i++) {
             const char = originalText[i];
+
             if (char >= 'a' && char <= 'z') {
-                let code = char.charCodeAt(0) + shift;
-                if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
+                // Shift character by 13
+                let code = char.charCodeAt(0) + 13;
+                if (code > 'z'.charCodeAt(0)) {
+                    code -= 26; // Wrap around
+                }
                 result += String.fromCharCode(code);
             } else if (char >= 'A' && char <= 'Z') {
-                let code = char.charCodeAt(0) + shift;
-                if (code > 'Z'.charCodeAt(0)) code -= 26; // Wrap around
+                // Handle uppercase letters
+                let code = char.charCodeAt(0) + 13;
+                if (code > 'Z'.charCodeAt(0)) {
+                    code -= 26; // Wrap around
+                }
                 result += String.fromCharCode(code);
             } else {
-                result += char; // For non-alphabetic characters
+                // Keep non-alphabetic characters unchanged
+                result += char; 
             }
         }
 
@@ -175,7 +230,8 @@
     }
 
     function rot13Decode() {
-        // Since ROT13 encoding and decoding are the same operation, we can call the encode function again
+        // Since ROT13 encoding and decoding are the same operation,
+        // we can reuse the encoding function
         rot13Encode();
     }
 </script>
