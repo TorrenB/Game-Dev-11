@@ -72,9 +72,10 @@
     <h2>ROT13 Cipher</h2>
     <textarea id="myArea06" rows="4" placeholder="Type your message for ROT13 Cipher..."></textarea><br>
     
-    <input type="button" value="Encrypt/Decrypt (ROT13)" onclick="rot13Cipher()"><br><br>
+    <input type="button" value="Encode (ROT13)" onclick="rot13Encode()">
+    <input type="button" value="Decode (ROT13)" onclick="rot13Decode()"><br><br>
     
-    <textarea id="myArea07" rows="4" placeholder="ROT13 encrypted or decrypted message will appear here..." readonly></textarea><br> 
+    <textarea id="myArea07" rows="4" placeholder="ROT13 encoded or decoded message will appear here..." readonly></textarea><br> 
 </div>
 
 <script>
@@ -192,7 +193,7 @@
         document.getElementById('myArea05').value = result; // Show decrypted message
     }
 
-    function rot13Cipher() {
+    function rot13Encode() {
         let result = '';
         const input = document.getElementById('myArea06').value; // Use original casing
         const shift = 13; // ROT13 cipher shift
@@ -214,7 +215,12 @@
             }
         }
 
-        document.getElementById('myArea07').value = result; // Show ROT13 encrypted or decrypted message
+        document.getElementById('myArea07').value = result; // Show ROT13 encoded message
+    }
+
+    function rot13Decode() {
+        // ROT13 decoding is the same as encoding due to its nature
+        rot13Encode();
     }
 </script>
 
