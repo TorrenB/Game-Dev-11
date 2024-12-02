@@ -52,11 +52,14 @@
 <div class="container">
     <h1>Spy Name Encryptor</h1>
     
-    <h2>Letter Shift Encryption/Decryption</h2>
+    <h2>Original Message</h2>
     <textarea id="myArea01" rows="4" placeholder="Type your message here...">Hello how are you</textarea><br>
     
-    <input type="button" value="Shift Right" onclick="shiftEncrypt()">
-    <input type="button" value="Shift Left" onclick="shiftDecrypt()"><br><br>
+    <h2>Encrypted/Decrypted Message</h2>
+    <textarea id="myArea02" rows="4" placeholder="Result will appear here..." readonly></textarea><br>
+    
+    <input type="button" value="Shift Right (Encrypt)" onclick="shiftEncrypt()">
+    <input type="button" value="Shift Left (Decrypt)" onclick="shiftDecrypt()"><br><br>
     
     <h2>Caesar Cipher (Shift by 3)</h2>
     <textarea id="myArea04" rows="4" placeholder="Type your message for Caesar Cipher..."></textarea><br>
@@ -64,7 +67,14 @@
     <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()"><br><br>
     
     <textarea id="myArea05" rows="4" placeholder="Caesar encrypted or decrypted message will appear here..."></textarea><br> 
-    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()">
+    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()"><br><br>
+
+    <h2>ROT13 Cipher</h2>
+    <textarea id="myArea06" rows="4" placeholder="Type your message for ROT13 Cipher..."></textarea><br>
+    
+    <input type="button" value="Encrypt/Decrypt (ROT13)" onclick="rot13Cipher()"><br><br>
+    
+    <textarea id="myArea07" rows="4" placeholder="ROT13 encrypted or decrypted message will appear here..." readonly></textarea><br> 
 </div>
 
 <script>
@@ -103,7 +113,7 @@
             else result += char; // For non-alphabetic characters
         }
 
-        document.getElementById('myArea01').value = result; // Output to the same box
+        document.getElementById('myArea02').value = result; // Output to the results box
     }
 
     function shiftDecrypt() {
@@ -141,7 +151,7 @@
             else result += char; // For non-alphabetic characters
         }
 
-        document.getElementById('myArea01').value = result; // Output to the same box
+        document.getElementById('myArea02').value = result; // Output to the results box
     }
 
     function caesarEncrypt() {
@@ -180,6 +190,31 @@
         }
 
         document.getElementById('myArea05').value = result; // Show decrypted message
+    }
+
+    function rot13Cipher() {
+        let result = '';
+        const input = document.getElementById('myArea06').value; // Use original casing
+        const shift = 13; // ROT13 cipher shift
+
+        for (let i = 0; i < input.length; i++) {
+            const char = input[i];
+            if (char >= 'a' && char <= 'z') {
+                // Shift lowercase letters
+                let code = char.charCodeAt(0) + shift;
+                if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
+                result += String.fromCharCode(code);
+            } else if (char >= 'A' && char <= 'Z') {
+                // Shift uppercase letters
+                let code = char.charCodeAt(0) + shift;
+                if (code > 'Z'.charCodeAt(0)) code -= 26; // Wrap around
+                result += String.fromCharCode(code);
+            } else {
+                result += char; // For non-alphabetic characters
+            }
+        }
+
+        document.getElementById('myArea07').value = result; // Show ROT13 encrypted or decrypted message
     }
 </script>
 
