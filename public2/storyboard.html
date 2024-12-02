@@ -16,10 +16,10 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            color: #fff; /* White text for contrast on dark overlay */
+            color: #2c3e50; /* Darker text color for readability */
             line-height: 1.8;
-            position: relative; /* Set position for absolute children */
-            overflow: hidden; /* Prevent scrolling during background transition */
+            position: relative;
+            overflow: hidden;
         }
 
         .background {
@@ -29,7 +29,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1; /* Place behind other content */
+            z-index: -1;
         }
 
         .background img {
@@ -38,12 +38,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the background while maintaining aspect ratio */
+            object-fit: cover;
             opacity: 0;
             transition: opacity 2s ease-in-out;
         }
 
-        /* Dark overlay over the images to enhance text visibility */
+        /* Dark overlay over the images */
         .background::after {
             content: '';
             position: absolute;
@@ -51,66 +51,57 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            z-index: 1; /* Ensure it covers the images */
+            background: rgba(0, 0, 0, 0.4); /* Slightly less opaque overlay */
+            z-index: 1;
         }
 
         h1 {
             text-align: center;
             font-size: 3em;
-            color: #fff; /* White text for visibility */
+            color: #fff; /* White text for visibility on overlay */
             text-transform: uppercase;
             margin-bottom: 50px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-            font-family: 'Cinzel', serif; /* Classic serif font for a Greek touch */
+            font-family: 'Cinzel', serif;
             position: relative;
-            z-index: 2; /* Bring header above background overlay */
+            z-index: 2;
         }
 
         .level {
-            background: rgba(255, 255, 255, 0.9); /* More opaque white background */
-            border-radius: 12px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.7); /* More transparent background */
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 20px; /* Less padding for smaller boxes */
+            margin: 10px auto; /* Center alignment */
+            max-width: 600px; /* Limit the max width */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: left;
             position: relative;
-            z-index: 2; /* Bring level boxes above background overlay */
+            z-index: 2;
         }
 
         .level:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         .level h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5em;
-            color: #2980b9; /* Sea blue for level headings */
-            margin-bottom: 15px;
-            position: relative;
+            font-size: 2em;
+            color: #2980b9;
+            margin-bottom: 10px; /* Less space below heading */
         }
 
         .diamond-icon {
             color: #2980b9; /* Matching blue for icon */
-            margin-right: 10px;
-            font-size: 1.5em;
+            margin-right: 8px; /* Adjusted margin */
+            font-size: 1.3em; /* Slightly smaller icon size */
         }
 
         .level p {
-            font-size: 1.2em;
-            margin: 10px 0;
-            padding: 0 20px;
-        }
-
-        p::first-letter {
-            font-size: 2.5em;
-            color: #1d2a6c;
-            font-weight: bold;
-            float: left;
-            line-height: 0.8;
-            padding-right: 10px;
+            font-size: 1.1em; /* Slightly smaller text */
+            margin: 5px 0; /* Reduced margin */
+            padding: 0; /* No padding in paragraph */
         }
 
         /* Responsive design */
@@ -120,11 +111,11 @@
             }
 
             .level {
-                padding: 25px;
+                padding: 15px; /* Less padding on smaller screens */
             }
 
             .level h2 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .level p {
@@ -136,7 +127,7 @@
 
 <body>
     <div class="background">
-        <img src="https://wallpaperaccess.com/full/446728.jpg" style="opacity: 1;" class="bg-img">
+        <img src="https://wallpapercave.com/wp/wp2679141.jpg" style="opacity: 1;" class="bg-img">
         <img src="https://wallpapercave.com/wp/wp2679082.jpg" class="bg-img">
         <img src="https://wallpaperaccess.com/full/446818.jpg" class="bg-img">
         <img src="https://wallpaperaccess.com/full/42011.jpg" class="bg-img">
