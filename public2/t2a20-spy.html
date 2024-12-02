@@ -1,52 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spy Name Encryptor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 80%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            resize: none;
+        }
+        input[type=button] {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type=button]:hover {
+            background-color: #e84118;
+        }
+        .container {
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
 
-<h1 align=center>t2a06-spy-name.html</h1>
-<textarea id="myArea01" rows=4 cols=70>Hello how are you</textarea><br> 
+<div class="container">
+    <h1>t2a06-spy-name.html</h1>
+    
+    <textarea id="myArea01" rows="4" placeholder="Type your message here...">Hello how are you</textarea><br>
+    
+    <input type="button" value="Encrypt" onclick="encrypt()"><br><br>
+    
+    <textarea id="myArea02" rows="4" placeholder="Encrypted message will appear here..."></textarea><br>
+    
+    <input type="button" value="Decrypt" onclick="decrypt()"><br><br>
+    
+    <textarea id="myArea03" rows="4" placeholder="Decrypted message will appear here..."></textarea><br> 
+</div>
 
+<script>
+    function encrypt() {
+        let myTemp = '';
+        myString = document.getElementById('myArea01').value.toLowerCase().split('');
+        for (let myLoop = 0; myLoop < myString.length; myLoop++) {
+            myTemp = myString[myLoop];
+            // Encryption logic
+            if (myString[myLoop] >= 'a' && myString[myLoop] <= 'z') {
+                myTemp = String.fromCharCode((myString[myLoop].charCodeAt(0) - 97 + 5) % 26 + 97);
+            }
+            myString[myLoop] = myTemp;
+        }
+        document.getElementById('myArea02').value = myString.join('');
+    }
 
-<input type=button value="encrypt" onclick="{
-   let myTemp = ''
-   myString = document.getElementById('myArea01').value.toLowerCase().split('')
-   for (let myLoop=0;   myLoop < myString.length; myLoop++){
-      myTemp = myString[myLoop]
-      if (myString[myLoop] == 'e') {myTemp  = 'f'} 
-      if (myString[myLoop] == 'f') {myTemp  = 'g'} 
-          if (myString[myLoop] == 'g') {myTemp  = 'h'} 
-          if (myString[myLoop] == 'h') {myTemp  = 'i'} 
-          if (myString[myLoop] == 'i') {myTemp  = 'j'} 
-          if (myString[myLoop] == 'j') {myTemp  = 'k'} 
-          if (myString[myLoop] == 'k') {myTemp  = 'l'} 
-          if (myString[myLoop] == 'l') {myTemp  = 'm'} 
-          if (myString[myLoop] == 'm') {myTemp  = 'n'} 
-          if (myString[myLoop] == 'n') {myTemp  = 'o'} 
-          if (myString[myLoop] == 'o') {myTemp  = 'p'} 
-          if (myString[myLoop] == 'p') {myTemp  = 'q'} 
-          if (myString[myLoop] == 'q') {myTemp  = 'r'} 
-          if (myString[myLoop] == 'r') {myTemp  = 's'} 
-          if (myString[myLoop] == 's') {myTemp  = 't'} 
-          if (myString[myLoop] == 't') {myTemp  = 'u'} 
-          if (myString[myLoop] == 'u') {myTemp  = 'v'}
-          if (myString[myLoop] == 'v') {myTemp  = 'w'} 
-          if (myString[myLoop] == 'w') {myTemp  = 'x'} 
-          if (myString[myLoop] == 'x') {myTemp  = 'y'} 
-          if (myString[myLoop] == 'y') {myTemp  = 'z'} 
-          if (myString[myLoop] == 'z') {myTemp  = 'a'} 
-          if (myString[myLoop] == 'a') {myTemp  = 'b'} 
-          if (myString[myLoop] == 'b') {myTemp  = 'c'} 
-          if (myString[myLoop] == 'c') {myTemp  = 'd'} 
-          if (myString[myLoop] == 'd') {myTemp  = 'e'} 
-      myString[myLoop] = myTemp
-   }
-   document.getElementById('myArea02').value = myString.join('')
-}"><br><br>
+    function decrypt() {
+        let myTemp = '';
+        myString = document.getElementById('myArea02').value.toLowerCase().split('');
+        for (let myLoop = 0; myLoop < myString.length; myLoop++) {
+            myTemp = myString[myLoop];
+            // Decryption logic
+            if (myString[myLoop] >= 'a' && myString[myLoop] <= 'z') {
+                myTemp = String.fromCharCode((myString[myLoop].charCodeAt(0) - 97 - 5 + 26) % 26 + 97);
+            }
+            myString[myLoop] = myTemp;
+        }
+        document.getElementById('myArea03').value = myString.join('');
+    }
+</script>
 
-
-
-<textarea id="myArea02" rows=4 cols=70></textarea><br> 
-
-<input type=button value="decrypt" onclick="{
-}"><br><br>
-
-
-<textarea id="myArea03" rows=4 cols=70></textarea><br> 
-
-
+</body>
+</html>
