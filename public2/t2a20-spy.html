@@ -64,10 +64,10 @@
     <h2>Caesar Cipher (Shift by 3)</h2>
     <textarea id="myArea04" rows="4" placeholder="Type your message for Caesar Cipher..."></textarea><br>
     
-    <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()"><br><br>
+    <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()">
+    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()"><br><br>
     
     <textarea id="myArea05" rows="4" placeholder="Caesar encrypted or decrypted message will appear here..."></textarea><br> 
-    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()"><br><br>
 
     <h2>ROT13 Cipher</h2>
     <textarea id="myArea06" rows="4" placeholder="Type your message for ROT13 Cipher..."></textarea><br>
@@ -79,39 +79,20 @@
 </div>
 
 <script>
+    let originalText = ''; // Store the original text for each cipher.
+
     function shiftEncrypt() {
         let result = '';
-        const input = document.getElementById('myArea01').value.toLowerCase();
+        originalText = document.getElementById('myArea01').value; // Store original text
+        const input = originalText.toLowerCase();
 
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
-            if (char === 'a') result += 'b';
-            else if (char === 'b') result += 'c';
-            else if (char === 'c') result += 'd';
-            else if (char === 'd') result += 'e';
-            else if (char === 'e') result += 'f';
-            else if (char === 'f') result += 'g';
-            else if (char === 'g') result += 'h';
-            else if (char === 'h') result += 'i';
-            else if (char === 'i') result += 'j';
-            else if (char === 'j') result += 'k';
-            else if (char === 'k') result += 'l';
-            else if (char === 'l') result += 'm';
-            else if (char === 'm') result += 'n';
-            else if (char === 'n') result += 'o';
-            else if (char === 'o') result += 'p';
-            else if (char === 'p') result += 'q';
-            else if (char === 'q') result += 'r';
-            else if (char === 'r') result += 's';
-            else if (char === 's') result += 't';
-            else if (char === 't') result += 'u';
-            else if (char === 'u') result += 'v';
-            else if (char === 'v') result += 'w';
-            else if (char === 'w') result += 'x';
-            else if (char === 'x') result += 'y';
-            else if (char === 'y') result += 'z';
-            else if (char === 'z') result += 'a';
-            else result += char; // For non-alphabetic characters
+            if (char >= 'a' && char <= 'z') {
+                result += String.fromCharCode(((char.charCodeAt(0) - 97 + 1) % 26) + 97);
+            } else {
+                result += char; // For non-alphabetic characters
+            }
         }
 
         document.getElementById('myArea02').value = result; // Output to the results box
@@ -119,37 +100,15 @@
 
     function shiftDecrypt() {
         let result = '';
-        const input = document.getElementById('myArea01').value.toLowerCase();
+        const input = document.getElementById('myArea02').value.toLowerCase();
 
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
-            if (char === 'b') result += 'a';
-            else if (char === 'c') result += 'b';
-            else if (char === 'd') result += 'c';
-            else if (char === 'e') result += 'd';
-            else if (char === 'f') result += 'e';
-            else if (char === 'g') result += 'f';
-            else if (char === 'h') result += 'g';
-            else if (char === 'i') result += 'h';
-            else if (char === 'j') result += 'i';
-            else if (char === 'k') result += 'j';
-            else if (char === 'l') result += 'k';
-            else if (char === 'm') result += 'l';
-            else if (char === 'n') result += 'm';
-            else if (char === 'o') result += 'n';
-            else if (char === 'p') result += 'o';
-            else if (char === 'q') result += 'p';
-            else if (char === 'r') result += 'q';
-            else if (char === 's') result += 'r';
-            else if (char === 't') result += 's';
-            else if (char === 'u') result += 't';
-            else if (char === 'v') result += 'u';
-            else if (char === 'w') result += 'v';
-            else if (char === 'x') result += 'w';
-            else if (char === 'y') result += 'x';
-            else if (char === 'z') result += 'y';
-            else if (char === 'a') result += 'z';
-            else result += char; // For non-alphabetic characters
+            if (char >= 'a' && char <= 'z') {
+                result += String.fromCharCode(((char.charCodeAt(0) - 97 - 1 + 26) % 26) + 97);
+            } else {
+                result += char; // For non-alphabetic characters
+            }
         }
 
         document.getElementById('myArea02').value = result; // Output to the results box
@@ -157,11 +116,11 @@
 
     function caesarEncrypt() {
         let result = '';
-        const input = document.getElementById('myArea04').value.toLowerCase();
+        originalText = document.getElementById('myArea04').value.toLowerCase(); // Store original text
         const shift = 3; // Set Caesar cipher shift value
 
-        for (let i = 0; i < input.length; i++) {
-            const char = input[i];
+        for (let i = 0; i < originalText.length; i++) {
+            const char = originalText[i];
             if (char >= 'a' && char <= 'z') {
                 let code = char.charCodeAt(0) + shift;
                 if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
@@ -177,12 +136,11 @@
     function caesarDecrypt() {
         let result = '';
         const input = document.getElementById('myArea05').value.toLowerCase();
-        const shift = 3; // Set Caesar cipher shift value
 
         for (let i = 0; i < input.length; i++) {
             const char = input[i];
             if (char >= 'a' && char <= 'z') {
-                let code = char.charCodeAt(0) - shift;
+                let code = char.charCodeAt(0) - 3; // Reverse Caesar shift
                 if (code < 'a'.charCodeAt(0)) code += 26; // Wrap around
                 result += String.fromCharCode(code);
             } else {
@@ -195,18 +153,16 @@
 
     function rot13Encode() {
         let result = '';
-        const input = document.getElementById('myArea06').value; // Use original casing
+        originalText = document.getElementById('myArea06').value; // Store original text
         const shift = 13; // ROT13 cipher shift
 
-        for (let i = 0; i < input.length; i++) {
-            const char = input[i];
+        for (let i = 0; i < originalText.length; i++) {
+            const char = originalText[i];
             if (char >= 'a' && char <= 'z') {
-                // Shift lowercase letters
                 let code = char.charCodeAt(0) + shift;
                 if (code > 'z'.charCodeAt(0)) code -= 26; // Wrap around
                 result += String.fromCharCode(code);
             } else if (char >= 'A' && char <= 'Z') {
-                // Shift uppercase letters
                 let code = char.charCodeAt(0) + shift;
                 if (code > 'Z'.charCodeAt(0)) code -= 26; // Wrap around
                 result += String.fromCharCode(code);
@@ -219,7 +175,7 @@
     }
 
     function rot13Decode() {
-        // ROT13 decoding is the same as encoding due to its nature
+        // Since ROT13 encoding and decoding are the same operation, we can call the encode function again
         rot13Encode();
     }
 </script>
