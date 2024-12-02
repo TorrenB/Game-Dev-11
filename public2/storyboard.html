@@ -19,11 +19,12 @@
             color: #2c3e50; /* Darker text color for readability */
             line-height: 1.8;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* Prevent overflow */
+            min-height: 100vh; /* Ensure body is at least full height of viewport */
         }
 
         .background {
-            position: absolute;
+            position: fixed; /* Fixed position to cover the whole viewport */
             top: 0;
             left: 0;
             width: 100%;
