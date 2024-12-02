@@ -52,11 +52,14 @@
 <div class="container">
     <h1>Spy Name Encryptor</h1>
     
-    <h2>Letter Shift Encryption/Decryption</h2>
+    <h2>Original Message</h2>
     <textarea id="myArea01" rows="4" placeholder="Type your message here...">Hello how are you</textarea><br>
     
-    <input type="button" value="Shift Right" onclick="shiftEncrypt()">
-    <input type="button" value="Shift Left" onclick="shiftDecrypt()"><br><br>
+    <h2>Encrypted/Decrypted Message</h2>
+    <textarea id="myArea02" rows="4" placeholder="Result will appear here..." readonly></textarea><br>
+    
+    <input type="button" value="Shift Right (Encrypt)" onclick="shiftEncrypt()">
+    <input type="button" value="Shift Left (Decrypt)" onclick="shiftDecrypt()"><br><br>
     
     <h2>Caesar Cipher (Shift by 3)</h2>
     <textarea id="myArea04" rows="4" placeholder="Type your message for Caesar Cipher..."></textarea><br>
@@ -103,7 +106,7 @@
             else result += char; // For non-alphabetic characters
         }
 
-        document.getElementById('myArea01').value = result; // Output to the same box
+        document.getElementById('myArea02').value = result; // Output to the results box
     }
 
     function shiftDecrypt() {
@@ -141,7 +144,7 @@
             else result += char; // For non-alphabetic characters
         }
 
-        document.getElementById('myArea01').value = result; // Output to the same box
+        document.getElementById('myArea02').value = result; // Output to the results box
     }
 
     function caesarEncrypt() {
