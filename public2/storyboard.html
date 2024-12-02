@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Levels Information</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            font-family: 'Cinzel', serif;
+            font-family: 'Montserrat', sans-serif;
             background: linear-gradient(to right, #d1e8e2, #ade8d8);
-            color: #3a3b37;
+            color: #333;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         h1 {
@@ -20,27 +22,47 @@
             font-size: 2.5em;
             color: #4a4e69;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             margin-bottom: 40px;
             text-shadow: 2px 2px #929292;
             text-decoration: underline;
         }
 
         .level {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             padding: 30px;
             margin: 20px 0;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+
+        .level:hover::before {
+            opacity: 0.3;
         }
 
         .level:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         .level h2 {
+            font-family: 'Cinzel', serif;
             font-size: 2em;
             color: #4a4e69;
             border-bottom: 3px solid #4a4e69;
@@ -48,15 +70,34 @@
             margin-bottom: 15px;
             text-align: left;
             text-shadow: 1px 1px #b0b3b3;
+            position: relative;
+        }
+
+        .level h2::after {
+            content: "";
+            display: block;
+            height: 4px;
+            width: 60px;
+            background: #4a4e69;
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            border-radius: 5px;
         }
 
         .level p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin: 10px 0;
-            padding: 0 0 10px 0;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Additional styling for easy reading */
+        .icon {
+            font-size: 1.5em;
+            color: #4a4e69;
+            margin-right: 10px;
+        }
+
         p::first-letter {
             font-size: 2.5em;
             color: #4a4e69;
@@ -65,25 +106,43 @@
             line-height: 0.8;
             padding-right: 10px;
         }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .level {
+                padding: 20px;
+            }
+            .level h2 {
+                font-size: 1.8em;
+            }
+            .level p {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
+
 <body>
     <h1>Game Levels Information</h1>
 
     <div class="level">
-        <h2>Level 1</h2>
+        <h2><i class="fas fa-gem icon"></i>Level 1</h2>
         <p>Welcome to Level 1!<br>
         In this stage, you will experience a fun 2D animation where your task is to skillfully avoid a dangerous goldfish. The level consists of five mini-stages, each becoming slightly more challenging. Upon completing the fifth stage, you will unlock Level 2.</p>
     </div>
 
     <div class="level">
-        <h2>Level 2</h2>
+        <h2><i class="fas fa-book-open icon"></i>Level 2</h2>
         <p>Level 2 is an intriguing narrative-driven game created using Twine. This level will test your problem-solving skills and logical thinking. You may find a calculator and online resources helpful during this engaging adventure. Once you complete this level, you will be directed to one of the best-known geography games available.</p>
     </div>
 
     <div class="level">
-        <h2>Level 3</h2>
+        <h2><i class="fas fa-flag icon"></i>Level 3</h2>
         <p>In Level 3, your knowledge of national flags will be put to the test. If you are familiar with them, you may find this level straightforward. However, if you are less confident, it could pose a significant challenge. Few players reach this milestone, so if you succeed, be sure to celebrate your achievement!</p>
     </div>
+
 </body>
 </html>
