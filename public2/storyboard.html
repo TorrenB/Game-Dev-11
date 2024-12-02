@@ -8,34 +8,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f4f4f4; /* Light color for a clean look */
             color: #333; /* Dark text for contrast */
-            margin: 0;
-            padding: 20px;
             line-height: 1.8;
+            position: relative; /* Set position for absolute children */
+            overflow: hidden; /* Prevent scrolling during background transition */
+            background-color: #f0f4f8; /* Light sandy background */
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Place behind other content */
+        }
+
+        .background img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the background while maintaining aspect ratio */
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
         }
 
         h1 {
             text-align: center;
             font-size: 3em;
-            color: #4a4e69; /* Deep navy for header */
+            color: #2c3e50; /* Deep ocean blue for header */
             text-transform: uppercase;
             margin-bottom: 50px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             font-family: 'Cinzel', serif; /* Classic serif font for a Greek touch */
         }
 
         .level {
-            background: #ffffff; /* White background for the levels */
+            background: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
             border-radius: 12px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             padding: 40px;
             margin: 20px 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
             text-align: left;
+            position: relative;
+            border: 2px solid #2980b9; /* Grecian border color */
             overflow: hidden;
         }
 
@@ -47,13 +75,13 @@
         .level h2 {
             font-family: 'Cinzel', serif;
             font-size: 2.5em;
-            color: #0c4b8e; /* Greek blue for level headings */
+            color: #2980b9; /* Sea blue for level headings */
             margin-bottom: 15px;
             position: relative;
         }
 
         .diamond-icon {
-            color: #0c4b8e; /* Matching blue for icon */
+            color: #2980b9; /* Matching blue for icon */
             margin-right: 10px;
             font-size: 1.5em;
         }
@@ -61,8 +89,6 @@
         .level p {
             font-size: 1.2em;
             margin: 10px 0;
-            position: relative;
-            z-index: 1;
             padding: 0 20px;
         }
 
@@ -97,6 +123,14 @@
 </head>
 
 <body>
+    <div class="background">
+        <img src="https://th.bing.com/th/id/OIP.HhFi_HN8lA_OION8jiaZ9QHaE1?rs=1&pid=ImgDetMain" style="opacity: 1;" class="bg-img">
+        <img src="https://wallpapercave.com/wp/wp2679082.jpg" class="bg-img">
+        <img src="https://wallpaperaccess.com/full/446818.jpg" class="bg-img">
+        <img src="https://wallpaperaccess.com/full/42011.jpg" class="bg-img">
+        <img src="https://th.bing.com/th/id/OIP.i-e_H6qILcflRYy4wGN3wwHaE7?rs=1&pid=ImgDetMain" class="bg-img">
+    </div>
+
     <h1>Game Levels Information</h1>
 
     <div class="level">
@@ -114,6 +148,19 @@
         <h2><i class="fas fa-flag diamond-icon"></i>Level 3</h2>
         <p>In Level 3, put your knowledge of national flags to the test! If you're familiar with them, this level should be a breeze. However, if you're less confident, you may find it challenging. Very few players reach this stage, so be sure to celebrate if you succeed!</p>
     </div>
+
+    <script>
+        const bgImages = document.querySelectorAll('.bg-img');
+        let current = 0;
+
+        function fadeImages() {
+            bgImages[current].style.opacity = 0; // Fade out current image
+            current = (current + 1) % bgImages.length; // Move to the next image
+            bgImages[current].style.opacity = 1; // Fade in next image
+        }
+
+        setInterval(fadeImages, 2500); // Change image every 4 seconds
+    </script>
 </body>
 
 </html>
