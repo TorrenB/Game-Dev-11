@@ -63,10 +63,10 @@
     <h2>Caesar Cipher (Shift by 3)</h2>
     <textarea id="myArea04" rows="4" placeholder="Type your message for Caesar Cipher..."></textarea><br>
     
-    <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()">
-    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()"><br><br>
+    <input type="button" value="Encrypt (Caesar)" onclick="caesarEncrypt()"><br><br>
     
-    <textarea id="myArea05" rows="4" placeholder="Caesar encrypted message will appear here..."></textarea><br> 
+    <textarea id="myArea05" rows="4" placeholder="Caesar encrypted or decrypted message will appear here..."></textarea><br> 
+    <input type="button" value="Decrypt (Caesar)" onclick="caesarDecrypt()">
 </div>
 
 <script>
@@ -162,7 +162,7 @@
             }
         }
 
-        document.getElementById('myArea05').value = result;
+        document.getElementById('myArea05').value = result; // Show encrypted message
     }
 
     function caesarDecrypt() {
@@ -181,7 +181,7 @@
             }
         }
 
-        document.getElementById('myArea05').value = result;
+        document.getElementById('myArea05').value = result; // Show decrypted message
     }
 </script>
 
