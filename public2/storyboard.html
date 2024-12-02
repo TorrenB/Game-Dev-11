@@ -10,116 +10,123 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(to right, #d1e8e2, #ade8d8);
+            background: linear-gradient(to right, #e1f7fa, #b2ebf2);
             color: #333;
             margin: 0;
             padding: 20px;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         h1 {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 3em;
             color: #4a4e69;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             text-shadow: 2px 2px #929292;
-            text-decoration: underline;
+            background: linear-gradient(to right, #1de9b6, #1dc4e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textwave 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes textwave {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-3px);
+            }
         }
 
         .level {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
             margin: 20px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            text-align: center;
             overflow: hidden;
-        }
-
-        .level::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            z-index: 0;
-            transition: opacity 0.3s;
-        }
-
-        .level:hover::before {
-            opacity: 0.3;
         }
 
         .level:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         }
 
         .level h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2em;
+            font-size: 2.5em;
             color: #4a4e69;
-            border-bottom: 3px solid #4a4e69;
-            padding-bottom: 10px;
             margin-bottom: 15px;
-            text-align: left;
-            text-shadow: 1px 1px #b0b3b3;
             position: relative;
+            letter-spacing: 1px;
         }
 
-        .level h2::after {
-            content: "";
-            display: block;
-            height: 4px;
-            width: 60px;
-            background: #4a4e69;
+       .diamond {
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            background: #f44336;
+            transform: rotate(45deg);
+            top: -15px;
+            left: 50%;
+            margin-left: -15px;
+            opacity: 0.8;
+            transition: background 0.3s;
+        }
+
+        .diamond:hover {
+            background: #ff4081;
         }
 
         .level p {
-            font-size: 1.1em;
-            margin: 10px 0;
+            font-size: 1.15em; /* Slightly reduced for familiarity */
+            margin: 15px 0; /* Increased margin for breathability */
             position: relative;
             z-index: 1;
+            padding: 0 20px;
+            text-align: left; /* Better readability */
+        }
+
+        .level p:first-line {
+            font-weight: bold; /* Emphasize the first line */
         }
 
         .icon {
-            font-size: 1.5em;
-            color: #4a4e69;
+            font-size: 2em;
+            color: #1dc4e9;
             margin-right: 10px;
         }
 
+        /* Style for the first letter */
         p::first-letter {
             font-size: 2.5em;
-            color: #4a4e69;
+            color: #1d2a6c;
             font-weight: bold;
             float: left;
             line-height: 0.8;
-            padding-right: 10px;
+            padding-right: 10px; /* Adjusts position */
         }
 
         /* Responsive design */
         @media (max-width: 768px) {
             h1 {
+                font-size: 2.5em;
+            }
+
+            .level {
+                padding: 25px;
+            }
+
+            .level h2 {
                 font-size: 2em;
             }
-            .level {
-                padding: 20px;
-            }
-            .level h2 {
-                font-size: 1.8em;
-            }
+
             .level p {
-                font-size: 1em;
+                font-size: 1em; /* Adjusted for smaller devices */
             }
         }
     </style>
@@ -129,20 +136,22 @@
     <h1>Game Levels Information</h1>
 
     <div class="level">
+        <div class="diamond"></div>
         <h2><i class="fas fa-gem icon"></i>Level 1</h2>
-        <p>Welcome to Level 1!<br>
-        In this stage, you will experience a fun 2D animation where your task is to skillfully avoid a dangerous goldfish. The level consists of five mini-stages, each becoming slightly more challenging. Upon completing the fifth stage, you will unlock Level 2.</p>
+        <p>**Welcome to Level 1!**<br> In this stage, you will embark on a delightful journey through a 2D animation where your main task is to skillfully evade a perilous goldfish. This level features five mini-stages, with each becoming progressively more challenging. Upon successfully completing the fifth stage, you will unlock Level 2.</p>
     </div>
 
     <div class="level">
+        <div class="diamond"></div>
         <h2><i class="fas fa-book-open icon"></i>Level 2</h2>
-        <p>Level 2 is an intriguing narrative-driven game created using Twine. This level will test your problem-solving skills and logical thinking. You may find a calculator and online resources helpful during this engaging adventure. Once you complete this level, you will be directed to one of the best-known geography games available.</p>
+        <p>**Welcome to Level 2!**<br> This level unfolds in an engaging narrative-driven experience crafted using Twine. Expect to encounter puzzles that will test your problem-solving skills and logical reasoning. During your adventure, a calculator and various online resources may prove useful. Upon completion of this level, you will be guided to one of the most famous geography games available.</p>
     </div>
 
     <div class="level">
+        <div class="diamond"></div>
         <h2><i class="fas fa-flag icon"></i>Level 3</h2>
-        <p>In Level 3, your knowledge of national flags will be put to the test. If you are familiar with them, you may find this level straightforward. However, if you are less confident, it could pose a significant challenge. Few players reach this milestone, so if you succeed, be sure to celebrate your achievement!</p>
+        <p>**Welcome to Level 3!**<br> In this stage, your knowledge of national flags will be rigorously tested. If you are already familiar with them, this level may prove to be quite straightforward. Conversely, if you're less confident, you might find it significantly challenging. Few players reach this milestone, so should you succeed, make sure to celebrate your accomplishment!</p>
     </div>
-
 </body>
+
 </html>
