@@ -10,8 +10,8 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(to right, #e1f7fa, #b2ebf2);
-            color: #333;
+            background-color: #f4f4f4; /* Light color for a clean look */
+            color: #333; /* Dark text for contrast */
             margin: 0;
             padding: 20px;
             line-height: 1.8;
@@ -20,23 +20,15 @@
         h1 {
             text-align: center;
             font-size: 3em;
-            color: #4a4e69;
+            color: #4a4e69; /* Deep navy for header */
             text-transform: uppercase;
             margin-bottom: 50px;
-            text-shadow: 2px 2px #929292;
-            background: linear-gradient(to right, #1de9b6, #1dc4e9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textwave 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes textwave {
-            from { transform: translateY(0); }
-            to { transform: translateY(-3px); }
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-family: 'Cinzel', serif; /* Classic serif font for a Greek touch */
         }
 
         .level {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff; /* White background for the levels */
             border-radius: 12px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             padding: 40px;
@@ -55,13 +47,13 @@
         .level h2 {
             font-family: 'Cinzel', serif;
             font-size: 2.5em;
-            color: #4a4e69;
+            color: #0c4b8e; /* Greek blue for level headings */
             margin-bottom: 15px;
             position: relative;
         }
 
-        .level h2 .diamond-icon {
-            color: #f44336;
+        .diamond-icon {
+            color: #0c4b8e; /* Matching blue for icon */
             margin-right: 10px;
             font-size: 1.5em;
         }
@@ -72,14 +64,6 @@
             position: relative;
             z-index: 1;
             padding: 0 20px;
-            background: linear-gradient(135deg, #f0e68c 25%, transparent 25%) 0 100%,
-                        linear-gradient(225deg, #f0e68c 25%, transparent 25%) 0 100%,
-                        linear-gradient(45deg, #f0e68c 25%, transparent 25%) 0 100%,
-                        linear-gradient(315deg, #f0e68c 25%, transparent 25%) 0 100%;
-            background-size: 20px 20px;
-            background-position: 0 0;
-            border-radius: 8px;
-            padding: 20px;
         }
 
         p::first-letter {
@@ -100,7 +84,7 @@
             .level {
                 padding: 25px;
             }
-            
+
             .level h2 {
                 font-size: 2em;
             }
