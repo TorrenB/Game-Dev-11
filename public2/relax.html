@@ -6,29 +6,26 @@
     <title>Image Fade Slideshow with Music</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #000;
-            color: #fff;
+            overflow: hidden; /* Prevent scrollbars */
         }
 
         #slideshow {
             position: relative;
-            width: 80%;
-            height: 80%;
-            overflow: hidden;
+            width: 100%;
+            height: 100vh; /* Full height of the viewport */
+            overflow: hidden; /* Hide overflow */
         }
 
         .slide {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
-            transition: opacity 3s ease-in-out; /* Slowed down fade */
+            transition: opacity 3s ease-in-out;
         }
 
         .active {
@@ -43,6 +40,10 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            position: absolute; /* Position button at the top */
+            top: 20px;
+            left: 20px;
+            z-index: 10; /* Make sure button is on top */
         }
     </style>
 </head>
@@ -64,7 +65,7 @@
 </div>
 
 <audio id="background-music" loop>
-    <source src="https://torrenb.github.io/Game-Dev-11/public2/Interstellar_Main_Theme_-_Hans_Zimmer_[_YouConvert.net_].mp3" type="audio/mpeg"> <!-- Replace with your audio file path -->
+    <source src="https://torrenb.github.io/Game-Dev-11/public2/Interstellar_Main_Theme_-_Hans_Zimmer_[_YouConvert.net_].mp3" type="audio/mpeg">
     Your browser does not support the audio tag.
 </audio>
 
