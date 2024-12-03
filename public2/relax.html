@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Fade Slideshow with Music</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
 
+        #slideshow {
+            position: relative;
+            width: 80%;
+            height: 80%;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        audio {
+            display: none; /* Hide audio element */
+        }
+    </style>
+</head>
+<body>
+
+<div id="slideshow">
+    <img class="slide active" src="https://wallpaperaccess.com/full/1124104.jpg" alt="Image 1">
+    <img class="slide" src="https://wallpaperaccess.com/full/4423883.jpg" alt="Image 2">
+    <img class="slide" src="https://wallpaperaccess.com/full/1124099.jpg" alt="Image 3">
+    <img class="slide" src="https://images.alphacoders.com/853/thumb-1920-853894.jpg" alt="Image 4">
+    <img class="slide" src="https://wallpapercave.com/wp/wp8164773.jpg" alt="Image 5">
+    <img class="slide" src="https://wallpaperaccess.com/full/1124101.jpg" alt="Image 6">
+    <img class="slide" src="https://th.bing.com/th/id/R.50c1a0fc8f3f64c21f3424ca7081b84f?rik=Ib31rZPXoG33aQ&pid=ImgRaw&r=0" alt="Image 7">
+    <img class="slide" src="https://th.bing.com/th/id/R.9eafa8534764fbb442674f5d361e7e13?rik=M8whT4s7U9zOMg&pid=ImgRaw&r=0" alt="Image 8">
+    <img class="slide" src="https://images.hdqwalls.com/download/1/beautiful-space-8h-3840x2160.jpg" alt="Image 9">
+    <img class="slide" src="https://cdn.wallpapersafari.com/94/95/jrX0hS.jpg" alt="Image 10">
+    <img class="slide" src="https://th.bing.com/th/id/R.d45046e41834c800c2392f2c2a4425e6?rik=7s4i0R7bhzRT0w&pid=ImgRaw&r=0" alt="Image 11">
+    <img class="slide" src="https://cdn.wallpapersafari.com/8/36/qy0MdG.jpg" alt="Image 12">
+</div>
+
+<audio id="background-music" loop>
+    <source src="YOUR_MUSIC_FILE.mp3" type="audio/mpeg"> <!-- Replace with your audio file path -->
+    Your browser does not support the audio tag.
+</audio>
+
+<script>
+    const audio = document.getElementById('background-music');
+    audio.play(); // Start playing the audio when the page loads
+
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        if (currentIndex >= slides.length) {
+            currentIndex = 0; // Loop back to first slide
+        }
+        slides[currentIndex].classList.add('active');
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+</script>
+
+</body>
+</html>
