@@ -26,6 +26,7 @@
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
             transition: opacity 3s ease-in-out;
+            filter: brightness(1.3) saturate(1.5) contrast(1.2); /* Filters for vibrancy */
         }
 
         .active {
@@ -64,11 +65,11 @@
     <img class="slide" src="https://cdn.wallpapersafari.com/8/36/qy0MdG.jpg" alt="Image 12">
     <img class="slide" src="https://images.hdqwalls.com/download/astronaut-colorful-galaxy-4k-w4-3840x2160.jpg" alt="Image 13">
     <img class="slide" src="https://mcdn.wallpapersafari.com/medium/57/66/awt3D8.png" alt="Image 14">
-        <img class="slide" src="https://images.wallpapersden.com/image/download/amazing-outer-space-4k-galaxy_bmVubWuUmZqaraWkpJRmbmdlrWZlbWU.jpg" alt="Image 15">
-        <img class="slide" src="https://scitechdaily.com/images/Webb-Pillars-of-Creation-scaled.jpg" alt="Image 16">
-        <img class="slide" src="https://wallpapercave.com/wp/wp4575272.jpg" alt="Image 17">
-        <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 18">
-        <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 19">
+    <img class="slide" src="https://images.wallpapersden.com/image/download/amazing-outer-space-4k-galaxy_bmVubWuUmZqaraWkpJRmbmdlrWZlbWU.jpg" alt="Image 15">
+    <img class="slide" src="https://scitechdaily.com/images/Webb-Pillars-of-Creation-scaled.jpg" alt="Image 16">
+    <img class="slide" src="https://wallpapercave.com/wp/wp4575272.jpg" alt="Image 17">
+    <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 18">
+    <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 19">
     <img class="slide" src="https://hdqwalls.com/wallpapers/galaxy-space-stars-universe-nebula-4k-qw.jpg" alt="Image 20">
     <img class="slide" src="https://images.wallpapersden.com/image/download/amazing-outer-space-4k-galaxy_bmVubWuUmZqaraWkpJRmbmdlrWZlbWU.jpg" alt="Image 22">
     <img class="slide" src="https://wallpaperaccess.com/full/150340.jpg" alt="Image 23">
@@ -116,7 +117,7 @@
 
     const startSlideshow = () => {
         audio.play(); // Play the audio
-        setInterval(nextSlide, 5500); // Change slide every 3 seconds
+        setInterval(nextSlide, 5500); // Change slide every 5.5 seconds
         // Remove the button after starting the slideshow
         document.getElementById('start-button').style.display = 'none';
     };
