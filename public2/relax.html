@@ -26,7 +26,7 @@
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
             transition: opacity 3s ease-in-out;
-            filter: brightness(1.3) saturate(1.5) contrast(1.2); /* Filters for vibrancy */
+            filter: brightness(1.2) saturate(1.3) contrast(1.1); /* Adjusted filters for less vibrancy */
         }
 
         .active {
@@ -124,7 +124,7 @@
             document.documentElement.requestFullscreen();
         } else if (document.documentElement.mozRequestFullScreen) { // Firefox
             document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
             document.documentElement.webkitRequestFullscreen();
         } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
             document.documentElement.msRequestFullscreen();
