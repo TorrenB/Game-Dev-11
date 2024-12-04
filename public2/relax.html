@@ -118,6 +118,18 @@
     const startSlideshow = () => {
         audio.play(); // Play the audio
         setInterval(nextSlide, 5500); // Change slide every 5.5 seconds
+
+        // Fullscreen mode
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
+
         // Remove the button after starting the slideshow
         document.getElementById('start-button').style.display = 'none';
     };
