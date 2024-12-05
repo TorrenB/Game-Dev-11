@@ -68,24 +68,24 @@
     <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 18">
     <img class="slide" src="https://wallpaperaccess.com/full/3154069.jpg" alt="Image 19">
     <img class="slide" src="https://hdqwalls.com/wallpapers/galaxy-space-stars-universe-nebula-4k-qw.jpg" alt="Image 20">
-    <img class="slide" src="https://motionbgs.com/media/1044/astronaut-floating-in-space.jpg" alt="Image 22">
-    <img class="slide" src="https://wallpaperaccess.com/full/150340.jpg" alt="Image 23">
-    <img class="slide" src="https://images.pixexid.com/a-thoughtful-4k-desktop-wallpaper-featuring-a-simplified-depiction-of-a-neutron-qrxoxtly.jpeg" alt="Image 24">
-    <img class="slide" src="https://wallpaperaccess.com/full/1865312.png" alt="Image 25">
-    <img class="slide" src="https://wallpapercave.com/wp/wp7196469.jpg" alt="Image 26">
-    <img class="slide" src="https://wallpapercave.com/wp/wp3508238.jpg" alt="Image 27">
-    <img class="slide" src="https://cdn.wallpapersafari.com/41/0/hTQZRP.jpg" alt="Image 28">
-    <img class="slide" src="https://wallpaperaccess.com/full/3262649.jpg" alt="Image 29">
-    <img class="slide" src="https://images4.alphacoders.com/121/121366.jpg" alt="Image 30">
-    <img class="slide" src="https://wallpapercave.com/wp/wp9116848.jpg" alt="Image 31">
-    <img class="slide" src="https://wallpaperaccess.com/full/2684057.jpg" alt="Image 32">
-    <img class="slide" src="https://wallpaperbat.com/img/701295-blue-magenta-colored-moon-space-moons-hd-desktop-wallpaper.jpg" alt="Image 33">
-    <img class="slide" src="https://wallpaperaccess.com/full/257424.jpg" alt="Image 34">
-    <img class="slide" src="https://images.wallpapersden.com/image/download/turquoise-space-digital-art_bGpqaGqUmZqaraWkpJRnamtlrWZpaWU.jpg" alt="Image 35">
-    <img class="slide" src="https://i0.wp.com/i.redd.it/sorhic01ls701.jpg?ssl=1" alt="Image 36">
-    <img class="slide" src="https://wallpaperaccess.com/full/2909616.jpg" alt="Image 37">
-    <img class="slide" src="https://i.pinimg.com/originals/e2/b1/7b/e2b17b69119c0ab5dac2a655d319b88d.jpg" alt="Image 38">
-    <img class="slide" src="https://i.ytimg.com/vi/6RysxdLWwDY/maxresdefault.jpg" alt="Image 39">
+    <img class="slide" src="https://motionbgs.com/media/1044/astronaut-floating-in-space.jpg" alt="Image 21">
+    <img class="slide" src="https://wallpaperaccess.com/full/150340.jpg" alt="Image 22">
+    <img class="slide" src="https://images.pixexid.com/a-thoughtful-4k-desktop-wallpaper-featuring-a-simplified-depiction-of-a-neutron-qrxoxtly.jpeg" alt="Image 23">
+    <img class="slide" src="https://wallpaperaccess.com/full/1865312.png" alt="Image 24">
+    <img class="slide" src="https://wallpapercave.com/wp/wp7196469.jpg" alt="Image 25">
+    <img class="slide" src="https://wallpapercave.com/wp/wp3508238.jpg" alt="Image 26">
+    <img class="slide" src="https://cdn.wallpapersafari.com/41/0/hTQZRP.jpg" alt="Image 27">
+    <img class="slide" src="https://wallpaperaccess.com/full/3262649.jpg" alt="Image 28">
+    <img class="slide" src="https://images4.alphacoders.com/121/121366.jpg" alt="Image 29">
+    <img class="slide" src="https://wallpapercave.com/wp/wp9116848.jpg" alt="Image 30">
+    <img class="slide" src="https://wallpaperaccess.com/full/2684057.jpg" alt="Image 31">
+    <img class="slide" src="https://wallpaperbat.com/img/701295-blue-magenta-colored-moon-space-moons-hd-desktop-wallpaper.jpg" alt="Image 32">
+    <img class="slide" src="https://wallpaperaccess.com/full/257424.jpg" alt="Image 33">
+    <img class="slide" src="https://images.wallpapersden.com/image/download/turquoise-space-digital-art_bGpqaGqUmZqaraWkpJRnamtlrWZpaWU.jpg" alt="Image 34">
+    <img class="slide" src="https://i0.wp.com/i.redd.it/sorhic01ls701.jpg?ssl=1" alt="Image 35">
+    <img class="slide" src="https://wallpaperaccess.com/full/2909616.jpg" alt="Image 36">
+    <img class="slide" src="https://i.pinimg.com/originals/e2/b1/7b/e2b17b69119c0ab5dac2a655d319b88d.jpg" alt="Image 37">
+    <img class="slide" src="https://i.ytimg.com/vi/6RysxdLWwDY/maxresdefault.jpg" alt="Image 38">
 </div>
 
 <audio id="background-music" loop>
@@ -96,50 +96,35 @@
 <button id="start-button">Play Music</button>
 
 <script>
-    let song;
     let amplitude;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
-    const threshold = 0.2; // You can adjust this threshold for bass sensitivity
+    const threshold = 0.2; // Adjust this threshold for bass sensitivity
     let lastBeatTime = 0; // To prevent double counts
-
-    function preload() {
-        song = loadSound('https://torrenb.github.io/Game-Dev-11/public2/Minecraft_OST_-_Pigstep_[_YouConvert.net_].mp3');
-    }
+    const beatInterval = 500; // Minimum time between beats in ms
 
     function setup() {
         noCanvas(); // We don’t need a canvas for this example
         amplitude = new p5.Amplitude();
 
-        // Start the slideshow loop
+        // Start the audio analysis in an interval
         setInterval(() => {
             const level = amplitude.getLevel(); // Get the current audio level
 
             // Change slide on bass beat
             if (level > threshold) {
                 const now = millis();
-                if (now - lastBeatTime > 500) { // 500ms cooldown
+                if (now - lastBeatTime > beatInterval) { // Cooldown to avoid rapid switching
                     nextSlide();
                     lastBeatTime = now;
                 }
             }
         }, 100); // Check the amplitude every 100 milliseconds
-
-        // Fullscreen mode
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        }
-
-        // Hide the play button after playing
-        document.getElementById('start-button').style.display = 'none';
     }
 
     const showSlide = (index) => {
         slides[currentIndex].classList.remove('active');
-        currentIndex = index;
-        if (currentIndex >= slides.length) {
-            currentIndex = 0; // Loop back to first slide
-        }
+        currentIndex = (index + slides.length) % slides.length; // Loop back to first slide
         slides[currentIndex].classList.add('active');
     };
 
@@ -151,6 +136,7 @@
         const audioElement = document.getElementById('background-music');
         audioElement.play(); // Play the audio when the button is clicked
         setup(); // Call the setup function to start everything
+        this.style.display = 'none'; // Hide the button after starting
     });
 </script>
 
