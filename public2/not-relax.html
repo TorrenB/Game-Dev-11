@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bass-Responsive Image Slideshow</title>
+    <title>Bass-Responsive Space Image Slideshow</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         body {
@@ -26,7 +26,7 @@
             height: 100%;
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
-            filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for vibrancy */
+            transition: opacity 0.5s; /* Optional: keep this if you want some effect */
         }
 
         .active {
@@ -98,44 +98,50 @@
     let amplitude;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
-    const threshold = 0.2; // Adjust this threshold for bass sensitivity
+    const threshold = 0.05; // Adjusted threshold for bass sensitivity
     let lastBeatTime = 0; // To prevent double counts
-    const beatInterval = 500; // Minimum time between beats in ms
+    const beatInterval = 300; // Minimum time between beats in ms
 
-    function setup() {
-        noCanvas(); // We don’t need a canvas for this example
-        amplitude = new p5.Amplitude();
+    // Create a new p5 instance
+    new p5((p) => {
+        p.setup = function() {
+            p.noCanvas();
+            amplitude = new p.Amplitude();
 
-        // Start the audio analysis in an interval
-        setInterval(() => {
-            const level = amplitude.getLevel(); // Get the current audio level
+            // Start the audio analysis in an interval
+            setInterval(() => {
+                const level = amplitude.getLevel(); // Get the current audio level
+                console.log(level); // Log the amplitude level for debugging
 
-            // Change slide on bass beat
-            if (level > threshold) {
-                const now = millis();
-                if (now - lastBeatTime > beatInterval) { // Cooldown to avoid rapid switching
-                    nextSlide();
-                    lastBeatTime = now;
+                // Change slide on bass beat
+                if (level > threshold) {
+                    const now = p.millis();
+                    if (now - lastBeatTime > beatInterval) { // Cooldown to avoid rapid switching
+                        nextSlide();
+                        lastBeatTime = now;
+                    }
                 }
-            }
-        }, 100); // Check the amplitude every 100 milliseconds
-    }
+            }, 100); // Check the amplitude every 100 milliseconds
+        };
 
-    const showSlide = (index) => {
-        slides[currentIndex].classList.remove('active');
-        currentIndex = (index + slides.length) % slides.length; // Loop back to first slide
-        slides[currentIndex].classList.add('active');
-    };
+        // Show the next slide
+        const showSlide = (index) => {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (index + slides.length) % slides.length; // Loop back to the first slide
+            slides[currentIndex].classList.add('active');
+        };
 
-    const nextSlide = () => {
-        showSlide(currentIndex + 1);
-    };
+        // Move to the next slide
+        const nextSlide = () => {
+            showSlide(currentIndex + 1);
+        };
 
-    document.getElementById('start-button').addEventListener('click', function() {
-        const audioElement = document.getElementById('background-music');
-        audioElement.play(); // Play the audio when the button is clicked
-        setup(); // Call the setup function to start everything
-        this.style.display = 'none'; // Hide the button after starting
+        // Play music on button click
+        document.getElementById('start-button').addEventListener('click', function() {
+            const audioElement = document.getElementById('background-music');
+            audioElement.play(); // Play the audio when the button is clicked
+            this.style.display = 'none'; // Hide the button after starting
+        });
     });
 </script>
 
