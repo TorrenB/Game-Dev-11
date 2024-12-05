@@ -1,12 +1,20 @@
-<br><br><br><br><br><br><br><a href="https://twinery.org/2/#/stories/1cb0eae0-d484-4f20-a686-43812a6efa50/play">or click here if u give up</a>
-    <<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative; overflow: hidden; margin: 0; padding: 0; height: 100vh;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Template</title>
+</head>
+<body id="myBody" style="background: url('https://i.imgflip.com/4kjnyz.jpg'); background-repeat: repeat; background-size: 80%; position: relative; overflow: hidden; margin: 0; padding: 0; height: 100vh;">
+    <a href="https://twinery.org/2/#/stories/1cb0eae0-d484-4f20-a686-43812a6efa50/play">or click here if you give up</a>
+    
     <!-- Warning Text -->
     <div id="warningText" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: purple; font-size: 24px; text-align: center; z-index: 10;">
         You might have to do something to make this game easier. It is built in to your browser. Do it and the game becomes easier.
     </div>
-    <h1 align=center>t2a23 Game Template by Fred</h1>
+    <h1 align="center">t2a23 Game Template by Fred</h1>
     <div id="deathCount" style="color: white; font-size: 20px; position: absolute; top: 10px; left: 10px; z-index: 10;">
-        OOOOOOOF Counter: 0
+        Death Counter: 0
     </div>
 
     <script>
@@ -18,11 +26,13 @@
 
         // List of fish IDs 
         const fishImages = [
-            'myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 'myImg07', 'myImg08', 'myImg09', 
-            'myImg10', 'myImg11', 'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16', 
-            'myImg17', 'myImg18', 'myImg19', 'myImg20', 'myImg21', 'myImg22', 'myImg23', 'myImg24', 
-            'myImg25', 'myImg26', 'myImg27', 'myImg28', 'myImg29', 'myImg30', 'myImg31', 'myImg32', 
-            'myImg33', 'myImg34', 'myImg35', 'myImg36'
+            'myImg02', 'myImg03', 'myImg04', 'myImg05', 'myImg06', 
+            'myImg07', 'myImg08', 'myImg09', 'myImg10', 'myImg11', 
+            'myImg12', 'myImg13', 'myImg14', 'myImg15', 'myImg16', 
+            'myImg17', 'myImg18', 'myImg19', 'myImg20', 'myImg21', 
+            'myImg22', 'myImg23', 'myImg24', 'myImg25', 'myImg26', 
+            'myImg27', 'myImg28', 'myImg29', 'myImg30', 'myImg31', 
+            'myImg32', 'myImg33', 'myImg34', 'myImg35', 'myImg36'
         ];
 
         // Function to initialize movement for each fish
@@ -55,16 +65,16 @@
 
         // Function to check for hits
         function myCheckHit() {
-            // Check collision between dog and fish images
             fishImages.forEach(fishId => {
                 if (myHitOther('myImg01', fishId)) {
-                    resetDogPosition(); // Reset dog position without alert
-                    incrementDeathCount(); // Increment death count
+                    resetDogPosition(); 
+                    incrementDeathCount(); 
                 }
             });
 
             // Check collision between dog and target image
             if (myHitOther('myImg01', 'myTargetImg')) {
+                console.log("Collision with target detected!"); // Debugging line
                 alert("Congrats on passing, click OK to go to the next level!");
                 window.location.href = "https://torrenb.github.io/Game-Dev-11/public2/twine.html";
             }
@@ -190,5 +200,5 @@
     <img id="myImg36" style="position:absolute; width:100px; height:80px; top:1600px; left:500px; z-index: 1;" src="https://www.pngmart.com/files/3/Real-Fish-Transparent-PNG.png">
 
     <img id="myTargetImg" style="position:absolute; width:100px; height:80px; bottom:20px; right:20px; z-index: 1;" src="https://pngimg.com/uploads/eye/eye_PNG35674.png">
-
 </body>
+</html>
