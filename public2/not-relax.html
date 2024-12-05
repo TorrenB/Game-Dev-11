@@ -110,7 +110,6 @@
     function setup() {
         noCanvas(); // We don’t need a canvas for this example
         amplitude = new p5.Amplitude();
-        song.play(); // Play the audio
 
         // Start the slideshow loop
         setInterval(() => {
@@ -131,7 +130,7 @@
             document.documentElement.requestFullscreen();
         }
 
-        // Hide the play button
+        // Hide the play button after playing
         document.getElementById('start-button').style.display = 'none';
     }
 
@@ -149,6 +148,8 @@
     };
 
     document.getElementById('start-button').addEventListener('click', function() {
+        const audioElement = document.getElementById('background-music');
+        audioElement.play(); // Play the audio when the button is clicked
         setup(); // Call the setup function to start everything
     });
 </script>
