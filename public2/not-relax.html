@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bass-Responsive Space Image Slideshow</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>Image Fade Slideshow with Music</title>
     <style>
         body {
             margin: 0;
@@ -26,11 +25,16 @@
             height: 100%;
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
-            transition: opacity 0.5s; /* Optional: keep this if you want some effect */
+            transition: opacity 2.4s ease-in-out;
+            filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for less vibrancy */
         }
 
         .active {
-            opacity: 1; /* Only the active slide will be visible */
+            opacity: 1;
+        }
+
+        audio {
+            display: none; /* Hide audio element */
         }
 
         button {
@@ -57,92 +61,54 @@
     <img class="slide" src="https://th.bing.com/th/id/R.9eafa8534764fbb442674f5d361e7e13?rik=M8whT4s7U9zOMg&pid=ImgRaw&r=0" alt="Image 8">
     <img class="slide" src="https://images.hdqwalls.com/download/1/beautiful-space-8h-3840x2160.jpg" alt="Image 9">
     <img class="slide" src="https://cdn.wallpapersafari.com/94/95/jrX0hS.jpg" alt="Image 10">
-    <img class="slide" src="https://th.bing.com/th/id/R.d45046e41834c800c2392f2c2a4425e6?rik=7s4i0R7bhzRT0w&pid=ImgRaw&r=0" alt="Image 11">
-    <img class="slide" src="https://cdn.wallpapersafari.com/8/36/qy0MdG.jpg" alt="Image 12">
-    <img class="slide" src="https://images.hdqwalls.com/download/astronaut-colorful-galaxy-4k-w4-3840x2160.jpg" alt="Image 13">
-    <img class="slide" src="https://mcdn.wallpapersafari.com/medium/57/66/awt3D8.png" alt="Image 14">
-    <img class="slide" src="https://www.pixelstalk.net/wp-content/uploads/images6/Space-Wallpaper-4K-Desktop.jpg" alt="Image 15">
-    <img class="slide" src="https://scitechdaily.com/images/Webb-Pillars-of-Creation-scaled.jpg" alt="Image 16">
-    <img class="slide" src="https://wallpapercave.com/wp/wp4575272.jpg" alt="Image 17">
-    <img class="slide" src="https://wallpapercave.com/wp/wp5017468.jpg" alt="Image 18">
-    <img class="slide" src="https://wallpaperaccess.com/full/3154069.jpg" alt="Image 19">
-    <img class="slide" src="https://hdqwalls.com/wallpapers/galaxy-space-stars-universe-nebula-4k-qw.jpg" alt="Image 20">
-    <img class="slide" src="https://motionbgs.com/media/1044/astronaut-floating-in-space.jpg" alt="Image 21">
-    <img class="slide" src="https://wallpaperaccess.com/full/150340.jpg" alt="Image 22">
-    <img class="slide" src="https://images.pixexid.com/a-thoughtful-4k-desktop-wallpaper-featuring-a-simplified-depiction-of-a-neutron-qrxoxtly.jpeg" alt="Image 23">
-    <img class="slide" src="https://wallpaperaccess.com/full/1865312.png" alt="Image 24">
-    <img class="slide" src="https://wallpapercave.com/wp/wp7196469.jpg" alt="Image 25">
-    <img class="slide" src="https://wallpapercave.com/wp/wp3508238.jpg" alt="Image 26">
-    <img class="slide" src="https://cdn.wallpapersafari.com/41/0/hTQZRP.jpg" alt="Image 27">
-    <img class="slide" src="https://wallpaperaccess.com/full/3262649.jpg" alt="Image 28">
-    <img class="slide" src="https://images4.alphacoders.com/121/121366.jpg" alt="Image 29">
-    <img class="slide" src="https://wallpapercave.com/wp/wp9116848.jpg" alt="Image 30">
-    <img class="slide" src="https://wallpaperaccess.com/full/2684057.jpg" alt="Image 31">
-    <img class="slide" src="https://wallpaperbat.com/img/701295-blue-magenta-colored-moon-space-moons-hd-desktop-wallpaper.jpg" alt="Image 32">
-    <img class="slide" src="https://wallpaperaccess.com/full/257424.jpg" alt="Image 33">
-    <img class="slide" src="https://images.wallpapersden.com/image/download/turquoise-space-digital-art_bGpqaGqUmZqaraWkpJRnamtlrWZpaWU.jpg" alt="Image 34">
-    <img class="slide" src="https://i0.wp.com/i.redd.it/sorhic01ls701.jpg?ssl=1" alt="Image 35">
-    <img class="slide" src="https://wallpaperaccess.com/full/2909616.jpg" alt="Image 36">
-    <img class="slide" src="https://i.pinimg.com/originals/e2/b1/7b/e2b17b69119c0ab5dac2a655d319b88d.jpg" alt="Image 37">
-    <img class="slide" src="https://i.ytimg.com/vi/6RysxdLWwDY/maxresdefault.jpg" alt="Image 38">
+    <!-- Add more images as needed -->
 </div>
 
 <audio id="background-music" loop>
-    <source src="https://torrenb.github.io/Game-Dev-11/public2/Minecraft_OST_-_Pigstep_[_YouConvert.net_].mp3" type="audio/mpeg">
+    <source src="https://torrenb.github.io/Game-Dev-11/public2/Interstellar_Main_Theme_-_Hans_Zimmer_[_YouConvert.net_].mp3" type="audio/mpeg">
     Your browser does not support the audio tag.
 </audio>
 
 <button id="start-button">Play Music</button>
 
 <script>
-    let amplitude;
+    const audio = document.getElementById('background-music');
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
-    const threshold = 0.05; // Adjusted threshold for bass sensitivity
-    let lastBeatTime = 0; // To prevent double counts
-    const beatInterval = 300; // Minimum time between beats in ms
 
-    // Create a new p5 instance
-    new p5((p) => {
-        p.setup = function() {
-            p.noCanvas();
-            amplitude = new p.Amplitude();
+    const showSlide = (index) => {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        if (currentIndex >= slides.length) {
+            currentIndex = 0; // Loop back to first slide
+        }
+        slides[currentIndex].classList.add('active');
+    };
 
-            // Start the audio analysis in an interval
-            setInterval(() => {
-                const level = amplitude.getLevel(); // Get the current audio level
-                console.log(level); // Log the amplitude level for debugging
+    const nextSlide = () => {
+        showSlide(currentIndex + 1);
+    };
 
-                // Change slide on bass beat
-                if (level > threshold) {
-                    const now = p.millis();
-                    if (now - lastBeatTime > beatInterval) { // Cooldown to avoid rapid switching
-                        nextSlide();
-                        lastBeatTime = now;
-                    }
-                }
-            }, 100); // Check the amplitude every 100 milliseconds
-        };
+    const startSlideshow = () => {
+        audio.play(); // Play the audio
+        setInterval(nextSlide, 800); // Change slide every 800 milliseconds
 
-        // Show the next slide
-        const showSlide = (index) => {
-            slides[currentIndex].classList.remove('active');
-            currentIndex = (index + slides.length) % slides.length; // Loop back to the first slide
-            slides[currentIndex].classList.add('active');
-        };
+        // Fullscreen mode
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
 
-        // Move to the next slide
-        const nextSlide = () => {
-            showSlide(currentIndex + 1);
-        };
+        // Remove the button after starting the slideshow
+        document.getElementById('start-button').style.display = 'none';
+    };
 
-        // Play music on button click
-        document.getElementById('start-button').addEventListener('click', function() {
-            const audioElement = document.getElementById('background-music');
-            audioElement.play(); // Play the audio when the button is clicked
-            this.style.display = 'none'; // Hide the button after starting
-        });
-    });
+    document.getElementById('start-button').addEventListener('click', startSlideshow);
 </script>
 
 </body>
