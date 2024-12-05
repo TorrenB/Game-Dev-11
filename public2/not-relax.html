@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Fade Slideshow with Music</title>
+    <title>Bass-Responsive Image Slideshow</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         body {
@@ -100,6 +100,8 @@
     let amplitude;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
+    const threshold = 0.2; // You can adjust this threshold for bass sensitivity
+    let lastBeatTime = 0; // To prevent double counts
 
     function preload() {
         song = loadSound('https://torrenb.github.io/Game-Dev-11/public2/Minecraft_OST_-_Pigstep_[_YouConvert.net_].mp3');
@@ -113,8 +115,14 @@
         // Start the slideshow loop
         setInterval(() => {
             const level = amplitude.getLevel(); // Get the current audio level
-            if (level > 0.15) { // Change this threshold as needed
-                nextSlide();
+
+            // Change slide on bass beat
+            if (level > threshold) {
+                const now = millis();
+                if (now - lastBeatTime > 500) { // 500ms cooldown
+                    nextSlide();
+                    lastBeatTime = now;
+                }
             }
         }, 100); // Check the amplitude every 100 milliseconds
 
@@ -123,7 +131,7 @@
             document.documentElement.requestFullscreen();
         }
 
-        // Start the functionality to hide the play button and show slides
+        // Hide the play button
         document.getElementById('start-button').style.display = 'none';
     }
 
