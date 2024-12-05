@@ -26,12 +26,11 @@
             height: 100%;
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
-            transition: opacity 2.4s ease-in-out;
             filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for vibrancy */
         }
 
         .active {
-            opacity: 1;
+            opacity: 1; /* Only the active slide will be visible */
         }
 
         button {
