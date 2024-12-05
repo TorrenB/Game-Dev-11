@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Fade Slideshow with Music</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         body {
             margin: 0;
@@ -26,15 +27,11 @@
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
             transition: opacity 2.4s ease-in-out;
-            filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for less vibrancy */
+            filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for vibrancy */
         }
 
         .active {
             opacity: 1;
-        }
-
-        audio {
-            display: none; /* Hide audio element */
         }
 
         button {
@@ -99,9 +96,36 @@
 <button id="start-button">Play Music</button>
 
 <script>
-    const audio = document.getElementById('background-music');
+    let song;
+    let amplitude;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
+
+    function preload() {
+        song = loadSound('https://torrenb.github.io/Game-Dev-11/public2/Minecraft_OST_-_Pigstep_[_YouConvert.net_].mp3');
+    }
+
+    function setup() {
+        noCanvas(); // We don’t need a canvas for this example
+        amplitude = new p5.Amplitude();
+        song.play(); // Play the audio
+
+        // Start the slideshow loop
+        setInterval(() => {
+            const level = amplitude.getLevel(); // Get the current audio level
+            if (level > 0.15) { // Change this threshold as needed
+                nextSlide();
+            }
+        }, 100); // Check the amplitude every 100 milliseconds
+
+        // Fullscreen mode
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        }
+
+        // Start the functionality to hide the play button and show slides
+        document.getElementById('start-button').style.display = 'none';
+    }
 
     const showSlide = (index) => {
         slides[currentIndex].classList.remove('active');
@@ -116,28 +140,8 @@
         showSlide(currentIndex + 1);
     };
 
-    const startSlideshow = () => {
-        audio.play(); // Play the audio
-        setInterval(nextSlide, 4500); // Change slide every 5.5 seconds
-
-        // Fullscreen mode
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-            document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-            document.documentElement.msRequestFullscreen();
-        }
-
-        // Remove the button after starting the slideshow
-        document.getElementById('start-button').style.display = 'none';
-    };
-
-    document.getElementById('start-button').addEventListener('click', startSlideshow);
+    document.getElementById('start-button').addEventListener('click', setup);
 </script>
 
 </body>
 </html>
-
