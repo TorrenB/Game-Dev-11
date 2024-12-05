@@ -148,7 +148,9 @@
         showSlide(currentIndex + 1);
     };
 
-    document.getElementById('start-button').addEventListener('click', setup);
+    document.getElementById('start-button').addEventListener('click', function() {
+        setup(); // Call the setup function to start everything
+    });
 </script>
 
 </body>
