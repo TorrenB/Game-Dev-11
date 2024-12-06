@@ -25,7 +25,7 @@
             height: 100%;
             object-fit: cover; /* Cover the area while maintaining aspect ratio */
             opacity: 0;
-            filter: brightness(1.0) saturate(1.4) contrast(1.2); /* Adjusted filters for less vibrancy */
+            transition: opacity 0.5s ease-in-out; /* Smooth transition */
         }
 
         .active {
@@ -89,7 +89,7 @@
 
     const startSlideshow = () => {
         audio.play(); // Play the audio
-        setInterval(nextSlide, 1064); // Change slide every 532 milliseconds (1 beat)
+        setInterval(nextSlide, 322); // Change slide every 322 milliseconds (1 beat at 186 BPM)
 
         // Fullscreen mode
         if (document.documentElement.requestFullscreen) {
