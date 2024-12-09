@@ -9,6 +9,8 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f4f4f4;
+            margin: 0;
+            padding-bottom: 50px; /* Ensure space for the footer */
         }
 
         #game {
@@ -42,6 +44,23 @@
             color: red; /* Red color for incorrect message */
             font-weight: bold; /* Bold for emphasis */
         }
+
+        /* Footer styles */
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%; /* Full width */
+            background-color: #ffffff; /* Background color of footer */
+            text-align: center;
+            padding: 10px 0; /* Space inside the footer */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
+        }
+
+        footer a {
+            text-decoration: none; /* Remove underline */
+            color: blue; /* Link color */
+        }
     </style>
 </head>
 <body>
@@ -55,6 +74,10 @@
         <p id="message"></p>
         <p id="score">Score: 0/197</p>
     </div>
+
+    <footer>
+        If you don't want to partake in this <a href="https://torrenb.github.io/Game-Dev-11/public2/Construct01/" class="sparkle" target="_blank">Click Here to Try It The Construct Game!</a>
+    </footer>
 
     <script>
         const flags = [
@@ -250,7 +273,7 @@
             { name: "Vietnam", img: "https://flagcdn.com/w320/vn.png" },
             { name: "Yemen", img: "https://flagcdn.com/w320/ye.png" },
             { name: "Zambia", img: "https://flagcdn.com/w320/zm.png" },
-            { name: "Zimbabwe", img: "https://flagcdn.com/w320/zw.png" }
+            { name: "Zimbabwe", img: "https://flagcdn.com/w320/zw.png" },
         ];
 
         // Shuffle function to randomize the order of flags
@@ -328,5 +351,3 @@
     </script>
 </body>
 </html>
-
-If you don't wanna partake in this<a href="https://torrenb.github.io/Game-Dev-11/public2/Construct01/" class="sparkle" target="_blank">Click Here to Try It The Construct Game!</a>
