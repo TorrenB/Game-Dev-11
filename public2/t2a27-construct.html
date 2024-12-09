@@ -1,2 +1,98 @@
-<a href="https://torrenb.github.io/Game-Dev-11/public2/Con02">
-Oh my gosh it works like a charm. Construct 2 game.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emphasized Link</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f3f4f6, #d1d5db);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #4A5E69;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #ff5722;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #e64a19;
+            transform: translateY(-2px);
+        }
+
+        a:active {
+            transform: translateY(1px);
+        }
+
+        .sparkle {
+            background-image: url('https://i.imgur.com/J9i65Zq.png'); /* Optional sparkle effect */
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+        }
+
+        .sparkle:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            opacity: 0.5;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0) 70%);
+            animation: sparkleAnimation 1.5s infinite alternate;
+        }
+
+        @keyframes sparkleAnimation {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Check This Out!</h1>
+        <p>Oh my gosh it works like a charm. Construct 2 game.</p>
+        <a href="https://torrenb.github.io/Game-Dev-11/public2/Con02" class="sparkle" target="_blank">Click Here to Try It!</a>
+    </div>
+</body>
+</html>
