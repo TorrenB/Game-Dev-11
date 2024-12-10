@@ -44,17 +44,17 @@
 <div id="myDiv02">Box2</div>
 
 <script>
-    let myInterval;
-    let myInterval2;
+    let myInterval = null; // Interval for Fred
+    let myInterval2 = null; // Interval for Box2
 
     const moveDistance = 3;
 
-    // Check boundaries for both objects
+    // Function to keep boxes within the viewport
     function myIsOnScreen() {
         const myDiv01 = document.getElementById('myDiv01');
         const myDiv02 = document.getElementById('myDiv02');
 
-        // Check boundaries for first object (Fred)
+        // Check boundaries for Fred
         if (parseInt(myDiv01.style.left) < 0) {
             myDiv01.style.left = '0px';
         }
@@ -68,7 +68,7 @@
             myDiv01.style.top = (window.innerHeight - 50) + 'px';
         }
 
-        // Check boundaries for second object (Box2)
+        // Check boundaries for Box2
         if (parseInt(myDiv02.style.left) < 0) {
             myDiv02.style.left = '0px';
         }
@@ -149,8 +149,8 @@
         }
     };
 
+    // Clear intervals when key is released
     document.body.onkeyup = () => {
-        // Clear intervals when key is released
         clearInterval(myInterval);
         clearInterval(myInterval2);
     };
