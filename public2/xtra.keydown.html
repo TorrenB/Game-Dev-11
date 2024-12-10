@@ -3,91 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moving Boxes</title>
+    <title>Key Controlled Movement</title>
     <style>
         body {
-            height: 100vh;
-            background-color: #f0f0f0; /* Light background for better visibility */
-            margin: 0;
-            position: relative;
-            overflow: hidden; /* Prevents scrollbars from appearing */
-        }
-        #myDiv01, #myDiv02 {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #myDiv01 {
-            left: 100px;
-            top: 100px;
-            background-color: rgba(0, 255, 0, 0.7); /* Color for Fred */
-        }
-        #myDiv02 {
-            left: 300px;
-            top: 300px;
-            background-color: rgba(255, 0, 0, 0.7); /* Color for Box2 */
+            background-color: #89CFF0; /* Baby blue color */
         }
     </style>
+    <script>
+        let myInterval;
+
+        function myIsOnScreen() {
+            if (parseInt(document.getElementById('myDiv01').style.left) > 400) {
+                document.getElementById('myDiv01').style.left = '397px';
+            }
+        }
+
+        function handleKeydown(event) {
+            let myKey = event.key.toLowerCase();
+
+            if (myKey == 'd') {
+                clearInterval(myInterval);
+                myInterval = setInterval(function() {
+                    document.getElementById('myDiv01').style.left = 
+                        parseInt(document.getElementById('myDiv01').style.left) + 3 + 'px';
+                    myIsOnScreen();
+                }, 20);
+            }
+            // Add additional controls here for WASD or arrows
+        }
+    </script>
 </head>
-<body>
+<body onkeydown="handleKeydown(event)">
 
-<h1 align="center">Move Fred with WASD & Box2 with Arrows/IJKL</h1>
-<div id="myDiv01">Fred</div>
-<div id="myDiv02">Box2</div>
+    <h1 align="center">t1a13-onkeydown-fred</h1>
+    Get WASD working, what about a second object controlled by arrows or IJKL<br>
 
-<script>
-    const moveDistance = 3; // Amount to move for each key press
-
-    // Get references to the elements
-    const fred = document.getElementById('myDiv01');
-    const box2 = document.getElementById('myDiv02');
-
-    // Function to keep an element within the viewport
-    function keepInBounds(element) {
-        const rect = element.getBoundingClientRect();
-        if (rect.left < 0) element.style.left = '0px';
-        if (rect.right > window.innerWidth) element.style.left = (window.innerWidth - rect.width) + 'px';
-        if (rect.top < 0) element.style.top = '0px';
-        if (rect.bottom > window.innerHeight) element.style.top = (window.innerHeight - rect.height) + 'px';
-    }
-
-    document.body.onkeydown = (event) => {
-        // Fred's movement with WASD
-        if (event.key === 'w') {
-            fred.style.top = (parseInt(fred.style.top) - moveDistance) + 'px';
-        }
-        else if (event.key === 's') {
-            fred.style.top = (parseInt(fred.style.top) + moveDistance) + 'px';
-        }
-        else if (event.key === 'a') {
-            fred.style.left = (parseInt(fred.style.left) - moveDistance) + 'px';
-        }
-        else if (event.key === 'd') {
-            fred.style.left = (parseInt(fred.style.left) + moveDistance) + 'px';
-        }
-
-        // Box2 movement with Arrow keys or IJKL
-        if (event.key === 'ArrowUp' || event.key === 'i') {
-            box2.style.top = (parseInt(box2.style.top) - moveDistance) + 'px';
-        }
-        else if (event.key === 'ArrowDown' || event.key === 'k') {
-            box2.style.top = (parseInt(box2.style.top) + moveDistance) + 'px';
-        }
-        else if (event.key === 'ArrowLeft' || event.key === 'j') {
-            box2.style.left = (parseInt(box2.style.left) - moveDistance) + 'px';
-        }
-        else if (event.key === 'ArrowRight' || event.key === 'l') {
-            box2.style.left = (parseInt(box2.style.left) + moveDistance) + 'px';
-        }
-
-        // Keep boxes within bounds
-        keepInBounds(fred);
-        keepInBounds(box2);
-    };
-</script>
+    <div id="myDiv01" style="position:absolute; left:200px; top:200px;">Fred</div>
 
 </body>
 </html>
