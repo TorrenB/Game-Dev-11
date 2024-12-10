@@ -19,6 +19,10 @@
             align-items: center;
             border: 1px solid black;
         }
+        #myDiv01 {
+            left: 50px; /* Starting position for Fred */
+            top: 50px;  /* Starting position for Fred */
+        }
         #myDiv02 {
             background-color: green; /* Color for the second object */
             left: 300px; /* Starting position for the second object */
@@ -42,7 +46,7 @@
             const myDiv01 = document.getElementById('myDiv01');
             const myDiv02 = document.getElementById('myDiv02');
             
-            // Movement for 'Fred'
+            // Movement for 'Fred' (orange div)
             if (myKey === 'w') {
                 clearInterval(myInterval);
                 myInterval = setInterval(() => {
@@ -71,7 +75,7 @@
                 clearInterval(myInterval);
             }
 
-            // Movement for the second object controlled by 'IJKL'
+            // Movement for the second object controlled by 'IJKL' (green div)
             if (myKey === 'i') {
                 clearInterval(secondInterval);
                 secondInterval = setInterval(() => {
@@ -117,7 +121,7 @@
     <h1 align="center">Key Controlled Movement</h1>
     Use 'WASD' to move Fred (Orange) and 'IJKL' to move the second object (Green).<br>
 
-    <div id="myDiv01" style="left: 50px; top: 50px;">Fred</div>
+    <div id="myDiv01">Fred</div>
     <div id="myDiv02">Move Me!</div>
 
 </body>
