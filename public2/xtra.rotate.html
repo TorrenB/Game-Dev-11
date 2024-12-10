@@ -1,6 +1,15 @@
 <html>
 <head>
     <script src="https://code.createjs.com/easeljs-0.5.0.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbar from appearing */
+        }
+        canvas {
+            display: block; /* Remove default inline-block spacing */
+        }
+    </style>
     <script>
         var jetSprite;
         var stage;
@@ -10,11 +19,24 @@
         function demo() {
             stage = new createjs.Stage("theCanvas");
 
-            // onFrame will be called each "tick". Default is 50ms, or 20FPS
+            // onFrame will be called each "tick".
             createjs.Ticker.addEventListener("tick", onFrame);
 
-            // Create and configure our jet sprite.
-            jetSprite = new createjs.Bitmap("Hairless-cat.jpg");
+            // Set background
+            var backgroundImage = new Image();
+            backgroundImage.src = "https://smartcdn.gprod.postmedia.digital/torontosun/wp-content/uploads/2023/01/GettyImages-1296252531.jpg";
+            backgroundImage.onload = function() {
+                var backgroundBitmap = new createjs.Bitmap(backgroundImage);
+                backgroundBitmap.x = 0;
+                backgroundBitmap.y = 0;
+                backgroundBitmap.scaleX = stage.canvas.width / backgroundImage.width;
+                backgroundBitmap.scaleY = stage.canvas.height / backgroundImage.height;
+                stage.addChild(backgroundBitmap);
+                stage.update();
+            };
+
+            // Create and configure our rotating sprite
+            jetSprite = new createjs.Bitmap("https://th.bing.com/th/id/OIP.gu344PwLkmIAGzTcaMbVlQHaEK?rs=1&pid=ImgDetMain");
             jetSprite.regX = jetSprite.image.width / 2;
             jetSprite.regY = jetSprite.image.height / 2;
             jetSprite.x = stage.canvas.width / 2;
@@ -26,11 +48,11 @@
         }
 
         function onFrame(event) {
-            // Update rotation based on speed and ensure rotation loops correctly
+            // Update rotation based on speed
             jetSprite.rotation += rotationSpeed;
 
             // Keep the image within 0-360 degrees
-            jetSprite.rotation = jetSprite.rotation % 360; 
+            jetSprite.rotation = jetSprite.rotation % 360;
 
             stage.update();
         }
@@ -45,7 +67,7 @@
     </script>
 </head>
 <body onload="demo()">
-    <canvas width="400" height="400" id="theCanvas" style="background-color:black;"></canvas>
+    <canvas width="800" height="600" id="theCanvas"></canvas>
     <button onclick="increaseRotation()">Spin Faster</button>
     <button onclick="resetRotation()">Stop</button>
 </body>
