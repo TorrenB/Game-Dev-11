@@ -3,112 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T4A04 Maze by Fred</title>
+    <title>Moving Objects</title>
     <style>
         body {
+            height: 100vh;
+            background-image: url('https://th.bing.com/th/id/OIP.9fyAoFYO6p7sSJKBxCs3TwHaFg?rs=1&pid=ImgDetMain');
+            background-size: cover;
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #myDiv01, #myDiv02 {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #myDiv01 {
+            left: 200px;
+            top: 200px;
+        }
+        #myDiv02 {
+            left: 300px;
+            top: 300px;
+            background-color: rgba(255, 0, 0, 0.5); /* Different color for the second object */
         }
     </style>
 </head>
-<body id="myBody" 
-      style="background-image: url('https://static-00.iconduck.com/assets.00/slightly-smiling-face-emoji-emoji-2048x2048-00r9o7wl.png'); 
-             background-repeat: repeat; 
-             background-size: 80%;" 
-      onload="myAuto()" 
-      onclick="{
-          document.getElementById('myImg01').style.top = parseInt(document.getElementById('myImg01').style.top) + myJump + 'px';
-          myDoGravity();
-      }">
+<body>
 
-    <h1 align="center"><font color="red">T4A04 Maze by Fred</font></h1>
+<h1 align="center">Move the Boxes with WASD & Arrows/IJKL</h1>
+<div id="myDiv01">Fred</div>
+<div id="myDiv02">Box2</div>
 
-    <script>
-        // Global variables here
-        let myGlobalX = 0;
-        let myClock;
-        let myGravity = 0.03;
-        let myJump = -40;
-        let myHorizontalJump = 5;
-        let myVertical;
-        let myHorizontal;
+<script>
+    let myInterval;
+    let myInterval2;
 
-        // Function to detect collisions
-        function myHitOther(my1, my2) {
-            let left1 = parseInt(document.getElementById(my1).style.left);
-            let right1 = left1 + parseInt(document.getElementById(my1).style.width);
-            let top1 = parseInt(document.getElementById(my1).style.top);
-            let bottom1 = top1 + parseInt(document.getElementById(my1).style.height);
-            let left2 = parseInt(document.getElementById(my2).style.left);
-            let right2 = left2 + parseInt(document.getElementById(my2).style.width);
-            let top2 = parseInt(document.getElementById(my2).style.top);
-            let bottom2 = top2 + parseInt(document.getElementById(my2).style.height);
-            return (right1 >= left2 && bottom1 >= top2 && left1 <= right2 && top1 <= bottom2);
+    const moveDistance = 3;
+
+    // Check boundaries for both objects
+    function myIsOnScreen() {
+        const myDiv01 = document.getElementById('myDiv01');
+        const myDiv02 = document.getElementById('myDiv02');
+
+        // Check boundaries for first object (Fred)
+        if (parseInt(myDiv01.style.left) < 0) {
+            myDiv01.style.left = '0px';
+        }
+        if (parseInt(myDiv01.style.left) > window.innerWidth - 50) {
+            myDiv01.style.left = (window.innerWidth - 50) + 'px';
+        }
+        if (parseInt(myDiv01.style.top) < 0) {
+            myDiv01.style.top = '0px';
+        }
+        if (parseInt(myDiv01.style.top) > window.innerHeight - 50) {
+            myDiv01.style.top = (window.innerHeight - 50) + 'px';
         }
 
-        // Function for gravity and movement
-        function myDoGravity() {
-            myVertical = parseInt(document.getElementById('myImg01').style.top) + 2;
-            myHorizontal = parseInt(document.getElementById('myImg01').style.left);
-            document.getElementById('myImg01').style.left = myHorizontal + myHorizontalJump + 'px';
-            document.getElementById('myImg01').style.top = myVertical + (myVertical * myGravity) + 'px';
+        // Check boundaries for second object (Box2)
+        if (parseInt(myDiv02.style.left) < 0) {
+            myDiv02.style.left = '0px';
+        }
+        if (parseInt(myDiv02.style.left) > window.innerWidth - 50) {
+            myDiv02.style.left = (window.innerWidth - 50) + 'px';
+        }
+        if (parseInt(myDiv02.style.top) < 0) {
+            myDiv02.style.top = '0px';
+        }
+        if (parseInt(myDiv02.style.top) > window.innerHeight - 50) {
+            myDiv02.style.top = (window.innerHeight - 50) + 'px';
+        }
+    }
+
+    document.body.onkeydown = (event) => {
+        const myKey = event.key;
+
+        // Movement for object 1 (Fred) using WASD
+        if (myKey === 'd') {
+            clearInterval(myInterval);
+            myInterval = setInterval(() => {
+                document.getElementById('myDiv01').style.left = 
+                    (parseInt(document.getElementById('myDiv01').style.left) + moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 'a') {
+            clearInterval(myInterval);
+            myInterval = setInterval(() => {
+                document.getElementById('myDiv01').style.left = 
+                    (parseInt(document.getElementById('myDiv01').style.left) - moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 'w') {
+            clearInterval(myInterval);
+            myInterval = setInterval(() => {
+                document.getElementById('myDiv01').style.top = 
+                    (parseInt(document.getElementById('myDiv01').style.top) - moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 's') {
+            clearInterval(myInterval);
+            myInterval = setInterval(() => {
+                document.getElementById('myDiv01').style.top = 
+                    (parseInt(document.getElementById('myDiv01').style.top) + moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
         }
 
-        // Auto-run functionality
-        function myAuto() {
-            clearInterval(myClock);
-            myClock = setInterval(function () {
-                myDoGravity();
-                myCheckHit(); // checks for all collisions
-            }, 100);
+        // Movement for object 2 (Box2) using Arrow keys or IJKL
+        if (myKey === 'ArrowRight' || myKey === 'l') {
+            clearInterval(myInterval2);
+            myInterval2 = setInterval(() => {
+                document.getElementById('myDiv02').style.left = 
+                    (parseInt(document.getElementById('myDiv02').style.left) + moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 'ArrowLeft' || myKey === 'j') {
+            clearInterval(myInterval2);
+            myInterval2 = setInterval(() => {
+                document.getElementById('myDiv02').style.left = 
+                    (parseInt(document.getElementById('myDiv02').style.left) - moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 'ArrowUp' || myKey === 'i') {
+            clearInterval(myInterval2);
+            myInterval2 = setInterval(() => {
+                document.getElementById('myDiv02').style.top = 
+                    (parseInt(document.getElementById('myDiv02').style.top) - moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
+        } else if (myKey === 'ArrowDown' || myKey === 'k') {
+            clearInterval(myInterval2);
+            myInterval2 = setInterval(() => {
+                document.getElementById('myDiv02').style.top = 
+                    (parseInt(document.getElementById('myDiv02').style.top) + moveDistance) + 'px';
+                myIsOnScreen();
+            }, 20);
         }
+    };
 
-        // Check for hit/collisions
-        function myCheckHit() {
-            if (myHitOther('myImg01', 'myImg02') || myHitOther('myImg01', 'myImg03')) {
-                document.getElementById('myImg01').style.left = '20px';
-                document.getElementById('myImg01').style.top = '60px';
-            }
+    document.body.onkeyup = () => {
+        // Clear intervals when key is released
+        clearInterval(myInterval);
+        clearInterval(myInterval2);
+    };
+</script>
 
-            // YOU WIN and go to next level!
-            if (myHitOther('myImg01', 'myImg04')) {
-                alert('You Win, now go to the next level');
-                document.getElementById('myImg01').style.left = '20px';
-                location = 'https://www.google.ca'; // Change to next level URL
-            }
-        }
-    </script>
-
-    <input type="button" value="Auto Background Left" onclick="{
-        clearInterval(myClock);
-        let myTemp = '100px 0px';
-        myClock = setInterval(function () {
-            myGlobalX -= 5;
-            myTemp = myGlobalX + 'px 0px';
-            document.getElementById('myBody').style.backgroundPosition = myTemp;
-        }, 100);
-    }">
-
-    <input type="button" value="Right" onTouchStart="{this.click(); event.preventDefault();}" onclick="{
-        document.getElementById('myImg01').style.left = parseInt(document.getElementById('myImg01').style.left) + 10 + 'px';
-        myCheckHit(); // checks for all collisions
-    }">
-
-    <input type="button" value="Down" onTouchStart="{this.click(); event.preventDefault();}" onclick="{
-        document.getElementById('myImg01').style.top = parseInt(document.getElementById('myImg01').style.top) + 10 + 'px';
-        myCheckHit(); // checks for all collisions
-    }"><br><br>
-
-    <!-- Image of the pencil, adjusted to be in the center of the screen -->
-    <img id="myImg01" 
-        src="https://i5.walmartimages.com/asr/4db37e6d-93b0-42d2-9925-cdca9fc7acad_1.34acb5b84f421558552dcef4789f9b95.jpeg"  
-        style="position:absolute; width:100px; height:80px; left: calc(50% - 50px); top: calc(50% - 40px);"> <!-- Centered -->
-
-    <img id="myImg02" 
-        src="https://th.bing.com/th/id/OIP.-zyMCsyMjgkO07hXLJzZcQHaHa?rs=1&pid=ImgDetMain" 
-        style="position:absolute; width:100px; height:80px; left:350px; top:90px;"> 
-
-    <img id="myImg03" src="myImgNew.jpg" style="position:absolute; width:200px; height:10px; left:500px; top:400px;">
-    <img id="myImg04" src="myImgNew.jpg" style="position:absolute; width:100px; height:80px; left:800px; top:400px;">
 </body>
 </html>
