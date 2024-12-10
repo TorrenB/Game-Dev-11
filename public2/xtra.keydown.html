@@ -9,7 +9,7 @@
             background-color: #89CFF0; /* Baby blue color */
             overflow: hidden; /* Prevents scrollbars from appearing */
         }
-        #myDiv01, #myDiv02 {
+        #myDiv01 {
             position: absolute; 
             width: 50px; 
             height: 50px; 
@@ -19,15 +19,9 @@
             align-items: center;
             border: 1px solid black;
         }
-        #myDiv02 {
-            background-color: green; /* Color for the second object */
-            left: 300px; /* Starting position for the second object */
-            top: 300px;  /* Starting position for the second object */
-        }
     </style>
     <script>
         let myInterval;
-        let secondInterval;
 
         function myIsOnScreen(element) {
             const rect = element.getBoundingClientRect(); // Get the bounding box of the element
@@ -40,8 +34,7 @@
         function handleKeydown(event) {
             let myKey = event.key.toLowerCase();
             const myDiv01 = document.getElementById('myDiv01');
-            const myDiv02 = document.getElementById('myDiv02');
-            
+
             // Movement for 'Fred'
             if (myKey === 'w') {
                 clearInterval(myInterval);
@@ -70,35 +63,6 @@
             } else {
                 clearInterval(myInterval);
             }
-
-            // Movement for the second object controlled by 'IJKL'
-            if (myKey === 'i') {
-                clearInterval(secondInterval);
-                secondInterval = setInterval(() => {
-                    myDiv02.style.top = (parseInt(myDiv02.style.top) - 3) + 'px';
-                    myIsOnScreen(myDiv02);
-                }, 20);
-            } else if (myKey === 'k') {
-                clearInterval(secondInterval);
-                secondInterval = setInterval(() => {
-                    myDiv02.style.top = (parseInt(myDiv02.style.top) + 3) + 'px';
-                    myIsOnScreen(myDiv02);
-                }, 20);
-            } else if (myKey === 'j') {
-                clearInterval(secondInterval);
-                secondInterval = setInterval(() => {
-                    myDiv02.style.left = (parseInt(myDiv02.style.left) - 3) + 'px';
-                    myIsOnScreen(myDiv02);
-                }, 20);
-            } else if (myKey === 'l') {
-                clearInterval(secondInterval);
-                secondInterval = setInterval(() => {
-                    myDiv02.style.left = (parseInt(myDiv02.style.left) + 3) + 'px';
-                    myIsOnScreen(myDiv02);
-                }, 20);
-            } else {
-                clearInterval(secondInterval);
-            }
         }
 
         // Clear intervals when keys are released
@@ -106,19 +70,15 @@
             if (['w', 'a', 's', 'd'].includes(event.key.toLowerCase())) {
                 clearInterval(myInterval);
             }
-            if (['i', 'j', 'k', 'l'].includes(event.key.toLowerCase())) {
-                clearInterval(secondInterval);
-            }
         });
     </script>
 </head>
 <body onkeydown="handleKeydown(event)">
 
     <h1 align="center">Key Controlled Movement</h1>
-    Use 'WASD' to move Fred (Orange) and 'IJKL' to move the second object (Green).<br>
+    Use 'WASD' to move Fred (Orange).<br>
 
     <div id="myDiv01" style="left: 50px; top: 50px;">Fred</div>
-    <div id="myDiv02">Move Me!</div>
 
 </body>
 </html>
