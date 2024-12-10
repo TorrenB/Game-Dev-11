@@ -8,6 +8,8 @@
         body {
             background-color: #89CFF0; /* Baby blue color */
             overflow: hidden; /* Prevents scrollbars from appearing */
+            margin: 0; /* Remove default margin */
+            height: 100vh; /* Full height */
         }
         #myDiv01, #myDiv02 {
             position: absolute; 
@@ -46,7 +48,7 @@
             const myDiv01 = document.getElementById('myDiv01');
             const myDiv02 = document.getElementById('myDiv02');
             
-            // Movement for 'Fred' (orange div)
+            // Movement for 'Fred' (Orange div)
             if (myKey === 'w') {
                 clearInterval(myInterval);
                 myInterval = setInterval(() => {
@@ -75,7 +77,7 @@
                 clearInterval(myInterval);
             }
 
-            // Movement for the second object controlled by 'IJKL' (green div)
+            // Movement for the second object controlled by 'IJKL' (Green div)
             if (myKey === 'i') {
                 clearInterval(secondInterval);
                 secondInterval = setInterval(() => {
@@ -114,6 +116,14 @@
                 clearInterval(secondInterval);
             }
         });
+
+        // Ensure the divs are initialized in the onload event
+        window.onload = function() {
+            const myDiv01 = document.getElementById('myDiv01');
+            const myDiv02 = document.getElementById('myDiv02');
+            myDiv01.style.position = "absolute";
+            myDiv02.style.position = "absolute";
+        };
     </script>
 </head>
 <body onkeydown="handleKeydown(event)">
