@@ -18,12 +18,35 @@
             top: 0;
             left: 0;
         }
+        /* Style for buttons */
+        .control-buttons {
+            position: absolute;
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+        }
+
+        button {
+            background-color: #f39c12; /* Orange color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            padding: 10px 15px; /* Spacing inside the button */
+            margin: 5px; /* Space between buttons */
+            font-size: 16px; /* Text size */
+            cursor: pointer; /* Pointer on hover */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        button:hover {
+            background-color: #e67e22; /* Darker orange on hover */
+        }
     </style>
 </head>
 <body>
     <canvas id="theCanvas" width="800" height="600"></canvas>
-    <button onclick="increaseRotation()">Spin Faster</button>
-    <button onclick="resetRotation()">Stop</button>
+    <div class="control-buttons">
+        <button onclick="increaseRotation()">Spin Faster</button>
+        <button onclick="resetRotation()">Stop</button>
+    </div>
 
     <script>
         var canvas = document.getElementById('theCanvas');
