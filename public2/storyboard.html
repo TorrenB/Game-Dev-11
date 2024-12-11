@@ -16,15 +16,14 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            color: #2c3e50; /* Darker text color for readability */
+            color: #2c3e50;
             line-height: 1.8;
             position: relative;
-            overflow: hidden; /* Prevent overflow */
-            min-height: 100vh; /* Ensure body is at least full height of viewport */
+            min-height: 100vh;
         }
 
         .background {
-            position: fixed; /* Fixed position to cover the whole viewport */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -44,7 +43,6 @@
             transition: opacity 2s ease-in-out;
         }
 
-        /* Dark overlay over the images */
         .background::after {
             content: '';
             position: absolute;
@@ -52,14 +50,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Slightly less opaque overlay */
+            background: rgba(0, 0, 0, 0.4);
             z-index: 1;
         }
 
         h1 {
             text-align: center;
             font-size: 3em;
-            color: #fff; /* White text for visibility on overlay */
+            color: #fff;
             text-transform: uppercase;
             margin-bottom: 50px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
@@ -69,12 +67,12 @@
         }
 
         .level {
-            background: rgba(255, 255, 255, 0.7); /* More transparent background */
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            padding: 20px; /* Less padding for smaller boxes */
-            margin: 10px auto; /* Center alignment */
-            max-width: 600px; /* Limit the max width */
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 600px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: left;
             position: relative;
@@ -90,29 +88,28 @@
             font-family: 'Cinzel', serif;
             font-size: 2em;
             color: #2980b9;
-            margin-bottom: 10px; /* Less space below heading */
+            margin-bottom: 10px;
         }
 
         .diamond-icon {
-            color: #2980b9; /* Matching blue for icon */
-            margin-right: 8px; /* Adjusted margin */
-            font-size: 1.3em; /* Slightly smaller icon size */
+            color: #2980b9;
+            margin-right: 8px;
+            font-size: 1.3em;
         }
 
         .level p {
-            font-size: 1.1em; /* Slightly smaller text */
-            margin: 5px 0; /* Reduced margin */
-            padding: 0; /* No padding in paragraph */
+            font-size: 1.1em;
+            margin: 5px 0;
+            padding: 0;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5em;
             }
 
             .level {
-                padding: 15px; /* Less padding on smaller screens */
+                padding: 15px;
             }
 
             .level h2 {
@@ -153,10 +150,9 @@
         <p>In Level 3, put your knowledge of national flags to the test! If you're familiar with them, this level should be a breeze. However, if you're less confident, you may find it challenging. Very few players reach this stage, so be sure to celebrate if you succeed!</p>
     </div>
 
-    
     <div class="level">
         <h2><i class="fas fa-flag diamond-icon"></i>Level 4</h2>
-        <p>Prepare yourself for an unprecedented challenge! In Level 3, you now have the option to skip ahead. But if you dare to choose this path, you'll find yourself thrust into an exhilarating Construct 2-based game where you must evade the fearsome, deadly mayo. Equip your default Fortnite skin and embark on a unique adventure like no other. Successfully navigating this perilous game will earn you the esteemed title of Game Master, signifying that you have conquered all games created by the legendary TorrenB specimen. Will you rise to the challenge?</p>
+        <p>Prepare yourself for an unprecedented challenge! In Level 4, you now have the option to skip ahead. But if you dare to choose this path, you'll find yourself thrust into an exhilarating Construct 2-based game where you must evade the fearsome, deadly mayo. Equip your default Fortnite skin and embark on a unique adventure like no other. Successfully navigating this perilous game will earn you the esteemed title of Game Master, signifying that you have conquered all games created by the legendary TorrenB specimen. Will you rise to the challenge?</p>
     </div>
 
     <script>
@@ -164,12 +160,12 @@
         let current = 0;
 
         function fadeImages() {
-            bgImages[current].style.opacity = 0; // Fade out current image
-            current = (current + 1) % bgImages.length; // Move to the next image
-            bgImages[current].style.opacity = 1; // Fade in next image
+            bgImages[current].style.opacity = 0;
+            current = (current + 1) % bgImages.length;
+            bgImages[current].style.opacity = 1;
         }
 
-        setInterval(fadeImages, 4000); // Change image every 4 seconds
+        setInterval(fadeImages, 4000);
     </script>
 </body>
 
